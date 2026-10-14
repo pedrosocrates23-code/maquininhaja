@@ -2,7 +2,7 @@
 import { Picture } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Escolha from '../components/Escolha.astro';
-import ModeloCard from '../components/ModeloCard.astro';
+import TrilhoModelos from '../components/TrilhoModelos.astro';
 import Faq from '../components/Faq.astro';
 import Fontes from '../components/Fontes.astro';
 import { MODELOS, brl, pctBR } from '../data/modelos';
@@ -33,6 +33,23 @@ const cards = [
     alt: IMG_MODELO[m.slug].alt,
   })),
 ];
+
+// Logos das bandeiras, SVG original da Ton (TN-F074; origem em design/imagens-fonte/ton-oficial/FONTES.md).
+const svgBandeira = import.meta.glob<string>('../assets/img/bandeiras/*.svg', { eager: true, query: '?url', import: 'default' });
+const bandeiras = [
+  ['mastercard', 'Mastercard'],
+  ['visa', 'Visa'],
+  ['elo', 'Elo'],
+  ['amex', 'American Express'],
+  ['pluxee', 'Pluxee'],
+  ['ticket', 'Ticket'],
+  ['vr', 'VR'],
+  ['alelo', 'Alelo'],
+  ['goodcard', 'Good Card'],
+  ['personal', 'Personal Card'],
+  ['banes', 'Banescard'],
+  ['up', 'Up Brasil'],
+].map(([arq, nome]) => ({ nome, src: svgBandeira[`../assets/img/bandeiras/flag-${arq}.svg`] }));
 
 const verdades = [
   {
@@ -168,14 +185,26 @@ const schema = pagina({
         </p>
       </div>
     </div>
-    <div class="trilho" role="list" aria-label="Modelos de maquininha Ton">
-      {
-        cards.map((c) => (
-          <div class="trilho-item" role="listitem">
-            <ModeloCard {...c} />
-          </div>
-        ))
-      }
+    <TrilhoModelos cards={cards} />
+  </section>
+
+  <section class="section-tight bandeiras-sec" aria-labelledby="bandeiras-titulo">
+    <div class="wrap bandeiras">
+      <h2 id="bandeiras-titulo">Aceite mais de 50 bandeiras no débito, crédito e vouchers</h2>
+      <p class="bandeiras-sub">Novidade para as maquininhas T2, T3 e T3 Smart</p>
+      <ul class="bandeiras-lista" aria-label="Algumas das bandeiras aceitas">
+        {
+          bandeiras.map((b) => (
+            <li>
+              <img src={b.src} alt={b.nome} title={b.nome} width="44" height="30" loading="lazy" decoding="async" />
+            </li>
+          ))
+        }
+      </ul>
+      <p class="bandeiras-nota">
+        As bandeiras Alelo, Pluxee, Ticket, Up Brasil e VR são aceitas somente em cadastros com CNPJ.
+        <a href="/modelos/cartoes-e-vales/">Ver a lista completa de cartões e vales</a>
+      </p>
     </div>
   </section>
 
@@ -365,6 +394,56 @@ const schema = pagina({
   .hero {
     padding-block: clamp(2rem, 6vw, 5rem) clamp(3rem, 6vw, 5rem);
   }
+  .bandeiras {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: var(--s-4);
+  }
+  .bandeiras h2 {
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .bandeiras-sub {
+    margin: 0;
+    font-size: var(--fs-2);
+    color: var(--ink-2);
+  }
+  .bandeiras-lista {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--s-3);
+    list-style: none;
+    margin: var(--s-4) 0 0;
+    padding: 0;
+    max-width: 56rem;
+  }
+  .bandeiras-lista li {
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 2.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--pill);
+    background: #fff; /* logos coloridos pedem fundo branco também no tema escuro */
+  }
+  .bandeiras-lista img {
+    width: 2.75rem;
+    height: 1.875rem;
+    object-fit: contain;
+  }
+  .bandeiras-nota {
+    margin: var(--s-4) 0 0;
+    font-size: var(--fs-0);
+    color: var(--muted);
+    max-width: 44rem;
+  }
+  .bandeiras-nota a {
+    display: block;
+    margin-top: var(--s-2);
+    font-size: var(--fs-1);
+  }
   .hero-grid {
     display: grid;
     grid-template-columns: 1.15fr 1fr;
@@ -375,11 +454,6 @@ const schema = pagina({
     display: grid;
     gap: var(--s-5);
     justify-items: start;
-  }
-  h1 {
-    font-size: var(--fs-7);
-    line-height: 1;
-    letter-spacing: -0.005em;
   }
   .lead {
     font-size: var(--fs-3);
@@ -438,28 +512,7 @@ const schema = pagina({
     gap: clamp(1.5rem, 4vw, 4rem);
     align-items: start;
   }
-  .escolha-grid .section-head h2 {
-    font-size: var(--fs-5);
-  }
 
-  .trilho {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(280px, 320px);
-    gap: var(--s-4);
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding: 0 max(var(--gutter), calc((100vw - var(--wrap)) / 2)) var(--s-4);
-    scroll-padding-inline: max(var(--gutter), calc((100vw - var(--wrap)) / 2));
-    /* rola com o dedo, o trackpad ou o teclado, mas sem a barra aparente */
-    scrollbar-width: none;
-  }
-  .trilho::-webkit-scrollbar {
-    display: none;
-  }
-  .trilho-item {
-    scroll-snap-align: start;
-  }
   .verdades {
     list-style: none;
     margin: 0;
@@ -481,11 +534,7 @@ const schema = pagina({
     padding-top: 0.6rem;
   }
   .verdades h3 {
-    font-family: var(--font-display), system-ui, sans-serif;
     font-weight: 400;
-    font-size: var(--fs-6);
-    line-height: 0.98;
-    letter-spacing: 0;
   }
   .v-d p {
     color: var(--ink-2);
@@ -501,7 +550,6 @@ const schema = pagina({
     align-items: center;
   }
   .calc-tit {
-    font-size: var(--fs-6);
     margin-bottom: var(--s-5);
   }
   .calc-lead {
@@ -562,7 +610,6 @@ const schema = pagina({
   }
 
   .transp h3 {
-    font-size: var(--fs-3);
     margin-bottom: var(--s-3);
   }
   .transp p {

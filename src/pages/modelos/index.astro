@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
-import ModeloCard from '../../components/ModeloCard.astro';
+import TrilhoModelos from '../../components/TrilhoModelos.astro';
 import Fontes from '../../components/Fontes.astro';
 import Callout from '../../components/Callout.astro';
 import Faq from '../../components/Faq.astro';
@@ -100,6 +100,10 @@ const schema = [
     resumo={`Quatro máquinas. A taxa é a mesma nas quatro máquinas (a tabela de planos não distingue modelo); muda o aparelho, o preço de adesão, o comprovante, o Pix e o parcelamento máximo.`}
   />
 
+  <section class="vitrine" aria-label="Os quatro modelos">
+    <TrilhoModelos cards={cards} />
+  </section>
+
   <section class="wrap tabela-sec" aria-labelledby="tab-tit">
     <h2 id="tab-tit" class="sr-only">Tabela de comparação</h2>
     <div class="table-wrap comp" tabindex="0" role="region" aria-label="Comparação dos modelos Ton">
@@ -156,17 +160,6 @@ const schema = [
     </div>
   </section>
 
-  <section class="section alt">
-    <div class="wrap">
-      <div class="section-head">
-        <h2>Cada modelo em detalhe.</h2>
-      </div>
-      <div class="grid cards">
-        {cards.map((c) => <ModeloCard {...c} />)}
-      </div>
-    </div>
-  </section>
-
   <section class="section">
     <div class="wrap-text">
       <Faq itens={faq} />
@@ -176,6 +169,9 @@ const schema = [
 </Base>
 
 <style>
+  .vitrine {
+    padding-bottom: var(--s-6);
+  }
   .tabela-sec {
     padding-bottom: var(--s-6);
   }
@@ -218,9 +214,6 @@ const schema = [
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 0.18em;
-  }
-  .cards {
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
   }
   @media (max-width: 640px) {
     .regras li {

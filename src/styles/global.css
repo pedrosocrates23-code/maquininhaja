@@ -51,6 +51,14 @@
   --fs-6: clamp(2.5rem, 6vw, 4.75rem);
   --fs-7: clamp(3rem, 8.4vw, 7rem);
 
+  /* Tipografia: valor de celular até 767px e de desktop a partir de 1240px; no meio (tablet) cresce
+     em linha reta de um para o outro. h1 41 -> 65,04px, h2 32 -> 50,03px, h3 28 -> 30px,
+     botão 18 -> 21,51px. */
+  --h1: clamp(2.5625rem, 0.126rem + 5.082vw, 4.065rem);
+  --h2: clamp(2rem, 0.1725rem + 3.812vw, 3.127rem);
+  --h3: clamp(1.75rem, 1.547rem + 0.4228vw, 1.875rem);
+  --btn: clamp(1.125rem, 0.769rem + 0.742vw, 1.3444rem);
+
   --shadow: 0 1px 0 rgba(11, 11, 11, 0.04), 0 12px 32px -18px rgba(11, 11, 11, 0.28);
   color-scheme: light;
 }
@@ -98,24 +106,50 @@ svg {
   height: auto;
 }
 
+/* Tipografia (Nunito), especificação do usuário (tamanho / peso / altura da linha / espaço entre letras):
+            desktop                          celular (até 767px)
+   h1       65,04 / 800 / 65,69 / -1,30      41 / 800 / 41 / -1,30
+   h2       50,03 / 800 / 50,53 / -1,00      32 / 800 / 32,32 / -0,64
+   h3       30 / 400 / 30 / -0,6             28 / 400 / 30 / -0,6
+   p        18 / 500 / 27 / 0,36             18 / 500 / 29,08 / 0,36
+   botão    21,51 / 900 / normal / 0,215     18 / 900 / normal / 0,215
+   Destaque em <em> dentro de título fica reto. */
 h1,
 h2,
 h3,
 h4 {
   margin: 0;
-  font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: 0;
+  font-family: var(--font-sans), system-ui, sans-serif;
   text-wrap: balance;
 }
-
-/* Títulos: Fredoka condensada (largura 75), arredondada e leve (peso 400).
-   Ela não tem itálico: destaque em <em> dentro de título fica reto. */
-h1,
-h2,
-.display {
-  font-family: var(--font-display), system-ui, sans-serif;
+h1 {
+  font-size: var(--h1);
+  font-weight: 800;
+  line-height: 1.01;
+  letter-spacing: -1.3px;
+}
+h2 {
+  font-size: var(--h2);
+  font-weight: 800;
+  line-height: 1.01;
+  letter-spacing: -0.02em;
+}
+h3 {
+  font-size: var(--h3);
   font-weight: 400;
+  line-height: 1.875rem;
+  letter-spacing: -0.6px;
+}
+h4 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+/* Frases em destaque que não são título (CTA, resultado do quiz, fecho do rodapé): mesmo desenho do h2. */
+.display {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 800;
+  line-height: 1.01;
+  letter-spacing: -0.02em;
 }
 h1 em,
 h2 em,
@@ -123,17 +157,21 @@ h2 em,
   font-style: normal;
 }
 
-h3,
-h4 {
-  font-family: var(--font-sans), system-ui, sans-serif;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  line-height: 1.2;
-}
-
 p {
   margin: 0 0 var(--s-4);
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.36px;
   text-wrap: pretty;
+}
+@media (max-width: 767px) {
+  h1 {
+    line-height: 1;
+  }
+  p {
+    line-height: 1.6156;
+  }
 }
 
 a {
@@ -214,10 +252,20 @@ strong {
   padding: 0.75rem 1.4rem;
   border-radius: var(--pill);
   border: 1px solid var(--ink);
-  font: 600 var(--fs-1) / 1.2 var(--font-sans), system-ui, sans-serif;
+  /* 21,51px / 900 / espaço 0,215px */
+  font: 900 var(--btn) / normal var(--font-sans), system-ui, sans-serif;
+  letter-spacing: 0.215px;
   text-decoration: none;
   cursor: pointer;
   transition: transform 0.18s ease, background-color 0.18s ease;
+}
+
+/* Header, rodapé e banner de cookies mantêm o botão compacto. */
+.topo .btn,
+.rodape .btn,
+.consent .btn {
+  font: 600 var(--fs-1) / 1.2 var(--font-sans), system-ui, sans-serif;
+  letter-spacing: 0;
 }
 
 .btn:hover {
@@ -318,9 +366,6 @@ strong {
   max-width: 52rem;
 }
 
-.section-head h2 {
-  font-size: var(--fs-6);
-}
 
 .section-head p {
   font-size: var(--fs-3);
@@ -472,14 +517,12 @@ tr.hl > * {
 }
 
 .prose h2 {
-  font-size: var(--fs-5);
   color: var(--ink);
   margin-top: var(--s-8);
   margin-bottom: 1.25rem;
 }
 
 .prose h3 {
-  font-size: var(--fs-3);
   color: var(--ink);
   margin-top: var(--s-6);
   margin-bottom: var(--s-2);
@@ -556,7 +599,7 @@ tr.hl > * {
 /* Nome de modelo (cards, tabela comparativa, "Outros modelos"): mesma fonte dos H1/H2, sem negrito pesado.
    "Ton" fica discreto e o modelo (T1, T3 Smart) ganha o contraste. */
 .nome-modelo {
-  font-family: var(--font-display), system-ui, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
   letter-spacing: -0.01em;
 }
 .nome-modelo .nm-marca {

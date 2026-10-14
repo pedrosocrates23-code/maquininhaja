@@ -73,7 +73,6 @@ const especulacao = {
     {atualizado && <meta property="article:modified_time" content={atualizado} />}
 
     <Font cssVariable="--font-sans" preload={[{ subset: 'latin' }]} />
-    <Font cssVariable="--font-display" preload />
     <slot name="head" />
 
     <script type="application/ld+json" set:html={JSON.stringify(grafo)} />

@@ -25,7 +25,7 @@ const schema = pagina({ path, title, description, tipo, atualizado: SITE.verific
 ---
 
 <Base title={title} description={description} crumbs={crumbs} schema={schema} ogImage="/og/institucional.jpg" noindex={noindex} estreito>
-  <PageHero rotulo={rotulo} h1={h1} resumo={resumo} verificado={false} estreito />
+  <PageHero rotulo={rotulo} h1={h1} resumo={resumo} estreito />
   <div class="wrap-text inst">
     <article class="prose">
       <slot />

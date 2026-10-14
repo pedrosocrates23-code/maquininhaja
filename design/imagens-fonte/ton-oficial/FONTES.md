@@ -23,3 +23,24 @@ Base: `https://sites-cms-deco-prd.s3.us-east-1.amazonaws.com/`
 
 As vistas `-front` são copiadas sem reprocessar para `src/assets/img/modelo-*.{webp,png}`; o Astro gera
 AVIF/WebP a partir delas. Não reencodar antes: o original já vem comprimido pela Ton.
+
+## Logos das bandeiras (`bandeiras/`)
+
+Baixados em 14/10/2026 da seção "Aceite mais de 50 bandeiras" de https://www.ton.com.br/maquininhas
+(ledger TN-F074), SVG original sem edição, na ordem em que a Ton exibe. Base: `https://martech-web-cdn.stone.com.br/`.
+Cópia usada pelo site em `src/assets/img/bandeiras/`. As marcas pertencem às respectivas bandeiras.
+
+| Arquivo | Caminho na CDN |
+|---|---|
+| flag-mastercard.svg | incoming/ton/df654ffd-8034-433f-9bdc-6114011d6f29/flag-mastercard.svg |
+| flag-visa.svg | incoming/ton/e6b249d6-d7e6-48aa-a84b-7723822fa8ef/flag-visa.svg |
+| flag-elo.svg | incoming/ton/a25181f4-82d7-4534-a903-1aef38a21b6d/flag-elo.svg |
+| flag-amex.svg | incoming/ton/bf9fb2ed-983d-4ed0-8c6e-7c1795ee18e4/flag-amex.svg |
+| flag-pluxee.svg | incoming/ton/3a86c829-fb63-4d91-b181-57ba61c0d47c/flag-pluxee.svg |
+| flag-ticket.svg | incoming/ton/0cdb0ba2-71fa-40c7-92e5-1d970a500179/flag-ticket.svg |
+| flag-vr.svg | incoming/ton/28b5450d-9136-46f2-9ce2-bd4cb354dd78/flag-vr.svg |
+| flag-alelo.svg | incoming/ton/046b85f2-beb0-403e-9f25-a0d1315ee44d/flag-alelo.svg |
+| flag-goodcard.svg | incoming/ton/ffc3894d-8f67-43b6-9fe1-1f1c1be0ef75/flag-goodcard.svg |
+| flag-personal.svg | incoming/ton/7d60e8e7-769a-44ee-8674-5e47a3c24357/flag-personal.svg |
+| flag-banes.svg | incoming/ton/a3396956-980c-41ca-9a2c-ca8c6b8bce92/flag-banes.svg |
+| flag-up.svg | incoming/ton/436f1ffb-d64c-4533-9ccc-e98bb5a6c2d4/flag-up.svg |

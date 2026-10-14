@@ -163,24 +163,13 @@ export default defineConfig({
     },
   },
   fonts: [
-    // Títulos (H1, H2, logo, menu, cards): Fredoka (OFL) com largura fixada em 75 e peso 400-600,
-    // recortada para latin.
-    // Arredondada e condensada, no estilo da Ton sem usar a fonte própria dela (TN-F024).
-    {
-      provider: fontProviders.local(),
-      name: 'Fredoka Condensed',
-      cssVariable: '--font-display',
-      display: 'optional',
-      fallbacks: ['sans-serif'],
-      options: {
-        variants: [{ src: ['./src/assets/fonts/Fredoka-Condensed.woff2'], weight: '400 600', style: 'normal' }],
-      },
-    },
+    // Uma família só no site inteiro (títulos e texto): Nunito (OFL), arredondada, no estilo da Ton
+    // sem usar a fonte própria dela (TN-F024). Baixada no build e servida do próprio domínio.
     {
       provider: fontProviders.fontsource(),
-      name: 'Geist',
+      name: 'Nunito',
       cssVariable: '--font-sans',
-      weights: ['400 700'],
+      weights: ['400 900'],
       styles: ['normal'],
       subsets: ['latin'],
       display: 'optional',

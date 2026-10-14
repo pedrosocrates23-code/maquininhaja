@@ -64,7 +64,7 @@ const componentes = { Parceria, Fonte, Callout, CtaIndicacao, Taxa, Preco, Tabel
   atualizado={iso(d.atualizado)}
   estreito
 >
-  <PageHero rotulo={d.rotulo} h1={d.h1} resumo={d.resumo} verificado={false} estreito />
+  <PageHero rotulo={d.rotulo} h1={d.h1} resumo={d.resumo} estreito />
 
   <div class="wrap-text artigo">
     <article class="prose">
@@ -144,8 +144,5 @@ const componentes = { Parceria, Fonte, Callout, CtaIndicacao, Taxa, Preco, Tabel
   }
   .faq-box {
     margin-top: var(--s-8);
-  }
-  .faq-box :global(.faq h2) {
-    font-size: var(--fs-5);
   }
 </style>

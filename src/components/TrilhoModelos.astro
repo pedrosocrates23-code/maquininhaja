@@ -1,0 +1,42 @@
+---
+// Vitrine dos modelos em trilho horizontal (home e /modelos/): os cards rolam de lado, de borda a borda.
+// Fica fora do .wrap: o recuo lateral é calculado para alinhar o primeiro card com o conteúdo.
+import type { ComponentProps } from 'astro/types';
+import ModeloCard from './ModeloCard.astro';
+type Card = ComponentProps<typeof ModeloCard>;
+interface Props {
+  cards: Card[];
+}
+const { cards } = Astro.props;
+---
+
+<div class="trilho" role="list" aria-label="Modelos de maquininha Ton">
+  {
+    cards.map((c) => (
+      <div class="trilho-item" role="listitem">
+        <ModeloCard {...c} />
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .trilho {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(280px, 320px);
+    gap: var(--s-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 max(var(--gutter), calc((100vw - var(--wrap)) / 2)) var(--s-4);
+    scroll-padding-inline: max(var(--gutter), calc((100vw - var(--wrap)) / 2));
+    /* rola com o dedo, o trackpad ou o teclado, mas sem a barra aparente */
+    scrollbar-width: none;
+  }
+  .trilho::-webkit-scrollbar {
+    display: none;
+  }
+  .trilho-item {
+    scroll-snap-align: start;
+  }
+</style>

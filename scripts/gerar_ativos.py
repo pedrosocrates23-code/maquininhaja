@@ -71,6 +71,13 @@ def icones():
     json.dump(manifest, open(os.path.join(PUB, 'site.webmanifest'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 
 
+def nunito(tamanho, peso):
+    """Nunito variável (OFL), a mesma família do site, no peso pedido."""
+    f = ImageFont.truetype(os.path.join(FON, 'Nunito[wght].ttf'), tamanho)
+    f.set_variation_by_axes([peso])
+    return f
+
+
 def quebra(d, texto, fonte, largura):
     linhas, atual = [], ''
     for p in texto.split():
@@ -105,15 +112,11 @@ def og(titulo, rotulo, foto, saida):
         f = f.crop((x0, 0, x0 + alvo_w, alvo_h))
     im.paste(f, (W - alvo_w, 0))
     d = ImageDraw.Draw(im)
-    serif = ImageFont.truetype(os.path.join(FON, 'Fredoka-Condensed-Regular.ttf'), 74)
-    sans = ImageFont.truetype(os.path.join(FON, 'Geist[wght].ttf'), 24)
-    try:
-        sans.set_variation_by_axes([600])
-    except Exception:
-        pass
+    serif = nunito(60, 500)
+    sans = nunito(24, 700)
     m = marca(56)
     im.paste(m, (64, 60), m)
-    d.text((136, 72), 'Maquininha Já', font=ImageFont.truetype(os.path.join(FON, 'Fredoka-Condensed-Regular.ttf'), 38), fill=CLARO)
+    d.text((136, 72), 'Maquininha Já', font=nunito(38, 700), fill=CLARO)
     # rótulo em pílula verde
     lw = d.textlength(rotulo, font=sans)
     d.rounded_rectangle([64, 170, 64 + lw + 36, 214], radius=22, fill=VERDE)
@@ -121,8 +124,8 @@ def og(titulo, rotulo, foto, saida):
     y = 250
     for linha in quebra(d, titulo, serif, 560)[:4]:
         d.text((64, y), linha, font=serif, fill=CLARO)
-        y += 80
-    pe = ImageFont.truetype(os.path.join(FON, 'Geist[wght].ttf'), 22)
+        y += 70
+    pe = nunito(22, 500)
     d.text((64, H - 64), 'Site independente. Não somos a Ton.', font=pe, fill=CINZA)
     os.makedirs(os.path.dirname(saida), exist_ok=True)
     im.save(saida, 'JPEG', quality=86, optimize=True, progressive=True)

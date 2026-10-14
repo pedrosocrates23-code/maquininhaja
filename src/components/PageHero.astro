@@ -1,30 +1,20 @@
 ---
-// Topo das páginas internas: rótulo, H1 em serifa grande, resposta curta e data de verificação.
-import { SITE } from '../data/site';
+// Topo das páginas internas: rótulo, H1 e resposta curta.
 import { dig } from '../lib/texto';
 interface Props {
   rotulo: string;
   h1: string;
   resumo?: string;
-  verificado?: boolean;
   /** usa a coluna de texto (720px) em vez da largura cheia, alinhado com o artigo */
   estreito?: boolean;
 }
-const { rotulo, h1, resumo, verificado = true, estreito = false } = Astro.props;
+const { rotulo, h1, resumo, estreito = false } = Astro.props;
 ---
 
 <header class:list={['ph', estreito ? 'wrap-text' : 'wrap']}>
   <span class="chip chip-dot">{rotulo}</span>
   <h1 set:html={dig(h1)} />
   {resumo && <p class="resumo" set:html={resumo} />}
-  {
-    verificado && (
-      <p class="verif">
-        Conferido nas fontes oficiais em <time datetime={SITE.verificadoEm}>{SITE.verificadoEmTexto}</time>.{' '}
-        <a href="/como-testamos/">Como avaliamos</a>
-      </p>
-    )
-  }
   <slot />
 </header>
 
@@ -36,7 +26,6 @@ const { rotulo, h1, resumo, verificado = true, estreito = false } = Astro.props;
     justify-items: start;
   }
   h1 {
-    font-size: var(--fs-6);
     max-width: 20ch;
   }
   .resumo {
@@ -44,13 +33,5 @@ const { rotulo, h1, resumo, verificado = true, estreito = false } = Astro.props;
     color: var(--ink-2);
     max-width: 44rem;
     margin: 0;
-  }
-  .verif {
-    font-size: var(--fs-0);
-    color: var(--muted);
-    margin: 0;
-  }
-  .verif a {
-    color: var(--muted);
   }
 </style>
