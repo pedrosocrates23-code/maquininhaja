@@ -1,0 +1,57 @@
+---
+import Institucional from '../layouts/Institucional.astro';
+import { SITE, PROGRAMA_ATIVO } from '../data/site';
+---
+
+<Institucional
+  title="Termos de uso do site"
+  description="Termos de uso do Maquininha Já: conteúdo informativo, preços que mudam, links para o site da Ton, marcas de terceiros e limites de responsabilidade."
+  h1="Termos de uso"
+  rotulo="Termos"
+  path="/termos-de-uso/"
+  resumo="Ao usar o site, você concorda com estes termos. Em resumo: o conteúdo é informativo, a condição que vale é a do site oficial da Ton e o pedido é feito lá."
+>
+  <h2>1. O que o site oferece</h2>
+  <p>
+    Conteúdo informativo sobre as maquininhas e serviços da Ton, montado a partir de documentos oficiais. O site não vende
+    produtos, não intermedeia pagamentos e não presta atendimento em nome da Ton.
+  </p>
+
+  <h2>2. Preços e condições</h2>
+  <p>
+    Preços, taxas e regras mudam sem aviso. Cada página mostra a data em que os dados foram conferidos. A condição que vale é a
+    exibida no site oficial da Ton e no seu aplicativo no momento do pedido.
+  </p>
+
+  <h2>3. Links e comissão</h2>
+  <p>
+    {
+      PROGRAMA_ATIVO
+        ? 'Os botões de pedido levam ao site da Ton por um endereço /link/ e podem gerar comissão ao site pelo programa Renda Extra Ton.'
+        : 'Os botões de pedido levam ao site da Ton por um endereço /link/. Hoje esses links não geram comissão. Se o site entrar no programa Renda Extra Ton, esta seção será atualizada.'
+    } Esses links são marcados como patrocinados. Veja a página de <a href="/transparencia/">transparência</a>. O site não
+    controla o conteúdo nem as políticas de sites de terceiros.
+  </p>
+
+  <h2>4. Marcas</h2>
+  <p>
+    Ton, TapTon, Stone e demais marcas citadas pertencem aos seus titulares e aparecem só para identificar produtos e serviços.
+    O {SITE.nome} usa identidade visual própria e {PROGRAMA_ATIVO ? 'não é afiliado aos titulares além do programa de parceria descrito.' : 'não tem relação comercial com os titulares.'}
+  </p>
+
+  <h2>5. Conteúdo do site</h2>
+  <p>
+    Textos, tabelas, calculadora e ilustrações são do {SITE.nome}, salvo os trechos de documentos oficiais citados como fonte.
+    Pode citar e linkar à vontade; copiar páginas inteiras, não.
+  </p>
+
+  <h2>6. Limite de responsabilidade</h2>
+  <p>
+    O conteúdo é revisado com cuidado, mas pode conter erro ou ficar desatualizado. Decisões de contratação devem ser
+    confirmadas no site oficial da Ton. A calculadora é uma estimativa. Achou um erro? Avise em
+    <a href={`mailto:${SITE.email}`}>{SITE.email}</a> que corrigimos.
+  </p>
+
+  <h2>7. Lei aplicável</h2>
+  <p>Estes termos seguem a lei brasileira, incluindo o Código de Defesa do Consumidor e a LGPD.</p>
+</Institucional>

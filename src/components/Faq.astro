@@ -1,0 +1,93 @@
+---
+// Perguntas frequentes em <details>. Sem FAQPage no JSON-LD: o rich result de FAQ foi
+// encerrado pelo Google em 2026; o conteúdo continua útil para o leitor e para LLMs.
+interface Props {
+  itens: { p: string; r: string }[];
+  titulo?: string;
+}
+const { itens, titulo = 'Perguntas frequentes' } = Astro.props;
+---
+
+<section class="faq" aria-labelledby="faq-tit">
+  <h2 id="faq-tit">{titulo}</h2>
+  <div class="lista">
+    {
+      itens.map((i) => (
+        <details>
+          <summary>
+            <h3>{i.p}</h3>
+            <span class="mais" aria-hidden="true" />
+          </summary>
+          <div class="resp" set:html={i.r} />
+        </details>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .faq h2 {
+    font-size: var(--fs-6);
+    margin-bottom: var(--s-6);
+  }
+  .lista {
+    border-top: 1px solid var(--ink);
+  }
+  details {
+    border-bottom: 1px solid var(--line-strong);
+  }
+  summary {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--s-4);
+    padding: var(--s-5) 0;
+    cursor: pointer;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary h3 {
+    font-size: var(--fs-3);
+    font-weight: 500;
+  }
+  .mais {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    position: relative;
+  }
+  .mais::before,
+  .mais::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 2px;
+    background: var(--ink);
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease;
+  }
+  .mais::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+  details[open] .mais {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  details[open] .mais::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  .resp {
+    padding: 0 0 var(--s-5);
+    max-width: 62ch;
+    color: var(--ink-2);
+  }
+  .resp :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

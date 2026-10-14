@@ -1,0 +1,31 @@
+{
+ "url": "/modelos/t1/",
+ "tipo": "produto",
+ "h1": "Ton T1 na prática: a mais barata, que depende do seu celular",
+ "title": "Ton T1: teste prático, taxas e para quem vale",
+ "kw": "ton t1",
+ "entidade": "Ton T1 (Product)",
+ "schema": "Product + Review + Offer + BreadcrumbList",
+ "obs": "T1 Chip redireciona para T1 (F130): seção \"e a T1 Chip?\".",
+ "papel": "Venda direta",
+ "comissao": "R$ 40 a R$ 70 + AtivaTon/FaturaTon (TN-F034, TN-F030, TN-F031)",
+ "macro_dominante": "Informacional",
+ "estagio_dominante": "Produto",
+ "variacoes": 14,
+ "buscas_reais_autocomplete": [
+  "ton t1",
+  "t1 da ton",
+  "ton t1 chip",
+  "ton modelo t1",
+  "maquininha ton t1",
+  "ton t1 maquininha",
+  "maquininha ton t1 ton",
+  "maquininha ton t1 chip",
+  "ton t1 tem aproximação",
+  "t1 ton precisa de celular",
+  "como usar maquininha ton t1",
+  "maquininha ton t1 como usar",
+  "maquininha ton t1 como funciona",
+  "como atualizar maquininha ton t1"
+ ]
+}

@@ -1,0 +1,164 @@
+---
+// Páginas editoriais da collection "paginas" (ajuda, guias, taxas explicadas, renda extra).
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Fonte from '../components/Fonte.astro';
+import Fontes from '../components/Fontes.astro';
+import Callout from '../components/Callout.astro';
+import CtaIndicacao from '../components/CtaIndicacao.astro';
+import Faq from '../components/Faq.astro';
+import Parceria from '../components/Parceria.astro';
+import Taxa from '../components/dados/Taxa.astro';
+import Preco from '../components/dados/Preco.astro';
+import TabelaParcelas from '../components/dados/TabelaParcelas.astro';
+import TabelaFaixas from '../components/dados/TabelaFaixas.astro';
+import { pagina, ID, type Crumb } from '../lib/schema';
+import { SITE } from '../data/site';
+
+export async function getStaticPaths() {
+  const todas = await getCollection('paginas', (p) => !p.data.draft);
+  return todas.map((p) => ({ params: { slug: p.id }, props: { p } }));
+}
+
+const { p } = Astro.props;
+const d = p.data;
+const { Content } = await render(p);
+const path = `/${p.id}/`;
+
+const NOME_SECAO: Record<string, [string, string]> = {
+  ajuda: ['Ajuda', '/ajuda/'],
+  aprenda: ['Aprenda', '/aprenda/'],
+  'quanto-custa': ['Quanto custa', '/quanto-custa/'],
+  modelos: ['Modelos', '/modelos/'],
+  'renda-extra': ['Renda Extra Ton', '/renda-extra/'],
+};
+const crumbs: Crumb[] = [{ name: 'Início', href: '/' }];
+if (d.secao !== 'renda-extra') crumbs.push({ name: NOME_SECAO[d.secao][0], href: NOME_SECAO[d.secao][1] });
+crumbs.push({ name: d.h1.length > 48 ? d.rotulo : d.h1, href: path });
+
+const iso = (x: Date) => x.toISOString().slice(0, 10);
+const dataBR = (x: Date) => x.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+const schema = pagina({
+  path,
+  title: d.title,
+  description: d.description,
+  tipo: 'Article',
+  publicado: iso(d.publicado),
+  atualizado: iso(d.atualizado),
+  crumbs,
+  imagem: `${SITE.url}/og/${d.og}.jpg`,
+  sobre: [ID.ton],
+});
+const componentes = { Parceria, Fonte, Callout, CtaIndicacao, Taxa, Preco, TabelaParcelas, TabelaFaixas };
+---
+
+<Base
+  title={d.title}
+  description={d.description}
+  crumbs={crumbs}
+  schema={schema}
+  noindex={d.noindex}
+  ogImage={`/og/${d.og}.jpg`}
+  ogType="article"
+  atualizado={iso(d.atualizado)}
+>
+  <PageHero rotulo={d.rotulo} h1={d.h1} resumo={d.resumo} verificado={false}>
+    <p class="datas">
+      Atualizado em <time datetime={iso(d.atualizado)}>{dataBR(d.atualizado)}</time>. Escrito pela equipe do {SITE.nome}
+      com base nos documentos oficiais da Ton. <a href="/como-testamos/">Como avaliamos</a>
+    </p>
+  </PageHero>
+
+  <div class="wrap-text artigo">
+    <article class="prose">
+      <Content components={componentes} />
+    </article>
+
+    {
+      d.cta && (
+        <aside class="cta-box panel on-panel" aria-label="Pedir maquininha">
+          <p class="display cta-tit">Pronto para escolher?</p>
+          <CtaIndicacao chave={d.cta.chave} texto={d.cta.texto} />
+        </aside>
+      )
+    }
+
+    {
+      d.relacionadas.length > 0 && (
+        <nav class="rel" aria-label="Leia também">
+          <p class="eyebrow">Leia também</p>
+          <ul>
+            {d.relacionadas.map((r) => (
+              <li>
+                <a href={r.href}>
+                  {r.label} <span aria-hidden="true">→</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
+
+    {d.faq.length > 0 && <div class="faq-box"><Faq itens={d.faq} /></div>}
+
+    <Fontes ids={d.fontes} />
+  </div>
+</Base>
+
+<style>
+  .datas {
+    font-size: var(--fs-0);
+    color: var(--muted);
+    margin: 0;
+  }
+  .datas a {
+    color: var(--muted);
+  }
+  .artigo {
+    padding-bottom: var(--s-9);
+  }
+  .artigo :global(.summarization) {
+    margin-top: 0 !important;
+  }
+  .cta-box {
+    border-radius: var(--radius-l);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    margin-top: var(--s-8);
+    display: grid;
+    gap: var(--s-4);
+  }
+  .cta-tit {
+    font-size: var(--fs-5);
+    line-height: 1;
+    margin: 0;
+    color: var(--on-panel);
+  }
+  .rel {
+    margin-top: var(--s-8);
+  }
+  .rel ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .rel a {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-4);
+    padding: var(--s-4) 0;
+    border-bottom: 1px solid var(--line-strong);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: var(--fs-3);
+  }
+  .faq-box {
+    margin-top: var(--s-8);
+  }
+  .faq-box :global(.faq h2) {
+    font-size: var(--fs-5);
+  }
+</style>

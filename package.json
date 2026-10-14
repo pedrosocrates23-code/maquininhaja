@@ -1,5 +1,5 @@
 {
-  "name": "passanamaquininha.com.br",
+  "name": "maquininhaja.com.br",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -9,9 +9,21 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "sync": "python scripts/sync_dados.py",
+    "ativos": "python scripts/gerar_ativos.py",
+    "validar": "python scripts/validar_pagina.py --todas",
+    "check:pendencias": "node scripts/check-pendencias.mjs",
+    "build:producao": "astro build && node scripts/check-pendencias.mjs",
+    "lighthouse": "node scripts/lighthouse.mjs"
   },
   "dependencies": {
+    "@astrojs/markdown-satteri": "0.4.3",
+    "@astrojs/mdx": "^8.0.3",
+    "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.3.8"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
   }
 }

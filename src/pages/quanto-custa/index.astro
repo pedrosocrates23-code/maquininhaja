@@ -1,0 +1,279 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Fontes from '../../components/Fontes.astro';
+import Callout from '../../components/Callout.astro';
+import Faq from '../../components/Faq.astro';
+import TabelaFaixas from '../../components/dados/TabelaFaixas.astro';
+import Taxa from '../../components/dados/Taxa.astro';
+import { SITE } from '../../data/site';
+import taxas from '../../data/taxas.json';
+import { pctBR } from '../../data/modelos';
+import { pagina, ID } from '../../lib/schema';
+
+const title = 'Taxa da Ton hoje: quanto custa por faixa de faturamento';
+const description =
+  'Taxas da maquininha Ton (Ton Mega+) por faixa de faturamento: débito, crédito, 12x, Elo, Pix, TapTon e Link, recebendo na hora ou em 1 dia útil. Fonte oficial.';
+const path = '/quanto-custa/';
+const crumbs = [
+  { name: 'Início', href: '/' },
+  { name: 'Quanto custa', href: path },
+];
+const tap = taxas.faixas.find((f) => f.id === 'tapton')!;
+const link = taxas.faixas.find((f) => f.id === 'link')!;
+
+const passos = [
+  {
+    t: 'Mês 1: período promocional',
+    d: 'Débito e crédito à vista a 0,57% por 30 dias a partir do recebimento da máquina ou até R$ 5 mil em vendas, o que vier primeiro.',
+    f: ['TN-F011'],
+  },
+  {
+    t: 'Bateu R$ 5 mil antes dos 30 dias?',
+    d: 'Você sai da promoção na hora e fica, até completar os 30 dias, nas taxas da faixa de R$ 6 mil a R$ 10 mil.',
+    f: ['TN-F013'],
+  },
+  {
+    t: 'Do mês 2 em diante: sua faixa',
+    d: 'No fim dos 30 dias, a faixa sai do total vendido nesses 30 dias. Depois, do último mês fechado, somando cartão, Pix na máquina, TapTon e Link. Pode subir ou descer todo mês.',
+    f: ['TN-F013', 'X-correcoes-b-08', 'TN-F180', 'TN-F184', 'TN-F012'],
+  },
+];
+
+const faq = [
+  {
+    p: 'A taxa da Ton é a mesma para todas as maquininhas?',
+    r: `<p>Sim para T1, T2, T3 e T3 Smart: todas seguem a tabela do Ton Mega+. O TapTon e o Link de Pagamento têm tabela própria.</p>`,
+  },
+  {
+    p: 'Estorno e chargeback contam no faturamento?',
+    r: `<p>Não. O regulamento exclui da conta do faturamento mensal as transações estornadas, canceladas ou com chargeback.</p>`,
+  },
+  {
+    p: 'Quem já é cliente paga essas taxas?',
+    r: `<p>Não necessariamente. A Ton avisa que os planos e taxas publicados valem para novos clientes; quem já é cliente confere as próprias taxas no app.</p>`,
+  },
+  {
+    p: 'E a taxa do Ton Black?',
+    r: `<p>O Ton Black é o plano para CNPJ com taxas reduzidas para alto faturamento, mas a Ton não publica a tabela.</p>`,
+  },
+];
+
+const fontesPagina = ['TN-F181', 'TN-F011', 'TN-F012', 'TN-F013', 'TN-F180', 'TN-F184', 'TN-F014', 'TN-F051', 'TN-F052', 'TN-F055', 'TN-F058', 'TN-F010', 'TN-F072', 'TN-F057', 'TN-F082', 'X-correcoes-b-01', 'X-correcoes-b-08', 'TN-F071', 'TN-F095', 'TN-F165', 'TN-F098'];
+const schema = pagina({ path, title, description, tipo: 'Article', publicado: SITE.verificadoEm, atualizado: SITE.verificadoEm, crumbs, imagem: `${SITE.url}/og/quanto-custa.jpg`, sobre: [ID.ton] });
+---
+
+<Base title={title} description={description} crumbs={crumbs} schema={schema} ogImage="/og/quanto-custa.jpg" ogType="article" atualizado={SITE.verificadoEm}>
+  <PageHero
+    rotulo="Taxas Ton Mega+"
+    h1="Quanto custa vender com a Ton: taxas do Ton Mega+ por faixa"
+    resumo={`No primeiro mês, débito e crédito à vista saem a <strong>0,57%</strong>. Depois, a taxa depende de quanto você vendeu no mês anterior: são <strong>5 faixas</strong>, e receber na hora custa mais que em 1 dia útil.`}
+  />
+
+  <section class="wrap passos-sec" aria-labelledby="como">
+    <h2 id="como" class="sr-only">Como a taxa muda</h2>
+    <ol class="passos">
+      {
+        passos.map((p, i) => (
+          <li class="card">
+            <span class="p-n">0{i + 1}</span>
+            <h3>{p.t}</h3>
+            <p>
+              {p.d}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <div class="wrap corpo">
+    <section aria-labelledby="hora">
+      <div class="section-head">
+        <span class="eyebrow">Visa e Mastercard</span>
+        <h2 id="hora">Recebendo na hora</h2>
+        <p>Dinheiro na Conta Ton em até 1 minuto, inclusive fim de semana. </p>
+      </div>
+      <TabelaFaixas prazo="na_hora" destaque="ate3k" />
+    </section>
+
+    <section aria-labelledby="d1">
+      <div class="section-head">
+        <span class="eyebrow">Visa e Mastercard</span>
+        <h2 id="d1">Recebendo em 1 dia útil</h2>
+        <p>Mais barato, principalmente na faixa de quem vende até R$ 3 mil. Você escolhe o prazo na adesão ou depois, no app. </p>
+      </div>
+      <TabelaFaixas prazo="d1" destaque="ate3k" />
+      <p class="mais"><a href="/quanto-custa/quando-cai/">Quando cai o dinheiro em cada prazo</a> · <a href="/quanto-custa/parcelado/">Taxa de 2x a 21x</a></p>
+    </section>
+
+    <section aria-labelledby="elo">
+      <div class="section-head">
+        <span class="eyebrow">Elo e Amex</span>
+        <h2 id="elo">Elo e Amex custam mais</h2>
+        <p>
+          Na faixa até R$ 3 mil, o débito Elo sai a <Taxa faixa="ate3k" prazo="d1" tipo="elo_debito" /> em 1 dia útil, contra <Taxa
+            faixa="ate3k"
+            prazo="d1"
+            tipo="debito"
+          /> no Visa e Mastercard.
+        </p>
+      </div>
+      <TabelaFaixas prazo="d1" elo destaque="ate3k" />
+    </section>
+
+    <section aria-labelledby="outros">
+      <div class="section-head">
+        <span class="eyebrow">Fora da tabela principal</span>
+        <h2 id="outros">Pix, TapTon e Link</h2>
+      </div>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Pix na maquininha</h3>
+          <p class="grande">0%</p>
+          <p>
+            No período promocional (30 dias ou até R$ 5 mil). Depois, continua 0% com chave Pix de CPF, CNPJ ou telefone na Conta Ton; sem chave, 0,49% por venda.
+          </p>
+        </div>
+        <div class="card">
+          <h3>TapTon (celular)</h3>
+          <p class="grande">{pctBR(tap.prazos.d1.debito)}</p>
+          <p>
+            Débito em 1 dia útil. Crédito à vista <Taxa faixa="tapton" prazo="d1" tipo="credito1x" />, 12x <Taxa
+              faixa="tapton"
+              prazo="d1"
+              tipo="parcela"
+              parcelas={12}
+            />. Na hora: débito <Taxa faixa="tapton" prazo="na_hora" tipo="debito" />.
+          </p>
+          <a href="/modelos/tapton/">Como funciona o TapTon</a>
+        </div>
+        <div class="card">
+          <h3>Link de Pagamento</h3>
+          <p class="grande">{pctBR(link.prazos.d30.credito1x)}</p>
+          <p>
+            Crédito à vista recebendo em 30 dias (padrão). Em 14 dias: <Taxa
+              faixa="link"
+              prazo="d14"
+              tipo="credito1x"
+            />. Pix pelo link: 0%.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="extras">
+      <div class="section-head">
+        <span class="eyebrow">Além da taxa</span>
+        <h2 id="extras">O que mais pode custar</h2>
+      </div>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Outros custos">
+        <table>
+          <thead><tr><th scope="col">Item</th><th scope="col">Quanto</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Mensalidade ou aluguel da máquina</th><td>Não tem. Paga só a adesão, uma vez</td></tr>
+            <tr><th scope="row">Saque no caixa 24h com o cartão Ton</th><td>R$ 6,50 por saque</td></tr>
+            <tr><th scope="row">TED</th><td>5 grátis por mês</td></tr>
+            <tr><th scope="row">Conta parada por 12 meses</th><td>Taxa de inatividade, descontada só se houver saldo</td></tr>
+            <tr><th scope="row">Pix na máquina sem chave cadastrada</th><td>0,49% por venda, depois do período promocional (30 dias ou até R$ 5 mil)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <Callout tipo="atencao" titulo="Taxas válidas para cliente novo">
+        <p>
+          A tabela é a do Ton Mega+ para quem pede a primeira máquina agora. Quem já é cliente pode estar em outro plano: confira
+          em Minhas taxas e prazos, no app. Nomes antigos como Pro, Ultra e Giga estão em
+          <a href="/quanto-custa/planos-antigos/">planos antigos</a>.
+        </p>
+      </Callout>
+    </section>
+
+    <aside class="calc panel on-panel" aria-label="Calculadora">
+      <p class="display c-tit">Coloca o seu faturamento e vê o mês 1 e o mês 2.</p>
+      <a class="btn btn-primary" href="/quanto-custa/calculadora/">Abrir a calculadora</a>
+    </aside>
+
+    <div class="wrap-text fim">
+      <Faq itens={faq} />
+      <Fontes ids={fontesPagina} />
+    </div>
+  </div>
+</Base>
+
+<style>
+  .passos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: var(--s-4);
+  }
+  .passos h3 {
+    font-size: var(--fs-3);
+    margin: var(--s-2) 0 var(--s-3);
+  }
+  .passos p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: var(--fs-1);
+  }
+  .p-n {
+    font-weight: 600;
+    color: var(--muted);
+    font-size: var(--fs-0);
+  }
+  .corpo {
+    padding-block: var(--s-8) var(--s-9);
+    display: grid;
+    gap: var(--s-9);
+  }
+  .corpo .section-head h2 {
+    font-size: var(--fs-5);
+  }
+  .mais {
+    margin-top: var(--s-4);
+    font-size: var(--fs-1);
+  }
+  .grande {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: var(--fs-5);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin: var(--s-2) 0;
+    line-height: 1;
+  }
+  .card h3 {
+    font-size: var(--fs-3);
+  }
+  .card p {
+    font-size: var(--fs-1);
+    color: var(--ink-2);
+  }
+  .card a {
+    font-weight: 600;
+    font-size: var(--fs-1);
+  }
+  .calc {
+    border-radius: var(--radius-l);
+    padding: clamp(1.75rem, 4vw, 3rem);
+    display: grid;
+    gap: var(--s-5);
+    justify-items: start;
+  }
+  .c-tit {
+    font-size: var(--fs-5);
+    line-height: 1.02;
+    margin: 0;
+    color: var(--on-panel);
+    max-width: 22ch;
+  }
+  .fim {
+    width: 100%;
+    margin: 0;
+    max-width: var(--wrap-text);
+  }
+  .corpo :global(.callout) {
+    margin-top: var(--s-5);
+  }
+</style>

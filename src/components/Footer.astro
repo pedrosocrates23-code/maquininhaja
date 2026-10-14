@@ -1,0 +1,183 @@
+---
+import Marca from './Marca.astro';
+import { SITE, STATUS } from '../data/site';
+
+const colunas = [
+  {
+    titulo: 'Modelos',
+    links: [
+      ['/modelos/', 'Todos os modelos'],
+      ['/modelos/t1/', 'Ton T1'],
+      ['/modelos/t2/', 'Ton T2'],
+      ['/modelos/t3/', 'Ton T3'],
+      ['/modelos/t3-smart/', 'Ton T3 Smart'],
+      ['/modelos/tapton/', 'TapTon'],
+      ['/modelos/cartoes-e-vales/', 'Cartões e vales aceitos'],
+    ],
+  },
+  {
+    titulo: 'Quanto custa',
+    links: [
+      ['/quanto-custa/', 'Taxas por faixa'],
+      ['/quanto-custa/calculadora/', 'Calculadora'],
+      ['/quanto-custa/parcelado/', 'Taxa do parcelado'],
+      ['/quanto-custa/quando-cai/', 'Quando cai o dinheiro'],
+      ['/quanto-custa/planos-antigos/', 'Planos antigos'],
+    ],
+  },
+  {
+    titulo: 'Ajuda e guias',
+    links: [
+      ['/ajuda/', 'Central de ajuda'],
+      ['/ajuda/primeiros-passos/', 'Como ativar'],
+      ['/ajuda/contato/', 'Contato da Ton'],
+      ['/aprenda/', 'Guias'],
+      ['/aprenda/ton-e-stone/', 'Ton e Stone'],
+      ['/renda-extra/', 'Renda Extra Ton'],
+    ],
+  },
+  {
+    titulo: 'O site',
+    links: [
+      ['/quem-somos/', 'Quem somos'],
+      ['/como-testamos/', 'Como avaliamos'],
+      ['/transparencia/', 'Transparência'],
+      ['/fale-com-a-gente/', 'Fale com a gente'],
+      ['/privacidade/', 'Privacidade e cookies'],
+      ['/termos-de-uso/', 'Termos de uso'],
+    ],
+  },
+];
+const ano = new Date(SITE.verificadoEm).getFullYear();
+---
+
+<footer class="rodape panel on-panel">
+  <div class="wrap">
+    <p class="fecho display" aria-hidden="true">
+      Taxa clara antes.<br /><em>Venda tranquila</em> depois.
+    </p>
+
+    <div class="cols">
+      <div class="sobre">
+        <a href="/" class="logo" aria-label="Maquininha Já, página inicial"><Marca invertida /></a>
+        <p>
+          Site independente sobre as maquininhas Ton. Preços, taxas e regras conferidos nas fontes oficiais em {
+            SITE.verificadoEmTexto
+          }.
+        </p>
+        <a class="btn btn-primary" href="/quanto-custa/calculadora/">Simular minhas taxas</a>
+      </div>
+      {
+        colunas.map((c) => (
+          <nav aria-label={c.titulo}>
+            <p class="col-tit">{c.titulo}</p>
+            <ul>
+              {c.links.map(([href, label]) => (
+                <li>
+                  <a href={href}>{label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+    </div>
+
+    <hr class="linha" />
+
+    <div class="legal">
+      <p>
+        <strong>{SITE.nome}</strong> {STATUS.legal}
+        Não somos a Ton, não falamos em nome dela e não fazemos atendimento de clientes Ton. A Central de Ajuda apresenta a Ton como marca da Stone, e os regulamentos divergem sobre quem detém a marca. As
+        maquininhas são oferecidas pela Stone Instituição de Pagamento S.A. (CNPJ 16.501.555/0001-57) e pela Pagar.me, que
+        desenvolve a Plataforma Ton. Para falar com a Ton, use os <a href="/ajuda/contato/">canais oficiais</a>.
+      </p>
+      <p>
+        Responsável pelo site: {SITE.responsavel} ({SITE.documentoResponsavel}). Contato:
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      </p>
+      <p class="ano">© {ano} {SITE.nome}. Conteúdo informativo; condições finais sempre no site oficial da Ton.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .rodape {
+    padding-block: clamp(4rem, 9vw, 7rem) var(--s-6);
+    margin-top: 0;
+  }
+  .fecho {
+    font-size: var(--fs-7);
+    line-height: 0.95;
+    margin: 0 0 clamp(3rem, 7vw, 6rem);
+    color: var(--on-panel);
+    letter-spacing: -0.005em;
+  }
+  .fecho em {
+    color: var(--green);
+  }
+  .cols {
+    display: grid;
+    grid-template-columns: 1.4fr repeat(4, 1fr);
+    gap: var(--s-6);
+  }
+  .sobre p {
+    margin-top: var(--s-4);
+    max-width: 22rem;
+    font-size: var(--fs-1);
+  }
+  .logo {
+    text-decoration: none;
+  }
+  .col-tit {
+    color: var(--on-panel);
+    font-weight: 600;
+    font-size: var(--fs-1);
+    margin-bottom: var(--s-3);
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li a {
+    display: inline-block;
+    padding: 0.3rem 0;
+    color: var(--on-panel-muted);
+    text-decoration: none;
+    font-size: var(--fs-1);
+  }
+  li a:hover {
+    color: var(--on-panel);
+    text-decoration: underline;
+  }
+  .linha {
+    border: 0;
+    border-top: 1px solid #34342f;
+    margin: var(--s-7) 0 var(--s-5);
+  }
+  .legal p {
+    font-size: var(--fs-0);
+    line-height: 1.6;
+    max-width: 75rem;
+  }
+  .legal a {
+    color: var(--on-panel);
+  }
+  .legal strong {
+    color: var(--on-panel);
+  }
+  @media (max-width: 1000px) {
+    .cols {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .sobre {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 420px) {
+    .cols {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

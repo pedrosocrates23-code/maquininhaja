@@ -1,0 +1,92 @@
+{
+ "X-renda-extra-01": {
+  "url": "https://ajuda.ton.com.br/pt_BR/renda-extra/fiz-uma-indicacao-invalida",
+  "data": "2026-10-13",
+  "trecho": "Uma indicação é considerada válida quando o cliente é novo, ou seja, nunca comprou uma maquininha Ton com o mesmo CPF/CNPJ ou e-mail e tem o cadastro e o pagamento aprovados."
+ },
+ "X-renda-extra-02": {
+  "url": "https://ajuda.ton.com.br/pt_BR/renda-extra/fiz-uma-indicacao-invalida",
+  "data": "2026-10-13",
+  "trecho": "Autoindicação: Você não pode indicar a si mesmo. Cliente com pedido de máquina: O cliente já possui uma maquininha ou já fez a adesão anteriormente. Pagamento recusado: O pagamento foi recusado no checkout ou houve um chargeback. Cadastro reprovado: O cadastro do cliente não foi aprovado. Estorno: O cliente solicitou o cancelamento do pedido ou o estorno do pagamento."
+ },
+ "X-renda-extra-03": {
+  "url": "https://ajuda.ton.com.br/pt_BR/renda-extra/fiz-uma-indicacao-invalida",
+  "data": "2026-10-13",
+  "trecho": "Válida: A indicação foi aprovada e a comissão será paga até o dia 10 do próximo mês. Pendente: O cliente ainda não concluiu o pagamento da maquininha. Em análise: O pagamento foi feito, mas o cadastro ainda está em análise. Esse processo pode levar até 3 dias úteis."
+ },
+ "X-renda-extra-04": {
+  "url": "https://ajuda.ton.com.br/pt_BR/renda-extra/indiquei-duas-m%C3%A1quinas-ao-mesmo-cliente-vou-receber-pelas-duas",
+  "data": "2026-10-13",
+  "trecho": "Não. Se você tiver realizado a indicação de duas máquinas de forma conjunta, você receberá a comissão referente à maquininha com maior valor de comissão."
+ },
+ "X-renda-extra-05": {
+  "url": "https://ajuda.ton.com.br/pt_BR/renda-extra/como-fa%C3%A7o-para-participar-do-programa",
+  "data": "2026-10-13",
+  "trecho": "Basta ter um cadastro válido e ativo no Ton. Não é necessário ter um CNPJ ou ter uma formação específica. Você pode indicar as maquininhas para qualquer pessoa que seja um novo cliente do Ton. Para começar a indicar, siga estes passos no aplicativo do Ton: Acesse a aba “Renda Extra”; Clique em “Indicar maquininhas do Ton”; Escolha a maquininha e o plano que você quer indicar. Compartilhe seu link exclusivo com o cliente."
+ },
+ "X-renda-extra-06": {
+  "url": "https://documentos.ton.com.br/regulamento-renda-extra.pdf",
+  "data": "2026-10-13",
+  "trecho": "qualquer pessoa (i) física, capaz, na forma da legislação civil, com idade igual ou superior a 18 (dezoito) anos; e (ii) jurídica, devidamente constituída, nos termos da legislação brasileira, e que exerça atividade lícita no País."
+ },
+ "X-renda-extra-07": {
+  "url": "https://documentos.ton.com.br/regulamento-renda-extra.pdf",
+  "data": "2026-10-13",
+  "trecho": "Em caso de estorno de pagamento pela não aprovação de cadastro do Novo Cliente ou rescisão de determinado Serviço Indicado por parte do Novo Cliente, a respectiva recompensa deixará de ser devida ao Usuário. Caso o pagamento já tenha sido realizado pelo Pagar.me, o valor correspondente será descontado da recompensa subsequente devida pelo Pagar.me ao Usuário no âmbito do Renda Extra."
+ },
+ "X-renda-extra-08": {
+  "url": "https://documentos.ton.com.br/regulamento-renda-ton.pdf",
+  "data": "2026-10-13",
+  "trecho": "Para fins de elegibilidade e duração, o Usuário de Nível “Iniciante” é elegível a 1 (um) mês, o de Nível “Especialista” a 2 (dois) meses e o de Nível “Referência” ou superior, bem como as indicações realizadas via Ton na Mão, a 3 (três) meses."
+ },
+ "X-renda-extra-09": {
+  "url": "https://documentos.ton.com.br/regulamento-renda-ton.pdf",
+  "data": "2026-10-13",
+  "trecho": "O Nível do Usuário será definido com base na performance do mês anterior – conforme tabela disponível no link – e será atualizado todo dia 1 (um) do mês conforme as indicações válidas realizadas naquele período. Mediante a apuração mensal, o Usuário poderá se manter no Nível, avançar para o seguinte ou voltar ao anterior."
+ },
+ "X-renda-extra-10": {
+  "url": "https://documentos.ton.com.br/regulamento-renda-ton.pdf",
+  "data": "2026-10-13",
+  "trecho": "Tanto o Pagar.me quanto o Usuário são individualmente responsáveis pelos tributos incidentes sobre suas próprias atividades, nos termos da legislação aplicável."
+ },
+ "X-renda-extra-11": {
+  "url": "https://documentos.ton.com.br/regulamento-renda-ton.pdf",
+  "data": "2026-10-13",
+  "trecho": "Caso o Usuário venha a regredir de Nível, a Recompensa Extra “FaturaTon” deixará de ser aplicada de forma imediata. As indicações realizadas via Ton na Mão permanecem elegíveis ao FaturaTon independentemente de eventual regressão de Nível, nos termos das regras da respectiva iniciativa."
+ },
+ "X-renda-extra-12": {
+  "url": "https://documentos.ton.com.br/regulamento-renda-ton.pdf",
+  "data": "2026-10-13",
+  "trecho": "caso o dia 10 não seja dia útil, no primeiro dia útil seguinte; (iii) a AtivaTon é devida uma única vez por Novo Cliente; e (iv) o Pagar.me poderá reter o pagamento até a conclusão das análises em caso de inconsistências, nos termos deste Regulamento."
+ },
+ "X-renda-extra-13": {
+  "url": "https://documentos.ton.com.br/regulamento-renda-ton.pdf",
+  "data": "2026-10-13",
+  "trecho": "As indicações válidas realizadas até 31 de agosto de 2026 permanecem regidas pelo modelo de recompensas anterior, ao passo que as indicações realizadas a partir de 01 de setembro de 2026 sujeitam-se ao novo modelo de recompensas previsto na Seção 5 deste Regulamento."
+ },
+ "X-renda-extra-14": {
+  "url": "https://rendaextra.ton.com.br/renda-ton/",
+  "data": "2026-10-13",
+  "trecho": "Após a indicação finalizada pelo seu link, a entrega da máquina e o atendimento ao cliente é feito com o time Ton."
+ },
+ "X-renda-extra-15": {
+  "url": "https://rendaextra.ton.com.br/renda-ton/",
+  "data": "2026-10-13",
+  "trecho": "Não precisa de CNPJ Também não precisa comprar nada pra começar a indicar. É só se cadastrar e baixar o app do Ton!"
+ },
+ "X-renda-extra-16": {
+  "url": "https://ajuda.ton.com.br/pt_BR/renda-extra/como-funcionam-os-pagamentos",
+  "data": "2026-10-13",
+  "trecho": "O pagamento das comissões das máquinas indicadas, tanto no Renda Extra quanto no Renda Ton , é efetuado diretamente no aplicativo do Ton até o dia 10 do mês seguinte à validação da indicação ou da apuração (nos casos elegíveis ao AtivaTon e FaturaTon)."
+ },
+ "X-renda-extra-17": {
+  "url": "https://rendaextra.ton.com.br/renda-ton/",
+  "data": "2026-10-13",
+  "trecho": "Posso ter uma maquininha do Ton para o meu negócio e também ser um consultor? Sim. Não há restrição para que um cliente seja também um parceiro Ton e vice-versa."
+ },
+ "X-renda-extra-18": {
+  "url": "https://documentos.ton.com.br/regulamento-renda-ton.pdf",
+  "data": "2026-10-13",
+  "trecho": "O Pagar.me poderá descredenciar o Usuário do Renda Ton, independente de aviso prévio e a qualquer tempo, caso o Usuário deixe de cumprir qualquer das disposições previstas neste Regulamento Renda Ton ou, ainda, imotivadamente, comprometendo-se a envidar seus melhores esforços para notificar o Usuário do respectivo descredenciamento."
+ }
+}

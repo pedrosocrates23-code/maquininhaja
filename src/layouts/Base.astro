@@ -1,0 +1,95 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Consentimento from '../components/Consentimento.astro';
+import { SITE } from '../data/site';
+import { base, type Crumb } from '../lib/schema';
+
+interface Props {
+  title: string; // <title> completo (sem sufixo automático: o plano define cada title)
+  description: string;
+  crumbs?: Crumb[];
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  atualizado?: string;
+}
+
+const {
+  title,
+  description,
+  crumbs = [],
+  schema = [],
+  noindex = false,
+  ogImage = '/og/padrao.jpg',
+  ogType = 'website',
+  atualizado,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const og = new URL(ogImage, SITE.url).href;
+const grafo = { '@context': 'https://schema.org', '@graph': [...base(), ...schema] };
+// Prefetch nativo do navegador ao passar o mouse/tocar num link interno (sem JS próprio).
+const especulacao = {
+  prefetch: [{ where: { href_matches: '/*' }, eagerness: 'moderate' }],
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="theme-color" content="#0b0b0b" />
+    <meta name="color-scheme" content="light" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.nome} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {atualizado && <meta property="article:modified_time" content={atualizado} />}
+
+    <Font cssVariable="--font-sans" preload={[{ subset: 'latin' }]} />
+    <Font cssVariable="--font-display" preload={[{ subset: 'latin', style: 'normal' }]} />
+    <slot name="head" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(grafo)} />
+    <script type="speculationrules" set:html={JSON.stringify(especulacao)} />
+  </head>
+  <body>
+    <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+    <Header />
+    {crumbs.length > 1 && <Breadcrumbs crumbs={crumbs} />}
+    <main id="conteudo" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <Consentimento />
+  </body>
+</html>
+
+<style>
+  main:focus {
+    outline: none;
+  }
+</style>

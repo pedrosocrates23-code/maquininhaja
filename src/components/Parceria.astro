@@ -1,0 +1,16 @@
+---
+// Texto que depende do estado real no programa Renda Extra Ton (PROGRAMA_ATIVO em site.ts).
+// <Parceria><Fragment slot="ativo">...</Fragment><Fragment slot="sem">...</Fragment></Parceria>
+// Sem o slot "sem", usa a frase padrão de quem ainda não recebe comissão.
+import { PROGRAMA_ATIVO } from '../data/site';
+---
+
+{
+  PROGRAMA_ATIVO ? (
+    <slot name="ativo" />
+  ) : Astro.slots.has('sem') ? (
+    <slot name="sem" />
+  ) : (
+    <>Hoje este site não recebe comissão: os botões levam à página oficial da Ton, sem link de indicação.</>
+  )
+}

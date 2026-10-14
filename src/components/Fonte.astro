@@ -1,0 +1,10 @@
+---
+// Citação inline: amarra a afirmação ao documento oficial de onde ela saiu (ledger TN-/MK-).
+// Não aparece no texto: as fontes da página saem todas em "Referências", no rodapé (Fontes.astro).
+// No MDX o plugin remarkSemFonteInline já tira a tag; aqui só conferimos que o id existe.
+import { fonte } from '../lib/fontes';
+interface Props {
+  id: string | string[];
+}
+for (const id of [Astro.props.id].flat()) fonte(id);
+---

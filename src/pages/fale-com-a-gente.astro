@@ -1,0 +1,34 @@
+---
+import Institucional from '../layouts/Institucional.astro';
+import { SITE } from '../data/site';
+---
+
+<Institucional
+  fontes={['TN-F094']}
+  title="Fale com a equipe do site (não é a Ton)"
+  description="Contato da equipe do Maquininha Já para corrigir um dado, sugerir um tema ou tratar dos seus dados. Problema com a Ton? Use os canais oficiais."
+  h1="Fale com a gente (não somos o atendimento da Ton)"
+  rotulo="Contato"
+  path="/fale-com-a-gente/"
+  tipo="ContactPage"
+  resumo="Escreva para a equipe do site para corrigir um dado, sugerir um tema ou exercer um direito sobre seus dados. Problema com máquina, conta ou pagamento é com a Ton."
+>
+  <h2>Problema com a sua maquininha ou conta?</h2>
+  <p>
+    Fale com a Ton. Não temos acesso à sua conta, à sua máquina nem às suas vendas. O WhatsApp oficial da Ton é (11) 3004-9136. Todos os canais estão em <a href="/ajuda/contato/">contato da Ton</a>.
+  </p>
+  <p>
+    Nunca passe senha, código de verificação ou dados do cartão para quem disser que fala em nome da Ton fora dos canais
+    oficiais. Este site nunca vai pedir isso.
+  </p>
+
+  <h2>Para falar com o site</h2>
+  <p>E-mail: <a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+  <p>Escreva para:</p>
+  <ul>
+    <li>apontar uma taxa, preço ou regra desatualizada (mande o link oficial, se tiver);</li>
+    <li>sugerir uma dúvida que o site ainda não responde;</li>
+    <li>pedir acesso, correção ou exclusão de dados pessoais, nos termos da LGPD (veja a <a href="/privacidade/">política de privacidade</a>).</li>
+  </ul>
+  <p>Responsável pelo site: {SITE.responsavel}.</p>
+</Institucional>

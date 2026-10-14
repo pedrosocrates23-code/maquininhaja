@@ -1,0 +1,59 @@
+---
+import Institucional from '../layouts/Institucional.astro';
+import { SITE, PROGRAMA_ATIVO, STATUS } from '../data/site';
+---
+
+<Institucional
+  fontes={['TN-F024', 'TN-F027', 'TN-F035', 'TN-F040']}
+  title="Quem somos: um site independente sobre a Ton"
+  description="Quem faz o Maquininha Já, por que o site existe, como ele se relaciona com a Ton e quem responde pelo conteúdo e pelos seus dados."
+  h1="Quem faz este site sobre a Ton"
+  rotulo="Quem somos"
+  path="/quem-somos/"
+  tipo="AboutPage"
+  resumo={`Um site independente que explica as maquininhas Ton com fonte oficial em cada número. ${STATUS.quem} Não somos a Ton nem falamos por ela.`}
+>
+  <h2>O que é o {SITE.nome}</h2>
+  <p>
+    Um site para quem está escolhendo ou já usa uma maquininha Ton. Ele compara os modelos, mostra a taxa depois do mês
+    promocional, explica quando o dinheiro cai e junta o passo a passo da ajuda oficial para os problemas mais buscados.
+  </p>
+  <p>
+    Cada taxa, preço e regra vem com o link do documento oficial e a data em que foi conferido. Quando duas páginas da Ton
+    dizem coisas diferentes, o site mostra as duas.
+  </p>
+
+  <h2>Nossa relação com a Ton</h2>
+  <p>
+    {
+      PROGRAMA_ATIVO ? (
+        <>Somos <strong>Parceiro Ton</strong>, pelo programa Renda Extra Ton. Quando alguém pede uma maquininha por um link do site, a Ton pode pagar uma comissão. Essa é a única relação.</>
+      ) : (
+        <>Nenhuma relação comercial, por enquanto. O plano é entrar no programa de parceiros Renda Extra Ton; até lá, os botões levam ao site oficial da Ton e não geram comissão.</>
+      )
+    } Não somos funcionários, não fazemos atendimento e não temos acesso a nenhuma conta Ton. As regras do programa exigem que o
+    parceiro deixe isso claro, e o site segue essas regras desde já.
+  </p>
+  <p>
+    Por regra do programa, o nome do site não usa a marca Ton. A identidade visual é própria e não
+    copia o site oficial.
+  </p>
+  <p>Como o site seria remunerado, e por que hoje não é, está na página de <a href="/transparencia/">transparência</a>.</p>
+
+  <h2>Quem responde pelo site</h2>
+  <p>
+    Responsável: {SITE.responsavel} ({SITE.documentoResponsavel}). Contato: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+  </p>
+  <p>
+    Os textos são escritos e revisados pela equipe do site a partir dos documentos oficiais da Ton. O método está em
+    <a href="/como-testamos/">como avaliamos</a>.
+  </p>
+
+  <h2>O que o site não faz</h2>
+  <ul>
+    <li>Não vende maquininha. O pedido é feito no site oficial da Ton.</li>
+    <li>Não cria promoção, desconto ou cashback próprio. Só mostramos condições oficiais.</li>
+    <li>Não pede seus dados. Não há cadastro, formulário nem newsletter.</li>
+    <li>Não resolve problema de conta, máquina ou pagamento. Para isso, use os <a href="/ajuda/contato/">canais oficiais da Ton</a>.</li>
+  </ul>
+</Institucional>

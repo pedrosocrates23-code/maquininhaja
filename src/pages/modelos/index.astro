@@ -1,0 +1,258 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ModeloCard from '../../components/ModeloCard.astro';
+import Fontes from '../../components/Fontes.astro';
+import Callout from '../../components/Callout.astro';
+import Faq from '../../components/Faq.astro';
+import { MODELOS, TAPTON, brl } from '../../data/modelos';
+import { SITE } from '../../data/site';
+import { IMG_MODELO } from '../../lib/imagens';
+import { pagina, ID } from '../../lib/schema';
+import { dig } from '../../lib/texto';
+
+const title = 'Modelos da Ton: T1, T2, T3, T3 Smart e TapTon';
+const description =
+  'As maquininhas Ton lado a lado: preço de hoje, conexão, comprovante, Pix e parcelamento de T1, T2, T3, T3 Smart e TapTon, com a fonte oficial de cada dado.';
+const path = '/modelos/';
+const crumbs = [
+  { name: 'Início', href: '/' },
+  { name: 'Modelos', href: path },
+];
+
+const colunas = [
+  ...MODELOS.map((m) => ({
+    nome: m.nome,
+    href: `/modelos/${m.slug}/`,
+    preco: brl(m.preco),
+    tipo: m.tipo,
+    celular: m.precisaCelular ? 'Sim' : 'Não',
+    papel: m.impressora.startsWith('Sim') ? 'Impresso ou SMS' : 'Só SMS',
+    pix: m.pix.startsWith('Não') ? 'Não' : 'Sim',
+    conexao: m.conexao,
+    parcelas: m.slug === 't2' ? '12x (conflito: 18x e 21x no blog)' : `${m.parcelasMax}x`,
+    vale: m.slug === 't1' ? 'Conflito oficial' : 'Sim, com CNPJ',
+  })),
+  {
+    nome: 'TapTon',
+    href: '/modelos/tapton/',
+    preco: 'R$ 0',
+    tipo: 'Celular como maquininha',
+    celular: 'É o próprio celular',
+    papel: 'Enviado pelo app',
+    pix: 'Não',
+    conexao: 'NFC e internet do celular',
+    parcelas: 'Até 21x (conflito: 12x)',
+    vale: 'Não informado',
+  },
+];
+const linhas: [string, keyof (typeof colunas)[number]][] = [
+  ['Adesão hoje', 'preco'],
+  ['Tipo', 'tipo'],
+  ['Precisa de celular', 'celular'],
+  ['Comprovante', 'papel'],
+  ['Pix na máquina', 'pix'],
+  ['Conexão', 'conexao'],
+  ['Parcela até', 'parcelas'],
+  ['Vale-refeição e alimentação', 'vale'],
+];
+
+const cards = [
+  ...MODELOS.map((m) => ({
+    href: `/modelos/${m.slug}/`,
+    nome: m.nome,
+    tipo: m.tipo,
+    apelido: m.apelido,
+    preco: brl(m.preco),
+    precoNota: `à vista ou ${m.parcela}`,
+    itens: [m.serve],
+    img: IMG_MODELO[m.slug].src,
+    alt: IMG_MODELO[m.slug].alt,
+  })),
+  {
+    href: '/modelos/tapton/',
+    nome: 'TapTon',
+    tipo: 'Celular como maquininha',
+    apelido: 'seu celular vira maquininha',
+    preco: 'R$ 0',
+    precoNota: 'sem adesão nem mensalidade',
+    itens: ['Quem está começando e vende pouco, só no cartão por aproximação.'],
+    img: IMG_MODELO.tapton.src,
+    alt: IMG_MODELO.tapton.alt,
+  },
+];
+
+const regras = [
+  { se: 'Precisa entregar comprovante impresso', entao: 'T3 ou T3 Smart', href: '/modelos/t3/' },
+  { se: 'Vende na rua o dia todo e quer tela de toque', entao: 'T3 Smart', href: '/modelos/t3-smart/' },
+  { se: 'Quer Pix na própria máquina, sem papel', entao: 'T2', href: '/modelos/t2/' },
+  { se: 'Já anda com o celular e quer o menor custo', entao: 'T1', href: '/modelos/t1/' },
+  { se: 'Está testando e vende pouco, só cartão', entao: 'TapTon', href: '/modelos/tapton/' },
+];
+
+const faq = [
+  {
+    p: 'A taxa muda de um modelo para outro?',
+    r: `<p>Não nas quatro máquinas: todas seguem o Ton Mega+, com taxa por faixa de faturamento. O TapTon e o Link de Pagamento têm tabela própria.</p>`,
+  },
+  {
+    p: 'Qual maquininha Ton parcela em 21x?',
+    r: `<p>T3 e T3 Smart, para novos clientes, segundo a página de maquininhas da Ton. A mesma página diz que T1 e T2 vão até 12x. Dois posts do blog da Ton dizem que a T2 parcela em 18x e 21x, menos a D188. Confirma no atendimento.</p>`,
+  },
+  {
+    p: 'Dá para ter mais de uma maquininha Ton?',
+    r: `<p>A adesão é paga por máquina, e os planos e taxas publicados valem para novos clientes. Quem já é cliente confere no app as condições antes de pedir a segunda.</p>`,
+  },
+];
+
+const fontesPagina = [...MODELOS.flatMap((m) => m.fontes), ...MODELOS.flatMap((m) => m.conflito?.fontes ?? []), ...TAPTON.fontes, 'TN-F051', 'TN-F058', 'TN-F066', 'TN-F067', 'TN-F069', 'TN-F070', 'TN-F071', 'TN-F055', 'X-parcelado-03', 'X-parcelado-07'];
+const schema = [
+  ...pagina({ path, title, description, tipo: 'CollectionPage', atualizado: SITE.verificadoEm, crumbs, sobre: [ID.ton] }),
+  {
+    '@type': 'ItemList',
+    '@id': `${SITE.url}${path}#lista`,
+    name: 'Modelos de maquininha Ton',
+    itemListElement: cards.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.nome, url: `${SITE.url}${c.href}` })),
+  },
+];
+---
+
+<Base title={title} description={description} crumbs={crumbs} schema={schema} ogImage="/og/modelos.jpg" atualizado={SITE.verificadoEm}>
+  <PageHero
+    rotulo="Modelos"
+    h1="Os modelos da Ton lado a lado: T1, T2, T3, T3 Smart e TapTon"
+    resumo={`Quatro máquinas e o celular. A taxa é a mesma nas quatro máquinas (a tabela de planos não distingue modelo); muda o aparelho, o preço de adesão, o comprovante, o Pix e o parcelamento máximo.`}
+  />
+
+  <section class="wrap tabela-sec" aria-labelledby="tab-tit">
+    <h2 id="tab-tit" class="sr-only">Tabela de comparação</h2>
+    <div class="table-wrap comp" tabindex="0" role="region" aria-label="Comparação dos modelos Ton">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Recurso</th>
+            {colunas.map((c) => <th scope="col"><a href={c.href} set:html={dig(c.nome)} /></th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {
+            linhas.map(([rot, k]) => (
+              <tr>
+                <th scope="row">{rot}</th>
+                {colunas.map((c) => (
+                  <td>{c[k]}</td>
+                ))}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="nota muted">
+      Preços promocionais conferidos em {SITE.verificadoEmTexto}.
+    </p>
+    <Callout tipo="conflito">
+      <p>
+        A Ton se contradiz em três pontos. Conexão da T2 e da T3: as páginas dos modelos dizem "Chip 3G", a tabela de
+        comparação diz "Chip 4G". Vale-alimentação na T1: a tabela diz que
+        aceita, o aviso de bandeiras cita só T2, T3 e T3 Smart. Parcelado da T2: a página
+        de maquininhas diz que ela para em 12x, e dois posts do blog da Ton dizem que a T2 parcela em
+        18x e 21x, menos a D188. Confirma no atendimento.
+      </p>
+    </Callout>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Atalho</span>
+        <h2>Qual escolher, numa linha.</h2>
+      </div>
+      <ul class="regras">
+        {
+          regras.map((r) => (
+            <li>
+              <span class="r-se">{r.se}</span>
+              <a class="r-entao display" href={r.href} set:html={dig(r.entao)} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Fichas</span>
+        <h2>Cada modelo em detalhe.</h2>
+      </div>
+      <div class="grid cards">
+        {cards.map((c) => <ModeloCard {...c} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap-text">
+      <Faq itens={faq} />
+      <Fontes ids={fontesPagina} />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .tabela-sec {
+    padding-bottom: var(--s-6);
+  }
+  .comp th a {
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--ink);
+  }
+  .comp thead th {
+    vertical-align: bottom;
+  }
+  .comp td {
+    min-width: 9.5rem;
+  }
+  .nota {
+    font-size: var(--fs-0);
+    margin: var(--s-3) 0 var(--s-5);
+  }
+  .regras {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .regras li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--s-4);
+    align-items: baseline;
+    padding: var(--s-5) 0;
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .r-se {
+    font-size: var(--fs-3);
+  }
+  .r-entao {
+    font-size: var(--fs-5);
+    line-height: 1;
+    text-decoration: none;
+    background: linear-gradient(transparent 70%, var(--green) 70%);
+  }
+  .cards {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  }
+  @media (max-width: 640px) {
+    .regras li {
+      grid-template-columns: 1fr;
+      gap: var(--s-2);
+    }
+  }
+</style>

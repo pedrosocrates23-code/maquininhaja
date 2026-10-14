@@ -1,0 +1,45 @@
+---
+// Débito, crédito à vista e 12x por faixa do Ton Mega+, num prazo de recebimento.
+// <TabelaFaixas prazo="na_hora" /> ; destaque={'ate3k'} pinta a linha.
+import taxas from '../../data/taxas.json';
+import { pctBR } from '../../data/modelos';
+interface Props {
+  prazo: 'na_hora' | 'd1';
+  destaque?: string;
+  incluirPromo?: boolean;
+  elo?: boolean;
+}
+const { prazo, destaque, incluirPromo = true, elo = false } = Astro.props;
+const ids = [...(incluirPromo ? ['promo'] : []), 'ate3k', '3a6k', '6a10k', '10a30k', '30k'];
+const faixas = taxas.faixas.filter((f) => ids.includes(f.id));
+const nome = prazo === 'na_hora' ? 'recebendo na hora' : 'recebendo em 1 dia útil';
+---
+
+<div class="table-wrap" tabindex="0" role="region" aria-label={`Taxas por faixa, ${nome}`}>
+  <table>
+    <caption>Ton Mega+, {nome}{elo ? ' (Elo e Amex)' : ' (Visa e Mastercard)'}</caption>
+    <thead>
+      <tr>
+        <th scope="col">Faixa de faturamento</th>
+        <th scope="col" class="num">Débito</th>
+        <th scope="col" class="num">Crédito à vista</th>
+        <th scope="col" class="num">Crédito 12x</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        faixas.map((f) => {
+          const p = (f.prazos as Record<string, any>)[prazo];
+          return (
+            <tr class:list={{ hl: f.id === destaque }}>
+              <th scope="row">{f.rotulo}</th>
+              <td class="num">{pctBR(elo ? p.elo_amex.debito : p.debito)}</td>
+              <td class="num">{pctBR(elo ? p.elo_amex.credito1x : p.credito1x)}</td>
+              <td class="num">{pctBR(elo ? p.elo_amex.p12 : p.parcelas['12'])}</td>
+            </tr>
+          );
+        })
+      }
+    </tbody>
+  </table>
+</div>

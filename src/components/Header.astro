@@ -1,0 +1,179 @@
+---
+import { NAV } from '../data/site';
+import Marca from './Marca.astro';
+
+const atual = Astro.url.pathname;
+const ativo = (href: string) =>
+  href === '/' ? atual === '/' : atual === href || (atual.startsWith(href) && !NAV.some((n) => n.href !== href && n.href.startsWith(href) && atual.startsWith(n.href)));
+---
+
+<header class="topo">
+  <div class="wrap topo-in">
+    <a class="logo" href="/" aria-label="Maquininha Já, página inicial">
+      <Marca />
+    </a>
+
+    <nav class="nav-desk" aria-label="Principal">
+      <ul>
+        {
+          NAV.map((n) => (
+            <li>
+              <a href={n.href} aria-current={ativo(n.href) ? 'page' : undefined}>
+                {n.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="acoes">
+      <a class="btn btn-primary btn-topo" href="/modelos/">Escolher maquininha</a>
+      <button class="menu-btn" type="button" popovertarget="menu" aria-label="Abrir menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="24" height="24"
+          ><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg
+        >
+      </button>
+    </div>
+  </div>
+
+  <div id="menu" popover class="menu-mob">
+    <div class="menu-topo">
+      <Marca />
+      <button type="button" popovertarget="menu" popovertargetaction="hide" class="menu-btn" aria-label="Fechar menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="24" height="24"
+          ><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg
+        >
+      </button>
+    </div>
+    <nav aria-label="Menu móvel">
+      <ul>
+        {
+          NAV.map((n) => (
+            <li>
+              <a href={n.href}>{n.label}</a>
+            </li>
+          ))
+        }
+        <li><a href="/renda-extra/">Renda Extra Ton</a></li>
+        <li><a href="/transparencia/">Transparência</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary" href="/modelos/">Escolher maquininha</a>
+  </div>
+</header>
+
+<style>
+  .topo {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: saturate(1.4) blur(12px);
+    -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topo-in {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-5);
+    min-height: 68px;
+  }
+  .logo {
+    text-decoration: none;
+    color: var(--ink);
+    flex: none;
+  }
+  .nav-desk ul {
+    display: flex;
+    gap: var(--s-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-desk a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 0.9rem;
+    border-radius: var(--pill);
+    text-decoration: none;
+    font-size: var(--fs-1);
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .nav-desk a:hover,
+  .nav-desk a[aria-current='page'] {
+    background: var(--bg-2);
+    color: var(--ink);
+  }
+  .acoes {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+  .menu-btn {
+    display: none;
+    width: 48px;
+    height: 48px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .menu-mob {
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    padding: var(--s-4) var(--gutter) var(--s-7);
+    background: var(--bg);
+    color: var(--ink);
+  }
+  .menu-mob:popover-open {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);
+  }
+  .menu-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .menu-mob ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .menu-mob li a {
+    display: block;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 2rem;
+    line-height: 1.1;
+    text-decoration: none;
+  }
+
+  @media (max-width: 960px) {
+    .nav-desk {
+      display: none;
+    }
+    .menu-btn {
+      display: inline-flex;
+    }
+  }
+  @media (max-width: 560px) {
+    .btn-topo {
+      display: none;
+    }
+  }
+</style>

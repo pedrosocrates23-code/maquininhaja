@@ -1,0 +1,77 @@
+---
+import Institucional from '../layouts/Institucional.astro';
+import { PROGRAMA_ATIVO } from '../data/site';
+import Parceria from '../components/Parceria.astro';
+---
+
+<Institucional
+  fontes={['TN-F018', 'TN-F023', 'TN-F024', 'TN-F027', 'TN-F030', 'TN-F031', 'TN-F034', 'TN-F035', 'TN-F040', 'TN-F042', 'TN-F046', 'TN-F177', 'X-correcoes-a-03', 'X-correcoes-a-04']}
+  title="Transparência: quem paga este site"
+  description="Quem paga o Maquininha Já: hoje, ninguém. Como funcionaria a comissão do Renda Extra Ton e o que mudaria para você."
+  h1={PROGRAMA_ATIVO ? "Transparência: somos Parceiro Ton, não a Ton" : "Transparência: quem paga este site"}
+  rotulo="Transparência"
+  path="/transparencia/"
+  resumo={PROGRAMA_ATIVO ? "O site é pago pela Ton quando alguém pede uma maquininha por um link nosso e vira cliente novo. Você não paga mais por isso. Abaixo, quanto e como." : "Hoje, ninguém: o site ainda não participa do programa de parceiros da Ton. Quando participar, a receita será a comissão descrita abaixo, e esta página dirá isso."}
+>
+  <h2>De onde vem o dinheiro</h2>
+  <p><strong><Parceria><Fragment slot="ativo">Hoje o site participa do programa Renda Extra Ton.</Fragment></Parceria></strong></p>
+  <p>
+    {PROGRAMA_ATIVO ? 'Do' : 'Quando o site participar, a receita virá do'} programa Renda Extra Ton, o programa de indicação da própria Ton. Quando você pede uma maquininha por um link do site e
+    a indicação é validada, a Ton paga uma comissão ao parceiro.
+  </p>
+  <p>
+    A indicação só vale para cliente novo, na primeira máquina, com cadastro e pagamento aprovados e sem vendas anteriores. Quem
+    já é cliente e usa as páginas de ajuda não gera comissão nenhuma. Essas páginas existem porque são úteis.
+  </p>
+
+  <h2>Quanto a Ton paga</h2>
+  <p>A tabela oficial de comissão por máquina, no nível inicial do programa:</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Comissão por modelo">
+    <table>
+      <caption>Comissão por cliente novo, plano Ton Mega+, nível inicial</caption>
+      <thead><tr><th scope="col">Modelo</th><th scope="col" class="num">Comissão</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">T1</th><td class="num">R$ 40</td></tr>
+        <tr><th scope="row">T2</th><td class="num">R$ 50</td></tr>
+        <tr><th scope="row">T3</th><td class="num">R$ 150</td></tr>
+        <tr><th scope="row">T3 Smart</th><td class="num">R$ 170</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    Nos níveis mais altos o valor sobe, e há bônus quando o cliente indicado começa a vender. O
+    pagamento é creditado só na conta de pagamento do parceiro, sem outra modalidade.
+  </p>
+
+  <h2>O que isso muda para você</h2>
+  <ul>
+    <li>
+      <strong>Preço:</strong> nenhum aumento. {
+        PROGRAMA_ATIVO
+          ? 'Pelo link de parceiro, a página do programa fala em cupom de 5% na adesão.'
+          : 'Quando o link de parceiro estiver ativo, a página do programa fala em cupom de 5% na adesão.'
+      } O regulamento diz que o desconto varia pelo nível do parceiro e pode ser desativado (Regulamento
+      Renda Ton, 5.5).
+    </li>
+    <li><strong>Links:</strong> todo link que pode gerar comissão passa por /link/ e é marcado como patrocinado (rel="sponsored").</li>
+    <li><strong>Escolha:</strong> a T3 paga mais comissão que a T1, mas o site indica a T1 ou o TapTon para quem vende pouco. O critério está em <a href="/como-testamos/">como avaliamos</a>.</li>
+  </ul>
+
+  <h2>O que o programa proíbe, e nós seguimos</h2>
+  <ul>
+    <li>Usar "Ton" no nome do site ou em registro formal.</li>
+    <li>Comprar palavra-chave com Ton, TapTon, Stone, Pagar.me ou marcas concorrentes, em qualquer plataforma.</li>
+    <li>Criar promoção, desconto ou cashback por conta própria.</li>
+    <li>Se apresentar como funcionário ou atendimento oficial.</li>
+    <li>Copiar o site oficial.</li>
+  </ul>
+
+  <h2>Sem anunciante</h2>
+  <p>
+    O site não vende espaço para anúncio e não recebe de concorrentes da Ton. {
+      PROGRAMA_ATIVO
+        ? 'A única fonte de receita é a comissão descrita acima.'
+        : 'Hoje o site não tem receita. Quando tiver, a única fonte será a comissão descrita acima.'
+    }
+  </p>
+</Institucional>

@@ -1,0 +1,14 @@
+---
+// Preço de adesão de um modelo (src/data/modelos.ts). <Preco modelo="t3" /> -> R$ 108,00
+// <Preco modelo="t3" de /> -> preço "de" (riscado na página oficial)
+import { modelo, brl } from '../../data/modelos';
+interface Props {
+  modelo: 't1' | 't2' | 't3' | 't3-smart';
+  de?: boolean;
+  parcela?: boolean;
+}
+const m = modelo(Astro.props.modelo);
+const txt = Astro.props.parcela ? m.parcela : brl(Astro.props.de ? m.precoDe : m.preco);
+---
+
+<span class="preco">{txt}</span>

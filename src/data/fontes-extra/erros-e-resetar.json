@@ -1,0 +1,67 @@
+{
+ "X-erros-e-resetar-01": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/erros-de-transa%C3%A7%C3%A3o",
+  "data": "2026-10-13",
+  "trecho": "Os erros de transação são retornos do banco ou da própria máquina e cada um tem o seu significado, n a planilha abaixo estão os principais erros, caso não encontre o código que está procurando, colocamos a lista completa no final desse artigo."
+ },
+ "X-erros-e-resetar-02": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/erros-de-transa%C3%A7%C3%A3o",
+  "data": "2026-10-13",
+  "trecho": "4 FNC_DECISION_ERR T1 O erro 4 significa que a transação não foi aprovada, peço que tente repetir a venda, se o erro persistir pode ser uma instabilidade momentânea. 13 ST_CANCEL T1 O erro 13 significa que a operação foi cancelada pelo portador do cartão, basta tentar novamente 43 ST_NOCARD T1 O erro 43 significa que o cartão não foi inserido ou aproximado corretamente, basta efetuar a venda novamente 60 ST_DUMBCARD T1 No caso do erro 60 o cartão não está respondendo, peço que tente novamente ou com outro cartão 70 ST_CARDAPPNAV T1 O erro 70 significa que a transação não foi aprovada, peço que tente repetir a venda, se o erro persistir pode ser uma instabilidade momentânea."
+ },
+ "X-erros-e-resetar-03": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/erros-de-transa%C3%A7%C3%A3o",
+  "data": "2026-10-13",
+  "trecho": "1000 Não Aprovado Todas O erro 1000 significa que a venda não foi aprovada, aguardar 5 minutos e tentar novamente, se persistir peça que o portador entre em contato com o SAC do banco emissor do cartão 1016 Saldo Insuficiente Todas O erro 1016 significa saldo insuficiente, nesse caso o portador deve verificar junto ao banco ou tentar em outro cartão 1017 Consultar o Emissor Todas O 1017 significa que a senha está incorreta, basta refazer a operação utilizando a senha correta, se persistir peça que o portador entre em contato com o banco emissor do cartão 1019 Transação Não Permitida para o Portador Todas O erro 1019 significa que a venda não foi permitida, peço que aguarde 5 minutos e tente novamente, se persistir peça que o portador entre em contato com o SAC que consta atrás do cartão"
+ },
+ "X-erros-e-resetar-04": {
+  "url": "https://ajuda.ton.com.br/pt_BR/tapton/quais-sao-os-erros-de-transacao",
+  "data": "2026-10-13",
+  "trecho": "Os erros de transação normalmente são retornos do banco e cada um tem o seu significado, abaixo estão os principais erros mapeados: Código do erro Descrição do erro Como solucionar 1 ERRO 1 - CONSULTE O EMISSOR Aguarde 5 minutos e tente novamente, se persistir peça ao portador do cartão que entre em contato com o banco emissor. 2 ERRO 2 - CONSULTE O EMISSOR Aguarde 5 minutos e tente novamente, se persistir peça ao portador do cartão que entre em contato com o banco emissor. 5 ERRO 5 - DO NOT HONOR Aguarde 5 minutos e tente novamente, se persistir peça ao portador do cartão que entre em contato com o banco emissor. 7 ERRO 7 - VENDA NÃO AUTORIZADA Aguarde 5 minutos e tente novamente, se persistir peça ao portador do cartão que entre em contato com o banco emissor. 19 ERRO 19 - REFAÇA A TRANSAÇÃO Aguarde 5 minutos, caso persista entre em contato com o nosso time. 51 ERRO 51 - SALDO INSUFICIENTE Repita a venda, caso o erro persista, tente em outro cartão. 54 ERRO 54 - CARTÃO OU DATA DE VENCIMENTO EXPIRADA Repita a venda, caso o erro persista, tente em outro cartão. 61 ERRO 61 - LIMITE EXCEDIDO Repita a venda, caso o erro persista, tente em outro cartão. 91 ERRO 91 - EMISSOR INOPERANTE Tente novamente, se persistir realize a transação com um cartão de outro emissor. ZZ ERRO ZZ - RESULTADO INESPERADO Aguarde 5 minutos, caso persista entre em contato com o nosso time. 0C ERRO 0C - CARTÃO NÃO ACEITO Realize a venda em outro cartão, caso persista, entre em contato com o nosso time."
+ },
+ "X-erros-e-resetar-05": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/novidades-da-maquininha-t3-smart-versao-710",
+  "data": "2026-10-13",
+  "trecho": "Se você notar que alguma dessas funcionalidades ainda não apareceu para você, basta reiniciar a sua maquininha para forçar o download da nova versão."
+ },
+ "X-erros-e-resetar-06": {
+  "url": "https://www.ton.com.br/pix-na-maquininha",
+  "data": "2026-10-13",
+  "trecho": "Para ativar a função Pix na maquininha é necessário que você crie uma chave aleatória em seu app, vou te explicar como: 1- Acesse a opção “Pix”; 2- Clique em “Minhas chaves” e “Cadastrar chave”; 3- Selecione o tipo de chave: celular, CPF, CNPJ ou aleatória. Para ter Pix grátis e ilimitado, cadastre com celular, CPF ou CNPJ. . Prontinho, sua chave foi criada! Agora reinicie a maquininha para começar a usar a função."
+ },
+ "X-erros-e-resetar-07": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t1",
+  "data": "2026-10-13",
+  "trecho": "Se aparecer um ícone de cadeado na tela, pressione o botão preto na parte de cima ( D175BT, MP15 ) ou o botão ANULA ( D177 , D180 )"
+ },
+ "X-erros-e-resetar-08": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t1",
+  "data": "2026-10-13",
+  "trecho": "Teclado bloqueado : Pode ser que o teclado da sua maquininha esteja bloqueado. Confira se tem um ícone de cadeado na tela e, se tiver, pressione o mesmo botão de ligar e desligar pra desbloquear. - A senha não funcionou : Após pressionar o botão 0, a maquininha exibe uma senha, também chamada de PIN. Se ela não funcionar, tente 000000 ou 123456."
+ },
+ "X-erros-e-resetar-09": {
+  "url": "https://documentos.ton.com.br/termos-e-condicoes.pdf",
+  "data": "2026-10-13",
+  "trecho": "f) Não realizar qualquer reparação ou modificação no Equipamento, devendo comunicar imediatamente o Pagar.me acerca de qualquer intervenção no Equipamento ou violação por terceiros de quaisquer dos seus direitos relativamente ao Equipamento;"
+ },
+ "X-erros-e-resetar-10": {
+  "url": "https://documentos.ton.com.br/termos-e-condicoes.pdf",
+  "data": "2026-10-13",
+  "trecho": "i) Não ceder, copiar, alterar, modificar, adaptar, manipular, adicionar, descompilar, decompor ou efetuar qualquer conversão dos software e aplicativos cedidos ou inseridos no Equipamento, sendo vedado também o uso de engenharia reversa, modificação ou utilização para fins diversos dos previstos no Termo, sob pena de imediata rescisão, sem prejuízo do ressarcimento por eventuais Perdas acarretadas ao Pagar.me;"
+ },
+ "X-erros-e-resetar-11": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/prazo-de-garantia",
+  "data": "2026-10-13",
+  "trecho": "Por funcionar em regime de comodato, você terá uma garantia vitalícia, pois assumimos total responsabilidade sobre sua manutenção, oferecendo suporte ilimitado em casos de problemas técnicos, defeitos de fabricação ou roubo/furto do equipamento. Ressaltando que, em caso de rouba/furto será necessário apresentação do boletim de ocorrência."
+ },
+ "X-erros-e-resetar-12": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t1",
+  "data": "2026-10-13",
+  "trecho": "Se essas soluções não funcionarem, converse com o Ton no chat do aplicativo."
+ },
+ "X-erros-e-resetar-13": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/novidades-da-maquininha-t3-smart-versao-710",
+  "data": "2026-10-13",
+  "trecho": "Economia de Bateria (Time-out): Agora, 20 segundos após a conclusão de uma venda, a sua maquininha volta sozinha para a tela inicial e pode apagar o visor (entrar em modo sleep ). Isso evita que ela fique gastando bateria por inércia enquanto está parada."
+ }
+}

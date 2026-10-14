@@ -1,0 +1,77 @@
+{
+ "X-nao-liga-ou-sem-sinal-01": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t1",
+  "data": "2026-10-13",
+  "trecho": "Conexão Bluetooth: A T1 usa Bluetooth pra conectar com o seu celular. Confirme se o Bluetooth está ativado ou se o app do Ton está autorizado a usar o Bluetooth. - Bateria fraca : Pode ser que a bateria da maquininha tenha acabado durante a ativação. Confira se ela está ligada ou recarregue pra continuar."
+ },
+ "X-nao-liga-ou-sem-sinal-02": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t1",
+  "data": "2026-10-13",
+  "trecho": "Se aparecer um ícone de cadeado na tela, pressione o botão preto na parte de cima ( D175BT, MP15 ) ou o botão ANULA ( D177 , D180 )"
+ },
+ "X-nao-liga-ou-sem-sinal-03": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t1",
+  "data": "2026-10-13",
+  "trecho": "Teclado bloqueado : Pode ser que o teclado da sua maquininha esteja bloqueado. Confira se tem um ícone de cadeado na tela e, se tiver, pressione o mesmo botão de ligar e desligar pra desbloquear."
+ },
+ "X-nao-liga-ou-sem-sinal-04": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/como-alterar-a-rede-da-maquina",
+  "data": "2026-10-13",
+  "trecho": "Para ativar o wifi e os dados pelo chip, nas maquininhas T2 ou T3, basta seguir o passo a passo abaixo: Aperte o \" Botão Verde\" para acessar o Menu Escolha a opção \" Ajustes\" Depois \" Configurar\" Em seguida aperte \"Trocar para 3g\" ou \"Trocar para Wifi\" Lembrando que só funciona uma rede por vez e que a mudança acontece automaticamente caso se afaste do local onde possuí Wifi."
+ },
+ "X-nao-liga-ou-sem-sinal-05": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/preciso-colocar-internet-no-chip-da-m%C3%A1quina",
+  "data": "2026-10-13",
+  "trecho": "A máquina é enviada com chip e o plano de dados ativos, não sendo necessário realizar recarga para funcionamento. Vale lembrar que o chip não pode ser utilizado em outro dispositivo."
+ },
+ "X-nao-liga-ou-sem-sinal-06": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/como-ativar-ou-desativar-tela-de-descanso",
+  "data": "2026-10-13",
+  "trecho": "Para ativar ou desativar a tela de descanso da sua máquina T2 ou T3, basta seguir o passo a passo abaixo: Na sua máquina aperte o botão verde para entrar no Menu Depois vá até “Ajustes” Escolha a opção “Energia” E “Ativar ou Desativar a Ultra economia'' . Nessa mesma tela é possível aumentar ou diminuir o brilho da tela de sua máquina. Lembrando que com a função ultra economia ativada você poupará a bateria da sua máquina quando ela estiver sem uso."
+ },
+ "X-nao-liga-ou-sem-sinal-07": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/novidades-da-maquininha-t3-smart-versao-710",
+  "data": "2026-10-13",
+  "trecho": "Economia de Bateria (Time-out): Agora, 20 segundos após a conclusão de uma venda, a sua maquininha volta sozinha para a tela inicial e pode apagar o visor (entrar em modo sleep ). Isso evita que ela fique gastando bateria por inércia enquanto está parada."
+ },
+ "X-nao-liga-ou-sem-sinal-08": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/novidades-da-maquininha-t3-smart-versao-710",
+  "data": "2026-10-13",
+  "trecho": "Se você notar que alguma dessas funcionalidades ainda não apareceu para você, basta reiniciar a sua maquininha para forçar o download da nova versão."
+ },
+ "X-nao-liga-ou-sem-sinal-09": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/prazo-de-garantia",
+  "data": "2026-10-13",
+  "trecho": "Por funcionar em regime de comodato, você terá uma garantia vitalícia, pois assumimos total responsabilidade sobre sua manutenção, oferecendo suporte ilimitado em casos de problemas técnicos, defeitos de fabricação ou roubo/furto do equipamento. Ressaltando que, em caso de rouba/furto será necessário apresentação do boletim de ocorrência."
+ },
+ "X-nao-liga-ou-sem-sinal-10": {
+  "url": "https://documentos.ton.com.br/termos-e-condicoes.pdf",
+  "data": "2026-10-13",
+  "trecho": "f) Não realizar qualquer reparação ou modificação no Equipamento, devendo comunicar imediatamente o Pagar.me acerca de qualquer intervenção no Equipamento ou violação por terceiros de quaisquer dos seus direitos relativamente ao Equipamento;"
+ },
+ "X-nao-liga-ou-sem-sinal-11": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t2",
+  "data": "2026-10-13",
+  "trecho": "Elas contam com chip 3G ou 4G e conexão Wi-Fi, garantindo boa conectividade para realizar suas vendas com segurança."
+ },
+ "X-nao-liga-ou-sem-sinal-12": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t3",
+  "data": "2026-10-13",
+  "trecho": "Elas contam com chip 3G e conexão Wi-Fi, garantindo estabilidade nas transações."
+ },
+ "X-nao-liga-ou-sem-sinal-13": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t3-smart",
+  "data": "2026-10-13",
+  "trecho": "Elas contam com chip 3G, 4G e conexão Wi-Fi, garantindo que suas vendas aconteçam de forma rápida e estável."
+ },
+ "X-nao-liga-ou-sem-sinal-14": {
+  "url": "https://www.ton.com.br/catalogo-na-maquininha",
+  "data": "2026-10-13",
+  "trecho": "O catálogo funciona sem internet? Sim! O catálogo na maquininha foi desenhado para funcionar em modo offline na maior parte do tempo. Você consegue navegar pelos produtos e montar pedidos sem conexão. A internet será necessária apenas para: - Realizar a cobrança (cartão ou PIX)"
+ },
+ "X-nao-liga-ou-sem-sinal-15": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t1",
+  "data": "2026-10-13",
+  "trecho": "Se essas soluções não funcionarem, converse com o Ton no chat do aplicativo."
+ }
+}

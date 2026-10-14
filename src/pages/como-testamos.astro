@@ -1,0 +1,69 @@
+---
+import Institucional from '../layouts/Institucional.astro';
+import { SITE } from '../data/site';
+---
+
+<Institucional
+  fontes={['TN-F007', 'TN-F034', 'TN-F051', 'TN-F066', 'TN-F069']}
+  title="Como avaliamos as maquininhas Ton"
+  description="O método do site: só fonte oficial, trecho literal guardado, data em cada número, conflito exposto e o protocolo do teste com o aparelho em mãos."
+  h1="Como avaliamos cada maquininha Ton antes de recomendar"
+  rotulo="Método"
+  path="/como-testamos/"
+  resumo="Hoje a avaliação é documental: cada fato sai de um documento oficial da Ton, com link e data. O teste com o aparelho em mãos segue o protocolo abaixo e entra em cada ficha quando for feito."
+>
+  <h2>1. Só fonte oficial</h2>
+  <p>
+    Taxa, preço, prazo e regra saem de páginas e documentos da própria Ton: site, central de ajuda, tabela de planos,
+    regulamentos e termos de uso. Reputação vem do Reclame Aqui e das lojas de aplicativo. Notícia ou site de terceiros não
+    serve de fonte para taxa.
+  </p>
+
+  <h2>2. Trecho literal guardado</h2>
+  <p>
+    Para cada fato, guardamos o endereço do documento, a data da consulta e o trecho copiado sem edição. É esse trecho que
+    aparece na lista "De onde saiu cada número", no fim de cada página. Se o documento mudar, dá para comparar.
+  </p>
+
+  <h2>3. Número vem dos dados, não do texto</h2>
+  <p>
+    As taxas do site saem de uma única tabela, montada a partir da tabela oficial de planos da Ton. Os textos puxam o número dessa tabela. Quando a Ton muda uma taxa, a correção é feita num lugar só e
+    aparece em todas as páginas.
+  </p>
+
+  <h2>4. Conflito aparece como conflito</h2>
+  <p>
+    A Ton às vezes se contradiz. Exemplo: a página da T2 diz "Chip 3G", a tabela de comparação diz "Chip 4G". Nesses casos, o site mostra as duas versões num quadro "A própria Ton se contradiz
+    aqui" e recomenda conferir antes de pedir.
+  </p>
+
+  <h2>5. Data em tudo</h2>
+  <p>
+    Preço de maquininha é promocional e muda sem aviso. Por isso cada página traz a data em que os dados foram conferidos. A
+    rodada atual foi em {SITE.verificadoEmTexto}.
+  </p>
+
+  <h2>6. Protocolo do teste em mãos</h2>
+  <p>
+    O teste com o aparelho em mãos ainda não foi feito. Quando for, cada máquina (T1, T2, T3 e T3 Smart) passa pelo mesmo
+    roteiro, e o resultado entra na ficha do modelo com a data e o nome de quem testou:
+  </p>
+  <ul>
+    <li>Tempo de cada transação, do cartão encostado ao comprovante.</li>
+    <li>Sinal do chip e do Wi-Fi em pelo menos dois lugares diferentes.</li>
+    <li>Quantas horas a bateria aguenta num dia de vendas.</li>
+    <li>Impressão do comprovante (T3 e T3 Smart).</li>
+    <li>Quanto a T1 depende do celular: pareamento, queda de Bluetooth, consumo de bateria do telefone.</li>
+  </ul>
+  <p>
+    Um cuidado: a regra da campanha de cashback da Ton diz que a máquina pertence à Ton e pode ser recolhida se ficar mais de 30
+    dias sem transação. O teste prevê ao menos uma venda por máquina a cada 30 dias.
+  </p>
+
+  <h2>7. Se houver comissão, ela não escolhe a recomendação</h2>
+  <p>
+    Hoje o site não recebe comissão. No programa da Ton, a comissão é maior para T3 e T3 Smart do que para T1 e T2. Mesmo assim, o site indica a T1 ou o
+    TapTon para quem vende pouco, porque é o que serve. As regras de escolha estão escritas em cada ficha, na seção "Serve
+    para quem".
+  </p>
+</Institucional>

@@ -1,0 +1,373 @@
+---
+// Ficha de cada maquininha: dados oficiais (src/data/modelos.ts) + análise editorial
+// (src/content/modelos/<slug>.mdx). Avaliação documental: nenhuma frase afirma teste em
+// mãos até o teste existir (Fase 0: compra dos aparelhos e autor real).
+import { Picture } from 'astro:assets';
+import { getEntry, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Fonte from '../../components/Fonte.astro';
+import Fontes from '../../components/Fontes.astro';
+import Callout from '../../components/Callout.astro';
+import CtaIndicacao from '../../components/CtaIndicacao.astro';
+import Faq from '../../components/Faq.astro';
+import Parceria from '../../components/Parceria.astro';
+import Taxa from '../../components/dados/Taxa.astro';
+import Preco from '../../components/dados/Preco.astro';
+import TabelaParcelas from '../../components/dados/TabelaParcelas.astro';
+import TabelaFaixas from '../../components/dados/TabelaFaixas.astro';
+import { MODELOS, brl, pctBR, type Modelo } from '../../data/modelos';
+import { SITE } from '../../data/site';
+import taxas from '../../data/taxas.json';
+import { IMG_MODELO } from '../../lib/imagens';
+import { pagina, produto, ID } from '../../lib/schema';
+import { dig } from '../../lib/texto';
+
+export function getStaticPaths() {
+  return MODELOS.map((m) => ({ params: { modelo: m.slug }, props: { m } }));
+}
+
+const SEO: Record<Modelo['slug'], { title: string; h1: string; description: string }> = {
+  t1: {
+    title: 'Ton T1: preço, taxas e para quem vale a pena',
+    h1: 'Ton T1: a mais barata, que depende do seu celular',
+    description:
+      'Ton T1 por R$ 16,80: leitor Bluetooth que precisa do celular, sem Pix na máquina e parcelado até 12x. Veja taxa depois do mês promocional e para quem serve.',
+  },
+  t2: {
+    title: 'Ton T2: preço, taxas e para quem vale a pena',
+    h1: 'Ton T2: chip próprio, sem impressora. Para quem serve?',
+    description:
+      'Ton T2 por R$ 49,88: chip e Wi-Fi, Pix na máquina e comprovante por SMS. Veja a taxa depois do mês promocional, o conflito 3G x 4G e para quem ela serve.',
+  },
+  t3: {
+    title: 'Ton T3: preço, taxas e para quem vale a pena',
+    h1: 'Ton T3: impressora, chip e quanto sobra de cada venda',
+    description:
+      'Ton T3 por R$ 108: imprime comprovante, tem chip e Wi-Fi e parcela até 21x. Veja quanto sobra de cada venda depois do mês promocional e para quem ela vale.',
+  },
+  't3-smart': {
+    title: 'Ton T3 Smart: preço, taxas e para quem vale',
+    h1: 'Ton T3 Smart: a Android da Ton vale a diferença?',
+    description:
+      'Ton T3 Smart por R$ 191,88: Android com tela de toque, chip 4G e impressora. Veja se vale pagar mais que a T3 e a taxa depois do mês promocional.',
+  },
+};
+
+const { m } = Astro.props;
+const seo = SEO[m.slug];
+const path = `/modelos/${m.slug}/`;
+const analise = await getEntry('modelos', m.slug);
+const Analise = analise ? (await render(analise)).Content : null;
+const img = IMG_MODELO[m.slug];
+const promo = taxas.faixas.find((f) => f.id === 'promo')!;
+const ate3k = taxas.faixas.find((f) => f.id === 'ate3k')!;
+const f3a6 = taxas.faixas.find((f) => f.id === '3a6k')!;
+
+const crumbs = [
+  { name: 'Início', href: '/' },
+  { name: 'Modelos', href: '/modelos/' },
+  { name: m.nome, href: path },
+];
+const schema = [
+  ...pagina({ path, title: seo.title, description: seo.description, tipo: 'WebPage', atualizado: SITE.verificadoEm, crumbs, sobre: [`${SITE.url}${path}#produto`] }),
+  produto({
+    path,
+    slug: m.slug,
+    nome: m.nome,
+    descricao: `${m.tipo}. ${m.serve}`,
+    preco: m.preco,
+    urlOficial: m.urlOficial,
+    imagem: `${SITE.url}/og/${m.slug}.jpg`,
+  }),
+];
+const ficha: [string, string][] = [
+  ['Tipo', m.tipo],
+  ['Conexão', m.conexao],
+  ['Precisa de celular', m.precisaCelular ? 'Sim, com internet' : 'Não'],
+  ['Comprovante', m.impressora],
+  ['Pix na maquininha', m.pix],
+  ['Aproximação (NFC)', m.nfc],
+  ['Parcelamento máximo', m.parcelasNota ?? `${m.parcelasMax}x`],
+  ['Vale-alimentação e refeição', m.vouchers],
+  ['Modelos de hardware', m.hardware],
+  ['Mensalidade', 'Não tem. Adesão única, em comodato'],
+];
+const outros = MODELOS.filter((x) => x.slug !== m.slug);
+const componentes = { Parceria, Fonte, Callout, CtaIndicacao, Taxa, Preco, TabelaParcelas, TabelaFaixas };
+const ids = [...m.fontes, ...(m.conflito?.fontes ?? []), ...(analise?.data.fontes ?? []), 'TN-F011', 'TN-F051', 'TN-F052', 'TN-F071', 'TN-F016', 'X-ton-e-confiavel-06'];
+---
+
+<Base title={seo.title} description={seo.description} crumbs={crumbs} schema={schema} ogImage={`/og/${m.slug}.jpg`} atualizado={SITE.verificadoEm}>
+  <section class="topo-modelo">
+    <div class="wrap tm-grid">
+      <div class="tm-txt">
+        <span class="chip chip-dot">{m.tipo}</span>
+        <h1 set:html={dig(seo.h1)} />
+        <p class="apelido">A Ton chama de “{m.apelido}”. </p>
+        <div class="preco-box">
+          <p class="p-valor"><span class="n">{brl(m.preco)}</span> <span class="p-de">de {brl(m.precoDe)}</span></p>
+          <p class="p-nota">Adesão à vista ou {m.parcela}. Preço promocional conferido em {SITE.verificadoEmTexto}. </p>
+        </div>
+        <div class="tm-ctas">
+          <CtaIndicacao chave={m.slug} texto={`Pedir a ${m.nome} no site da Ton`} />
+        </div>
+        <a class="comparar" href="/modelos/">Comparar com os outros modelos</a>
+      </div>
+      <figure class="tm-img">
+        <Picture src={img.src} alt={img.alt} formats={['avif', 'webp']} widths={[360, 540, 720]} sizes="(max-width: 900px) 88vw, 480px" quality={60} loading="eager" fetchpriority="high" />
+        <figcaption>Ilustração com aparelho genérico. Não é foto da {m.nome}.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="wrap-text corpo">
+    <Callout tipo="info" titulo="Como esta página foi feita">
+      <p>
+        Avaliação feita sobre os documentos oficiais da Ton (página do produto, tabela de planos e regulamentos), com link
+        para cada um. O teste com o aparelho em mãos entra nesta página quando for feito. <a href="/como-testamos/">Como avaliamos</a>
+      </p>
+    </Callout>
+
+    <section class="bloco" aria-labelledby="serve">
+      <h2 id="serve">Serve para quem</h2>
+      <div class="grid grid-2 serve">
+        <div class="card"><p class="eyebrow">Serve</p><p>{m.serve}</p></div>
+        <div class="card"><p class="eyebrow">Não serve</p><p>{m.naoServe}</p></div>
+      </div>
+    </section>
+
+    <section class="bloco" aria-labelledby="ficha">
+      <h2 id="ficha">Ficha da {m.nome}</h2>
+      <div class="table-wrap" tabindex="0" role="region" aria-label={`Ficha técnica da ${m.nome}`}>
+        <table>
+          <tbody>
+            {ficha.map(([k, v]) => (<tr><th scope="row">{k}</th><td>{v}</td></tr>))}
+          </tbody>
+        </table>
+      </div>
+      {
+        m.conflito && (
+          <Callout tipo="conflito">
+            <p>
+              {m.conflito.texto}
+            </p>
+          </Callout>
+        )
+      }
+    </section>
+
+    <section class="bloco" aria-labelledby="custo">
+      <h2 id="custo">Quanto custa de verdade</h2>
+      <p>
+        A taxa não depende do modelo: as quatro máquinas seguem o Ton Mega+. O que muda é o mês. Nos primeiros 30 dias ou até
+        R$ 5 mil em vendas, vale a taxa promocional. Depois, a taxa da sua faixa de faturamento.
+      </p>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Taxa no mês promocional e depois">
+        <table>
+          <caption>Visa e Mastercard, recebendo em 1 dia útil</caption>
+          <thead><tr><th scope="col">Quando</th><th scope="col" class="num">Débito</th><th scope="col" class="num">Crédito à vista</th><th scope="col" class="num">Crédito 12x</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Mês promocional</th><td class="num">{pctBR(promo.prazos.d1.debito)}</td><td class="num">{pctBR(promo.prazos.d1.credito1x)}</td><td class="num">{pctBR(promo.prazos.d1.parcelas['12'])}</td></tr>
+            <tr class="hl"><th scope="row">Depois, vendendo até R$ 3 mil/mês</th><td class="num">{pctBR(ate3k.prazos.d1.debito)}</td><td class="num">{pctBR(ate3k.prazos.d1.credito1x)}</td><td class="num">{pctBR(ate3k.prazos.d1.parcelas['12'])}</td></tr>
+            <tr><th scope="row">Depois, de R$ 3 mil a R$ 6 mil/mês</th><td class="num">{pctBR(f3a6.prazos.d1.debito)}</td><td class="num">{pctBR(f3a6.prazos.d1.credito1x)}</td><td class="num">{pctBR(f3a6.prazos.d1.parcelas['12'])}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="nota-fonte">Tabela de planos da Ton, cliente novo. As outras faixas e o recebimento na hora estão em <a href="/quanto-custa/">quanto custa</a>.</p>
+      <p>
+        A adesão é paga uma vez, à vista ou em até 12x no cartão, sem aluguel. A máquina fica com
+        você em comodato: pelos termos de uso, não há transferência de propriedade. A página do plano MEI
+        diz o contrário, "a máquina é sua propriedade": confirme antes de pedir.
+      </p>
+      <a class="btn btn-dark" href="/quanto-custa/calculadora/">Simular com o meu faturamento</a>
+    </section>
+
+    {
+      Analise && (
+        <section class="bloco prose analise">
+          <Analise components={componentes} />
+        </section>
+      )
+    }
+
+    {
+      analise && (
+        <section class="bloco" aria-labelledby="pc">
+          <h2 id="pc">Prós e contras, pelo que a Ton documenta</h2>
+          <div class="grid grid-2">
+            <div class="card pc pro"><p class="eyebrow">Prós</p><ul>{analise.data.pros.map((x) => <li set:html={x} />)}</ul></div>
+            <div class="card pc contra"><p class="eyebrow">Contras</p><ul>{analise.data.contras.map((x) => <li set:html={x} />)}</ul></div>
+          </div>
+        </section>
+      )
+    }
+
+    <aside class="cta-final panel on-panel" aria-label={`Pedir a ${m.nome}`}>
+      <p class="display cta-tit" set:html={dig(`A ${m.nome} é a sua?`)} />
+      <CtaIndicacao chave={m.slug} texto={`Pedir a ${m.nome} no site da Ton`} />
+    </aside>
+
+    <nav class="outros" aria-label="Outros modelos">
+      <p class="eyebrow">Outros modelos</p>
+      <ul>
+        {outros.map((o) => (<li><a href={`/modelos/${o.slug}/`}><span set:html={dig(o.nome)} /> <span class="muted">{brl(o.preco)}</span></a></li>))}
+        <li><a href="/modelos/tapton/">TapTon <span class="muted">R$ 0</span></a></li>
+      </ul>
+    </nav>
+
+    {analise && analise.data.faq.length > 0 && <div class="bloco"><Faq itens={analise.data.faq} /></div>}
+
+    <Fontes ids={ids} />
+  </div>
+</Base>
+
+<style>
+  .topo-modelo {
+    padding-block: clamp(1.5rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem);
+  }
+  .tm-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .tm-txt {
+    display: grid;
+    gap: var(--s-4);
+    justify-items: start;
+  }
+  h1 {
+    font-size: var(--fs-6);
+    line-height: 0.98;
+  }
+  .apelido {
+    color: var(--muted);
+    margin: 0;
+  }
+  .preco-box {
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--line-strong);
+    padding: var(--s-4) 0;
+    width: 100%;
+  }
+  .p-valor {
+    font-size: var(--fs-5);
+    margin: 0;
+    line-height: 1.1;
+  }
+  .p-valor .n {
+    font-size: 1em;
+    font-weight: 650;
+  }
+  .p-de {
+    font-size: var(--fs-1);
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+  .p-nota {
+    font-size: var(--fs-0);
+    color: var(--muted);
+    margin: var(--s-2) 0 0;
+  }
+  .comparar {
+    font-size: var(--fs-1);
+    font-weight: 600;
+  }
+  .tm-img {
+    margin: 0;
+  }
+  .tm-img :global(img) {
+    width: 100%;
+    border-radius: var(--radius-l);
+    aspect-ratio: 1;
+    object-fit: cover;
+    background: #f6f6f1;
+  }
+  figcaption {
+    font-size: var(--fs-0);
+    color: var(--muted);
+    margin-top: var(--s-2);
+  }
+  .corpo {
+    padding-bottom: var(--s-9);
+  }
+  .bloco {
+    margin-top: var(--s-8);
+  }
+  .bloco > h2,
+  .bloco :global(h2) {
+    font-size: var(--fs-5);
+    margin-bottom: var(--s-5);
+  }
+  .serve {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  }
+  .serve .card p:last-child {
+    margin: 0;
+  }
+  .nota-fonte {
+    font-size: var(--fs-0);
+    color: var(--muted);
+    margin: var(--s-3) 0 var(--s-5);
+  }
+  .analise :global(h2) {
+    margin-top: var(--s-8);
+  }
+  .pc ul {
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+  .pc li + li {
+    margin-top: var(--s-2);
+  }
+  .pro {
+    border-top: 4px solid var(--green);
+  }
+  .contra {
+    border-top: 4px solid var(--ink);
+  }
+  .cta-final {
+    margin-top: var(--s-8);
+    border-radius: var(--radius-l);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    display: grid;
+    gap: var(--s-4);
+  }
+  .cta-tit {
+    font-size: var(--fs-5);
+    line-height: 1;
+    margin: 0;
+    color: var(--on-panel);
+  }
+  .outros {
+    margin-top: var(--s-7);
+  }
+  .outros ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .outros a {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--s-4) 0;
+    border-bottom: 1px solid var(--line-strong);
+    text-decoration: none;
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 1.75rem;
+  }
+  .outros .muted {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-size: var(--fs-1);
+    align-self: center;
+  }
+  @media (max-width: 900px) {
+    .tm-grid {
+      grid-template-columns: 1fr;
+    }
+    .tm-img {
+      max-width: 460px;
+    }
+  }
+</style>

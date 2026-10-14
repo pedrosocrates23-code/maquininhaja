@@ -1,0 +1,86 @@
+---
+// Lista de páginas de uma seção da collection "paginas" (hubs /ajuda/ e /aprenda/).
+import { getCollection } from 'astro:content';
+interface Props {
+  secao: 'ajuda' | 'aprenda' | 'quanto-custa' | 'modelos';
+  ordem?: string[]; // ids na ordem desejada; o resto vem depois, por data
+}
+const { secao, ordem = [] } = Astro.props;
+const itens = (await getCollection('paginas', (p) => p.data.secao === secao && !p.data.draft && !p.data.noindex)).sort(
+  (a, b) => {
+    const ia = ordem.indexOf(a.id);
+    const ib = ordem.indexOf(b.id);
+    if (ia !== -1 || ib !== -1) return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+    return b.data.atualizado.getTime() - a.data.atualizado.getTime();
+  },
+);
+---
+
+<ul class="lp">
+  {
+    itens.map((p) => (
+      <li>
+        <a href={`/${p.id}/`}>
+          <span class="lp-rot">{p.data.rotulo}</span>
+          <span class="lp-tit">{p.data.h1}</span>
+          <span class="lp-desc">{p.data.description}</span>
+          <span class="lp-seta" aria-hidden="true">
+            →
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+{itens.length === 0 && <p class="muted">Os primeiros textos desta seção estão sendo revisados.</p>}
+
+<style>
+  .lp {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .lp a {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--s-1) var(--s-5);
+    padding: var(--s-5) 0;
+    border-bottom: 1px solid var(--line-strong);
+    text-decoration: none;
+  }
+  .lp-rot {
+    font-size: var(--fs-0);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .lp-tit {
+    font-family: var(--font-display), Georgia, serif;
+    font-size: var(--fs-4);
+    line-height: 1.1;
+    grid-column: 1;
+  }
+  .lp-desc {
+    grid-column: 1;
+    color: var(--ink-2);
+    font-size: var(--fs-1);
+    max-width: 60ch;
+  }
+  .lp-seta {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: center;
+    font-size: 1.6rem;
+    transition: transform 0.2s ease;
+  }
+  .lp a:hover .lp-seta {
+    transform: translateX(4px);
+  }
+  .lp a:hover .lp-tit {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+  }
+</style>

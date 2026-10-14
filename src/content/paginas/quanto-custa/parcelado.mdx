@@ -1,0 +1,149 @@
+---
+title: 'Taxa Ton parcelado: quanto custa de 2x a 21x'
+description: 'Taxa da Ton no crédito parcelado de 2x a 21x, quem paga os juros, como repassar ao cliente e quanto você recebe numa venda de R$ 1.000 em 10x.'
+h1: 'Juros e parcelamento na Ton: até 12x e 21x'
+rotulo: 'Quanto custa'
+secao: 'quanto-custa'
+kw: 'taxa ton parcelado'
+resumo: 'A Ton cobra de você uma taxa por venda que sobe com o número de parcelas. O cliente paga <strong>sem juros</strong>. T3 e T3 Smart parcelam em até <strong>21x</strong>; T1 e T2, em até <strong>12x</strong>. Numa venda de R$ 1.000 em 10x, na faixa até R$ 3 mil, você recebe R$ 798,10.'
+fontes: ['TN-F014', 'TN-F051', 'TN-F054', 'TN-F055', 'TN-F057', 'TN-F058', 'TN-F069', 'TN-F070', 'TN-F077', 'TN-F081', 'TN-F082', 'TN-F084', 'TN-F085', 'TN-F180', 'TN-F181', 'X-parcelado-01', 'X-parcelado-02', 'X-parcelado-03', 'X-parcelado-04', 'X-parcelado-05', 'X-parcelado-06', 'X-parcelado-07', 'X-parcelado-08', 'X-parcelado-09']
+publicado: 2026-10-13
+atualizado: 2026-10-13
+og: 'quanto-custa'
+cta: { chave: 't3', texto: 'Pedir a Ton T3, que parcela em até 21x' }
+relacionadas:
+  - { href: '/quanto-custa/', label: 'Taxas da Ton por faixa de faturamento' }
+  - { href: '/quanto-custa/quando-cai/', label: 'Quando cai o dinheiro de cada venda' }
+  - { href: '/modelos/t3/', label: 'Ton T3: a maquininha que parcela em 21x' }
+faq:
+  - p: 'A maquininha Ton cobra juros do cliente?'
+    r: '<p>Não da parte da Ton. No passo a passo oficial, a venda sai como "Parcelado sem juros (para o seu cliente)". Quem paga é você: a Ton desconta uma taxa da venda, maior quanto mais parcelas. Se quiser que o cliente arque com esse custo, você aumenta o valor cobrado com a calculadora do app.</p>'
+  - p: 'Como repassar a taxa da Ton para o cliente?'
+    r: '<p>A Ton diz que a maquininha não repassa a taxa sozinha. No app, abre a Calculadora de taxas e escolhe entre "Cobrar" e "Receber". A ajuda da Ton não explica a diferença: testa qual delas devolve o valor a cobrar. Digita o valor, confirma bandeira, modalidade e parcelas e toca em "Simular Venda". Depois passa na maquininha o valor que a calculadora mostrou.</p>'
+  - p: 'A maquininha Ton divide em quantas vezes?'
+    r: '<p>Na página de comparação da Ton, T3 e T3 Smart parcelam em até 21x e T1 e T2 em até 12x, para cliente novo. O Link de Pagamento vai até 12x. Para o TapTon, as páginas oficiais divergem entre 12x e 21x: confere no seu app.</p>'
+  - p: 'Por que a venda em 18x ou 21x foi recusada?'
+    r: '<p>Quem decide o limite de parcelas é o banco que emitiu o cartão do cliente. Alguns bancos travam em 12x. A Ton também informa um valor mínimo de R$ 10 por parcela nas vendas acima de 12 vezes.</p>'
+---
+
+<p class="summarization">Na <strong>Ton</strong>, parcelar não cobra juros do cliente. Quem paga é você, numa taxa que sobe com o número de parcelas. <strong>T3</strong> e <strong>T3 Smart</strong> vão até <strong>21x</strong>; <strong>T1</strong> e <strong>T2</strong>, até 12x. Numa venda de <strong>R$ 1.000 em 10x</strong>, na faixa até R$ 3 mil e recebendo em 1 dia útil, você fica com R$ 798,10.</p>
+
+## Quanto a Ton cobra para parcelar
+
+A taxa do parcelado muda com três coisas. O número de parcelas. A sua faixa de faturamento no mês. E o prazo em que você quer receber.
+
+Começa pela tabela de quem recebe em 1 dia útil. A primeira coluna é o período promocional: os primeiros 30 dias ou até R$ 5 mil em vendas <Fonte id={['TN-F051', 'TN-F054']} />.
+
+<TabelaParcelas prazo="d1" faixas={['promo', 'ate3k', '3a6k']} ate={21} />
+
+Quer o dinheiro na hora? Nas faixas regulares, a taxa sobe em cada linha. O regulamento do Ton Mega+ diz que cada prazo de recebimento tem taxa própria <Fonte id="TN-F014" />.
+
+<TabelaParcelas prazo="na_hora" faixas={['promo', 'ate3k', '3a6k']} ate={21} />
+
+Repara num detalhe da primeira coluna. No período promocional, de 7x a 12x a taxa é a mesma: <Taxa faixa="promo" prazo="d1" tipo="parcela" parcelas={7} />. Em 13x ela salta para <Taxa faixa="promo" prazo="d1" tipo="parcela" parcelas={13} />. Na faixa de R$ 3 mil a R$ 6 mil acontece algo parecido: 6x sai a <Taxa faixa="3a6k" prazo="d1" tipo="parcela" parcelas={6} /> e 10x a <Taxa faixa="3a6k" prazo="d1" tipo="parcela" parcelas={10} />.
+
+O regulamento confirma o teto: a maquininha aceita parcelamento "em até 21 (vinte e uma) vezes" <Fonte id="X-parcelado-08" />. As taxas desta página são as do Ton Mega+ para cliente novo, conferidas em 13 de outubro de 2026 <Fonte id="TN-F055" />.
+
+### Se você vende mais de R$ 6 mil por mês
+
+Nas faixas de cima a taxa cai bastante. A tabela abaixo mostra as três, recebendo em 1 dia útil.
+
+<TabelaParcelas prazo="d1" faixas={['6a10k', '10a30k', '30k']} ate={21} legenda="Crédito parcelado Visa e Mastercard nas faixas acima de R$ 6 mil, recebendo em 1 dia útil" />
+
+A faixa é recalculada todo mês pelo que você vendeu no mês anterior fechado <Fonte id="TN-F180" />. Vendeu menos? Desce de faixa e a taxa sobe.
+
+## Quanto você recebe numa venda de R$ 1.000 em 10x
+
+Faz a conta com um exemplo. Venda de R$ 1.000 em 10x, faixa até R$ 3 mil, recebendo em 1 dia útil.
+
+1. A taxa de 10x nessa faixa é <Taxa faixa="ate3k" prazo="d1" tipo="parcela" parcelas={10} />.
+2. R$ 1.000 vezes essa taxa dá R$ 201,90. É o que a Ton fica.
+3. R$ 1.000 menos R$ 201,90 dá **R$ 798,10**. É o que cai na sua conta.
+4. O cliente paga 10 parcelas de R$ 100. Sem juros para ele.
+
+O mesmo R$ 1.000 em 10x muda bastante conforme a situação:
+
+- Recebendo na hora, a taxa vira <Taxa faixa="ate3k" prazo="na_hora" tipo="parcela" parcelas={10} />. Você recebe R$ 788,10.
+- Na faixa de R$ 3 mil a R$ 6 mil, em 1 dia útil, a taxa é <Taxa faixa="3a6k" prazo="d1" tipo="parcela" parcelas={10} />. Você recebe R$ 889,50.
+- No período promocional, a taxa é <Taxa faixa="promo" prazo="d1" tipo="parcela" parcelas={10} />. Você recebe R$ 920,30.
+- Em 21x, faixa até R$ 3 mil e 1 dia útil, a taxa é <Taxa faixa="ate3k" prazo="d1" tipo="parcela" parcelas={21} />. Você recebe R$ 714,20.
+
+Você não espera os 10 meses. O dinheiro da venda inteira cai no prazo escolhido, na hora ou em 1 dia útil <Fonte id={['TN-F014', 'TN-F181']} />. A Ton escreve que você recebe "o valor total da venda no mesmo dia" <Fonte id="X-parcelado-06" />.
+
+## Quem paga os juros: você ou o cliente
+
+Pela Ton, o cliente não paga juros. No passo a passo da maquininha, a opção que aparece é "Parcelado sem juros (para o seu cliente)" <Fonte id="X-parcelado-07" />. A taxa sai do seu lado.
+
+A Central de Ajuda é direta: "A maquininha do Ton não repassa automaticamente as taxas para o cliente" <Fonte id="X-parcelado-01" />. Quer que o cliente pague o custo? Aumenta o preço antes de passar o cartão. A própria Ton sugere decidir isso no simulador do app <Fonte id="X-parcelado-06" />.
+
+### Como repassar a taxa pelo app
+
+O caminho oficial tem cinco passos <Fonte id="X-parcelado-01" />:
+
+1. No app, abre a **Calculadora de taxas** na tela inicial.
+2. Escolhe entre **Cobrar** e **Receber**. A ajuda da Ton não explica a diferença: testa qual delas devolve o valor a cobrar.
+3. Digita o valor.
+4. Confirma bandeira, crédito parcelado e número de parcelas.
+5. Toca em **Simular Venda** e passa na maquininha o valor que aparecer.
+
+Pergunta a bandeira do cartão antes de simular. A Ton avisa que Elo e American Express podem ter taxas diferentes, e a bandeira errada faz você receber menos <Fonte id="X-parcelado-02" />.
+
+A conta por trás é simples. Divide o valor que você quer receber por (1 menos a taxa). Para receber R$ 1.000 em 10x na faixa até R$ 3 mil, cobra R$ 1.252,98. O cliente paga 10 parcelas de cerca de R$ 125,30. Faz a mesma conta na [calculadora de taxas](/quanto-custa/calculadora/) deste site se quiser comparar faixas.
+
+## Em quantas vezes cada maquininha parcela
+
+A página de maquininhas da Ton responde assim: o 21x vale para cliente novo que pedir T3 ou T3 Smart. Para T1 e T2, o limite é 12x <Fonte id="TN-F070" />. A tabela de comparação da mesma página mostra os dois limites, até 21x e até 12x <Fonte id="TN-F069" />.
+
+<Callout tipo="conflito" titulo="A T2 parcela em 21x?">
+A página de maquininhas da Ton diz que T1 e T2 param em 12x <Fonte id="TN-F070" />. Um post do blog da Ton de 30 de junho de 2026 lista a T2 entre as que parcelam em 21x, menos o modelo D188 pro <Fonte id="X-parcelado-03" />. Vai pedir a T2 pensando em 21x? Confirma antes no atendimento oficial.
+</Callout>
+
+Duas travas valem para qualquer modelo. O banco que emitiu o cartão do cliente decide o limite real, e alguns bancos param em 12x <Fonte id="X-parcelado-05" />. E acima de 12 vezes a Ton pede no mínimo R$ 10 por parcela <Fonte id="X-parcelado-07" />. Uma venda de R$ 150 não passa em 18x.
+
+Tem CNPJ e está no Ton Black? O regulamento desse plano fala em parcelamento em até 18 vezes na maquininha <Fonte id="X-parcelado-09" />.
+
+<CtaIndicacao chave="t3" texto="Pedir a Ton T3, que parcela em até 21x" />
+
+## TapTon e Link de Pagamento têm taxa própria
+
+O regulamento separa as taxas do TapTon e do Link de Pagamento das taxas da maquininha <Fonte id="X-parcelado-08" />. Não usa as tabelas de cima para esses dois.
+
+### TapTon
+
+No TapTon, recebendo em 1 dia útil, o parcelado custa <Taxa faixa="tapton" prazo="d1" tipo="parcela" parcelas={2} /> em 2x, <Taxa faixa="tapton" prazo="d1" tipo="parcela" parcelas={6} /> em 6x e <Taxa faixa="tapton" prazo="d1" tipo="parcela" parcelas={12} /> em 12x <Fonte id={['TN-F058', 'TN-F077']} />. A tabela oficial vai até <Taxa faixa="tapton" prazo="d1" tipo="parcela" parcelas={21} /> em 21x.
+
+Compara com a maquininha na faixa até R$ 3 mil. Em 12x, a maquininha cobra <Taxa faixa="ate3k" prazo="d1" tipo="parcela" parcelas={12} />. Numa venda de R$ 1.000, a diferença passa de R$ 90.
+
+<Callout tipo="conflito" titulo="TapTon parcela em 12x ou 21x?">
+A página do TapTon diz "parcelado em até 21x por aproximação" <Fonte id="TN-F081" />. A página MEI-PJ fala em cobrar "em até 12x" <Fonte id="TN-F085" />. O post do blog de junho de 2026 diz que o 21x "ainda não está disponível pelo TapTon ou pelo Link de Pagamento" <Fonte id="X-parcelado-04" />. Antes de prometer 21x ao cliente, testa o limite no seu app.
+</Callout>
+
+### Link de Pagamento
+
+O Link parcela em até 12x <Fonte id="TN-F084" />. O prazo padrão é 30 dias <Fonte id="TN-F057" />. Em 12x, sai a <Taxa faixa="link" prazo="d30" tipo="parcela" parcelas={12} /> recebendo em 30 dias e a <Taxa faixa="link" prazo="d14" tipo="parcela" parcelas={12} /> em 14 dias <Fonte id="TN-F082" />.
+
+<TabelaParcelas prazo="d30" faixas={['link']} ate={12} legenda="Link de Pagamento parcelado, recebendo em 30 dias" />
+
+## Elo e Amex custam mais no parcelado
+
+Toda tabela desta página é de Visa e Mastercard. Elo e Amex têm taxa maior.
+
+Na faixa até R$ 3 mil, em 1 dia útil, o 12x de Elo e Amex sai a <Taxa faixa="ate3k" prazo="d1" tipo="elo_12x" />. No Visa e no Mastercard, <Taxa faixa="ate3k" prazo="d1" tipo="parcela" parcelas={12} />. Numa venda de R$ 1.000 em 12x, são R$ 236,80 contra R$ 213,90. R$ 22,90 a mais só pela bandeira <Fonte id="TN-F051" />.
+
+Por isso a Ton manda confirmar a bandeira antes de simular o repasse <Fonte id="X-parcelado-02" />.
+
+## Já é cliente? Sua taxa pode ser outra
+
+As tabelas daqui valem para quem pede a primeira máquina agora. A Ton avisa: "Planos e taxas válidos apenas para novos clientes" <Fonte id="TN-F055" />.
+
+Entrou num plano antigo, como Ton Pro ou Ton Ultra? Suas taxas de parcelado estão no app, em **Minhas taxas e prazos** <Fonte id="TN-F014" />. O que mudou nos nomes dos planos está em [planos antigos da Ton](/quanto-custa/planos-antigos/).
+
+## Quantas parcelas oferecer
+
+Usa três regras.
+
+**Olha os degraus da sua faixa.** Em algumas faixas, várias parcelas custam quase o mesmo. Em outras, uma parcela a mais encarece tudo. Na faixa até R$ 3 mil, 11x sai a <Taxa faixa="ate3k" prazo="d1" tipo="parcela" parcelas={11} /> e 12x a <Taxa faixa="ate3k" prazo="d1" tipo="parcela" parcelas={12} />.
+
+**Guarda o 21x para venda grande.** Em 21x a taxa passa de um quarto da venda na faixa até R$ 3 mil. Funciona para produto caro que só fecha com parcela baixa.
+
+**Decide antes quem paga.** Absorver a taxa ou repassar ao cliente muda o seu preço. Simula na calculadora do app antes de anunciar o valor da parcela.

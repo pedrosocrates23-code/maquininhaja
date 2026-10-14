@@ -1,0 +1,84 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ListaPaginas from '../../components/ListaPaginas.astro';
+import Callout from '../../components/Callout.astro';
+import Fontes from '../../components/Fontes.astro';
+import { SITE } from '../../data/site';
+import { IMG } from '../../lib/imagens';
+import { pagina, ID } from '../../lib/schema';
+
+const title = 'Maquininha Ton com problema? Guia de soluções';
+const description =
+  'Ativar, maquininha que não liga, sem sinal, erros, cancelamento, conta bloqueada e contato oficial da Ton: passo a passo com base na ajuda oficial.';
+const path = '/ajuda/';
+const crumbs = [
+  { name: 'Início', href: '/' },
+  { name: 'Ajuda', href: path },
+];
+const schema = pagina({ path, title, description, tipo: 'CollectionPage', atualizado: SITE.verificadoEm, crumbs, sobre: [ID.ton] });
+---
+
+<Base title={title} description={description} crumbs={crumbs} schema={schema} ogImage="/og/ajuda.jpg" atualizado={SITE.verificadoEm}>
+  <PageHero
+    rotulo="Ajuda"
+    h1="Suporte da maquininha Ton: problemas e soluções"
+    resumo="Os problemas mais buscados, resolvidos com o passo a passo da ajuda oficial da Ton. Se nada resolver, o caminho é o atendimento da Ton: este site não tem acesso à sua conta."
+    verificado={false}
+  />
+  <div class="wrap hub">
+    <div>
+      <Callout tipo="atencao" titulo="Não somos o atendimento da Ton">
+        <p>
+          Não conseguimos ver sua conta, sua máquina nem suas vendas. Para isso, fale com a Ton pelo WhatsApp oficial (11)
+          3004-9136 ou pelo app. Veja todos os <a href="/ajuda/contato/">canais oficiais</a>.
+        </p>
+      </Callout>
+      <div class="lista">
+        <ListaPaginas
+          secao="ajuda"
+          ordem={['ajuda/primeiros-passos', 'ajuda/nao-liga-ou-sem-sinal', 'ajuda/erros-e-resetar', 'ajuda/conta-bloqueada', 'ajuda/cancelar-e-devolver', 'ajuda/contato']}
+        />
+      </div>
+    </div>
+    <figure class="img">
+      <Picture src={IMG.ajuda} alt="Mãos seguram uma maquininha ao lado de um celular sobre um balcão" formats={['avif', 'webp']} widths={[400, 600, 800]} sizes="(max-width: 900px) 92vw, 420px" quality={60} loading="lazy" />
+    </figure>
+  </div>
+  <div class="wrap">
+    <Fontes ids={['TN-F094']} />
+  </div>
+</Base>
+
+<style>
+  .hub {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    padding-bottom: var(--s-9);
+    align-items: start;
+  }
+  .lista {
+    margin-top: var(--s-6);
+  }
+  .img {
+    margin: 0;
+    position: sticky;
+    top: 6rem;
+  }
+  .img :global(img) {
+    border-radius: var(--radius-l);
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    width: 100%;
+  }
+  @media (max-width: 900px) {
+    .hub {
+      grid-template-columns: 1fr;
+    }
+    .img {
+      display: none;
+    }
+  }
+</style>

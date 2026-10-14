@@ -1,0 +1,37 @@
+{
+  "X-modelo-t1-01": {
+    "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t1",
+    "data": "2026-10-13",
+    "trecho": "1. No app do Ton , acesse o menu; 2. Selecione \" Ativar maquininha\"; 3. Escolha a opção T1 e depois selecione o modelo da sua maquininha ( D175BT, D177, D180 ou MP15 ) . Se você não souber qual é, confira a etiqueta na parte de trás da maquininha; 4. Em seguida, ative o Bluetooth no seu celular; 5. Ligue sua maquininha; 6. Se aparecer um ícone de cadeado na tela, pressione o botão preto na parte de cima ( D175BT, MP15 ) ou o botão ANULA ( D177 , D180 ) 7. Pressione o botão 0 pra exibir o ID e senha. Se o app pedir um PIN, informe a senha exibida 8. Agora é só esperar o app encontrar sua maquininha e pronto! Você pode iniciar as vendas em Vender agora , na tela inicial do app."
+  },
+  "X-modelo-t1-02": {
+    "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t1",
+    "data": "2026-10-13",
+    "trecho": "Conexão Bluetooth: A T1 usa Bluetooth pra conectar com o seu celular. Confirme se o Bluetooth está ativado ou se o app do Ton está autorizado a usar o Bluetooth. Bateria fraca : Pode ser que a bateria da maquininha tenha acabado durante a ativação. Confira se ela está ligada ou recarregue pra continuar. [...] A senha não funcionou : Após pressionar o botão 0, a maquininha exibe uma senha, também chamada de PIN. Se ela não funcionar, tente 000000 ou 123456."
+  },
+  "X-modelo-t1-03": {
+    "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/como-funciona-o-cancelamento-de-venda",
+    "data": "2026-10-13",
+    "trecho": "Como cancelar a venda pelo aplicativo? Acesse o app e clique em \"Minhas vendas\" Selecione a venda que deseja cancelar Clique no botão \"Estornar venda\" O app perguntará se você tem certeza sobre o cancelamento (Sim/Não) Digite sua senha do app Confirmar Atenção : Você não poderá desfazer essa ação! [...] Como cancelar a venda pela máquina? Se você possuí uma maquininha bluetooth, não é possível realizar o cancelamento da venda pela máquina, tudo bem? Nesse caso basta seguir o passo a passo de cancelamento pelo app do Ton. Para os demais modelos que possuem sistema operacional, são eles T2 ou T3, basta seguir as orientações abaixo: Acesse o Menu da máquina Escolha a opção \"Cancelamento\" ou \"Cancelamento de Venda\""
+  },
+  "X-modelo-t1-04": {
+    "url": "https://www.ton.com.br/pix-na-maquininha",
+    "data": "2026-10-13",
+    "trecho": "Venda com Pix na Maquininha ou pelo app do Ton Receba pagamentos através do QR Code ou por aproximação pelas maquininhas T2, T3 ou T3 Smart, usando sua chave Pix cadastrada na sua Conta Digital do Ton"
+  },
+  "X-modelo-t1-05": {
+    "url": "https://www.ton.com.br/pix-na-maquininha",
+    "data": "2026-10-13",
+    "trecho": "O Pix tem taxa? Se você quer enviar ou receber dinheiro usando uma chave Pix pelo App, não há cobranças de taxas e o dinheiro cai em até 1 minuto."
+  },
+  "X-modelo-t1-06": {
+    "url": "https://www.ton.com.br/maquininha/t1",
+    "data": "2026-10-13",
+    "trecho": "Venda acima de R$ 10 mil (incluindo transações via débito, crédito, Tap ou Link de Pagamento) nos primeiros 30 dias após a chegada de sua maquininha e receba 100% do valor dela de volta na sua Conta Ton. Qualquer pessoa, PF ou PJ, que adquirir a primeira maquininha Ton entre 24/06 e 31/08 já participará automaticamente da promoção."
+  },
+  "X-modelo-t1-07": {
+    "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/prazo-de-garantia",
+    "data": "2026-10-13",
+    "trecho": "Por funcionar em regime de comodato, você terá uma garantia vitalícia, pois assumimos total responsabilidade sobre sua manutenção, oferecendo suporte ilimitado em casos de problemas técnicos, defeitos de fabricação ou roubo/furto do equipamento. Ressaltando que, em caso de rouba/furto será necessário apresentação do boletim de ocorrência."
+  }
+}

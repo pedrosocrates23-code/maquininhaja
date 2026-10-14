@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /link/
+
+Sitemap: https://maquininhaja.com.br/sitemap-index.xml

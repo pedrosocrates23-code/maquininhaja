@@ -1,0 +1,52 @@
+{
+  "X-modelo-t2-01": {
+    "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t2",
+    "data": "2026-10-13",
+    "trecho": "Todos os modelos abaixo fazem parte da família T2 e podem ser ativados seguindo o mesmo passo a passo: D195 MP35 D188 D199 (Touch) Para ativar sua maquininha, siga os passos no aplicativo TON: Acesse o Menu ; Toque em Ativar maquininha ; Escolha a opção T2 . Um código será exibido na tela do aplicativo. Digite esse código na sua maquininha e pressione o botão verde para finalizar a ativação."
+  },
+  "X-modelo-t2-02": {
+    "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/preciso-colocar-internet-no-chip-da-m%C3%A1quina",
+    "data": "2026-10-13",
+    "trecho": "Preciso colocar internet no chip da máquina? Não . A máquina é enviada com chip e o plano de dados ativos, não sendo necessário realizar recarga para funcionamento. Vale lembrar que o chip não pode ser utilizado em outro dispositivo."
+  },
+  "X-modelo-t2-03": {
+    "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/como-alterar-a-rede-da-maquina",
+    "data": "2026-10-13",
+    "trecho": "Para ativar o wifi e os dados pelo chip, nas maquininhas T2 ou T3, basta seguir o passo a passo abaixo: Aperte o \" Botão Verde\" para acessar o Menu Escolha a opção \" Ajustes\" Depois \" Configurar\" Em seguida aperte \"Trocar para 3g\" ou \"Trocar para Wifi\" Lembrando que só funciona uma rede por vez e que a mudança acontece automaticamente caso se afaste do local onde possuí Wifi."
+  },
+  "X-modelo-t2-04": {
+    "url": "https://www.ton.com.br/pix-na-maquininha",
+    "data": "2026-10-13",
+    "trecho": "Nem todas as máquinas estão com a função Pix disponível, se você tem a Conta Ton aprovada e uma T2, T3 ou T3 Smart, será necessário gerar uma chave Pix aleatória e fazer a atualização da maquininha. [...] Prontinho, sua chave foi criada! Agora reinicie a maquininha para começar a usar a função."
+  },
+  "X-modelo-t2-05": {
+    "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/como-deixar-minha-maquina-acessivel",
+    "data": "2026-10-13",
+    "trecho": "Todos os terminais da máquina T2 Touch (D199) são entregues com a película de acessibilidade para deficientes visuais. A película é feita de um material plástico e transparente, e além disso, ela traz os números em braile para auxiliar as pessoas que não conseguem digitar a senha do cartão no teclado touch."
+  },
+  "X-modelo-t2-06": {
+    "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/como-funciona-o-cancelamento-de-venda",
+    "data": "2026-10-13",
+    "trecho": "Para os demais modelos que possuem sistema operacional, são eles T2 ou T3, basta seguir as orientações abaixo: Acesse o Menu da máquina Escolha a opção \"Cancelamento\" ou \"Cancelamento de Venda\" Insira a senha administrativa da máquina Insira ou aproxime o cartão utilizado na venda Confirme qual das vendas deve ser cancelada Pronto! Lembrando que o cancelamento de venda não é reversível, uma vez feito não pode ser desfeito."
+  },
+  "X-modelo-t2-07": {
+    "url": "https://ajuda.ton.com.br/pt_BR/alelo-/como-faco-para-habilitar-a-bandeira-alelo",
+    "data": "2026-10-13",
+    "trecho": "Como faço para habilitar a bandeira Alelo? Para realizar a habilitação, você precisa se credenciar na bandeira e avisar que quer operar via Stone. Para isso, entre em contato com a bandeira: Central de atendimento: 4004 5011 ou 0800 570 5011 Site: Site da Alelo . Bandeira aceita apenas para cadastros CNPJ"
+  },
+  "X-modelo-t2-08": {
+    "url": "https://www.ton.com.br/maquininha/t2",
+    "data": "2026-10-13",
+    "trecho": "Venda acima de R$ 10 mil (incluindo transações via débito, crédito, Tap ou Link de Pagamento) nos primeiros 30 dias após a chegada de sua maquininha e receba 100% do valor dela de volta na sua Conta Ton. Qualquer pessoa, PF ou PJ, que adquirir a primeira maquininha Ton entre 24/06 e 31/08 já participará automaticamente da promoção."
+  },
+  "X-modelo-t2-09": {
+    "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/como-ativar-ou-desativar-tela-de-descanso",
+    "data": "2026-10-13",
+    "trecho": "Para ativar ou desativar a tela de descanso da sua máquina T2 ou T3, basta seguir o passo a passo abaixo: Na sua máquina aperte o botão verde para entrar no Menu Depois vá até “Ajustes” Escolha a opção “Energia” E “Ativar ou Desativar a Ultra economia'' . Nessa mesma tela é possível aumentar ou diminuir o brilho da tela de sua máquina. Lembrando que com a função ultra economia ativada você poupará a bateria da sua máquina quando ela estiver sem uso."
+  },
+  "X-modelo-t2-10": {
+    "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/prazo-de-garantia",
+    "data": "2026-10-13",
+    "trecho": "Por funcionar em regime de comodato, você terá uma garantia vitalícia, pois assumimos total responsabilidade sobre sua manutenção, oferecendo suporte ilimitado em casos de problemas técnicos, defeitos de fabricação ou roubo/furto do equipamento. Ressaltando que, em caso de rouba/furto será necessário apresentação do boletim de ocorrência."
+  }
+}

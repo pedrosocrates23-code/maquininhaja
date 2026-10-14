@@ -1,0 +1,114 @@
+---
+// Política de privacidade e cookies (LGPD, Lei 13.709/2018). O texto muda sozinho conforme a
+// configuração: sem PUBLIC_GA4_ID, o site não usa cookie nenhum.
+import Institucional from '../layouts/Institucional.astro';
+import { SITE, PROGRAMA_ATIVO } from '../data/site';
+const temGa = Boolean(SITE.ga4);
+---
+
+<Institucional
+  title="Política de privacidade e cookies"
+  description="Como o Maquininha Já trata dados pessoais e cookies, conforme a LGPD: o que coleta, por quê, por quanto tempo, com quem compartilha e seus direitos."
+  h1="Privacidade e cookies"
+  rotulo="LGPD"
+  path="/privacidade/"
+  resumo="O site não tem cadastro, formulário nem newsletter. Você pode ler tudo sem informar nenhum dado. Esta página explica o pouco que é tratado e como exercer seus direitos."
+>
+  <h2>1. Quem é o controlador</h2>
+  <p>
+    {SITE.responsavel} ({SITE.documentoResponsavel}), responsável pelo site {SITE.dominio}. Encarregado e canal para assuntos de
+    dados pessoais: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+  </p>
+
+  <h2>2. Dados que o site trata</h2>
+  <h3>Navegação</h3>
+  <p>
+    Como qualquer site, o servidor de hospedagem registra dados técnicos de cada acesso: endereço IP, data e hora, página
+    pedida, navegador e sistema. Eles servem para entregar a página, manter a segurança e investigar abuso. Base legal:
+    legítimo interesse (LGPD, art. 7º, IX). Os registros de acesso ficam com o provedor de hospedagem, pelo prazo que ele
+    define; se o responsável pelo site for pessoa jurídica, eles são guardados por 6 meses (Marco Civil da Internet, Lei
+    12.965/2014, art. 15).
+  </p>
+  <h3>Contato por e-mail</h3>
+  <p>
+    Se você escrever para o site, usamos seu nome, e-mail e o que você mandar só para responder. Base legal: legítimo
+    interesse em responder ao seu contato (art. 7º, IX). A mensagem é apagada em até 12 meses depois da última troca, salvo obrigação legal.
+  </p>
+  <h3>Medição de audiência</h3>
+  {
+    temGa ? (
+      <p>
+        Com o seu consentimento (art. 7º, I), usamos o Google Analytics 4 para saber quais páginas ajudam. Ele grava cookies
+        (_ga e _ga_*) por até 2 anos e trata IP, dispositivo e páginas vistas. Sem o seu "Aceitar", o script nem é carregado. O
+        Google atua como operador e pode tratar dados fora do Brasil, com as salvaguardas do art. 33 da LGPD. Você muda a
+        escolha a qualquer momento em <button type="button" class="link-btn" data-abrir-consent>preferências de cookies</button>.
+      </p>
+    ) : (
+      <p>Hoje o site não usa ferramenta de medição, pixel de anúncio nem cookie de terceiros.</p>
+    )
+  }
+
+  <h2 id="cookies">3. Cookies</h2>
+  {
+    temGa ? (
+      <p>
+        O site grava um registro local (localStorage, chave pnm-consent-v1) só para lembrar se você aceitou ou recusou a
+        medição. Cookies do Google Analytics só existem depois do "Aceitar".
+      </p>
+    ) : (
+      <p>O site não grava cookie nenhum no seu navegador.</p>
+    )
+  }
+
+  <h2>4. Quando você clica para pedir uma maquininha</h2>
+  <p>
+    Os botões de pedido levam ao site oficial da Ton por um endereço /link/ deste site. A partir daí, quem trata seus dados é a
+    Ton, segundo a <a href="https://documentos.ton.com.br/politica-de-privacidade.pdf" rel="nofollow noopener" target="_blank"
+      >política de privacidade da Ton</a
+    > e o <a href="https://documentos.ton.com.br/aviso-de-cookies.pdf" rel="nofollow noopener" target="_blank">aviso de cookies da Ton</a>.
+    {
+      PROGRAMA_ATIVO
+        ? 'O link de indicação permite que a Ton saiba que o pedido veio deste site, para pagar a comissão do programa Renda Extra.'
+        : 'Hoje esses endereços levam à página oficial, sem código de indicação.'
+    } Não recebemos da Ton seus dados de cadastro.
+  </p>
+
+  <h2>5. Com quem compartilhamos</h2>
+  <ul>
+    <li>Provedor de hospedagem e entrega do site (operador), para servir as páginas.</li>
+    <li>Provedor de e-mail (operador), se você escrever para nós.</li>
+    {temGa && <li>Google (operador), só com consentimento, para medição de audiência.</li>}
+    <li>Autoridades, quando houver ordem legal.</li>
+  </ul>
+  <p>Não vendemos nem alugamos dados pessoais.</p>
+
+  <h2>6. Seus direitos</h2>
+  <p>
+    Pelo art. 18 da LGPD, você pode pedir confirmação de tratamento, acesso, correção, anonimização, bloqueio ou eliminação,
+    portabilidade, informação sobre compartilhamento e revogação do consentimento. Escreva para <a href={`mailto:${SITE.email}`}
+      >{SITE.email}</a
+    >. Respondemos em até 15 dias. Se não ficar satisfeito, você pode reclamar à Autoridade Nacional de Proteção de Dados
+    (ANPD), em <a href="https://www.gov.br/anpd" rel="noopener" target="_blank">gov.br/anpd</a>.
+  </p>
+
+  <h2>7. Segurança</h2>
+  <p>
+    O site é estático, servido por HTTPS, sem banco de dados e sem área de login. Isso reduz o que pode vazar. Mesmo assim,
+    nenhum sistema é infalível: se houver incidente com risco relevante, avisaremos os afetados e a ANPD.
+  </p>
+
+  <h2>8. Mudanças</h2>
+  <p>Quando esta política mudar, a data no fim da página muda junto.</p>
+</Institucional>
+
+<style>
+  .link-btn {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+</style>

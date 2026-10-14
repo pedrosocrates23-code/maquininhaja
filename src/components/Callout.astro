@@ -1,0 +1,40 @@
+---
+interface Props {
+  tipo?: 'info' | 'atencao' | 'conflito';
+  titulo?: string;
+}
+const { tipo = 'info', titulo } = Astro.props;
+const padrao = { info: 'Bom saber', atencao: 'Atenção', conflito: 'A própria Ton se contradiz aqui' }[tipo];
+---
+
+<aside class:list={['callout', tipo]}>
+  <p class="callout-tit">{titulo ?? padrao}</p>
+  <div><slot /></div>
+</aside>
+
+<style>
+  .callout {
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--green);
+    background: var(--paper);
+    border-radius: var(--radius-s);
+    padding: var(--s-4) var(--s-5);
+    font-size: var(--fs-1);
+  }
+  .callout.atencao {
+    border-left-color: var(--warn);
+    background: var(--warn-tint);
+  }
+  .callout.conflito {
+    border-left-color: var(--ink);
+    background: var(--bg-2);
+  }
+  .callout-tit {
+    font-weight: 650;
+    color: var(--ink);
+    margin-bottom: var(--s-2);
+  }
+  .callout :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

@@ -1,0 +1,50 @@
+---
+import Base from './Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Fontes from '../components/Fontes.astro';
+import { SITE } from '../data/site';
+import { pagina, ID } from '../lib/schema';
+
+interface Props {
+  title: string;
+  description: string;
+  h1: string;
+  rotulo: string;
+  path: string;
+  tipo?: 'WebPage' | 'AboutPage' | 'ContactPage';
+  resumo?: string;
+  noindex?: boolean;
+  fontes?: string[];
+}
+const { title, description, h1, rotulo, path, tipo = 'WebPage', resumo, noindex = false, fontes = [] } = Astro.props;
+const crumbs = [
+  { name: 'Início', href: '/' },
+  { name: h1.length > 40 ? rotulo : h1, href: path },
+];
+const schema = pagina({ path, title, description, tipo, atualizado: SITE.verificadoEm, crumbs, sobre: [ID.publisher] });
+---
+
+<Base title={title} description={description} crumbs={crumbs} schema={schema} ogImage="/og/institucional.jpg" noindex={noindex}>
+  <PageHero rotulo={rotulo} h1={h1} resumo={resumo} verificado={false} />
+  <div class="wrap-text inst">
+    <article class="prose">
+      <slot />
+    </article>
+    <p class="atualizado">Última atualização: {SITE.verificadoEmTexto}.</p>
+    {fontes.length > 0 && <Fontes ids={fontes} />}
+  </div>
+</Base>
+
+<style>
+  .inst {
+    padding-bottom: var(--s-9);
+  }
+  .atualizado {
+    margin-top: var(--s-7);
+    font-size: var(--fs-0);
+    color: var(--muted);
+  }
+  .inst :global(.prose h2:first-child) {
+    margin-top: 0;
+  }
+</style>

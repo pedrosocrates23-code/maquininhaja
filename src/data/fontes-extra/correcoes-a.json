@@ -1,0 +1,22 @@
+{
+  "X-correcoes-a-01": {
+    "url": "https://www.ton.com.br/",
+    "data": "2026-10-13",
+    "trecho": "<a id=\"cta-button\" target=\"_blank\" href=\"https://api.whatsapp.com/send?phone=551150396697&amp;text=Protocolo%20de%20Atendimento%3A%20%20%7C%20Oi!%20Voc%C3%AA%20pode%20me%20ajudar%3F\""
+  },
+  "X-correcoes-a-02": {
+    "url": "https://www.ton.com.br/",
+    "data": "2026-10-13",
+    "trecho": "{\"label\":\"Peça no WhatsApp\",\"options\":{\"type\":\"MESSAGE_TEXT\",\"messageText\":\"Oi! Você pode me ajudar?\",\"senderNumber\":551150396697}"
+  },
+  "X-correcoes-a-03": {
+    "url": "https://documentos.ton.com.br/regulamento-renda-ton.pdf",
+    "data": "2026-10-13",
+    "trecho": "5.5. ​ Cupom de Desconto. Por meio deste benefício, o Usuário poderá passar a conceder aos potenciais Novos Clientes indicados por ele um voucher com desconto variável, a depender de qual Nível ocupar na Trilha de Benefícios, que poderá ser aplicado sobre o valor da Taxa de Adesão. Caso o Usuário não atinja os critérios mínimos conforme indicado, o benefício do cupom de desconto será desativado. Para mais informações, acesse a explicação sobre os Benefícios Renda Ton."
+  },
+  "X-correcoes-a-04": {
+    "url": "https://documentos.ton.com.br/regulamento-renda-extra.pdf",
+    "data": "2026-10-13",
+    "trecho": "5.4.​ A recompensa será creditada na Conta de Pagamento do Usuário, não sendo admitida outra modalidade de pagamento. A recompensa é pessoal e intransferível."
+  }
+}

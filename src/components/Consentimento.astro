@@ -1,0 +1,96 @@
+---
+// Consentimento de cookies (LGPD art. 7º, I e art. 8º). Só existe se houver GA4 configurado
+// (PUBLIC_GA4_ID). Sem ID: nenhum cookie próprio, nenhum script de terceiros, nenhum banner.
+// O GA4 só é carregado DEPOIS do "Aceitar"; recusa fica guardada e o banner não volta.
+import { SITE } from '../data/site';
+const ga4 = SITE.ga4;
+---
+
+{
+  ga4 && (
+    <div id="consent" class="consent" role="dialog" aria-labelledby="consent-tit" hidden data-ga4={ga4}>
+      <p id="consent-tit">
+        <strong>Cookies de medição.</strong> Usamos o Google Analytics para saber quais páginas ajudam, só se você
+        aceitar. Detalhes na <a href="/privacidade/#cookies">política de privacidade</a>.
+      </p>
+      <div class="consent-btns">
+        <button type="button" class="btn btn-ghost" data-escolha="nao">
+          Recusar
+        </button>
+        <button type="button" class="btn btn-primary" data-escolha="sim">
+          Aceitar
+        </button>
+      </div>
+    </div>
+  )
+}
+
+{
+  ga4 && (
+    <script>
+      const CHAVE = 'pnm-consent-v1';
+      const box = document.getElementById('consent');
+      const id = box?.dataset.ga4;
+      function carregar() {
+        if (!id) return;
+        const s = document.createElement('script');
+        s.async = true;
+        s.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+        document.head.append(s);
+        const w = window as unknown as { dataLayer: unknown[]; gtag: (...a: unknown[]) => void };
+        w.dataLayer = w.dataLayer || [];
+        w.gtag = function () {
+          // eslint-disable-next-line prefer-rest-params
+          w.dataLayer.push(arguments);
+        };
+        w.gtag('js', new Date());
+        w.gtag('config', id, { anonymize_ip: true });
+      }
+      let escolha: string | null = null;
+      try {
+        escolha = localStorage.getItem(CHAVE);
+      } catch {}
+      if (escolha === 'sim') carregar();
+      else if (!escolha && box) box.hidden = false;
+      box?.addEventListener('click', (e) => {
+        const b = (e.target as HTMLElement).closest('button');
+        if (!b) return;
+        const v = b.dataset.escolha ?? 'nao';
+        try {
+          localStorage.setItem(CHAVE, v);
+        } catch {}
+        box.hidden = true;
+        if (v === 'sim') carregar();
+      });
+      document.querySelectorAll('[data-abrir-consent]').forEach((el) =>
+        el.addEventListener('click', () => {
+          if (box) box.hidden = false;
+        }),
+      );
+    </script>
+  )
+}
+
+<style>
+  .consent {
+    position: fixed;
+    inset: auto var(--s-4) var(--s-4) var(--s-4);
+    z-index: 80;
+    max-width: 34rem;
+    margin-left: auto;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: var(--radius);
+    padding: var(--s-5);
+    box-shadow: var(--shadow);
+    font-size: var(--fs-1);
+  }
+  .consent p {
+    margin-bottom: var(--s-4);
+  }
+  .consent-btns {
+    display: flex;
+    gap: var(--s-2);
+    justify-content: flex-end;
+  }
+</style>

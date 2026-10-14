@@ -1,0 +1,45 @@
+{
+  "X-correcoes-b-01": {
+    "url": "https://documentos.ton.com.br/regulamento-tonmega-tier-mar26.pdf",
+    "data": "2026-10-13",
+    "trecho": "4.7.2. Não serão consideradas para contabilização do faturamento mensal as Transações que tenham sido objeto de estorno, cancelamento ou chargeback."
+  },
+  "X-correcoes-b-02": {
+    "url": "https://calculadoradetaxas.com.br/comparar/ton-t1-ultra-vs-vero-up-bluetooth",
+    "data": "2026-10-13",
+    "obs": "site comparador de terceiro, não é fonte oficial",
+    "trecho": "Ton T1 Ultra ★ ★ ★ ★ ★ 4,7/5 Fora de linha Depende de celular Sem aluguel PF e PJ"
+  },
+  "X-correcoes-b-03": {
+    "url": "https://calculadoradetaxas.com.br/comparar/t3-smart-black-vs-t3-smart-ultra",
+    "data": "2026-10-13",
+    "obs": "site comparador de terceiro, não é fonte oficial",
+    "trecho": "Ton T3 Smart Ultra ★ ★ ★ ★ ★ 4,9/5 Fora de linha WiFi / 3G Sem aluguel PF e PJ"
+  },
+  "X-correcoes-b-04": {
+    "url": "https://www.idinheiro.com.br/negocios/ton-t3/",
+    "data": "2026-10-13",
+    "obs": "guia de terceiro (iDinheiro), não é fonte oficial; datePublished 2023-01-31, dateModified 2025-05-18 no HTML",
+    "trecho": "No entanto, um ponto negativo é que as maquininhas Ton não aceitam vouchers de alimentação ou refeição, o que pode ser uma limitação para estabelecimentos do setor alimentício."
+  },
+  "X-correcoes-b-05": {
+    "url": "https://docs.stone.com.br/wp-content/uploads/2026/10/REG_Ton_Cashback-de-Adesao_vf4_20260928-1.pdf",
+    "data": "2026-10-13",
+    "trecho": "7.2. O depósito do Cashback será realizado pelo Ton mediante crédito, em reais, na Conta Ton vinculada ao cadastro do Cliente Participante e corresponderá ao exato valor por ele pago a título de Taxa de Adesão sobre uma Maquininha Ton, de acordo com o Plano selecionado."
+  },
+  "X-correcoes-b-06": {
+    "url": "https://docs.stone.com.br/wp-content/uploads/2026/10/REG_Ton_Cashback-de-Adesao_vf4_20260928-1.pdf",
+    "data": "2026-10-13",
+    "trecho": "7.3.2. Na hipótese de o Cliente Participante ter incluído um cupom de desconto no momento de cadastro para contratação do Plano, será objeto de Cashback o valor efetivamente pago a título de Taxa de Adesão sobre uma Maquininha Ton, sendo considerado, portanto, o valor de eventual desconto concedido sobre a respectiva Maquininha Ton."
+  },
+  "X-correcoes-b-07": {
+    "url": "https://documentos.ton.com.br/regulamento-tonmega-tier-mar26.pdf",
+    "data": "2026-10-13",
+    "trecho": "PAGAR.ME S.A., inscrito no CNPJ/MF sob o nº 18.727.053/0001-74, desenvolvedor da Plataforma Ton e detentor da marca “Ton” (“Ton”)."
+  },
+  "X-correcoes-b-08": {
+    "url": "https://documentos.ton.com.br/regulamento-tonmega-tier-mar26.pdf",
+    "data": "2026-10-13",
+    "trecho": "Em ambas as hipóteses, ao término dos 30 (trinta) dias contados do credenciamento, o Ton apurará o volume transacional total acumulado por Você nesse período e realizará o enquadramento definitivo na Faixa de Faturamento correspondente ao TPV efetivamente atingido."
+  }
+}

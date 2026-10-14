@@ -1,0 +1,65 @@
+---
+// Hub de guias (o "blog" do site). Toda página nova em src/content/paginas/aprenda/ entra
+// aqui sozinha, no sitemap e com Article + BreadcrumbList.
+import { Picture } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ListaPaginas from '../../components/ListaPaginas.astro';
+import { SITE } from '../../data/site';
+import { IMG } from '../../lib/imagens';
+import { pagina, ID } from '../../lib/schema';
+
+const title = 'Guias da maquininha Ton: tudo explicado';
+const description =
+  'Guias para quem vende com a maquininha Ton: a relação entre Ton e Stone, se a Ton é confiável, CPF, MEI ou CNPJ, taxas, prazos e parcelado, com fonte oficial.';
+const path = '/aprenda/';
+const crumbs = [
+  { name: 'Início', href: '/' },
+  { name: 'Aprenda', href: path },
+];
+const schema = pagina({ path, title, description, tipo: 'CollectionPage', atualizado: SITE.verificadoEm, crumbs, sobre: [ID.ton] });
+---
+
+<Base title={title} description={description} crumbs={crumbs} schema={schema} ogImage="/og/aprenda.jpg" atualizado={SITE.verificadoEm}>
+  <PageHero
+    rotulo="Aprenda"
+    h1="Guias para vender com a maquininha Ton"
+    resumo="Quem é a Ton, se dá para confiar, o que muda para CPF, MEI e CNPJ e como as taxas funcionam de verdade. Cada guia traz o link do documento oficial de onde saiu cada fato."
+    verificado={false}
+  />
+  <div class="wrap">
+    <figure class="img">
+      <Picture src={IMG.aprenda} alt="Manicure lê no celular durante uma pausa no salão, com a maquininha sobre a mesa" formats={['avif', 'webp']} widths={[480, 800, 1200]} sizes="(max-width: 1240px) 92vw, 1240px" quality={55} loading="lazy" />
+    </figure>
+    <section class="bloco" aria-labelledby="g">
+      <h2 id="g">Guias</h2>
+      <ListaPaginas secao="aprenda" ordem={['aprenda/ton-e-stone', 'aprenda/ton-e-confiavel', 'aprenda/maquininha-ton-sem-cnpj']} />
+    </section>
+    <section class="bloco" aria-labelledby="t">
+      <h2 id="t">Taxas e prazos explicados</h2>
+      <ListaPaginas secao="quanto-custa" ordem={['quanto-custa/quando-cai', 'quanto-custa/parcelado', 'quanto-custa/planos-antigos']} />
+    </section>
+  </div>
+</Base>
+
+<style>
+  .img {
+    margin: 0;
+  }
+  .img :global(img) {
+    border-radius: var(--radius-l);
+    aspect-ratio: 21 / 8;
+    object-fit: cover;
+    width: 100%;
+  }
+  .bloco {
+    padding-block: var(--s-8) 0;
+  }
+  .bloco:last-child {
+    padding-bottom: var(--s-9);
+  }
+  .bloco h2 {
+    font-size: var(--fs-5);
+    margin-bottom: var(--s-5);
+  }
+</style>

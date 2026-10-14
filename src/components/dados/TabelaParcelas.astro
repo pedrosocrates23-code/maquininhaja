@@ -1,0 +1,42 @@
+---
+// Taxa do parcelado (Visa/Mastercard) de 2x a 21x para as faixas escolhidas num prazo.
+// <TabelaParcelas prazo="d1" faixas={['promo','ate3k','3a6k']} />
+import taxas from '../../data/taxas.json';
+import { pctBR } from '../../data/modelos';
+interface Props {
+  prazo: 'na_hora' | 'd1' | 'd14' | 'd30';
+  faixas?: string[];
+  ate?: number;
+  legenda?: string;
+}
+const { prazo, faixas = ['promo', 'ate3k', '3a6k', '6a10k', '10a30k', '30k'], ate = 21, legenda } = Astro.props;
+const cols = taxas.faixas.filter((f) => faixas.includes(f.id) && (f.prazos as Record<string, unknown>)[prazo]);
+const linhas = Array.from({ length: ate - 1 }, (_, i) => i + 2);
+const nomePrazo = { na_hora: 'recebendo na hora', d1: 'recebendo em 1 dia útil', d14: 'recebendo em 14 dias', d30: 'recebendo em 30 dias' }[prazo];
+const curto = (r: string) => r.replace('Período promocional (30 dias ou R$ 5 mil)', 'Promocional').replace(' por mês', '');
+---
+
+<div class="table-wrap" tabindex="0" role="region" aria-label={legenda ?? `Taxa do parcelado ${nomePrazo}`}>
+  <table>
+    <caption>{legenda ?? `Crédito parcelado Visa e Mastercard, ${nomePrazo}`}</caption>
+    <thead>
+      <tr>
+        <th scope="col">Parcelas</th>
+        {cols.map((c) => <th scope="col" class="num">{curto(c.rotulo)}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {
+        linhas.map((n) => (
+          <tr>
+            <th scope="row">{n}x</th>
+            {cols.map((c) => {
+              const v = ((c.prazos as Record<string, any>)[prazo].parcelas as Record<string, number>)[String(n)];
+              return <td class="num">{v === undefined ? 'não oferece' : pctBR(v)}</td>;
+            })}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

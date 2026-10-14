@@ -1,0 +1,77 @@
+{
+ "X-primeiros-passos-01": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t1",
+  "data": "2026-10-13",
+  "trecho": "Pra ativar e começar a usar uma maquininha T1, siga o passo a passo: 1. No app do Ton , acesse o menu; 2. Selecione \" Ativar maquininha\"; 3. Escolha a opção T1 e depois selecione o modelo da sua maquininha ( D175BT, D177, D180 ou MP15 ) . Se você não souber qual é, confira a etiqueta na parte de trás da maquininha; 4. Em seguida, ative o Bluetooth no seu celular; 5. Ligue sua maquininha; 6. Se aparecer um ícone de cadeado na tela, pressione o botão preto na parte de cima ( D175BT, MP15 ) ou o botão ANULA ( D177 , D180 ) 7. Pressione o botão 0 pra exibir o ID e senha. Se o app pedir um PIN, informe a senha exibida 8. Agora é só esperar o app encontrar sua maquininha e pronto! Você pode iniciar as vendas em Vender agora , na tela inicial do app."
+ },
+ "X-primeiros-passos-02": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t1",
+  "data": "2026-10-13",
+  "trecho": "Se você não conseguiu ativar a maquininha, confira as principais causas e soluções: - Conexão Bluetooth: A T1 usa Bluetooth pra conectar com o seu celular. Confirme se o Bluetooth está ativado ou se o app do Ton está autorizado a usar o Bluetooth. - Bateria fraca : Pode ser que a bateria da maquininha tenha acabado durante a ativação. Confira se ela está ligada ou recarregue pra continuar. - Teclado bloqueado : Pode ser que o teclado da sua maquininha esteja bloqueado. Confira se tem um ícone de cadeado na tela e, se tiver, pressione o mesmo botão de ligar e desligar pra desbloquear. - A senha não funcionou : Após pressionar o botão 0, a maquininha exibe uma senha, também chamada de PIN. Se ela não funcionar, tente 000000 ou 123456. Se essas soluções não funcionarem, converse com o Ton no chat do aplicativo."
+ },
+ "X-primeiros-passos-03": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t2",
+  "data": "2026-10-13",
+  "trecho": "Todos os modelos abaixo fazem parte da família T2 e podem ser ativados seguindo o mesmo passo a passo: - D195 - MP35 - D188 - D199 (Touch) Para ativar sua maquininha, siga os passos no aplicativo TON: Acesse o Menu ; Toque em Ativar maquininha ; Escolha a opção T2 . Um código será exibido na tela do aplicativo. Digite esse código na sua maquininha e pressione o botão verde para finalizar a ativação."
+ },
+ "X-primeiros-passos-04": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t3",
+  "data": "2026-10-13",
+  "trecho": "Todos os modelos abaixo fazem parte da família T3 e podem ser ativados seguindo o mesmo passo a passo: - S920 - Q60 - Q92 - D230 - MP35P Para ativar sua maquininha, siga os passos no aplicativo TON: Acesse o Menu ; Toque em Ativar maquininha ; Escolha a opção T3 . Um código será exibido na tela do aplicativo. Digite esse código na sua maquininha e pressione o botão verde para finalizar a ativação."
+ },
+ "X-primeiros-passos-05": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t3-smart",
+  "data": "2026-10-13",
+  "trecho": "Todos os modelos abaixo fazem parte da família T3 Smart e podem ser ativados seguindo o mesmo procedimento: - L3 - P2 - GPOS700X - GPOS760 - T19 Para ativar sua maquininha, siga os passos no aplicativo TON: Acesse o Menu; Toque em Ativar maquininha; Escolha a opção T3 Smart. Um código será exibido na tela do aplicativo. Digite esse código na sua maquininha e pressione o botão verde para finalizar a ativação."
+ },
+ "X-primeiros-passos-06": {
+  "url": "https://ajuda.ton.com.br/pt_BR/aplicativo/primeiro-acesso-",
+  "data": "2026-10-13",
+  "trecho": "Após baixar o aplicativo Ton e chegar na página inicial, siga as orientações abaixo: - Clique em \"Entrar\" - Depois clique em \"Meu primeiro acesso aqui\" - Digite o e-mail de cadastrado - Digite o código recebido por SMS e e-mail - Por último, crie uma senha de 8 caracteres com letra e número"
+ },
+ "X-primeiros-passos-07": {
+  "url": "https://ajuda.ton.com.br/pt_BR/super-conta-ton/criar-conta",
+  "data": "2026-10-13",
+  "trecho": "Baixe o aplicativo Ton em seu celular. Ele está disponível para Android e iOS; Clique em \" Criar Conta \"; Informe seus dados e siga as orientações para confirmar seu e-mail; Depois, volte ao app e informe seus dados de acesso ; Toque em \" Completar cadastro \" para confirmar sua identidade; Informe os dados faltantes, tire fotos do seu rosto e documentos ; Após isso, aguarde o prazo de análise de até 2 horas"
+ },
+ "X-primeiros-passos-08": {
+  "url": "https://ajuda.ton.com.br/pt_BR/tapton/como-ter-essa-funcionalidade",
+  "data": "2026-10-13",
+  "trecho": "Se você já é nosso cliente, vá até a opção Vender agora na tela inicial do seu app Ton, coloque o valor da venda e verifique se a opção Venda por TapTon aparece na sua tela. Se já aparece é só clicar e seguir o passo a passo para a ativação, mas se ainda não tiver disponível basta entrar em contato com os nossos canais de atendimento e solicitar a habilitação."
+ },
+ "X-primeiros-passos-09": {
+  "url": "https://ajuda.ton.com.br/pt_BR/tapton/como-saber-se-meu-celular-e-compativel",
+  "data": "2026-10-13",
+  "trecho": "É preciso ter um celular com antena NFC e sistema operacional Android a partir da versão 10.0 ou um iPhone com sistema operacional iOS 17 ou superior. Também é necessário que tenha um plano de dados habilitado para realizar transações. Como descubro se meu celular Android possui as condições necessárias, como antena NFC e sistema operacional a partir da versão 10.0? É possível extrair essas duas informações através do menu “Configurações” do seu aparelho celular. Para facilitar a busca, basta pesquisar por “Android” e “NFC” separadamente. Como descubro se meu celular iPhone possui as condições necessárias, como sistema operacional a partir da versão 17? O Tap to Pay no iPhone requer iPhone XS ou superior e iOS 17 ou superior. Para atualizar o iOS para a versão mais recente, basta acessar \"Configurações\" > \"Geral\" > \"Atualização de software\" e, em seguida, toque em \"Baixar e instalar\". Para saber mais sobre o Tap to Pay no iPhone acesse o nosso site aqui . Como faço para ter certeza que posso usar o TapTon pelo meu celular? Para confirmar se o seu aparelho é compatível com o TapTon você precisa ter o app do Ton instalado, acessar sua conta. Na tela inicial do aplicativo toque em \"Vender agora\" e digite qualquer valor para continuar. Na tela seguinte será exibido se o seu aparelho é compatível com o TapTon ou não. Se ele não for compatível, você pode tocar em \"Venda por TapTon\" para entender o motivo."
+ },
+ "X-primeiros-passos-10": {
+  "url": "https://ajuda.ton.com.br/pt_BR/tapton/o-que-e-e-como-usar",
+  "data": "2026-10-13",
+  "trecho": "É preciso ter um celular com antena NFC e sistema operacional Android a partir da versão 9.0."
+ },
+ "X-primeiros-passos-11": {
+  "url": "https://www.ton.com.br/pix-na-maquininha",
+  "data": "2026-10-13",
+  "trecho": "Para ativar a função Pix na maquininha é necessário que você crie uma chave aleatória em seu app, vou te explicar como: 1- Acesse a opção “Pix”; 2- Clique em “Minhas chaves” e “Cadastrar chave”; 3- Selecione o tipo de chave: celular, CPF, CNPJ ou aleatória. Para ter Pix grátis e ilimitado, cadastre com celular, CPF ou CNPJ. . Prontinho, sua chave foi criada! Agora reinicie a maquininha para começar a usar a função."
+ },
+ "X-primeiros-passos-12": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/preciso-colocar-internet-no-chip-da-m%C3%A1quina",
+  "data": "2026-10-13",
+  "trecho": "A máquina é enviada com chip e o plano de dados ativos, não sendo necessário realizar recarga para funcionamento. Vale lembrar que o chip não pode ser utilizado em outro dispositivo."
+ },
+ "X-primeiros-passos-13": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t2",
+  "data": "2026-10-13",
+  "trecho": "Elas contam com chip 3G ou 4G e conexão Wi-Fi, garantindo boa conectividade para realizar suas vendas com segurança."
+ },
+ "X-primeiros-passos-14": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t3",
+  "data": "2026-10-13",
+  "trecho": "Elas contam com chip 3G e conexão Wi-Fi, garantindo estabilidade nas transações."
+ },
+ "X-primeiros-passos-15": {
+  "url": "https://ajuda.ton.com.br/pt_BR/m%C3%A1quina/t3-smart",
+  "data": "2026-10-13",
+  "trecho": "Elas contam com chip 3G, 4G e conexão Wi-Fi, garantindo que suas vendas aconteçam de forma rápida e estável."
+ }
+}

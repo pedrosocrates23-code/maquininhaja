@@ -1,0 +1,54 @@
+{
+ "X-parcelado-01": {
+  "url": "https://ajuda.ton.com.br/pt_BR/taxas-e-prazos/calculadora-de-taxas",
+  "data": "2026-10-13",
+  "trecho": "A maquininha do Ton não repassa automaticamente as taxas para o cliente. Se você deseja que o cliente arque com os custos da transação, é necessário simular o valor correto no aplicativo antes de finalizar a venda. Siga o passo a passo para fazer isso: No aplicativo da Ton, acesse a função \"Calculadora de taxas\" na tela inicial ou clique neste link ; Escolha entre \"Cobrar\" ou \"Receber\"; Digite o valor; Confirme os dados da transação, como a bandeira do cartão (Visa, Mastercard, Elo, etc.), a modalidade (crédito à vista ou parcelado) e o número de parcelas. E toque em \"Simular Venda\"."
+ },
+ "X-parcelado-02": {
+  "url": "https://ajuda.ton.com.br/pt_BR/taxas-e-prazos/calculadora-de-taxas",
+  "data": "2026-10-13",
+  "trecho": "Ponto de atenção: É fundamental confirmar a bandeira do cartão com o cliente antes de simular a venda. Bandeiras como Elo e American Express podem ter taxas diferentes, e selecionar a bandeira errada na calculadora pode resultar em um recebimento menor do que o esperado. Após a simulação no app, faça a venda normalmente na maquininha, inserindo o valor que a calculadora indicou para que você receba exatamente o valor líquido desejado."
+ },
+ "X-parcelado-03": {
+  "url": "https://blog.ton.com.br/maquininha-que-parcela-em-21x/",
+  "data": "2026-10-13",
+  "obs": "post publicado em 30/06/2026 (datePublished no HTML)",
+  "trecho": "As máquinas do Ton que hoje aceitam parcelar em 21x são as das categorias: T3 Smart; T3; T2 (exceto modelo D188 pro)."
+ },
+ "X-parcelado-04": {
+  "url": "https://blog.ton.com.br/maquininha-que-parcela-em-21x/",
+  "data": "2026-10-13",
+  "obs": "post publicado em 30/06/2026",
+  "trecho": "A venda parcelada nesse prazo super estendido é exclusiva para transações físicas, passando ou aproximando o cartão do cliente na maquininha. Ela ainda não está disponível pelo TapTon ou pelo Link de Pagamento ."
+ },
+ "X-parcelado-05": {
+  "url": "https://blog.ton.com.br/maquininha-que-parcela-em-21x/",
+  "data": "2026-10-13",
+  "obs": "post publicado em 30/06/2026",
+  "trecho": "O limite real de parcelas no momento do pagamento é definido pelo banco emissor do cartão do comprador. Por isso, alguns bancos podem limitar as compras a no máximo 12x, recusando a tentativa em 18x ou 21x para aquele portador específico."
+ },
+ "X-parcelado-06": {
+  "url": "https://blog.ton.com.br/maquininha-que-parcela-em-21x/",
+  "data": "2026-10-13",
+  "obs": "post publicado em 30/06/2026",
+  "trecho": "com o Ton, você recebe o valor total da venda no mesmo dia na sua Conta Ton para manter o estoque girando. [...] Utilize o simulador de taxas gratuito no aplicativo do Ton para decidir se o custo das taxas será absorvido por você ou se vale repassar para o comprador."
+ },
+ "X-parcelado-07": {
+  "url": "https://blog.ton.com.br/maquininha-que-parcela-em-18x/",
+  "data": "2026-10-13",
+  "obs": "post publicado em 06/04/2026, atualizado em 10/06/2026",
+  "trecho": "Para vendas acima de 12 vezes temos o valor mínimo de 10 reais por parcela . As maquininhas que aceitam o parcelamento em 18x são as de categoria T2 (exceto a D188) , T3 ou T3 Smart. Na hora de vender, basta seguir o passo a passo na máquina: Digite o valor da venda ; Clique em Pagar ; Clique na opção Crédito ; Selecione a opção de Parcelado sem juros (para o seu cliente) ; Insira o número de parcelas ; Confirme e realize a cobrança ."
+ },
+ "X-parcelado-08": {
+  "url": "https://documentos.ton.com.br/regulamento-tonmega-tier-mar26.pdf",
+  "data": "2026-10-13",
+  "obs": "Regulamento Ton Mega+, última atualização 21/09/2026",
+  "trecho": "4.1. As Taxas do Plano serão aplicáveis às Transações de Pagamento realizadas no âmbito da Plataforma Ton, observadas as condições específicas previstas neste Regulamento. O Plano contempla taxas específicas para cada canal e modalidade de pagamento, incluindo: (i) transações via cartão presencial ou aproximação (NFC) no Equipamento, nas modalidades débito ou crédito, inclusive nas opções de parcelamento em até 21 (vinte e uma) vezes; (ii) transações via Pix QR Code no Equipamento; (iii) transações via TapTon; e (iv) transações via Link de Pagamento. 4.1.1. Ante o indicado no item 4.1 acima, as Taxas do Plano, sejam elas as Taxas Promocionais ou as Taxas por Faixa de Faturamento (conforme adiante definidas), possuem valores específicos para cada canal de pagamento, modalidade e bandeira do cartão. As taxas aplicáveis às transações realizadas via TapTon e via Link de Pagamento são distintas daquelas aplicáveis às transações realizadas no Equipamento, conforme disponibilizadas nos meios de comunicação oficiais do Ton e consultáveis diretamente no aplicativo do Ton."
+ },
+ "X-parcelado-09": {
+  "url": "https://documentos.ton.com.br/regulamento-tonblack-tier.pdf",
+  "data": "2026-10-13",
+  "obs": "PDF com CreationDate 2026-10-01 (metadado); Last-Modified 07/10/2026",
+  "trecho": "4.1. As Taxas do Plano serão aplicáveis às Transações de Pagamento realizadas no âmbito da Plataforma Ton, observadas as condições específicas previstas neste Regulamento. O Plano contempla taxas específicas para cada canal e modalidade de pagamento, incluindo: (i) transações via cartão presencial ou aproximação (NFC) no Equipamento, nas modalidades débito ou crédito, inclusive nas opções de parcelamento em até 18 (dezoito) vezes; (ii) transações via Pix QR Code no Equipamento; (iii) transações via TapTon; e (iv) transações via Tap to Pay."
+ }
+}

@@ -1,16 +1,640 @@
 ---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Escolha from '../components/Escolha.astro';
+import ModeloCard from '../components/ModeloCard.astro';
+import Faq from '../components/Faq.astro';
+import Fontes from '../components/Fontes.astro';
+import { MODELOS, TAPTON, brl, pctBR } from '../data/modelos';
+import { SITE, PROGRAMA_ATIVO, STATUS } from '../data/site';
+import taxas from '../data/taxas.json';
+import { IMG, IMG_MODELO } from '../lib/imagens';
+import { pagina, ID } from '../lib/schema';
+import { dig } from '../lib/texto';
+
+const title = 'Maquininha Ton: modelos, taxas e qual escolher';
+const description =
+  'Compare T1, T2, T3, T3 Smart e TapTon: preço de hoje, taxa depois dos 30 dias promocionais e qual serve para o seu negócio. Site independente.';
+
+const faixas = taxas.faixas.filter((f) => !['promo', 'tapton', 'link'].includes(f.id));
+const promo = taxas.faixas.find((f) => f.id === 'promo')!;
+const base3k = taxas.faixas.find((f) => f.id === 'ate3k')!;
+
+const cards = [
+  ...MODELOS.map((m) => ({
+    href: `/modelos/${m.slug}/`,
+    nome: m.nome,
+    tipo: m.tipo,
+    apelido: m.apelido,
+    preco: brl(m.preco),
+    precoNota: `à vista (era ${brl(m.precoDe)})`,
+    itens: [m.precisaCelular ? 'Precisa do celular' : 'Funciona sozinha', m.impressora.startsWith('Sim') ? 'Imprime comprovante' : 'Comprovante por SMS', m.slug === 't2' ? '12x na página de maquininhas; o blog fala em 18x e 21x, menos a D188' : `Parcela em até ${m.parcelasMax}x`],
+    img: IMG_MODELO[m.slug].src,
+    alt: IMG_MODELO[m.slug].alt,
+  })),
+  {
+    href: '/modelos/tapton/',
+    nome: 'TapTon',
+    tipo: 'Celular como maquininha',
+    apelido: 'seu celular vira maquininha',
+    preco: 'R$ 0',
+    precoNota: 'sem adesão nem mensalidade',
+    itens: ['Só aproximação (NFC)', 'Android 10+ ou iPhone XS+', 'Visa, Mastercard, Elo e Amex'],
+    img: IMG_MODELO.tapton.src,
+    alt: IMG_MODELO.tapton.alt,
+  },
+];
+
+const verdades = [
+  {
+    t: '0,57% tem prazo.',
+    d: `A taxa promocional vale 30 dias a partir do recebimento da máquina ou até R$ 5 mil em vendas, o que vier primeiro. Depois, quem vende até R$ 3 mil por mês paga ${pctBR(base3k.prazos.na_hora.debito)} no débito recebendo na hora.`,
+    f: ['TN-F011', 'TN-F051'],
+    href: '/quanto-custa/',
+    cta: 'Ver as taxas de cada faixa',
+  },
+  {
+    t: 'A faixa muda todo mês.',
+    d: 'O Ton Mega+ tem cinco faixas de faturamento. A sua é recalculada pelo último mês fechado e pode subir ou descer no mês seguinte.',
+    f: ['TN-F012', 'TN-F180'],
+    href: '/quanto-custa/calculadora/',
+    cta: 'Simular a minha faixa',
+  },
+  {
+    t: 'Receber na hora custa mais.',
+    d: `Até R$ 3 mil por mês, o crédito à vista sai a ${pctBR(base3k.prazos.na_hora.credito1x)} na hora e ${pctBR(base3k.prazos.d1.credito1x)} em 1 dia útil. O prazo é escolhido na adesão e pode ser trocado depois.`,
+    f: ['TN-F014', 'TN-F051'],
+    href: '/quanto-custa/quando-cai/',
+    cta: 'Entender os prazos',
+  },
+  {
+    t: 'A máquina é emprestada.',
+    d: 'Pelos termos de uso, a adesão é em comodato: não há transferência de propriedade, e no fim do contrato a devolução é em 30 dias úteis. A página do plano MEI diz o contrário ("a máquina é sua propriedade"). Confirme antes de pedir.',
+    f: ['TN-F016', 'TN-F017', 'X-ton-e-confiavel-06'],
+    href: '/ajuda/cancelar-e-devolver/',
+    cta: 'Ver regras de devolução',
+  },
+  {
+    t: 'Pix zero tem condição.',
+    d: 'Pix na maquininha é 0% no período promocional (30 dias ou até R$ 5 mil). Depois, continua zero só com chave Pix de CPF, CNPJ ou telefone na Conta Ton; sem chave, 0,49% por venda.',
+    f: ['TN-F010', 'TN-F011', 'TN-F072'],
+    href: '/quanto-custa/',
+    cta: 'Ver todas as taxas',
+  },
+];
+
+const ajudas = [
+  { href: '/ajuda/primeiros-passos/', t: 'Ativar a maquininha', d: 'Do pacote na mão à primeira venda.' },
+  { href: '/ajuda/nao-liga-ou-sem-sinal/', t: 'Não liga ou sem sinal', d: 'Bateria, chip, Wi-Fi e Bluetooth.' },
+  { href: '/ajuda/cancelar-e-devolver/', t: 'Cancelar e devolver', d: 'Prazos do comodato e o que acontece com a adesão.' },
+  { href: '/ajuda/contato/', t: 'Falar com a Ton', d: 'WhatsApp e telefone oficiais. Nós não fazemos atendimento.' },
+];
+
+const faq = [
+  {
+    p: 'A maquininha Ton tem mensalidade?',
+    r: `<p>Não. Você paga uma taxa de adesão por máquina, à vista ou em até 12x no cartão, e a máquina fica com você em comodato, sem aluguel.</p>`,
+  },
+  {
+    p: 'Quanto tempo dura a taxa de 0,57%?',
+    r: `<p>30 dias a partir do recebimento da máquina ou até você vender R$ 5 mil, o que acontecer primeiro. Depois, vale a taxa da sua faixa de faturamento.</p>`,
+  },
+  {
+    p: 'Precisa de CNPJ para ter Ton?',
+    r: `<p>Não. Os termos da Plataforma Ton valem para pessoa física ou jurídica. Vale-alimentação e vale-refeição (Alelo, Pluxee, Ticket, Up Brasil e VR) só funcionam em cadastro com CNPJ.</p>`,
+  },
+  {
+    p: 'Ton e Stone são a mesma empresa?',
+    r: `<p>A Ton é uma marca da Stone, criada para autônomos e microempreendedores. <a href="/aprenda/ton-e-stone/">Entenda a relação</a>.</p>`,
+  },
+  {
+    p: 'Em quanto tempo o dinheiro cai?',
+    r: `<p>No cartão, você escolhe na adesão entre receber na hora ou em 1 dia útil, e a taxa muda conforme o prazo. No Pix, a Ton informa que o dinheiro cai em até 1 minuto.</p>`,
+  },
+  {
+    p: 'Vocês são a Ton?',
+    r: `<p>Não. Somos um site independente${PROGRAMA_ATIVO ? ', Parceiro Ton pelo programa Renda Extra' : ''}. Não fazemos atendimento de clientes Ton nem temos acesso à sua conta. Para isso, use os <a href="/ajuda/contato/">canais oficiais</a>. <a href="/transparencia/">${STATUS.linkReceita}</a>.</p>`,
+  },
+];
+
+const fontesPagina = [
+  ...MODELOS.flatMap((m) => m.fontes),
+  ...TAPTON.fontes,
+  ...verdades.flatMap((v) => v.f),
+  'TN-F071', 'TN-F015', 'TN-F074', 'TN-F093', 'TN-F014', 'TN-F072', 'TN-F051', 'TN-F052', 'X-parcelado-03',
+];
+
+const schema = pagina({
+  path: '/',
+  title,
+  description,
+  tipo: 'WebPage',
+  atualizado: SITE.verificadoEm,
+  sobre: [ID.ton],
+});
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base title={title} description={description} schema={schema}>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-txt">
+        <h1>Qual maquininha Ton é <em class="marca-texto">a sua?</em></h1>
+        <p class="lead">
+          Três perguntas, a resposta e o que ninguém conta: quanto a taxa sobe depois do mês promocional e de quem é a
+          máquina.
+        </p>
+        <div class="hero-ctas">
+          <a class="btn btn-dark" href="#escolher">Responder as 3 perguntas</a>
+          <a class="btn btn-ghost" href="/quanto-custa/calculadora/">Simular minhas taxas</a>
+        </div>
+        <ul class="selos" aria-label="Por que confiar">
+          <li>Fonte oficial em cada número</li>
+          <li>Sem cadastro, sem e-mail</li>
+          <li>Independente da Ton</li>
+        </ul>
+      </div>
+      <figure class="hero-img">
+        <Picture
+          src={IMG.hero}
+          alt="Cliente aproxima o cartão de uma maquininha segurada pela dona de um balcão de salgados"
+          formats={['avif', 'webp']}
+          widths={[400, 560, 720, 960, 1120]}
+          sizes="(max-width: 900px) 92vw, 560px"
+          quality={55}
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <figcaption>Ilustração com aparelho genérico.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="escolher" class="section-tight">
+    <div class="wrap escolha-grid">
+      <div class="section-head">
+        <span class="eyebrow">Três perguntas e a resposta</span>
+        <h2>Começa pelo jeito que você vende.</h2>
+        <p>Papel, celular e lugar de venda decidem o modelo. O resto é detalhe de taxa.</p>
+      </div>
+      <Escolha />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Os modelos lado a lado</span>
+        <h2>Cinco jeitos de passar o cartão.</h2>
+        <p>
+          As taxas do Ton Mega+ são as mesmas nas quatro máquinas (a tabela de planos não distingue modelo).
+          Muda o aparelho, o preço de adesão e o parcelamento máximo.
+        </p>
+      </div>
+    </div>
+    <div class="trilho" role="list" aria-label="Modelos de maquininha Ton">
+      {
+        cards.map((c) => (
+          <div class="trilho-item" role="listitem">
+            <ModeloCard {...c} />
+          </div>
+        ))
+      }
+    </div>
+    <div class="wrap trilho-rodape">
+      <a class="btn btn-dark" href="/modelos/">Comparar todos os modelos</a>
+      <p class="muted">
+        Soma das quatro máquinas hoje: {brl(MODELOS.reduce((a, m) => a + m.preco, 0))}. Preço promocional, pode mudar sem
+        aviso.
+      </p>
+    </div>
+  </section>
+
+  <section class="section alt verdades-sec">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">O que a propaganda não destaca</span>
+        <h2>Cinco verdades antes de pedir.</h2>
+      </div>
+      <ol class="verdades">
+        {
+          verdades.map((v, i) => (
+            <li class="reveal">
+              <span class="v-n">0{i + 1}</span>
+              <h3 class="display" set:html={dig(v.t)} />
+              <div class="v-d">
+                <p>
+                  {v.d}
+                </p>
+                <a href={v.href}>{v.cta}</a>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section panel on-panel calc-sec">
+    <div class="wrap calc-grid">
+      <div>
+        <span class="eyebrow">Calculadora</span>
+        <h2 class="calc-tit">Quanto sobra de cada venda <em class="accent">no mês <span class="n">2</span>?</em></h2>
+        <p class="calc-lead">
+          Coloca quanto vende por mês e como o cliente paga. A calculadora mostra o mês promocional e o mês seguinte, na
+          sua faixa, recebendo na hora ou em 1 dia útil.
+        </p>
+        <a class="btn btn-primary" href="/quanto-custa/calculadora/">Abrir a calculadora</a>
+      </div>
+      <figure class="calc-img">
+        <Picture
+          src={IMG.calculadora}
+          alt="Comerciante confere no celular o resultado das vendas do dia no balcão"
+          formats={['avif', 'webp']}
+          widths={[480, 720, 960]}
+          sizes="(max-width: 900px) 92vw, 520px"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Taxas Ton Mega+ depois do período promocional</span>
+        <h2>Sua taxa depende de quanto você vende.</h2>
+        <p>
+          Visa e Mastercard, por faixa de faturamento mensal. No período promocional, débito e crédito à vista saem a {
+            pctBR(promo.prazos.na_hora.debito)
+          }.
+        </p>
+      </div>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Tabela de taxas por faixa">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Faturamento por mês</th>
+              <th scope="col" class="num">Débito na hora</th>
+              <th scope="col" class="num">Crédito à vista na hora</th>
+              <th scope="col" class="num">Débito em 1 dia útil</th>
+              <th scope="col" class="num">Crédito à vista em 1 dia útil</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              faixas.map((f) => (
+                <tr class:list={{ hl: f.id === 'ate3k' }}>
+                  <th scope="row">{f.rotulo}</th>
+                  <td class="num">{pctBR(f.prazos.na_hora.debito)}</td>
+                  <td class="num">{pctBR(f.prazos.na_hora.credito1x)}</td>
+                  <td class="num">{pctBR(f.prazos.d1.debito)}</td>
+                  <td class="num">{pctBR(f.prazos.d1.credito1x)}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="tabela-nota muted">
+        Elo e Amex têm taxas próprias, mais altas. Parcelado de 2x a 21x na página <a href="/quanto-custa/parcelado/"
+          >taxa do parcelado</a
+        >. Planos válidos para novos clientes.
+      </p>
+      <a class="btn btn-dark" href="/quanto-custa/">Ver todas as taxas</a>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap ajuda-grid">
+      <div>
+        <div class="section-head">
+          <span class="eyebrow">Ajuda</span>
+          <h2>Travou? Começa por aqui.</h2>
+          <p>Os problemas mais buscados, com o passo a passo da ajuda oficial da Ton e o caminho para o atendimento dela.</p>
+        </div>
+        <ul class="ajuda-lista">
+          {
+            ajudas.map((a) => (
+              <li>
+                <a href={a.href}>
+                  <span class="a-t">{a.t}</span>
+                  <span class="a-d">{a.d}</span>
+                  <span aria-hidden="true" class="seta">
+                    →
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <figure class="ajuda-img">
+        <Picture
+          src={IMG.ajuda}
+          alt="Mãos seguram uma maquininha ao lado de um celular sobre um balcão de madeira"
+          formats={['avif', 'webp']}
+          widths={[480, 720, 960]}
+          sizes="(max-width: 900px) 92vw, 520px"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Transparência</span>
+        <h2>Independente, não atendimento.</h2>
+        <p>Como este site funciona e por que você pode conferir tudo o que ele diz.</p>
+      </div>
+      <div class="grid grid-4 transp">
+        <div class="card">
+          <h3>{PROGRAMA_ATIVO ? 'Somos Parceiro Ton' : 'Não somos a Ton'}</h3>
+          <p>{PROGRAMA_ATIVO ? 'Participamos do Renda Extra Ton. ' : ''}Não somos funcionários nem atendimento da Ton.</p>
+        </div>
+        <div class="card">
+          <h3>{PROGRAMA_ATIVO ? 'Comissão sem custo para você' : 'Sem comissão hoje'}</h3>
+          <p>
+            {
+              PROGRAMA_ATIVO
+                ? 'Quando você pede por um link nosso, a Ton nos paga, e a adesão sai com o cupom de desconto do programa. Você nunca paga mais.'
+                : 'Hoje os botões levam direto ao site oficial, sem link de indicação. A Ton não nos paga nada.'
+            }
+          </p>
+        </div>
+        <div class="card">
+          <h3>Fonte em cada número</h3>
+          <p>Taxa, preço e regra vêm com o link do documento oficial e a data em que conferimos.</p>
+        </div>
+        <div class="card">
+          <h3>O ruim também aparece</h3>
+          <p>Se a Ton se contradiz entre duas páginas, mostramos as duas versões em vez de escolher uma.</p>
+        </div>
+      </div>
+      <a href="/transparencia/" class="mais-link">Ler a página de transparência</a>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap-text">
+      <Faq itens={faq} />
+      <Fontes ids={fontesPagina} />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(2rem, 6vw, 5rem) clamp(3rem, 6vw, 5rem);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .hero-txt {
+    display: grid;
+    gap: var(--s-5);
+    justify-items: start;
+  }
+  h1 {
+    font-size: var(--fs-7);
+    line-height: 0.92;
+    letter-spacing: -0.005em;
+  }
+  .marca-texto {
+    font-style: italic;
+    background: linear-gradient(transparent 62%, var(--green) 62%, var(--green) 90%, transparent 90%);
+    padding-inline: 0.05em;
+  }
+  .lead {
+    font-size: var(--fs-3);
+    color: var(--ink-2);
+    max-width: 34rem;
+    margin: 0;
+  }
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+  }
+  .selos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-5);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--fs-0);
+    color: var(--muted);
+  }
+  .selos li::before {
+    content: '';
+    display: inline-block;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--green);
+    margin-right: 0.45rem;
+    box-shadow: 0 0 0 2px var(--ink) inset;
+  }
+  .hero-img {
+    margin: 0;
+  }
+  .hero-img :global(img),
+  .calc-img :global(img),
+  .ajuda-img :global(img) {
+    width: 100%;
+    border-radius: var(--radius-l);
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+  .hero-img :global(img) {
+    aspect-ratio: 4 / 4.4;
+  }
+  figcaption {
+    font-size: var(--fs-0);
+    color: var(--muted);
+    margin-top: var(--s-2);
+  }
+
+  .escolha-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.3fr;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: start;
+  }
+  .escolha-grid .section-head h2 {
+    font-size: var(--fs-5);
+  }
+
+  .trilho {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(280px, 320px);
+    gap: var(--s-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 max(var(--gutter), calc((100vw - var(--wrap)) / 2)) var(--s-4);
+    scroll-padding-inline: max(var(--gutter), calc((100vw - var(--wrap)) / 2));
+    /* rola com o dedo, o trackpad ou o teclado, mas sem a barra aparente */
+    scrollbar-width: none;
+  }
+  .trilho::-webkit-scrollbar {
+    display: none;
+  }
+  .trilho-item {
+    scroll-snap-align: start;
+  }
+  .trilho-rodape {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-4);
+    align-items: center;
+    margin-top: var(--s-6);
+  }
+  .trilho-rodape p {
+    margin: 0;
+    font-size: var(--fs-1);
+  }
+
+  .verdades {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .verdades li {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: var(--s-5);
+    padding: clamp(1.5rem, 3vw, 2.5rem) 0;
+    border-bottom: 1px solid var(--line-strong);
+    align-items: start;
+  }
+  .v-n {
+    font-size: var(--fs-1);
+    font-weight: 600;
+    color: var(--muted);
+    padding-top: 0.6rem;
+  }
+  .verdades h3 {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 400;
+    font-size: var(--fs-6);
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+  .v-d p {
+    color: var(--ink-2);
+  }
+  .v-d a {
+    font-weight: 600;
+  }
+
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .calc-tit {
+    font-size: var(--fs-6);
+    margin-bottom: var(--s-5);
+  }
+  .calc-lead {
+    font-size: var(--fs-3);
+    max-width: 32rem;
+    margin-bottom: var(--s-6);
+  }
+  .calc-img {
+    margin: 0;
+  }
+
+  .tabela-nota {
+    font-size: var(--fs-1);
+    margin: var(--s-4) 0 var(--s-5);
+  }
+
+  .ajuda-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .ajuda-img {
+    margin: 0;
+  }
+  .ajuda-lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+  .ajuda-lista a {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0 var(--s-4);
+    padding: var(--s-4) 0;
+    border-bottom: 1px solid var(--line-strong);
+    text-decoration: none;
+  }
+  .a-t {
+    font-weight: 600;
+    font-size: var(--fs-3);
+  }
+  .a-d {
+    grid-column: 1;
+    color: var(--muted);
+    font-size: var(--fs-1);
+  }
+  .seta {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    align-self: center;
+    font-size: 1.5rem;
+    transition: transform 0.2s ease;
+  }
+  .ajuda-lista a:hover .seta {
+    transform: translateX(4px);
+  }
+
+  .transp h3 {
+    font-size: var(--fs-3);
+    margin-bottom: var(--s-3);
+  }
+  .transp p {
+    color: var(--ink-2);
+    margin: 0;
+    font-size: var(--fs-1);
+  }
+  .mais-link {
+    display: inline-block;
+    margin-top: var(--s-5);
+    font-weight: 600;
+  }
+
+  @media (max-width: 900px) {
+    .hero-grid,
+    .escolha-grid,
+    .calc-grid,
+    .ajuda-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-img :global(img) {
+      aspect-ratio: 3 / 2;
+    }
+    .verdades li {
+      grid-template-columns: 1fr;
+      gap: var(--s-3);
+    }
+    .v-n {
+      padding-top: 0;
+    }
+  }
+</style>

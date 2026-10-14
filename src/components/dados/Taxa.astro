@@ -1,0 +1,32 @@
+---
+// Taxa vinda de src/data/taxas.json. Nunca digite taxa no texto: use este componente.
+// <Taxa faixa="ate3k" prazo="d1" tipo="credito1x" />  -> 3,86%
+// <Taxa faixa="promo" prazo="na_hora" tipo="parcela" parcelas={12} />
+// <Taxa faixa="ate3k" prazo="na_hora" tipo="elo_debito" />
+import taxas from '../../data/taxas.json';
+import { pctBR } from '../../data/modelos';
+
+interface Props {
+  faixa: 'promo' | 'ate3k' | '3a6k' | '6a10k' | '10a30k' | '30k' | 'tapton' | 'link';
+  prazo: 'na_hora' | 'd1' | 'd14' | 'd30';
+  tipo: 'debito' | 'credito1x' | 'parcela' | 'elo_debito' | 'elo_credito1x' | 'elo_12x';
+  parcelas?: number;
+}
+const { faixa, prazo, tipo, parcelas } = Astro.props;
+const f = taxas.faixas.find((x) => x.id === faixa);
+if (!f) throw new Error(`Faixa inexistente: ${faixa}`);
+const p = (f.prazos as Record<string, any>)[prazo];
+if (!p) throw new Error(`Prazo ${prazo} não existe na faixa ${faixa}`);
+let v: number | undefined;
+if (tipo === 'debito') v = p.debito;
+else if (tipo === 'credito1x') v = p.credito1x;
+else if (tipo === 'parcela') {
+  if (!parcelas) throw new Error('tipo="parcela" exige parcelas={n}');
+  v = p.parcelas[String(parcelas)];
+} else if (tipo === 'elo_debito') v = p.elo_amex.debito;
+else if (tipo === 'elo_credito1x') v = p.elo_amex.credito1x;
+else if (tipo === 'elo_12x') v = p.elo_amex.p12;
+if (v === undefined) throw new Error(`Taxa inexistente: ${faixa}/${prazo}/${tipo}/${parcelas ?? ''}`);
+---
+
+<span class="taxa">{pctBR(v)}</span>

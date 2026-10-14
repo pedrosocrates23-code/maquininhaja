@@ -1,0 +1,47 @@
+---
+// CTA de conversão. Vai para /link/<chave>/ (302 para o link de indicação do Renda Extra
+// quando o cadastro existir; até lá, para a página oficial). rel="sponsored".
+import { PROGRAMA_ATIVO } from '../data/site';
+interface Props {
+  chave: string;
+  texto: string;
+  variante?: 'primary' | 'dark';
+  nota?: boolean;
+}
+const { chave, texto, variante = 'primary', nota = true } = Astro.props;
+---
+
+<div class="cta-ind">
+  <a class:list={['btn', `btn-${variante}`]} href={`/link/${chave}/`} rel="sponsored nofollow">
+    {texto}
+    <svg viewBox="0 0 24 24" aria-hidden="true"
+      ><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg
+    >
+  </a>
+  {
+    nota && (
+      <p class="nota">
+        {PROGRAMA_ATIVO
+          ? 'Link de parceiro: você finaliza no site oficial da Ton, com o cupom de desconto do programa. Recebemos comissão.'
+          : 'Você finaliza no site oficial da Ton. Hoje este site não recebe comissão por este link.'}
+      </p>
+    )
+  }
+</div>
+
+<style>
+  .cta-ind {
+    display: grid;
+    gap: var(--s-2);
+    justify-items: start;
+  }
+  .nota {
+    font-size: var(--fs-0);
+    color: var(--muted);
+    margin: 0;
+    max-width: 30rem;
+  }
+  :global(.panel) .nota {
+    color: var(--on-panel-muted);
+  }
+</style>

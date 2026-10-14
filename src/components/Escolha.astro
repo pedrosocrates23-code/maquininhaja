@@ -1,0 +1,172 @@
+---
+// "Três perguntas e a resposta": seletor de modelo. A lógica usa só fatos das fichas
+// (impressora: T3/T3 Smart; depende do celular: T1/TapTon; 4G e bateria: T3 Smart).
+// ~1 KB de JS; sem JS, o leitor ainda tem a tabela de /modelos/.
+import { MODELOS, brl } from '../data/modelos';
+import { SITE } from '../data/site';
+import { dig } from '../lib/texto';
+
+const res = {
+  t1: { nome: 'Ton T1', href: '/modelos/t1/', por: 'Você topa usar o celular junto e não precisa de papel. É a de menor custo de entrada. Não aceita Pix na própria máquina.' },
+  t2: { nome: 'Ton T2', href: '/modelos/t2/', por: 'Sem impressora e sem depender do celular: chip próprio, Wi-Fi e Pix na própria máquina.' },
+  t3: { nome: 'Ton T3', href: '/modelos/t3/', por: 'Comprovante impresso no balcão, chip próprio e parcelado em até 21x.' },
+  't3-smart': { nome: 'Ton T3 Smart', href: '/modelos/t3-smart/', por: 'Imprime, tem tela de toque Android, chip 4G e bateria de longa duração, segundo a Ton.' },
+  tapton: { nome: 'TapTon', href: '/modelos/tapton/', por: 'Está começando e vende pouco: o celular vira maquininha por aproximação, sem pagar aparelho.' },
+};
+const precos = Object.fromEntries(MODELOS.map((m) => [m.slug, brl(m.preco)]));
+const dados = JSON.stringify(
+  Object.fromEntries(
+    Object.entries(res).map(([k, v]) => [k, { ...v, nomeHtml: dig(v.nome), preco: k === 'tapton' ? 'R$ 0 de aparelho' : `${precos[k]} à vista` }]),
+  ),
+);
+---
+
+<form class="esc" id="escolha" data-res={dados} aria-describedby="esc-nota">
+  <fieldset>
+    <legend><span class="n">1</span> Onde você vende?</legend>
+    <label><input type="radio" name="onde" value="balcao" required /> Balcão fixo</label>
+    <label><input type="radio" name="onde" value="rua" /> Na rua, em domicílio, em feira</label>
+    <label><input type="radio" name="onde" value="comeco" /> Estou começando, vendo pouco</label>
+  </fieldset>
+  <fieldset>
+    <legend><span class="n">2</span> Precisa entregar comprovante impresso?</legend>
+    <label><input type="radio" name="papel" value="sim" required /> Sim</label>
+    <label><input type="radio" name="papel" value="nao" /> Não, SMS resolve</label>
+  </fieldset>
+  <fieldset>
+    <legend><span class="n">3</span> Tudo bem depender do celular para vender?</legend>
+    <label><input type="radio" name="cel" value="sim" required /> Tudo bem</label>
+    <label><input type="radio" name="cel" value="nao" /> Não, quero a máquina sozinha</label>
+  </fieldset>
+  <button type="submit" class="btn btn-dark">Ver a minha maquininha</button>
+
+  <div class="resultado" id="esc-res" aria-live="polite" tabindex="-1" hidden>
+    <p class="eyebrow">A que mais combina</p>
+    <p class="r-nome display" data-r="nome"></p>
+    <p class="r-preco" data-r="preco"></p>
+    <p data-r="por"></p>
+    <a class="btn btn-primary" data-r="href" href="/modelos/">Ver detalhes e taxas</a>
+  </div>
+  <p class="nota" id="esc-nota">
+    Regra de escolha do site, montada com dados da ficha oficial de cada modelo. Preços promocionais conferidos em {SITE.verificadoEmTexto}; confira no site da Ton antes de pedir.
+  </p>
+</form>
+
+<script>
+  const f = document.getElementById('escolha') as HTMLFormElement | null;
+  if (f) {
+    const res = JSON.parse(f.dataset.res || '{}');
+    const box = document.getElementById('esc-res') as HTMLElement;
+    f.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const d = new FormData(f);
+      const onde = d.get('onde');
+      const papel = d.get('papel');
+      const cel = d.get('cel');
+      let k = 't2';
+      if (papel === 'sim') k = onde === 'rua' ? 't3-smart' : 't3';
+      else if (cel === 'nao') k = 't2';
+      else k = onde === 'comeco' ? 'tapton' : 't1';
+      const r = res[k];
+      box.querySelector('[data-r="nome"]')!.innerHTML = r.nomeHtml;
+      box.querySelector('[data-r="preco"]')!.textContent = r.preco;
+      box.querySelector('[data-r="por"]')!.textContent = r.por;
+      (box.querySelector('[data-r="href"]') as HTMLAnchorElement).href = r.href;
+      (box.querySelector('[data-r="href"]') as HTMLAnchorElement).textContent = `Ver a ${r.nome}`;
+      box.hidden = false;
+      box.focus({ preventScroll: true });
+      box.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    });
+  }
+</script>
+
+<style>
+  .esc {
+    display: grid;
+    gap: var(--s-5);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+  }
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+  legend {
+    font-weight: 600;
+    font-size: var(--fs-3);
+    margin-bottom: var(--s-3);
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+  }
+  .n {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--on-panel);
+    font-size: var(--fs-1);
+  }
+  label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 48px;
+    padding: 0.55rem 1.1rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--pill);
+    cursor: pointer;
+    font-size: var(--fs-1);
+    background: var(--bg);
+  }
+  label:has(input:checked) {
+    background: var(--green);
+    border-color: var(--green);
+    font-weight: 600;
+  }
+  label:has(input:focus-visible) {
+    outline: 3px solid var(--ink);
+    outline-offset: 2px;
+  }
+  input {
+    accent-color: var(--ink);
+    width: 1.1rem;
+    height: 1.1rem;
+    margin: 0;
+  }
+  .esc > .btn {
+    justify-self: start;
+  }
+  .resultado {
+    border-top: 1px solid var(--ink);
+    padding-top: var(--s-5);
+    display: grid;
+    gap: var(--s-2);
+    justify-items: start;
+  }
+  .resultado:focus {
+    outline: none;
+  }
+  .r-nome {
+    font-size: var(--fs-5);
+    line-height: 1;
+    margin: 0;
+  }
+  .r-preco {
+    font-weight: 600;
+    margin: 0;
+  }
+  .nota {
+    font-size: var(--fs-0);
+    color: var(--muted);
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,69 @@
+---
+// "Referências" no fim da página: fechado por padrão, abre só no clique.
+import { fonte } from '../lib/fontes';
+import { SITE } from '../data/site';
+interface Props {
+  ids: string[];
+}
+const lista = [...new Set(Astro.props.ids)].sort().map((id) => {
+  return { id, ...fonte(id) };
+});
+---
+
+<section class="refs" aria-label="Referências">
+  <details>
+    <summary>Referências ({lista.length})</summary>
+    <p class="refs-nota">Documentos oficiais da Ton e demais fontes desta página, conferidos em {SITE.verificadoEmTexto}.</p>
+    <ol>
+      {
+        lista.map((f) => (
+          <li>
+            <a href={f.url} rel="nofollow noopener" target="_blank">
+              {f.url.replace(/^https?:\/\//, '')}
+            </a>
+            <blockquote>{f.trecho.replace(/\s*\|\s*$/, '')}</blockquote>
+          </li>
+        ))
+      }
+    </ol>
+  </details>
+</section>
+
+<style>
+  .refs {
+    border-top: 1px solid var(--line);
+    padding-top: var(--s-4);
+    margin-top: var(--s-8);
+    font-size: var(--fs-0);
+    color: var(--muted);
+  }
+  summary {
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  summary:hover {
+    color: var(--ink);
+  }
+  .refs-nota {
+    margin: var(--s-3) 0 0;
+  }
+  ol {
+    margin: var(--s-4) 0 0;
+    padding-left: 1.25rem;
+  }
+  li + li {
+    margin-top: var(--s-3);
+  }
+  li a {
+    color: var(--muted);
+    overflow-wrap: anywhere;
+  }
+  blockquote {
+    margin: var(--s-1) 0 0;
+    padding-left: var(--s-3);
+    border-left: 2px solid var(--line);
+    overflow-wrap: anywhere;
+  }
+</style>

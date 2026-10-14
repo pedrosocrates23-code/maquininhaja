@@ -1,0 +1,380 @@
+---
+// Calculadora de taxas Ton Mega+: mês promocional x mês 2 em diante, na faixa do usuário,
+// recebendo na hora ou em 1 dia útil. Regras: TN-F011 (promo 30 dias ou R$ 5 mil),
+// TN-F013 (bateu R$ 5 mil: Faixa 3 até completar 30 dias), TN-F012/TN-F180 (faixas e
+// reenquadramento mensal), TN-F184 (o que soma no faturamento), TN-F010 (Pix).
+// JS próprio, sem dependência (~3 KB). Sem JS, a página mostra as tabelas.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Fontes from '../../components/Fontes.astro';
+import Callout from '../../components/Callout.astro';
+import Faq from '../../components/Faq.astro';
+import TabelaFaixas from '../../components/dados/TabelaFaixas.astro';
+import { SITE } from '../../data/site';
+import taxas from '../../data/taxas.json';
+import { pagina, ID } from '../../lib/schema';
+
+const title = 'Simulador de taxas Ton: quanto cai na conta';
+const description =
+  'Simule a taxa da maquininha Ton com o seu faturamento: quanto você paga no mês promocional e do mês 2 em diante, recebendo na hora ou em 1 dia útil.';
+const path = '/quanto-custa/calculadora/';
+const crumbs = [
+  { name: 'Início', href: '/' },
+  { name: 'Quanto custa', href: '/quanto-custa/' },
+  { name: 'Calculadora', href: path },
+];
+// Só o que o script precisa (taxas Visa/Mastercard por faixa e prazo).
+const dados = JSON.stringify(
+  Object.fromEntries(
+    taxas.faixas
+      .filter((f) => ['promo', 'ate3k', '3a6k', '6a10k', '10a30k', '30k'].includes(f.id))
+      .map((f) => [
+        f.id,
+        Object.fromEntries(
+          Object.entries(f.prazos).map(([pz, v]: [string, any]) => [pz, { d: v.debito, c: v.credito1x, p: v.parcelas }]),
+        ),
+      ]),
+  ),
+);
+const faq = [
+  {
+    p: 'A calculadora usa a taxa de qual bandeira?',
+    r: `<p>Visa e Mastercard, que têm a mesma taxa na Ton. Elo e Amex são mais caras; veja a tabela em <a href="/quanto-custa/">quanto custa</a>.</p>`,
+  },
+  {
+    p: 'Por que o mês 1 fica mais caro quando vendo mais de R$ 5 mil?',
+    r: `<p>Porque a promoção acaba ao bater R$ 5 mil. A partir daí, até completar 30 dias, valem as taxas da faixa de R$ 6 mil a R$ 10 mil. A calculadora aplica a taxa promocional aos primeiros R$ 5 mil e a da Faixa 3 ao restante.</p>`,
+  },
+  {
+    p: 'A conta é exata?',
+    r: `<p>É uma estimativa com as taxas oficiais de 13 de outubro de 2026 para cliente novo. Ela supõe que o mix de pagamentos se espalha igual ao longo do mês. A taxa real de cada venda aparece no app da Ton.</p>`,
+  },
+];
+const schema = pagina({ path, title, description, tipo: 'WebApplication', atualizado: SITE.verificadoEm, crumbs, sobre: [ID.ton] });
+const ids = ['TN-F011', 'TN-F012', 'TN-F013', 'TN-F180', 'TN-F184', 'TN-F010', 'TN-F051', 'TN-F052', 'TN-F014'];
+---
+
+<Base title={title} description={description} crumbs={crumbs} schema={schema} ogImage="/og/calculadora.jpg" atualizado={SITE.verificadoEm}>
+  <PageHero
+    rotulo="Calculadora"
+    h1="Simulador de taxas da Ton por faixa de faturamento"
+    resumo="Coloca quanto vende por mês e como o cliente paga. A conta mostra o <strong>mês promocional</strong> e o <strong>mês 2 em diante</strong>, que é o que pesa de verdade."
+  />
+
+  <section class="wrap calc-grid" aria-label="Calculadora">
+    <form id="calc" class="calc card" data-taxas={dados} novalidate>
+      <div class="campo">
+        <label for="fat">Quanto você vende por mês</label>
+        <div class="moeda"><span aria-hidden="true">R$</span><input id="fat" name="fat" type="number" inputmode="decimal" min="0" step="100" value="3000" /></div>
+        <p class="ajuda">Soma de cartão, Pix na máquina, TapTon e Link. </p>
+      </div>
+
+      <fieldset class="mix">
+        <legend>Como o cliente paga (em %)</legend>
+        <div class="mix-grid">
+          <label>Débito <input name="deb" type="number" inputmode="numeric" min="0" max="100" value="40" /></label>
+          <label>Crédito à vista <input name="cre" type="number" inputmode="numeric" min="0" max="100" value="30" /></label>
+          <label>Parcelado <input name="par" type="number" inputmode="numeric" min="0" max="100" value="20" /></label>
+          <label>Pix <input name="pix" type="number" inputmode="numeric" min="0" max="100" value="10" /></label>
+        </div>
+        <p class="ajuda" id="soma" aria-live="polite"></p>
+      </fieldset>
+
+      <div class="linha2">
+        <div class="campo">
+          <label for="parc">Parcelado, em média em</label>
+          <select id="parc" name="parc">
+            {Array.from({ length: 20 }, (_, i) => i + 2).map((n) => <option value={n} selected={n === 6}>{n}x</option>)}
+          </select>
+        </div>
+        <fieldset class="campo prazo">
+          <legend>Receber</legend>
+          <label><input type="radio" name="prazo" value="na_hora" /> Na hora</label>
+          <label><input type="radio" name="prazo" value="d1" checked /> Em 1 dia útil</label>
+        </fieldset>
+      </div>
+
+      <label class="check"><input type="checkbox" name="chave" checked /> Tenho chave Pix de CPF, CNPJ ou telefone na Conta Ton</label>
+    </form>
+
+    <div class="resultado panel on-panel" id="res" aria-live="polite">
+      <p class="eyebrow">Resultado</p>
+      <noscript><p>A calculadora precisa de JavaScript. As taxas por faixa estão nas tabelas abaixo.</p></noscript>
+      <div class="r-meses">
+        <div class="r-mes">
+          <p class="r-rot">Mês promocional</p>
+          <p class="r-val" data-r="m1">R$ 0</p>
+          <p class="r-sub" data-r="m1p">de taxa</p>
+        </div>
+        <div class="r-mes destaque">
+          <p class="r-rot">Do mês 2 em diante</p>
+          <p class="r-val" data-r="m2">R$ 0</p>
+          <p class="r-sub" data-r="m2p">de taxa por mês</p>
+        </div>
+      </div>
+      <p class="r-faixa" data-r="faixa"></p>
+      <p class="r-liq" data-r="liq"></p>
+      <p class="r-alt" data-r="alt"></p>
+      <a class="btn btn-primary" href="/modelos/">Ver qual maquininha escolher</a>
+    </div>
+  </section>
+
+  <div class="wrap-text corpo">
+    <Callout tipo="info" titulo="Como a conta é feita">
+      <p>
+        Mês promocional: taxa promocional até R$ 5 mil em vendas; acima disso, a taxa da faixa de R$ 6 mil
+        a R$ 10 mil até fechar os 30 dias. Do mês 2 em diante: a faixa do seu faturamento mensal, revista
+        todo mês pelo mês anterior. Pix: a calculadora usa 0% no mês 1 inteiro, uma
+        aproximação. O regulamento liga a taxa zero ao período promocional, que acaba antes dos 30 dias se você passar de R$ 5
+        mil. Depois, 0% com chave de CPF, CNPJ ou telefone, ou 0,49% sem chave. Bandeiras Visa e Mastercard.
+      </p>
+    </Callout>
+
+    <h2 class="t-tab">As taxas usadas na conta</h2>
+    <TabelaFaixas prazo="d1" />
+    <div class="espaco"></div>
+    <TabelaFaixas prazo="na_hora" />
+
+    <div class="faq-wrap"><Faq itens={faq} /></div>
+    <Fontes ids={ids} />
+  </div>
+</Base>
+
+<script>
+  const form = document.getElementById('calc') as HTMLFormElement | null;
+  if (form) {
+    type P = { d: number; c: number; p: Record<string, number> };
+    const T = JSON.parse(form.dataset.taxas || '{}') as Record<string, Record<string, P>>;
+    const $ = (k: string) => document.querySelector(`[data-r="${k}"]`) as HTMLElement;
+    const brl = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const pct = (v: number) => `${v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`;
+    const NOMES: Record<string, string> = {
+      ate3k: 'até R$ 3 mil',
+      '3a6k': 'de R$ 3 mil a R$ 6 mil',
+      '6a10k': 'de R$ 6 mil a R$ 10 mil',
+      '10a30k': 'de R$ 10 mil a R$ 30 mil',
+      '30k': 'acima de R$ 30 mil',
+    };
+    const faixa = (v: number) => (v <= 3000 ? 'ate3k' : v <= 6000 ? '3a6k' : v <= 10000 ? '6a10k' : v <= 30000 ? '10a30k' : '30k');
+    const custo = (valor: number, mix: number[], parc: number, t: P, pixTaxa: number) =>
+      valor * ((mix[0] * t.d + mix[1] * t.c + mix[2] * (t.p[String(parc)] ?? 0)) / 100 + (mix[3] * pixTaxa) / 100) / 100;
+
+    function calcular() {
+      const d = new FormData(form!);
+      const fat = Math.max(0, Number(d.get('fat')) || 0);
+      const bruto = ['deb', 'cre', 'par', 'pix'].map((k) => Math.max(0, Number(d.get(k)) || 0));
+      const soma = bruto.reduce((a, b) => a + b, 0);
+      const mix = soma > 0 ? bruto.map((x) => (x / soma) * 100) : [100, 0, 0, 0];
+      (document.getElementById('soma') as HTMLElement).textContent =
+        soma === 100 ? 'Soma: 100%.' : `Soma: ${soma}%. A conta ajusta proporcionalmente para 100%.`;
+      const parc = Number(d.get('parc')) || 6;
+      const prazo = String(d.get('prazo') || 'd1');
+      const pixDepois = d.get('chave') ? 0 : 0.49;
+      const f = faixa(fat);
+      const promoParte = Math.min(fat, 5000);
+      const resto = Math.max(0, fat - 5000);
+      const m1 = custo(promoParte, mix, parc, T.promo[prazo], 0) + custo(resto, mix, parc, T['6a10k'][prazo], 0);
+      const m2 = custo(fat, mix, parc, T[f][prazo], pixDepois);
+      const outro = prazo === 'd1' ? 'na_hora' : 'd1';
+      const m2o = custo(fat, mix, parc, T[f][outro], pixDepois);
+      $('m1').textContent = brl(m1);
+      $('m1p').textContent = fat ? `de taxa (${pct((m1 / fat) * 100)} do que vendeu)` : 'de taxa';
+      $('m2').textContent = brl(m2);
+      $('m2p').textContent = fat ? `de taxa por mês (${pct((m2 / fat) * 100)} do que vendeu)` : 'de taxa por mês';
+      $('faixa').textContent = `Sua faixa do mês 2 em diante: ${NOMES[f]} por mês.${resto > 0 ? ' No mês 1, a promoção acaba ao bater R$ 5 mil.' : ''}`;
+      $('liq').textContent = `Sobra para você, por mês, a partir do mês 2: ${brl(fat - m2)}.`;
+      const dif = m2o - m2;
+      $('alt').textContent =
+        outro === 'na_hora'
+          ? `Recebendo na hora, você pagaria ${brl(m2o)} (${brl(Math.abs(dif))} a mais por mês).`
+          : `Recebendo em 1 dia útil, você pagaria ${brl(m2o)} (${brl(Math.abs(dif))} a menos por mês).`;
+    }
+    form.addEventListener('input', calcular);
+    form.addEventListener('change', calcular);
+    form.addEventListener('submit', (e) => e.preventDefault());
+    calcular();
+  }
+</script>
+
+<style>
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--s-5);
+    align-items: start;
+    padding-bottom: var(--s-8);
+  }
+  .calc {
+    display: grid;
+    gap: var(--s-5);
+  }
+  .campo {
+    display: grid;
+    gap: var(--s-2);
+  }
+  label,
+  legend {
+    font-weight: 600;
+    font-size: var(--fs-1);
+  }
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+  input[type='number'],
+  select {
+    font: inherit;
+    font-size: var(--fs-2);
+    min-height: 48px;
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-s);
+    background: var(--bg);
+    color: var(--ink);
+  }
+  .moeda {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-s);
+    background: var(--bg);
+    padding-left: 0.9rem;
+  }
+  .moeda span {
+    font-weight: 600;
+  }
+  .moeda input {
+    border: 0;
+    font-size: var(--fs-4);
+    font-weight: 600;
+    background: transparent;
+  }
+  .mix-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-3);
+    margin-top: var(--s-3);
+  }
+  .mix-grid label {
+    display: grid;
+    gap: var(--s-1);
+    font-weight: 500;
+  }
+  .ajuda {
+    font-size: var(--fs-0);
+    color: var(--muted);
+    margin: var(--s-2) 0 0;
+  }
+  .linha2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-4);
+  }
+  .prazo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    align-items: center;
+  }
+  .prazo legend {
+    width: 100%;
+    margin-bottom: var(--s-2);
+  }
+  .prazo label,
+  .check {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    font-weight: 500;
+  }
+  input[type='radio'],
+  input[type='checkbox'] {
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: var(--ink);
+  }
+  .resultado {
+    border-radius: var(--radius-l);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    display: grid;
+    gap: var(--s-4);
+    position: sticky;
+    top: 6rem;
+  }
+  .r-meses {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-3);
+  }
+  .r-mes {
+    border: 1px solid #34342f;
+    border-radius: var(--radius);
+    padding: var(--s-4);
+  }
+  .r-mes.destaque {
+    border-color: var(--green);
+  }
+  .r-rot {
+    font-size: var(--fs-0);
+    margin: 0 0 var(--s-2);
+  }
+  .r-val {
+    font-size: var(--fs-4);
+    font-weight: 650;
+    color: var(--on-panel) !important;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .destaque .r-val {
+    color: var(--green) !important;
+  }
+  .r-sub {
+    font-size: var(--fs-0);
+    margin: var(--s-1) 0 0;
+  }
+  .r-faixa,
+  .r-liq,
+  .r-alt {
+    margin: 0;
+    font-size: var(--fs-1);
+  }
+  .r-liq {
+    color: var(--on-panel) !important;
+    font-weight: 600;
+  }
+  .corpo {
+    padding-bottom: var(--s-9);
+  }
+  .t-tab {
+    font-size: var(--fs-5);
+    margin: var(--s-8) 0 var(--s-5);
+  }
+  .espaco {
+    height: var(--s-5);
+  }
+  .faq-wrap {
+    margin-top: var(--s-8);
+  }
+  @media (max-width: 900px) {
+    .calc-grid {
+      grid-template-columns: 1fr;
+    }
+    .resultado {
+      position: static;
+    }
+  }
+  @media (max-width: 560px) {
+    .mix-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .linha2 {
+      grid-template-columns: 1fr;
+    }
+    .r-meses {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,52 @@
+{
+ "X-cartoes-e-vales-01": {
+  "url": "https://ajuda.ton.com.br/pt_BR/quais-bandeiras-sao-para-o-cpf-e-quais-sao-para-cpnj/quais-bandeiras-sao-para-o-cpf-e-quais-para-cpnj",
+  "data": "2026-10-13",
+  "trecho": "Habilitam apenas CNPJ Alelo Sodexo (Pluxee) Ticket UpBrasil Vr"
+ },
+ "X-cartoes-e-vales-02": {
+  "url": "https://ajuda.ton.com.br/pt_BR/quais-bandeiras-sao-para-o-cpf-e-quais-sao-para-cpnj/quais-bandeiras-sao-para-o-cpf-e-quais-para-cpnj",
+  "data": "2026-10-13",
+  "trecho": "Habilitam CPF e CNPJ Abrapetite Accredito AmazonCard Avancard Banco Ponto Forte Banescard Banricompras Biq Benefícios BNB Clube BNCard Bônus Cred BsCash CardIdeal|UzziPay CDC Card Credpar Eucard GoiasCard Goodcard GreenCard Inttegracard KPI Lecard Libercard MaxxCard Megavale Meu Vale MultVale NGV Card Nutricard Nutricash O2 Plus Card One Card Personal Card RealCard Romcard Senff TrioCard Uauh Benefícios ValeCard Vegas VeroCard Viasoft Pay Volus YuCard Zuumcard"
+ },
+ "X-cartoes-e-vales-03": {
+  "url": "https://ajuda.ton.com.br/pt_BR/quais-bandeiras-sao-para-o-cpf-e-quais-sao-para-cpnj/como-realizar-o-credenciamento-de-cada-bandeira",
+  "data": "2026-10-13",
+  "trecho": "Procure pela bandeira na Central de Ajuda: Busque a bandeira que você quer aceitar (ex.: “Alelo”, “Sodexo”) para encontrar as informações de credenciamento. Solicite o credenciamento: A solicitação é feita pelo site ou telefone de contato da própria bandeira. Aguarde a ativação: O processo de credenciamento pode até 24h. Confira a ativação: É importante conferir diretamente no App ou Site da bandeira se o seu credenciamento foi concluído e a bandeira já está ativa para a sua maquininha Ton!"
+ },
+ "X-cartoes-e-vales-04": {
+  "url": "https://ajuda.ton.com.br/pt_BR/quais-bandeiras-sao-para-o-cpf-e-quais-sao-para-cpnj/como-realizar-o-credenciamento-de-cada-bandeira",
+  "data": "2026-10-13",
+  "trecho": "Você precisará negociar as taxas e condições de recebimento individualmente com cada bandeira que você escolher ativar, pelo telefone ou pelo site. Por isso, a ativação não é automática."
+ },
+ "X-cartoes-e-vales-05": {
+  "url": "https://ajuda.ton.com.br/pt_BR/alelo-/como-faco-para-habilitar-a-bandeira-alelo",
+  "data": "2026-10-13",
+  "trecho": "Para realizar a habilitação, você precisa se credenciar na bandeira e avisar que quer operar via Stone. Para isso, entre em contato com a bandeira: Central de atendimento: 4004 5011 ou 0800 570 5011"
+ },
+ "X-cartoes-e-vales-06": {
+  "url": "https://ajuda.ton.com.br/pt_BR/pluxee/como-faco-para-habilitar-a-bandeira-pluxee",
+  "data": "2026-10-13",
+  "trecho": "Central de atendimento: 3003 5083 ou 0800 728 5089"
+ },
+ "X-cartoes-e-vales-07": {
+  "url": "https://ajuda.ton.com.br/pt_BR/ticket/como-faco-para-habilitar-a-bandeira-ticket-",
+  "data": "2026-10-13",
+  "trecho": "Central de atendimento: 4004 2233"
+ },
+ "X-cartoes-e-vales-08": {
+  "url": "https://ajuda.ton.com.br/pt_BR/vr/como-faco-para-habilitar-a-bandeira-vr-",
+  "data": "2026-10-13",
+  "trecho": "Central de atendimento: (11) 4004 4938"
+ },
+ "X-cartoes-e-vales-09": {
+  "url": "https://ajuda.ton.com.br/pt_BR/up-brasil/como-faco-para-habilitar-a-bandeira-up-brasil",
+  "data": "2026-10-13",
+  "trecho": "Central de atendimento: 800 940 4300 ou 4007 1367 ou Whatsapp (34) 99888 3100"
+ },
+ "X-cartoes-e-vales-10": {
+  "url": "https://www.ton.com.br/planos-e-taxas",
+  "data": "2026-10-13",
+  "trecho": "\"card_brand\":\"elo\",\"installments\":[{\"mdr\":2.06,\"installment\":1}],\"payment_method\":\"debit_card\""
+ }
+}
