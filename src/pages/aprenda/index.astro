@@ -7,7 +7,8 @@ import PageHero from '../../components/PageHero.astro';
 import ListaPaginas from '../../components/ListaPaginas.astro';
 import { SITE } from '../../data/site';
 import { IMG } from '../../lib/imagens';
-import { pagina, ID } from '../../lib/schema';
+import { getCollection } from 'astro:content';
+import { pagina, ID, imagemOg } from '../../lib/schema';
 
 const title = 'Guias da maquininha Ton: tudo explicado';
 const description =
@@ -17,7 +18,21 @@ const crumbs = [
   { name: 'Início', href: '/' },
   { name: 'Aprenda', href: path },
 ];
-const schema = pagina({ path, title, description, tipo: 'CollectionPage', atualizado: SITE.verificadoEm, crumbs, sobre: [ID.ton] });
+const ORDEM = ['aprenda/ton-e-stone', 'aprenda/ton-e-confiavel', 'aprenda/maquininha-ton-sem-cnpj'];
+// Spokes do cluster na ordem da lista visível (o resto vem depois, por data, como em ListaPaginas).
+const spokes = (await getCollection('paginas', (p) => p.data.secao === 'aprenda' && !p.data.draft && !p.data.noindex))
+  .sort((a, b) => {
+    const ia = ORDEM.indexOf(a.id);
+    const ib = ORDEM.indexOf(b.id);
+    if (ia !== -1 || ib !== -1) return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+    return b.data.atualizado.getTime() - a.data.atualizado.getTime();
+  })
+  .map((p) => `/${p.id}/`);
+const schema = pagina({
+  path, title, description, tipo: 'CollectionPage',
+  atualizado: SITE.verificadoEm, revisado: SITE.verificadoEm, crumbs,
+  sobre: [ID.ton], partes: spokes, mencoes: ['mei', 'cnpj', 'cpf'], imagem: imagemOg('aprenda'),
+});
 ---
 
 <Base title={title} description={description} crumbs={crumbs} schema={schema} ogImage="/og/aprenda.jpg" atualizado={SITE.verificadoEm}>
@@ -33,7 +48,7 @@ const schema = pagina({ path, title, description, tipo: 'CollectionPage', atuali
     </figure>
     <section class="bloco" aria-labelledby="g">
       <h2 id="g">Guias</h2>
-      <ListaPaginas secao="aprenda" ordem={['aprenda/ton-e-stone', 'aprenda/ton-e-confiavel', 'aprenda/maquininha-ton-sem-cnpj']} />
+      <ListaPaginas secao="aprenda" ordem={ORDEM} />
     </section>
     <section class="bloco" aria-labelledby="t">
       <h2 id="t">Taxas e prazos explicados</h2>

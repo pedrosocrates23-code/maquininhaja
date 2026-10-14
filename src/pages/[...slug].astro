@@ -13,7 +13,7 @@ import Taxa from '../components/dados/Taxa.astro';
 import Preco from '../components/dados/Preco.astro';
 import TabelaParcelas from '../components/dados/TabelaParcelas.astro';
 import TabelaFaixas from '../components/dados/TabelaFaixas.astro';
-import { pagina, ID, type Crumb } from '../lib/schema';
+import { pagina, ID, imagemOg, type Crumb } from '../lib/schema';
 import { SITE } from '../data/site';
 
 export async function getStaticPaths() {
@@ -33,22 +33,47 @@ const NOME_SECAO: Record<string, [string, string]> = {
   modelos: ['Modelos', '/modelos/'],
   'renda-extra': ['Renda Extra Ton', '/renda-extra/'],
 };
+// Assunto padrão e hub de cada seção (spoke -> hub no grafo).
+const SOBRE_PADRAO: Record<string, (keyof typeof ID)[]> = {
+  ajuda: ['ton'],
+  aprenda: ['ton'],
+  'quanto-custa': ['tonMega'],
+  modelos: ['ton'],
+  'renda-extra': ['rendaExtra'],
+};
+const HUB: Record<string, string | undefined> = {
+  ajuda: '/ajuda/',
+  aprenda: '/aprenda/',
+  'quanto-custa': '/quanto-custa/',
+  modelos: '/modelos/',
+  'renda-extra': undefined,
+};
+
 const crumbs: Crumb[] = [{ name: 'Início', href: '/' }];
 if (d.secao !== 'renda-extra') crumbs.push({ name: NOME_SECAO[d.secao][0], href: NOME_SECAO[d.secao][1] });
-crumbs.push({ name: d.h1.length > 48 ? d.rotulo : d.h1, href: path });
+crumbs.push({ name: d.migalha ?? (d.h1.length > 48 ? d.rotulo : d.h1), href: path });
 
 const iso = (x: Date) => x.toISOString().slice(0, 10);
+const sobre = (d.sobre ?? SOBRE_PADRAO[d.secao]).map((k) => ID[k]);
 
 const schema = pagina({
   path,
   title: d.title,
   description: d.description,
   tipo: 'Article',
+  h1: d.h1,
   publicado: iso(d.publicado),
   atualizado: iso(d.atualizado),
+  revisado: SITE.verificadoEm,
   crumbs,
-  imagem: `${SITE.url}/og/${d.og}.jpg`,
-  sobre: [ID.ton],
+  imagem: imagemOg(d.og),
+  sobre,
+  principal: d.sobre ? sobre[0] : undefined, // Entity Home: ton-e-stone -> mainEntity #ton
+  hub: HUB[d.secao],
+  mencoes: d.entidades,
+  faq: d.faq,
+  fontes: d.fontes,
+  secao: NOME_SECAO[d.secao][0],
 });
 const componentes = { Parceria, Fonte, Callout, CtaIndicacao, Taxa, Preco, TabelaParcelas, TabelaFaixas };
 ---

@@ -2,7 +2,7 @@
 // Ficha de cada maquininha: dados oficiais (src/data/modelos.ts) + análise editorial
 // (src/content/modelos/<slug>.mdx). Avaliação documental: nenhuma frase afirma teste em
 // mãos até o teste existir (Fase 0: compra dos aparelhos e autor real).
-import { Picture } from 'astro:assets';
+import { Picture, getImage } from 'astro:assets';
 import { getEntry, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Fonte from '../../components/Fonte.astro';
@@ -19,7 +19,7 @@ import { MODELOS, brl, pctBR, type Modelo } from '../../data/modelos';
 import { SITE } from '../../data/site';
 import taxas from '../../data/taxas.json';
 import { IMG_MODELO, CREDITO_FOTO } from '../../lib/imagens';
-import { pagina, produto, ID } from '../../lib/schema';
+import { pagina, produto, imagemOg, type Imagem } from '../../lib/schema';
 import { dig, nomeModelo } from '../../lib/texto';
 
 export function getStaticPaths() {
@@ -68,18 +68,6 @@ const crumbs = [
   { name: 'Modelos', href: '/modelos/' },
   { name: m.nome, href: path },
 ];
-const schema = [
-  ...pagina({ path, title: seo.title, description: seo.description, tipo: 'WebPage', atualizado: SITE.verificadoEm, crumbs, sobre: [`${SITE.url}${path}#produto`] }),
-  produto({
-    path,
-    slug: m.slug,
-    nome: m.nome,
-    descricao: `${m.tipo}. ${m.serve}`,
-    preco: m.preco,
-    urlOficial: m.urlOficial,
-    imagem: `${SITE.url}/og/${m.slug}.jpg`,
-  }),
-];
 const ficha: [string, string][] = [
   ['Tipo', m.tipo],
   ['Conexão', m.conexao],
@@ -91,6 +79,41 @@ const ficha: [string, string][] = [
   ['Vale-alimentação e refeição', m.vouchers],
   ['Modelos de hardware', m.hardware],
   ['Mensalidade', 'Não tem. Adesão única, em comodato'],
+];
+// Foto do aparelho exibida na ficha (não o card OG, que tem texto sobreposto). Dimensões lidas do build.
+const hero = await getImage({ src: img.hero, width: 1200, format: 'png' });
+const fotoProduto: Imagem = {
+  url: new URL(hero.src, SITE.url).href,
+  width: Number(hero.attributes.width),
+  height: Number(hero.attributes.height),
+};
+const idProduto = `${SITE.url}${path}#produto`;
+const schema = [
+  ...pagina({
+    path,
+    title: seo.title,
+    description: seo.description,
+    tipo: 'WebPage',
+    atualizado: SITE.verificadoEm,
+    revisado: SITE.verificadoEm,
+    crumbs,
+    sobre: [idProduto],
+    principal: idProduto,
+    hub: '/modelos/',
+    imagem: fotoProduto,
+    mencoes: ['pix', 'aproximacao', 'comodato'],
+    faq: analise?.data.faq,
+  }),
+  produto({
+    path,
+    nome: m.nome,
+    descricao: `${m.tipo}. ${m.serve}`,
+    preco: m.preco,
+    parcela: m.parcela,
+    urlOficial: m.urlOficial,
+    imagens: [fotoProduto, imagemOg(m.slug)],
+    ficha,
+  }),
 ];
 const outros = MODELOS.filter((x) => x.slug !== m.slug);
 const componentes = { Parceria, Fonte, Callout, CtaIndicacao, Taxa, Preco, TabelaParcelas, TabelaFaixas };

@@ -8,7 +8,7 @@ import Faq from '../../components/Faq.astro';
 import { MODELOS, brl } from '../../data/modelos';
 import { SITE } from '../../data/site';
 import { IMG_MODELO } from '../../lib/imagens';
-import { pagina, ID } from '../../lib/schema';
+import { pagina, ID, imagemOg } from '../../lib/schema';
 import { dig, nomeModelo } from '../../lib/texto';
 
 const title = 'Modelos da Ton: T1, T2, T3 e T3 Smart lado a lado';
@@ -83,11 +83,21 @@ const faq = [
 
 const fontesPagina = [...MODELOS.flatMap((m) => m.fontes), ...MODELOS.flatMap((m) => m.conflito?.fontes ?? []), 'TN-F051', 'TN-F066', 'TN-F067', 'TN-F069', 'TN-F070', 'TN-F071', 'TN-F055', 'X-parcelado-03', 'X-parcelado-07'];
 const schema = [
-  ...pagina({ path, title, description, tipo: 'CollectionPage', atualizado: SITE.verificadoEm, crumbs, sobre: [ID.ton] }),
+  ...pagina({
+    path, title, description, tipo: 'CollectionPage',
+    atualizado: SITE.verificadoEm, revisado: SITE.verificadoEm, crumbs,
+    sobre: [ID.ton],
+    principal: `${SITE.url}${path}#lista`,
+    partes: [...MODELOS.map((m) => `/modelos/${m.slug}/`), '/modelos/cartoes-e-vales/'],
+    mencoes: ['maquininha', 'pix', 'aproximacao', 'android'],
+    imagem: imagemOg('modelos'),
+    faq,
+  }),
   {
     '@type': 'ItemList',
     '@id': `${SITE.url}${path}#lista`,
     name: 'Modelos de maquininha Ton',
+    numberOfItems: cards.length,
     itemListElement: cards.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.nome, url: `${SITE.url}${c.href}` })),
   },
 ];
@@ -100,7 +110,8 @@ const schema = [
     resumo={`Quatro máquinas. A taxa é a mesma nas quatro máquinas (a tabela de planos não distingue modelo); muda o aparelho, o preço de adesão, o comprovante, o Pix e o parcelamento máximo.`}
   />
 
-  <section class="vitrine" aria-label="Os quatro modelos">
+  <section class="vitrine" aria-labelledby="vitrine-tit">
+    <h2 id="vitrine-tit" class="sr-only">Os quatro modelos</h2>
     <TrilhoModelos cards={cards} />
   </section>
 

@@ -12,7 +12,7 @@ import Faq from '../../components/Faq.astro';
 import TabelaFaixas from '../../components/dados/TabelaFaixas.astro';
 import { SITE } from '../../data/site';
 import taxas from '../../data/taxas.json';
-import { pagina, ID } from '../../lib/schema';
+import { pagina, ID, imagemOg } from '../../lib/schema';
 
 const title = 'Simulador de taxas Ton: quanto cai na conta';
 const description =
@@ -50,14 +50,22 @@ const faq = [
     r: `<p>É uma estimativa com as taxas oficiais de 13 de outubro de 2026 para cliente novo. Ela supõe que o mix de pagamentos se espalha igual ao longo do mês. A taxa real de cada venda aparece no app da Ton.</p>`,
   },
 ];
-const schema = pagina({ path, title, description, tipo: 'WebApplication', atualizado: SITE.verificadoEm, crumbs, sobre: [ID.ton] });
+const H1 = 'Simulador de taxas da Ton por faixa de faturamento'; // nome do WebApplication = H1 visível
+const schema = pagina({
+  path, title, description, tipo: 'WebApplication', h1: H1,
+  atualizado: SITE.verificadoEm, revisado: SITE.verificadoEm, crumbs,
+  sobre: [ID.tonMega], hub: '/quanto-custa/', imagem: imagemOg('calculadora'),
+  mencoes: ['pix', 'credito', 'debito'],
+  recursos: ['Taxa do mês promocional e do mês 2 em diante', 'Recebimento na hora ou em 1 dia útil'],
+  faq,
+});
 const ids = ['TN-F011', 'TN-F012', 'TN-F013', 'TN-F180', 'TN-F184', 'TN-F010', 'TN-F051', 'TN-F052', 'TN-F014'];
 ---
 
 <Base title={title} description={description} crumbs={crumbs} schema={schema} ogImage="/og/calculadora.jpg" atualizado={SITE.verificadoEm}>
   <PageHero
     rotulo="Calculadora"
-    h1="Simulador de taxas da Ton por faixa de faturamento"
+    h1={H1}
     resumo="Coloca quanto vende por mês e como o cliente paga. A conta mostra o <strong>mês promocional</strong> e o <strong>mês 2 em diante</strong>, que é o que pesa de verdade."
   />
 

@@ -16,31 +16,30 @@ interface Props {
 const { href, nome, tipo, apelido, preco, precoNota, itens, img, alt } = Astro.props;
 ---
 
+<!-- O link fica só no nome (nome acessível = texto visível, WCAG 2.5.3); o ::after estende o clique ao card. -->
 <article class="mc">
-  <a href={href} class="mc-link" aria-label={`${nome}: ver detalhes, preço e taxas`}>
-    <div class="mc-img">
-      <Picture
-        src={img}
-        alt={alt}
-        formats={['avif', 'webp']}
-        widths={[320, 480, 640]}
-        sizes="(max-width: 640px) 78vw, 320px"
-        quality={82}
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
-    <div class="mc-corpo">
-      <span class="chip chip-line">{tipo}</span>
-      <h3 class="nome-modelo" set:html={nomeModelo(nome)} />
-      <p class="apelido">“{apelido}”, segundo a Ton</p>
-      <p class="preco"><strong>{preco}</strong>{precoNota && <span> {precoNota}</span>}</p>
-      <ul>
-        {itens.map((i) => <li>{i}</li>)}
-      </ul>
-      <span class="ver">Ver detalhes <span aria-hidden="true">→</span></span>
-    </div>
-  </a>
+  <div class="mc-img">
+    <Picture
+      src={img}
+      alt={alt}
+      formats={['avif', 'webp']}
+      widths={[320, 480, 640]}
+      sizes="(max-width: 640px) 78vw, 320px"
+      quality={82}
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <div class="mc-corpo">
+    <span class="chip chip-line">{tipo}</span>
+    <h3 class="nome-modelo"><a href={href} class="mc-link" set:html={nomeModelo(nome)} /></h3>
+    <p class="apelido">“{apelido}”, segundo a Ton</p>
+    <p class="preco"><strong>{preco}</strong>{precoNota && <span> {precoNota}</span>}</p>
+    <ul>
+      {itens.map((i) => <li>{i}</li>)}
+    </ul>
+    <span class="ver" aria-hidden="true">Ver detalhes →</span>
+  </div>
 </article>
 
 <style>
@@ -51,17 +50,30 @@ const { href, nome, tipo, apelido, preco, precoNota, itens, img, alt } = Astro.p
     overflow: hidden;
     transition: border-color 0.2s ease, transform 0.2s ease;
     height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
   }
   .mc:hover {
     border-color: var(--ink);
     transform: translateY(-3px);
   }
+  .mc:focus-within {
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+  }
   .mc-link {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
     text-decoration: none;
     color: inherit;
+  }
+  .mc-link:focus-visible {
+    outline: none;
+  }
+  .mc-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
   }
   .mc-img {
     background: #f6f6f1;

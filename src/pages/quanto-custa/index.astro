@@ -9,7 +9,7 @@ import Taxa from '../../components/dados/Taxa.astro';
 import { SITE } from '../../data/site';
 import taxas from '../../data/taxas.json';
 import { pctBR } from '../../data/modelos';
-import { pagina, ID } from '../../lib/schema';
+import { pagina, ID, imagemOg } from '../../lib/schema';
 
 const title = 'Taxa da Ton hoje: quanto custa por faixa de faturamento';
 const description =
@@ -59,13 +59,22 @@ const faq = [
 ];
 
 const fontesPagina = ['TN-F181', 'TN-F011', 'TN-F012', 'TN-F013', 'TN-F180', 'TN-F184', 'TN-F014', 'TN-F051', 'TN-F052', 'TN-F055', 'TN-F010', 'TN-F072', 'TN-F057', 'TN-F082', 'X-correcoes-b-01', 'X-correcoes-b-08', 'TN-F071', 'TN-F095', 'TN-F165', 'TN-F098'];
-const schema = pagina({ path, title, description, tipo: 'Article', publicado: SITE.verificadoEm, atualizado: SITE.verificadoEm, crumbs, imagem: `${SITE.url}/og/quanto-custa.jpg`, sobre: [ID.ton] });
+const H1 = 'Quanto custa vender com a Ton: taxas do Ton Mega+ por faixa'; // headline do Article = H1 visível
+const PUBLICADO = '2026-10-13'; // data fixa: não acompanha SITE.verificadoEm (D06)
+const schema = pagina({
+  path, title, description, tipo: 'Article', h1: H1,
+  publicado: PUBLICADO, atualizado: SITE.verificadoEm, revisado: SITE.verificadoEm, crumbs,
+  imagem: imagemOg('quanto-custa'), sobre: [ID.tonMega],
+  partes: ['/quanto-custa/calculadora/', '/quanto-custa/parcelado/', '/quanto-custa/quando-cai/', '/quanto-custa/planos-antigos/'],
+  mencoes: ['pix', 'credito', 'debito', 'estorno', 'visa', 'mastercard'],
+  faq, fontes: fontesPagina, secao: 'Quanto custa',
+});
 ---
 
 <Base title={title} description={description} crumbs={crumbs} schema={schema} ogImage="/og/quanto-custa.jpg" ogType="article" atualizado={SITE.verificadoEm}>
   <PageHero
     rotulo="Taxas Ton Mega+"
-    h1="Quanto custa vender com a Ton: taxas do Ton Mega+ por faixa"
+    h1={H1}
     resumo={`No primeiro mês, débito e crédito à vista saem a <strong>0,57%</strong>. Depois, a taxa depende de quanto você vendeu no mês anterior: são <strong>5 faixas</strong>, e receber na hora custa mais que em 1 dia útil.`}
   />
 

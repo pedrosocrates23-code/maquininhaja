@@ -9,7 +9,7 @@ import { MODELOS, brl, pctBR } from '../data/modelos';
 import { SITE, PROGRAMA_ATIVO, STATUS } from '../data/site';
 import taxas from '../data/taxas.json';
 import { IMG, IMG_MODELO } from '../lib/imagens';
-import { pagina, ID } from '../lib/schema';
+import { pagina, ID, imagemOg } from '../lib/schema';
 import { dig } from '../lib/texto';
 
 const title = 'Maquininha Ton: modelos, taxas e qual escolher';
@@ -135,7 +135,11 @@ const schema = pagina({
   description,
   tipo: 'WebPage',
   atualizado: SITE.verificadoEm,
+  revisado: SITE.verificadoEm,
   sobre: [ID.ton],
+  mencoes: ['maquininha', 'pix', 'aproximacao', 'credito', 'debito', 'comodato'],
+  imagem: imagemOg('padrao'),
+  faq,
 });
 ---
 

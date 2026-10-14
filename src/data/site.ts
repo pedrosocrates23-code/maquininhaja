@@ -15,6 +15,8 @@ export const SITE = {
   locale: 'pt_BR',
   // Contato do site (não é o atendimento da Ton). Criar a caixa quando o domínio for registrado.
   email: 'contato@maquininhaja.com.br',
+  // false enquanto o domínio publicar MX nulo ("0 ."): o e-mail some do JSON-LD. Virar true só depois de testar o recebimento.
+  emailAtivo: false,
   // Quem responde pelo site e pelos dados pessoais (LGPD art. 5º, VI). Nome civil ou razão social sem "Ton".
   responsavel: 'PENDENTE: nome ou razão social do responsável pelo site',
   documentoResponsavel: 'PENDENTE: CPF ou CNPJ do responsável',

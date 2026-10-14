@@ -26,6 +26,12 @@ const paginas = defineCollection({
     faq: z.array(z.object({ p: z.string(), r: z.string() })).default([]),
     noindex: z.boolean().default(false),
     draft: z.boolean().default(false),
+    // rótulo curto do último item do breadcrumb quando o H1 é longo (evita "Ajuda > Ajuda")
+    migalha: z.string().max(40).optional(),
+    // assunto principal, quando não for o padrão da seção (ex.: ton-e-stone -> ['ton', 'stone'])
+    sobre: z.array(z.enum(['ton', 'stone', 'stoneco', 'pagarme', 'tonMega', 'rendaExtra'])).optional(),
+    // chaves de CONCEITOS ou de ID em src/lib/schema.ts; chave desconhecida quebra o build
+    entidades: z.array(z.string()).default([]),
   }),
 });
 

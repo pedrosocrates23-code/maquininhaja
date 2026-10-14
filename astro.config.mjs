@@ -135,6 +135,41 @@ function redirecionamentos() {
   };
 }
 
+/**
+ * A Vercel não lê public/_headers nem _redirects. Este hook gera o vercel.json da raiz a partir
+ * dos dois (mesma fonte): cabeçalhos de segurança/cache e /link/<chave>/ como 302 de verdade
+ * (sem ele, a Vercel serve a página de meta refresh). O arquivo é versionado: rodar o build
+ * antes do commit mantém os dois em sincronia.
+ */
+function vercelJson() {
+  return {
+    name: 'vercel-json',
+    hooks: {
+      'astro:build:done': () => {
+        const blocos = [];
+        let atual = null;
+        for (const linha of readFileSync('public/_headers', 'utf8').split(/\r?\n/)) {
+          if (!linha.trim() || linha.trim().startsWith('#')) continue;
+          if (!/^\s/.test(linha)) {
+            atual = { source: linha.trim().replace(/\*/g, '(.*)'), headers: [] };
+            blocos.push(atual);
+          } else if (atual) {
+            const i = linha.indexOf(':');
+            atual.headers.push({ key: linha.slice(0, i).trim(), value: linha.slice(i + 1).trim() });
+          }
+        }
+        const config = {
+          $schema: 'https://openapi.vercel.sh/vercel.json',
+          trailingSlash: true,
+          headers: blocos,
+          redirects: Object.entries(links).map(([k, v]) => ({ source: `/link/${k}/`, destination: v, permanent: false })),
+        };
+        writeFileSync('vercel.json', JSON.stringify(config, null, 2) + '\n');
+      },
+    },
+  };
+}
+
 export default defineConfig({
   site: SITE,
   trailingSlash: 'always',
@@ -190,6 +225,7 @@ export default defineConfig({
     }),
     sitemapUnico(),
     redirecionamentos(),
+    vercelJson(),
   ],
 });
 

@@ -3,7 +3,7 @@ import Base from './Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Fontes from '../components/Fontes.astro';
 import { SITE } from '../data/site';
-import { pagina, ID } from '../lib/schema';
+import { pagina, ID, imagemOg } from '../lib/schema';
 
 interface Props {
   title: string;
@@ -15,13 +15,38 @@ interface Props {
   resumo?: string;
   noindex?: boolean;
   fontes?: string[];
+  atualizado?: string; // data real da última mudança do texto; padrão: SITE.verificadoEm (comportamento atual)
+  mencoes?: string[]; // chaves de CONCEITOS ou de ID em src/lib/schema.ts
 }
-const { title, description, h1, rotulo, path, tipo = 'WebPage', resumo, noindex = false, fontes = [] } = Astro.props;
+// Páginas cujo texto visível cita o programa Renda Extra Ton.
+const MENCOES_PADRAO: Record<string, string[]> = {
+  '/quem-somos/': ['rendaExtra'],
+  '/transparencia/': ['rendaExtra'],
+};
+const {
+  title,
+  description,
+  h1,
+  rotulo,
+  path,
+  tipo = 'WebPage',
+  resumo,
+  noindex = false,
+  fontes = [],
+  atualizado = SITE.verificadoEm,
+  mencoes = MENCOES_PADRAO[path] ?? [],
+} = Astro.props;
 const crumbs = [
   { name: 'Início', href: '/' },
   { name: h1.length > 40 ? rotulo : h1, href: path },
 ];
-const schema = pagina({ path, title, description, tipo, atualizado: SITE.verificadoEm, crumbs, sobre: [ID.publisher] });
+const schema = pagina({
+  path, title, description, tipo, atualizado, crumbs,
+  sobre: [ID.publisher],
+  principal: tipo === 'AboutPage' || tipo === 'ContactPage' ? ID.publisher : undefined,
+  mencoes, imagem: imagemOg('institucional'),
+});
+const atualizadoTexto = new Date(`${atualizado}T12:00:00`).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 
 <Base title={title} description={description} crumbs={crumbs} schema={schema} ogImage="/og/institucional.jpg" noindex={noindex} estreito>
@@ -30,7 +55,7 @@ const schema = pagina({ path, title, description, tipo, atualizado: SITE.verific
     <article class="prose">
       <slot />
     </article>
-    <p class="atualizado">Última atualização: {SITE.verificadoEmTexto}.</p>
+    <p class="atualizado">Última atualização: {atualizadoTexto}.</p>
     {fontes.length > 0 && <Fontes ids={fontes} />}
   </div>
 </Base>
