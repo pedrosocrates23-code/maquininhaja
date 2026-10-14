@@ -18,9 +18,9 @@ import TabelaFaixas from '../../components/dados/TabelaFaixas.astro';
 import { MODELOS, brl, pctBR, type Modelo } from '../../data/modelos';
 import { SITE } from '../../data/site';
 import taxas from '../../data/taxas.json';
-import { IMG_MODELO } from '../../lib/imagens';
+import { IMG_MODELO, CREDITO_FOTO } from '../../lib/imagens';
 import { pagina, produto, ID } from '../../lib/schema';
-import { dig } from '../../lib/texto';
+import { dig, nomeModelo } from '../../lib/texto';
 
 export function getStaticPaths() {
   return MODELOS.map((m) => ({ params: { modelo: m.slug }, props: { m } }));
@@ -58,7 +58,7 @@ const seo = SEO[m.slug];
 const path = `/modelos/${m.slug}/`;
 const analise = await getEntry('modelos', m.slug);
 const Analise = analise ? (await render(analise)).Content : null;
-const img = IMG_MODELO[m.slug];
+const img = IMG_MODELO[m.slug];  // .hero: mockup quadrado
 const promo = taxas.faixas.find((f) => f.id === 'promo')!;
 const ate3k = taxas.faixas.find((f) => f.id === 'ate3k')!;
 const f3a6 = taxas.faixas.find((f) => f.id === '3a6k')!;
@@ -114,8 +114,8 @@ const ids = [...m.fontes, ...(m.conflito?.fontes ?? []), ...(analise?.data.fonte
         <a class="comparar" href="/modelos/">Comparar com os outros modelos</a>
       </div>
       <figure class="tm-img">
-        <Picture src={img.src} alt={img.alt} formats={['avif', 'webp']} widths={[360, 540, 720]} sizes="(max-width: 900px) 88vw, 480px" quality={60} loading="eager" fetchpriority="high" />
-        <figcaption>Ilustração com aparelho genérico. Não é foto da {m.nome}.</figcaption>
+        <Picture src={img.hero} alt={img.alt} formats={['avif', 'webp']} widths={[480, 720, 960, 1200]} sizes="(max-width: 900px) 88vw, 480px" quality={82} loading="eager" fetchpriority="high" />
+        <figcaption>{CREDITO_FOTO}</figcaption>
       </figure>
     </div>
   </section>
@@ -210,8 +210,7 @@ const ids = [...m.fontes, ...(m.conflito?.fontes ?? []), ...(analise?.data.fonte
     <nav class="outros" aria-label="Outros modelos">
       <p class="eyebrow">Outros modelos</p>
       <ul>
-        {outros.map((o) => (<li><a href={`/modelos/${o.slug}/`}><span set:html={dig(o.nome)} /> <span class="muted">{brl(o.preco)}</span></a></li>))}
-        <li><a href="/modelos/tapton/">TapTon <span class="muted">R$ 0</span></a></li>
+        {outros.map((o) => (<li><a href={`/modelos/${o.slug}/`}><span class="nome-modelo" set:html={nomeModelo(o.nome)} /> <span class="muted">{brl(o.preco)}</span></a></li>))}
       </ul>
     </nav>
 
@@ -233,7 +232,7 @@ const ids = [...m.fontes, ...(m.conflito?.fontes ?? []), ...(analise?.data.fonte
   }
   .tm-txt {
     display: grid;
-    gap: var(--s-4);
+    gap: var(--s-5);
     justify-items: start;
   }
   h1 {
@@ -354,7 +353,6 @@ const ids = [...m.fontes, ...(m.conflito?.fontes ?? []), ...(analise?.data.fonte
     padding: var(--s-4) 0;
     border-bottom: 1px solid var(--line-strong);
     text-decoration: none;
-    font-family: var(--font-display), Georgia, serif;
     font-size: 1.75rem;
   }
   .outros .muted {

@@ -2,7 +2,7 @@
 // tabela de notas. Pré-requisito: `npm run build` e `npx astro preview --port 4329` rodando.
 //   node scripts/lighthouse.mjs [http://localhost:4329] [--so-mobile] [--filtro=/modelos/]
 import { execSync } from 'node:child_process';
-import { readFileSync, mkdirSync, readdirSync } from 'node:fs';
+import { readFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -14,9 +14,8 @@ const raiz = fileURLToPath(new URL('..', import.meta.url));
 const saida = join(raiz, 'qa', 'lighthouse');
 mkdirSync(saida, { recursive: true });
 
-const mapas = readdirSync(join(raiz, 'dist')).filter((f) => /^sitemap-\d+\.xml$/.test(f));
-const caminhos = mapas
-  .flatMap((f) => [...readFileSync(join(raiz, 'dist', f), 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname))
+const caminhos = [...readFileSync(join(raiz, 'dist', 'sitemap.xml'), 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)]
+  .map((m) => new URL(m[1]).pathname)
   .filter((p) => p.includes(filtro));
 
 const perfis = soMobile ? ['mobile'] : ['mobile', 'desktop'];

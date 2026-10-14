@@ -87,15 +87,25 @@ def quebra(d, texto, fonte, largura):
 def og(titulo, rotulo, foto, saida):
     W, H = 1200, 630
     im = Image.new('RGB', (W, H), PRETO)
-    f = Image.open(os.path.join(IMG, foto)).convert('RGB')
+    f = Image.open(os.path.join(IMG, foto))
     alvo_w, alvo_h = 520, H
-    r = max(alvo_w / f.width, alvo_h / f.height)
-    f = f.resize((int(f.width * r), int(f.height * r)), Image.LANCZOS)
-    x0 = (f.width - alvo_w) // 2
-    f = f.crop((x0, 0, x0 + alvo_w, alvo_h))
+    if f.mode in ('RGBA', 'LA', 'P'):
+        # foto oficial do aparelho (fundo transparente): inteira, sobre painel claro, sem corte
+        f = f.convert('RGBA')
+        painel = Image.new('RGBA', (alvo_w, alvo_h), (246, 246, 241, 255))
+        r = min((alvo_w - 80) / f.width, (alvo_h - 80) / f.height)
+        f = f.resize((int(f.width * r), int(f.height * r)), Image.LANCZOS)
+        painel.alpha_composite(f, ((alvo_w - f.width) // 2, (alvo_h - f.height) // 2))
+        f = painel.convert('RGB')
+    else:
+        f = f.convert('RGB')
+        r = max(alvo_w / f.width, alvo_h / f.height)
+        f = f.resize((int(f.width * r), int(f.height * r)), Image.LANCZOS)
+        x0 = (f.width - alvo_w) // 2
+        f = f.crop((x0, 0, x0 + alvo_w, alvo_h))
     im.paste(f, (W - alvo_w, 0))
     d = ImageDraw.Draw(im)
-    serif = ImageFont.truetype(os.path.join(FON, 'InstrumentSerif-Regular.ttf'), 74)
+    serif = ImageFont.truetype(os.path.join(FON, 'Fredoka-Condensed-Regular.ttf'), 74)
     sans = ImageFont.truetype(os.path.join(FON, 'Geist[wght].ttf'), 24)
     try:
         sans.set_variation_by_axes([600])
@@ -103,7 +113,7 @@ def og(titulo, rotulo, foto, saida):
         pass
     m = marca(56)
     im.paste(m, (64, 60), m)
-    d.text((136, 72), 'Maquininha Já', font=ImageFont.truetype(os.path.join(FON, 'InstrumentSerif-Regular.ttf'), 38), fill=CLARO)
+    d.text((136, 72), 'Maquininha Já', font=ImageFont.truetype(os.path.join(FON, 'Fredoka-Condensed-Regular.ttf'), 38), fill=CLARO)
     # rótulo em pílula verde
     lw = d.textlength(rotulo, font=sans)
     d.rounded_rectangle([64, 170, 64 + lw + 36, 214], radius=22, fill=VERDE)
@@ -121,12 +131,11 @@ def og(titulo, rotulo, foto, saida):
 # slug do arquivo -> (título, rótulo, foto)
 OG_PAGINAS = {
     'padrao': ('Qual maquininha Ton é a sua?', 'Modelos, taxas e qual escolher', 'hero.jpg'),
-    'modelos': ('T1, T2, T3, T3 Smart e TapTon lado a lado', 'Modelos da Ton', 'modelo-t3.jpg'),
-    't1': ('Ton T1: a mais barata, que depende do celular', 'Ficha do modelo', 'modelo-t1.jpg'),
-    't2': ('Ton T2: chip próprio, sem impressora', 'Ficha do modelo', 'modelo-t2.jpg'),
-    't3': ('Ton T3: impressora, chip e parcelado em 21x', 'Ficha do modelo', 'modelo-t3.jpg'),
-    't3-smart': ('Ton T3 Smart: a Android da Ton', 'Ficha do modelo', 'modelo-t3-smart.jpg'),
-    'tapton': ('TapTon: o celular como maquininha', 'Ficha do modelo', 'modelo-tapton.jpg'),
+    'modelos': ('T1, T2, T3 e T3 Smart lado a lado', 'Modelos da Ton', 'mockup-t3.png'),
+    't1': ('Ton T1: a mais barata, que depende do celular', 'Ficha do modelo', 'mockup-t1.png'),
+    't2': ('Ton T2: chip próprio, sem impressora', 'Ficha do modelo', 'mockup-t2.png'),
+    't3': ('Ton T3: impressora, chip e parcelado em 21x', 'Ficha do modelo', 'mockup-t3.png'),
+    't3-smart': ('Ton T3 Smart: a Android da Ton', 'Ficha do modelo', 'mockup-t3-smart.png'),
     'quanto-custa': ('Quanto custa vender com a Ton, faixa por faixa', 'Taxas Ton Mega+', 'secao-calculadora.jpg'),
     'calculadora': ('Quanto sobra de cada venda no mês 2', 'Calculadora de taxas', 'secao-calculadora.jpg'),
     'ajuda': ('Maquininha Ton com problema? Começa por aqui', 'Ajuda', 'secao-ajuda.jpg'),

@@ -1,6 +1,6 @@
 ---
 // "Três perguntas e a resposta": seletor de modelo. A lógica usa só fatos das fichas
-// (impressora: T3/T3 Smart; depende do celular: T1/TapTon; 4G e bateria: T3 Smart).
+// (impressora: T3/T3 Smart; depende do celular: T1; 4G e bateria: T3 Smart).
 // ~1 KB de JS; sem JS, o leitor ainda tem a tabela de /modelos/.
 import { MODELOS, brl } from '../data/modelos';
 import { SITE } from '../data/site';
@@ -11,12 +11,11 @@ const res = {
   t2: { nome: 'Ton T2', href: '/modelos/t2/', por: 'Sem impressora e sem depender do celular: chip próprio, Wi-Fi e Pix na própria máquina.' },
   t3: { nome: 'Ton T3', href: '/modelos/t3/', por: 'Comprovante impresso no balcão, chip próprio e parcelado em até 21x.' },
   't3-smart': { nome: 'Ton T3 Smart', href: '/modelos/t3-smart/', por: 'Imprime, tem tela de toque Android, chip 4G e bateria de longa duração, segundo a Ton.' },
-  tapton: { nome: 'TapTon', href: '/modelos/tapton/', por: 'Está começando e vende pouco: o celular vira maquininha por aproximação, sem pagar aparelho.' },
 };
 const precos = Object.fromEntries(MODELOS.map((m) => [m.slug, brl(m.preco)]));
 const dados = JSON.stringify(
   Object.fromEntries(
-    Object.entries(res).map(([k, v]) => [k, { ...v, nomeHtml: dig(v.nome), preco: k === 'tapton' ? 'R$ 0 de aparelho' : `${precos[k]} à vista` }]),
+    Object.entries(res).map(([k, v]) => [k, { ...v, nomeHtml: dig(v.nome), preco: `${precos[k]} à vista` }]),
   ),
 );
 ---
@@ -66,7 +65,7 @@ const dados = JSON.stringify(
       let k = 't2';
       if (papel === 'sim') k = onde === 'rua' ? 't3-smart' : 't3';
       else if (cel === 'nao') k = 't2';
-      else k = onde === 'comeco' ? 'tapton' : 't1';
+      else k = 't1';
       const r = res[k];
       box.querySelector('[data-r="nome"]')!.innerHTML = r.nomeHtml;
       box.querySelector('[data-r="preco"]')!.textContent = r.preco;

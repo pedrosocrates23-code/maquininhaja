@@ -5,7 +5,7 @@ import Escolha from '../components/Escolha.astro';
 import ModeloCard from '../components/ModeloCard.astro';
 import Faq from '../components/Faq.astro';
 import Fontes from '../components/Fontes.astro';
-import { MODELOS, TAPTON, brl, pctBR } from '../data/modelos';
+import { MODELOS, brl, pctBR } from '../data/modelos';
 import { SITE, PROGRAMA_ATIVO, STATUS } from '../data/site';
 import taxas from '../data/taxas.json';
 import { IMG, IMG_MODELO } from '../lib/imagens';
@@ -14,7 +14,7 @@ import { dig } from '../lib/texto';
 
 const title = 'Maquininha Ton: modelos, taxas e qual escolher';
 const description =
-  'Compare T1, T2, T3, T3 Smart e TapTon: preço de hoje, taxa depois dos 30 dias promocionais e qual serve para o seu negócio. Site independente.';
+  'Compare T1, T2, T3 e T3 Smart: preço de hoje, taxa depois dos 30 dias promocionais e qual serve para o seu negócio. Site independente.';
 
 const faixas = taxas.faixas.filter((f) => !['promo', 'tapton', 'link'].includes(f.id));
 const promo = taxas.faixas.find((f) => f.id === 'promo')!;
@@ -32,17 +32,6 @@ const cards = [
     img: IMG_MODELO[m.slug].src,
     alt: IMG_MODELO[m.slug].alt,
   })),
-  {
-    href: '/modelos/tapton/',
-    nome: 'TapTon',
-    tipo: 'Celular como maquininha',
-    apelido: 'seu celular vira maquininha',
-    preco: 'R$ 0',
-    precoNota: 'sem adesão nem mensalidade',
-    itens: ['Só aproximação (NFC)', 'Android 10+ ou iPhone XS+', 'Visa, Mastercard, Elo e Amex'],
-    img: IMG_MODELO.tapton.src,
-    alt: IMG_MODELO.tapton.alt,
-  },
 ];
 
 const verdades = [
@@ -119,7 +108,6 @@ const faq = [
 
 const fontesPagina = [
   ...MODELOS.flatMap((m) => m.fontes),
-  ...TAPTON.fontes,
   ...verdades.flatMap((v) => v.f),
   'TN-F071', 'TN-F015', 'TN-F074', 'TN-F093', 'TN-F014', 'TN-F072', 'TN-F051', 'TN-F052', 'X-parcelado-03',
 ];
@@ -138,7 +126,7 @@ const schema = pagina({
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-txt">
-        <h1>Qual maquininha Ton é <em class="marca-texto">a sua?</em></h1>
+        <h1>Qual maquininha Ton é a sua?</h1>
         <p class="lead">
           Três perguntas, a resposta e o que ninguém conta: quanto a taxa sobe depois do mês promocional e de quem é a
           máquina.
@@ -170,22 +158,10 @@ const schema = pagina({
     </div>
   </section>
 
-  <section id="escolher" class="section-tight">
-    <div class="wrap escolha-grid">
-      <div class="section-head">
-        <span class="eyebrow">Três perguntas e a resposta</span>
-        <h2>Começa pelo jeito que você vende.</h2>
-        <p>Papel, celular e lugar de venda decidem o modelo. O resto é detalhe de taxa.</p>
-      </div>
-      <Escolha />
-    </div>
-  </section>
-
   <section class="section">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Os modelos lado a lado</span>
-        <h2>Cinco jeitos de passar o cartão.</h2>
+        <h2>Quatro jeitos de passar o cartão.</h2>
         <p>
           As taxas do Ton Mega+ são as mesmas nas quatro máquinas (a tabela de planos não distingue modelo).
           Muda o aparelho, o preço de adesão e o parcelamento máximo.
@@ -201,19 +177,21 @@ const schema = pagina({
         ))
       }
     </div>
-    <div class="wrap trilho-rodape">
-      <a class="btn btn-dark" href="/modelos/">Comparar todos os modelos</a>
-      <p class="muted">
-        Soma das quatro máquinas hoje: {brl(MODELOS.reduce((a, m) => a + m.preco, 0))}. Preço promocional, pode mudar sem
-        aviso.
-      </p>
+  </section>
+
+  <section id="escolher" class="section-tight">
+    <div class="wrap escolha-grid">
+      <div class="section-head">
+        <h2>Começa pelo jeito que você vende.</h2>
+        <p>Papel, celular e lugar de venda decidem o modelo. O resto é detalhe de taxa.</p>
+      </div>
+      <Escolha />
     </div>
   </section>
 
   <section class="section alt verdades-sec">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">O que a propaganda não destaca</span>
         <h2>Cinco verdades antes de pedir.</h2>
       </div>
       <ol class="verdades">
@@ -238,7 +216,6 @@ const schema = pagina({
   <section class="section panel on-panel calc-sec">
     <div class="wrap calc-grid">
       <div>
-        <span class="eyebrow">Calculadora</span>
         <h2 class="calc-tit">Quanto sobra de cada venda <em class="accent">no mês <span class="n">2</span>?</em></h2>
         <p class="calc-lead">
           Coloca quanto vende por mês e como o cliente paga. A calculadora mostra o mês promocional e o mês seguinte, na
@@ -263,7 +240,6 @@ const schema = pagina({
   <section class="section">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Taxas Ton Mega+ depois do período promocional</span>
         <h2>Sua taxa depende de quanto você vende.</h2>
         <p>
           Visa e Mastercard, por faixa de faturamento mensal. No período promocional, débito e crédito à vista saem a {
@@ -310,7 +286,6 @@ const schema = pagina({
     <div class="wrap ajuda-grid">
       <div>
         <div class="section-head">
-          <span class="eyebrow">Ajuda</span>
           <h2>Travou? Começa por aqui.</h2>
           <p>Os problemas mais buscados, com o passo a passo da ajuda oficial da Ton e o caminho para o atendimento dela.</p>
         </div>
@@ -347,7 +322,6 @@ const schema = pagina({
   <section class="section">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Transparência</span>
         <h2>Independente, não atendimento.</h2>
         <p>Como este site funciona e por que você pode conferir tudo o que ele diz.</p>
       </div>
@@ -404,13 +378,8 @@ const schema = pagina({
   }
   h1 {
     font-size: var(--fs-7);
-    line-height: 0.92;
+    line-height: 1;
     letter-spacing: -0.005em;
-  }
-  .marca-texto {
-    font-style: italic;
-    background: linear-gradient(transparent 62%, var(--green) 62%, var(--green) 90%, transparent 90%);
-    padding-inline: 0.05em;
   }
   .lead {
     font-size: var(--fs-3);
@@ -491,18 +460,6 @@ const schema = pagina({
   .trilho-item {
     scroll-snap-align: start;
   }
-  .trilho-rodape {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-4);
-    align-items: center;
-    margin-top: var(--s-6);
-  }
-  .trilho-rodape p {
-    margin: 0;
-    font-size: var(--fs-1);
-  }
-
   .verdades {
     list-style: none;
     margin: 0;
@@ -524,7 +481,7 @@ const schema = pagina({
     padding-top: 0.6rem;
   }
   .verdades h3 {
-    font-family: var(--font-display), Georgia, serif;
+    font-family: var(--font-display), system-ui, sans-serif;
     font-weight: 400;
     font-size: var(--fs-6);
     line-height: 0.98;

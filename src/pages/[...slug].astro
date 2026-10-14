@@ -38,7 +38,6 @@ if (d.secao !== 'renda-extra') crumbs.push({ name: NOME_SECAO[d.secao][0], href:
 crumbs.push({ name: d.h1.length > 48 ? d.rotulo : d.h1, href: path });
 
 const iso = (x: Date) => x.toISOString().slice(0, 10);
-const dataBR = (x: Date) => x.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
 const schema = pagina({
   path,
@@ -63,13 +62,9 @@ const componentes = { Parceria, Fonte, Callout, CtaIndicacao, Taxa, Preco, Tabel
   ogImage={`/og/${d.og}.jpg`}
   ogType="article"
   atualizado={iso(d.atualizado)}
+  estreito
 >
-  <PageHero rotulo={d.rotulo} h1={d.h1} resumo={d.resumo} verificado={false}>
-    <p class="datas">
-      Atualizado em <time datetime={iso(d.atualizado)}>{dataBR(d.atualizado)}</time>. Escrito pela equipe do {SITE.nome}
-      com base nos documentos oficiais da Ton. <a href="/como-testamos/">Como avaliamos</a>
-    </p>
-  </PageHero>
+  <PageHero rotulo={d.rotulo} h1={d.h1} resumo={d.resumo} verificado={false} estreito />
 
   <div class="wrap-text artigo">
     <article class="prose">
@@ -109,14 +104,6 @@ const componentes = { Parceria, Fonte, Callout, CtaIndicacao, Taxa, Preco, Tabel
 </Base>
 
 <style>
-  .datas {
-    font-size: var(--fs-0);
-    color: var(--muted);
-    margin: 0;
-  }
-  .datas a {
-    color: var(--muted);
-  }
   .artigo {
     padding-bottom: var(--s-9);
   }

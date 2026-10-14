@@ -65,13 +65,11 @@
   display: none !important;
 }
 
-/* Algarismos dentro de títulos em serifa: o "1" da Instrument Serif lembra um "l"
-   ("T1" vira "Tl"). Números de modelo e valores vão na sans. */
+/* Algarismos em títulos (<span class="n">, de dig()): seguem a fonte do título. A regra
+   existia porque o "1" da antiga Instrument Serif lembrava um "l". */
 .n {
-  font-family: var(--font-sans), system-ui, sans-serif;
-  font-size: 0.84em;
-  font-weight: 500;
-  letter-spacing: -0.03em;
+  font: inherit;
+  letter-spacing: inherit;
 }
 
 html {
@@ -111,10 +109,18 @@ h4 {
   text-wrap: balance;
 }
 
+/* Títulos: Fredoka condensada (largura 75), arredondada e leve (peso 400).
+   Ela não tem itálico: destaque em <em> dentro de título fica reto. */
 h1,
 h2,
 .display {
-  font-family: var(--font-display), Georgia, serif;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 400;
+}
+h1 em,
+h2 em,
+.display em {
+  font-style: normal;
 }
 
 h3,
@@ -307,7 +313,7 @@ strong {
 
 .section-head {
   display: grid;
-  gap: var(--s-4);
+  gap: var(--s-5);
   margin-bottom: clamp(2rem, 4vw, 3.5rem);
   max-width: 52rem;
 }
@@ -469,7 +475,7 @@ tr.hl > * {
   font-size: var(--fs-5);
   color: var(--ink);
   margin-top: var(--s-8);
-  margin-bottom: var(--s-4);
+  margin-bottom: 1.25rem;
 }
 
 .prose h3 {
@@ -545,6 +551,21 @@ tr.hl > * {
       transform: none;
     }
   }
+}
+
+/* Nome de modelo (cards, tabela comparativa, "Outros modelos"): mesma fonte dos H1/H2, sem negrito pesado.
+   "Ton" fica discreto e o modelo (T1, T3 Smart) ganha o contraste. */
+.nome-modelo {
+  font-family: var(--font-display), system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
+.nome-modelo .nm-marca {
+  font-weight: 500;
+  color: var(--muted);
+}
+.nome-modelo .nm-modelo {
+  font-weight: 600;
+  color: var(--ink);
 }
 
 @media (prefers-reduced-motion: reduce) {

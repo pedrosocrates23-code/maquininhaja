@@ -7,14 +7,14 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/check-sitemap.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "sync": "python scripts/sync_dados.py",
     "ativos": "python scripts/gerar_ativos.py",
     "validar": "python scripts/validar_pagina.py --todas",
     "check:pendencias": "node scripts/check-pendencias.mjs",
-    "build:producao": "astro build && node scripts/check-pendencias.mjs",
+    "build:producao": "npm run build && node scripts/check-pendencias.mjs",
     "lighthouse": "node scripts/lighthouse.mjs"
   },
   "dependencies": {

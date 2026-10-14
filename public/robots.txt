@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /link/
 
-Sitemap: https://maquininhaja.com.br/sitemap-index.xml
+Sitemap: https://maquininhaja.com.br/sitemap.xml

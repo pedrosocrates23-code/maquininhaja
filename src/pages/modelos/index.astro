@@ -5,15 +5,15 @@ import ModeloCard from '../../components/ModeloCard.astro';
 import Fontes from '../../components/Fontes.astro';
 import Callout from '../../components/Callout.astro';
 import Faq from '../../components/Faq.astro';
-import { MODELOS, TAPTON, brl } from '../../data/modelos';
+import { MODELOS, brl } from '../../data/modelos';
 import { SITE } from '../../data/site';
 import { IMG_MODELO } from '../../lib/imagens';
 import { pagina, ID } from '../../lib/schema';
-import { dig } from '../../lib/texto';
+import { dig, nomeModelo } from '../../lib/texto';
 
-const title = 'Modelos da Ton: T1, T2, T3, T3 Smart e TapTon';
+const title = 'Modelos da Ton: T1, T2, T3 e T3 Smart lado a lado';
 const description =
-  'As maquininhas Ton lado a lado: preço de hoje, conexão, comprovante, Pix e parcelamento de T1, T2, T3, T3 Smart e TapTon, com a fonte oficial de cada dado.';
+  'As maquininhas Ton lado a lado: preço de hoje, conexão, comprovante, Pix e parcelamento de T1, T2, T3 e T3 Smart, com a fonte oficial de cada dado.';
 const path = '/modelos/';
 const crumbs = [
   { name: 'Início', href: '/' },
@@ -33,18 +33,6 @@ const colunas = [
     parcelas: m.slug === 't2' ? '12x (conflito: 18x e 21x no blog)' : `${m.parcelasMax}x`,
     vale: m.slug === 't1' ? 'Conflito oficial' : 'Sim, com CNPJ',
   })),
-  {
-    nome: 'TapTon',
-    href: '/modelos/tapton/',
-    preco: 'R$ 0',
-    tipo: 'Celular como maquininha',
-    celular: 'É o próprio celular',
-    papel: 'Enviado pelo app',
-    pix: 'Não',
-    conexao: 'NFC e internet do celular',
-    parcelas: 'Até 21x (conflito: 12x)',
-    vale: 'Não informado',
-  },
 ];
 const linhas: [string, keyof (typeof colunas)[number]][] = [
   ['Adesão hoje', 'preco'],
@@ -69,17 +57,6 @@ const cards = [
     img: IMG_MODELO[m.slug].src,
     alt: IMG_MODELO[m.slug].alt,
   })),
-  {
-    href: '/modelos/tapton/',
-    nome: 'TapTon',
-    tipo: 'Celular como maquininha',
-    apelido: 'seu celular vira maquininha',
-    preco: 'R$ 0',
-    precoNota: 'sem adesão nem mensalidade',
-    itens: ['Quem está começando e vende pouco, só no cartão por aproximação.'],
-    img: IMG_MODELO.tapton.src,
-    alt: IMG_MODELO.tapton.alt,
-  },
 ];
 
 const regras = [
@@ -87,13 +64,12 @@ const regras = [
   { se: 'Vende na rua o dia todo e quer tela de toque', entao: 'T3 Smart', href: '/modelos/t3-smart/' },
   { se: 'Quer Pix na própria máquina, sem papel', entao: 'T2', href: '/modelos/t2/' },
   { se: 'Já anda com o celular e quer o menor custo', entao: 'T1', href: '/modelos/t1/' },
-  { se: 'Está testando e vende pouco, só cartão', entao: 'TapTon', href: '/modelos/tapton/' },
 ];
 
 const faq = [
   {
     p: 'A taxa muda de um modelo para outro?',
-    r: `<p>Não nas quatro máquinas: todas seguem o Ton Mega+, com taxa por faixa de faturamento. O TapTon e o Link de Pagamento têm tabela própria.</p>`,
+    r: `<p>Não nas quatro máquinas: todas seguem o Ton Mega+, com taxa por faixa de faturamento. O Link de Pagamento tem tabela própria.</p>`,
   },
   {
     p: 'Qual maquininha Ton parcela em 21x?',
@@ -105,7 +81,7 @@ const faq = [
   },
 ];
 
-const fontesPagina = [...MODELOS.flatMap((m) => m.fontes), ...MODELOS.flatMap((m) => m.conflito?.fontes ?? []), ...TAPTON.fontes, 'TN-F051', 'TN-F058', 'TN-F066', 'TN-F067', 'TN-F069', 'TN-F070', 'TN-F071', 'TN-F055', 'X-parcelado-03', 'X-parcelado-07'];
+const fontesPagina = [...MODELOS.flatMap((m) => m.fontes), ...MODELOS.flatMap((m) => m.conflito?.fontes ?? []), 'TN-F051', 'TN-F066', 'TN-F067', 'TN-F069', 'TN-F070', 'TN-F071', 'TN-F055', 'X-parcelado-03', 'X-parcelado-07'];
 const schema = [
   ...pagina({ path, title, description, tipo: 'CollectionPage', atualizado: SITE.verificadoEm, crumbs, sobre: [ID.ton] }),
   {
@@ -120,8 +96,8 @@ const schema = [
 <Base title={title} description={description} crumbs={crumbs} schema={schema} ogImage="/og/modelos.jpg" atualizado={SITE.verificadoEm}>
   <PageHero
     rotulo="Modelos"
-    h1="Os modelos da Ton lado a lado: T1, T2, T3, T3 Smart e TapTon"
-    resumo={`Quatro máquinas e o celular. A taxa é a mesma nas quatro máquinas (a tabela de planos não distingue modelo); muda o aparelho, o preço de adesão, o comprovante, o Pix e o parcelamento máximo.`}
+    h1="Os modelos da Ton lado a lado: T1, T2, T3 e T3 Smart"
+    resumo={`Quatro máquinas. A taxa é a mesma nas quatro máquinas (a tabela de planos não distingue modelo); muda o aparelho, o preço de adesão, o comprovante, o Pix e o parcelamento máximo.`}
   />
 
   <section class="wrap tabela-sec" aria-labelledby="tab-tit">
@@ -131,7 +107,7 @@ const schema = [
         <thead>
           <tr>
             <th scope="col">Recurso</th>
-            {colunas.map((c) => <th scope="col"><a href={c.href} set:html={dig(c.nome)} /></th>)}
+            {colunas.map((c) => <th scope="col"><a class="nome-modelo" href={c.href} set:html={nomeModelo(c.nome)} /></th>)}
           </tr>
         </thead>
         <tbody>
@@ -165,7 +141,6 @@ const schema = [
   <section class="section">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Atalho</span>
         <h2>Qual escolher, numa linha.</h2>
       </div>
       <ul class="regras">
@@ -173,7 +148,7 @@ const schema = [
           regras.map((r) => (
             <li>
               <span class="r-se">{r.se}</span>
-              <a class="r-entao display" href={r.href} set:html={dig(r.entao)} />
+              <a class="r-entao nome-modelo" href={r.href} set:html={nomeModelo(r.entao)} />
             </li>
           ))
         }
@@ -184,7 +159,6 @@ const schema = [
   <section class="section alt">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Fichas</span>
         <h2>Cada modelo em detalhe.</h2>
       </div>
       <div class="grid cards">
@@ -206,9 +180,7 @@ const schema = [
     padding-bottom: var(--s-6);
   }
   .comp th a {
-    font-family: var(--font-display), Georgia, serif;
     font-size: 1.5rem;
-    font-weight: 400;
     text-transform: none;
     letter-spacing: 0;
     color: var(--ink);
@@ -243,8 +215,9 @@ const schema = [
   .r-entao {
     font-size: var(--fs-5);
     line-height: 1;
-    text-decoration: none;
-    background: linear-gradient(transparent 70%, var(--green) 70%);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.18em;
   }
   .cards {
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));

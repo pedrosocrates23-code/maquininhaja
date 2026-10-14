@@ -1,9 +1,8 @@
 {
-  "t1": "https://www.ton.com.br/checkout/cart/?coupon=JONATHANCRISTIANO15&userAnticipation=0&userTag=tonblack_tier&utm_medium=invite_share&utm_source=revendedor",
-  "t2": "https://www.ton.com.br/checkout/cart/?coupon=JONATHANCRISTIANO15&userAnticipation=0&userTag=tonblack_tier&utm_medium=invite_share&utm_source=revendedor",
-  "t3": "https://www.ton.com.br/checkout/cart/?coupon=JONATHANCRISTIANO15&userAnticipation=0&userTag=tonblack_tier&utm_medium=invite_share&utm_source=revendedor",
-  "t3-smart": "https://www.ton.com.br/checkout/cart/?coupon=JONATHANCRISTIANO15&userAnticipation=0&userTag=tonblack_tier&utm_medium=invite_share&utm_source=revendedor",
-  "tapton": "https://www.ton.com.br/tapton",
+  "t1": "https://www.ton.com.br/checkout/cart/?productId=TONMEGA_TIER_D150&userTag=tonmega_tier&coupon=JONATHANCRISTIANO15&userAnticipation=0&utm_medium=invite_share&utm_source=revendedor",
+  "t2": "https://www.ton.com.br/checkout/cart/?productId=TONMEGA_TIER_D195&userTag=tonmega_tier&coupon=JONATHANCRISTIANO15&userAnticipation=0&utm_medium=invite_share&utm_source=revendedor",
+  "t3": "https://www.ton.com.br/checkout/cart/?productId=TONMEGA_TIER_S920&userTag=tonmega_tier&coupon=JONATHANCRISTIANO15&userAnticipation=0&utm_medium=invite_share&utm_source=revendedor",
+  "t3-smart": "https://www.ton.com.br/checkout/cart/?productId=TONMEGA_TIER_SMART_POS&userTag=tonmega_tier&coupon=JONATHANCRISTIANO15&userAnticipation=0&utm_medium=invite_share&utm_source=revendedor",
   "link-de-pagamento": "https://www.ton.com.br/link-de-pagamento",
   "renda-extra": "https://rendaextra.ton.com.br/renda-ton/"
 }

@@ -17,6 +17,8 @@ interface Props {
   ogImage?: string;
   ogType?: 'website' | 'article';
   atualizado?: string;
+  /** topo da página na coluna de texto, alinhado com o artigo */
+  estreito?: boolean;
 }
 
 const {
@@ -28,6 +30,7 @@ const {
   ogImage = '/og/padrao.jpg',
   ogType = 'website',
   atualizado,
+  estreito = false,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
@@ -55,7 +58,7 @@ const especulacao = {
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href="/sitemap.xml" />
 
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE.nome} />
@@ -70,7 +73,7 @@ const especulacao = {
     {atualizado && <meta property="article:modified_time" content={atualizado} />}
 
     <Font cssVariable="--font-sans" preload={[{ subset: 'latin' }]} />
-    <Font cssVariable="--font-display" preload={[{ subset: 'latin', style: 'normal' }]} />
+    <Font cssVariable="--font-display" preload />
     <slot name="head" />
 
     <script type="application/ld+json" set:html={JSON.stringify(grafo)} />
@@ -79,7 +82,7 @@ const especulacao = {
   <body>
     <a class="skip" href="#conteudo">Pular para o conteúdo</a>
     <Header />
-    {crumbs.length > 1 && <Breadcrumbs crumbs={crumbs} />}
+    {crumbs.length > 1 && <Breadcrumbs crumbs={crumbs} estreito={estreito} />}
     <main id="conteudo" tabindex="-1">
       <slot />
     </main>

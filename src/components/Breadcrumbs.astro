@@ -2,11 +2,13 @@
 import type { Crumb } from '../lib/schema';
 interface Props {
   crumbs: Crumb[];
+  /** alinha com a coluna de texto (páginas de guia e institucionais) */
+  estreito?: boolean;
 }
-const { crumbs } = Astro.props;
+const { crumbs, estreito = false } = Astro.props;
 ---
 
-<nav class="migalhas wrap" aria-label="Você está em">
+<nav class:list={['migalhas', estreito ? 'wrap-text' : 'wrap']} aria-label="Você está em">
   <ol>
     {
       crumbs.map((c, i) => (

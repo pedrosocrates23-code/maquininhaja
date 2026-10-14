@@ -3,7 +3,8 @@ import { defineConfig, fontProviders } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { satteri } from '@astrojs/markdown-satteri';
-import { writeFileSync } from 'node:fs';
+import { writeFileSync, readFileSync, readdirSync, existsSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 
 // Fonte única dos links de indicação (também reexportada em src/data/site.ts).
 import links from './src/data/links.json' with { type: 'json' };
@@ -32,6 +33,94 @@ const semFonteInline = {
     if (node.name === 'Fonte') ctx.removeNode(node);
   },
 };
+
+/**
+ * lastmod de cada URL do sitemap, sem data inventada: guia (collection "paginas") usa o
+ * `atualizado` do frontmatter ou o último commit do .mdx, o que for mais novo; as outras
+ * páginas usam o último commit dos arquivos que as geram. Clone raso (CI) ou git fora do ar:
+ * só o frontmatter vale e, sem ele, o lastmod é omitido.
+ */
+const gitUtilizavel = (() => {
+  try {
+    return execFileSync('git', ['rev-parse', '--is-shallow-repository'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim() === 'false';
+  } catch {
+    return false;
+  }
+})();
+
+/** @param {string} arquivo @returns {string|null} */
+function dataGit(arquivo) {
+  if (!gitUtilizavel || !existsSync(arquivo)) return null;
+  try {
+    const r = execFileSync('git', ['log', '-1', '--format=%cs', '--', arquivo], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+    return /^\d{4}-\d{2}-\d{2}$/.test(r) ? r : null;
+  } catch {
+    return null;
+  }
+}
+
+/** @param {string} dir @returns {string[]} */
+const mdxEm = (dir) =>
+  readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
+    e.isDirectory() ? mdxEm(`${dir}/${e.name}`) : e.name.endsWith('.mdx') ? [`${dir}/${e.name}`] : [],
+  );
+
+/** @param {string} rota rota sem barras nas pontas ('' = home) @returns {string[]} */
+function arquivosDaRota(rota) {
+  if (rota === '') return ['src/pages/index.astro'];
+  const modelo = rota.match(/^modelos\/(t1|t2|t3|t3-smart)$/);
+  if (modelo) return ['src/pages/modelos/[modelo].astro', `src/content/modelos/${modelo[1]}.mdx`, 'src/data/modelos.ts', 'src/data/taxas.json'];
+  return [`src/pages/${rota}/index.astro`, `src/pages/${rota}.astro`];
+}
+
+const LASTMOD = (() => {
+  /** @type {Map<string, string>} */
+  const mapa = new Map();
+  for (const arq of mdxEm('src/content/paginas')) {
+    const fm = readFileSync(arq, 'utf8').match(/^atualizado:\s*['"]?(\d{4}-\d{2}-\d{2})/m)?.[1];
+    const rota = arq.replace(/^src\/content\/paginas\//, '').replace(/\.mdx$/, '');
+    const datas = [fm, dataGit(arq)].filter(Boolean).sort();
+    if (datas.length) mapa.set(`${SITE}/${rota}/`, /** @type {string} */ (datas.at(-1)));
+  }
+  return mapa;
+})();
+
+/** @param {string} url @returns {string|undefined} */
+function lastmodDe(url) {
+  if (LASTMOD.has(url)) return LASTMOD.get(url);
+  const rota = url.replace(SITE, '').replace(/^\/|\/$/g, '');
+  const datas = arquivosDaRota(rota).map(dataGit).filter(Boolean).sort();
+  return /** @type {string|undefined} */ (datas.at(-1));
+}
+
+/**
+ * /sitemap.xml (o que o robots.txt anuncia) traz todas as URLs direto, num <urlset>, e não um
+ * índice. Junta os sitemap-N.xml da integração; sitemap-index.xml e sitemap-0.xml continuam no ar.
+ * scripts/check-sitemap.mjs reprova o build se página indexável ficar de fora.
+ */
+function sitemapUnico() {
+  return {
+    name: 'sitemap-unico',
+    hooks: {
+      'astro:build:done': ({ dir }) => {
+        const partes = readdirSync(dir)
+          .filter((f) => /^sitemap-\d+\.xml$/.test(f))
+          .sort((a, b) => Number(a.match(/\d+/)?.[0]) - Number(b.match(/\d+/)?.[0]));
+        if (!partes.length) throw new Error('[sitemap] nenhum sitemap-N.xml gerado; /sitemap.xml ficaria vazio');
+        let abertura = '';
+        const urls = [];
+        for (const f of partes) {
+          const xml = readFileSync(new URL(f, dir), 'utf8');
+          abertura ||= xml.match(/<urlset[^>]*>/)?.[0] ?? '';
+          urls.push(...(xml.match(/<url>[\s\S]*?<\/url>/g) ?? []));
+        }
+        if (!abertura) throw new Error('[sitemap] sitemap-0.xml sem <urlset>');
+        writeFileSync(new URL('sitemap.xml', dir), `<?xml version="1.0" encoding="UTF-8"?>${abertura}${urls.join('')}</urlset>`);
+        console.log(`[sitemap] sitemap.xml com ${urls.length} URLs`);
+      },
+    },
+  };
+}
 
 /** /link/<modelo>/ vira 302 no host (arquivo _redirects, Cloudflare/Netlify). */
 function redirecionamentos() {
@@ -74,6 +163,19 @@ export default defineConfig({
     },
   },
   fonts: [
+    // Títulos (H1, H2, logo, menu, cards): Fredoka (OFL) com largura fixada em 75 e peso 400-600,
+    // recortada para latin.
+    // Arredondada e condensada, no estilo da Ton sem usar a fonte própria dela (TN-F024).
+    {
+      provider: fontProviders.local(),
+      name: 'Fredoka Condensed',
+      cssVariable: '--font-display',
+      display: 'optional',
+      fallbacks: ['sans-serif'],
+      options: {
+        variants: [{ src: ['./src/assets/fonts/Fredoka-Condensed.woff2'], weight: '400 600', style: 'normal' }],
+      },
+    },
     {
       provider: fontProviders.fontsource(),
       name: 'Geist',
@@ -84,24 +186,20 @@ export default defineConfig({
       display: 'optional',
       fallbacks: ['sans-serif'],
     },
-    {
-      provider: fontProviders.fontsource(),
-      name: 'Instrument Serif',
-      cssVariable: '--font-display',
-      weights: [400],
-      styles: ['normal', 'italic'],
-      subsets: ['latin'],
-      display: 'optional',
-      fallbacks: ['serif'],
-    },
   ],
   integrations: [
     mdx(),
     sitemap({
       filter: (page) => !page.includes('/link/') && !page.endsWith('/404/'),
       changefreq: 'weekly',
-      lastmod: new Date('2026-10-13'),
+      serialize(item) {
+        const d = lastmodDe(item.url);
+        if (d) item.lastmod = d;
+        else delete item.lastmod;
+        return item;
+      },
     }),
+    sitemapUnico(),
     redirecionamentos(),
   ],
 });

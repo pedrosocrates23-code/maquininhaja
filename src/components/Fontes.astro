@@ -18,9 +18,15 @@ const lista = [...new Set(Astro.props.ids)].sort().map((id) => {
       {
         lista.map((f) => (
           <li>
-            <a href={f.url} rel="nofollow noopener" target="_blank">
-              {f.url.replace(/^https?:\/\//, '')}
-            </a>
+            {
+              /^https?:\/\//.test(f.url) ? (
+                <a href={f.url} rel="nofollow noopener" target="_blank">
+                  {f.url.replace(/^https?:\/\//, '')}
+                </a>
+              ) : (
+                <span>{f.url}</span>
+              )
+            }
             <blockquote>{f.trecho.replace(/\s*\|\s*$/, '')}</blockquote>
           </li>
         ))

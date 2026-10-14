@@ -13,13 +13,12 @@ import { pagina, ID } from '../../lib/schema';
 
 const title = 'Taxa da Ton hoje: quanto custa por faixa de faturamento';
 const description =
-  'Taxas da maquininha Ton (Ton Mega+) por faixa de faturamento: débito, crédito, 12x, Elo, Pix, TapTon e Link, recebendo na hora ou em 1 dia útil. Fonte oficial.';
+  'Taxas da maquininha Ton (Ton Mega+) por faixa de faturamento: débito, crédito, 12x, Elo, Pix e Link, recebendo na hora ou em 1 dia útil. Fonte oficial.';
 const path = '/quanto-custa/';
 const crumbs = [
   { name: 'Início', href: '/' },
   { name: 'Quanto custa', href: path },
 ];
-const tap = taxas.faixas.find((f) => f.id === 'tapton')!;
 const link = taxas.faixas.find((f) => f.id === 'link')!;
 
 const passos = [
@@ -35,7 +34,7 @@ const passos = [
   },
   {
     t: 'Do mês 2 em diante: sua faixa',
-    d: 'No fim dos 30 dias, a faixa sai do total vendido nesses 30 dias. Depois, do último mês fechado, somando cartão, Pix na máquina, TapTon e Link. Pode subir ou descer todo mês.',
+    d: 'No fim dos 30 dias, a faixa sai do total vendido nesses 30 dias. Depois, do último mês fechado, somando cartão, Pix na máquina e Link. Pode subir ou descer todo mês.',
     f: ['TN-F013', 'X-correcoes-b-08', 'TN-F180', 'TN-F184', 'TN-F012'],
   },
 ];
@@ -43,7 +42,7 @@ const passos = [
 const faq = [
   {
     p: 'A taxa da Ton é a mesma para todas as maquininhas?',
-    r: `<p>Sim para T1, T2, T3 e T3 Smart: todas seguem a tabela do Ton Mega+. O TapTon e o Link de Pagamento têm tabela própria.</p>`,
+    r: `<p>Sim para T1, T2, T3 e T3 Smart: todas seguem a tabela do Ton Mega+. O Link de Pagamento tem tabela própria.</p>`,
   },
   {
     p: 'Estorno e chargeback contam no faturamento?',
@@ -59,7 +58,7 @@ const faq = [
   },
 ];
 
-const fontesPagina = ['TN-F181', 'TN-F011', 'TN-F012', 'TN-F013', 'TN-F180', 'TN-F184', 'TN-F014', 'TN-F051', 'TN-F052', 'TN-F055', 'TN-F058', 'TN-F010', 'TN-F072', 'TN-F057', 'TN-F082', 'X-correcoes-b-01', 'X-correcoes-b-08', 'TN-F071', 'TN-F095', 'TN-F165', 'TN-F098'];
+const fontesPagina = ['TN-F181', 'TN-F011', 'TN-F012', 'TN-F013', 'TN-F180', 'TN-F184', 'TN-F014', 'TN-F051', 'TN-F052', 'TN-F055', 'TN-F010', 'TN-F072', 'TN-F057', 'TN-F082', 'X-correcoes-b-01', 'X-correcoes-b-08', 'TN-F071', 'TN-F095', 'TN-F165', 'TN-F098'];
 const schema = pagina({ path, title, description, tipo: 'Article', publicado: SITE.verificadoEm, atualizado: SITE.verificadoEm, crumbs, imagem: `${SITE.url}/og/quanto-custa.jpg`, sobre: [ID.ton] });
 ---
 
@@ -90,18 +89,16 @@ const schema = pagina({ path, title, description, tipo: 'Article', publicado: SI
   <div class="wrap corpo">
     <section aria-labelledby="hora">
       <div class="section-head">
-        <span class="eyebrow">Visa e Mastercard</span>
         <h2 id="hora">Recebendo na hora</h2>
-        <p>Dinheiro na Conta Ton em até 1 minuto, inclusive fim de semana. </p>
+        <p>Visa e Mastercard. Dinheiro na Conta Ton em até 1 minuto, inclusive fim de semana. </p>
       </div>
       <TabelaFaixas prazo="na_hora" destaque="ate3k" />
     </section>
 
     <section aria-labelledby="d1">
       <div class="section-head">
-        <span class="eyebrow">Visa e Mastercard</span>
         <h2 id="d1">Recebendo em 1 dia útil</h2>
-        <p>Mais barato, principalmente na faixa de quem vende até R$ 3 mil. Você escolhe o prazo na adesão ou depois, no app. </p>
+        <p>Visa e Mastercard. Mais barato, principalmente na faixa de quem vende até R$ 3 mil. Você escolhe o prazo na adesão ou depois, no app. </p>
       </div>
       <TabelaFaixas prazo="d1" destaque="ate3k" />
       <p class="mais"><a href="/quanto-custa/quando-cai/">Quando cai o dinheiro em cada prazo</a> · <a href="/quanto-custa/parcelado/">Taxa de 2x a 21x</a></p>
@@ -109,7 +106,6 @@ const schema = pagina({ path, title, description, tipo: 'Article', publicado: SI
 
     <section aria-labelledby="elo">
       <div class="section-head">
-        <span class="eyebrow">Elo e Amex</span>
         <h2 id="elo">Elo e Amex custam mais</h2>
         <p>
           Na faixa até R$ 3 mil, o débito Elo sai a <Taxa faixa="ate3k" prazo="d1" tipo="elo_debito" /> em 1 dia útil, contra <Taxa
@@ -124,29 +120,15 @@ const schema = pagina({ path, title, description, tipo: 'Article', publicado: SI
 
     <section aria-labelledby="outros">
       <div class="section-head">
-        <span class="eyebrow">Fora da tabela principal</span>
-        <h2 id="outros">Pix, TapTon e Link</h2>
+        <h2 id="outros">Pix e Link de Pagamento</h2>
       </div>
-      <div class="grid grid-3">
+      <div class="grid grid-2">
         <div class="card">
           <h3>Pix na maquininha</h3>
           <p class="grande">0%</p>
           <p>
             No período promocional (30 dias ou até R$ 5 mil). Depois, continua 0% com chave Pix de CPF, CNPJ ou telefone na Conta Ton; sem chave, 0,49% por venda.
           </p>
-        </div>
-        <div class="card">
-          <h3>TapTon (celular)</h3>
-          <p class="grande">{pctBR(tap.prazos.d1.debito)}</p>
-          <p>
-            Débito em 1 dia útil. Crédito à vista <Taxa faixa="tapton" prazo="d1" tipo="credito1x" />, 12x <Taxa
-              faixa="tapton"
-              prazo="d1"
-              tipo="parcela"
-              parcelas={12}
-            />. Na hora: débito <Taxa faixa="tapton" prazo="na_hora" tipo="debito" />.
-          </p>
-          <a href="/modelos/tapton/">Como funciona o TapTon</a>
         </div>
         <div class="card">
           <h3>Link de Pagamento</h3>
@@ -164,7 +146,6 @@ const schema = pagina({ path, title, description, tipo: 'Article', publicado: SI
 
     <section aria-labelledby="extras">
       <div class="section-head">
-        <span class="eyebrow">Além da taxa</span>
         <h2 id="extras">O que mais pode custar</h2>
       </div>
       <div class="table-wrap" tabindex="0" role="region" aria-label="Outros custos">

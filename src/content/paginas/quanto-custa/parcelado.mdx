@@ -6,7 +6,7 @@ rotulo: 'Quanto custa'
 secao: 'quanto-custa'
 kw: 'taxa ton parcelado'
 resumo: 'A Ton cobra de você uma taxa por venda que sobe com o número de parcelas. O cliente paga <strong>sem juros</strong>. T3 e T3 Smart parcelam em até <strong>21x</strong>; T1 e T2, em até <strong>12x</strong>. Numa venda de R$ 1.000 em 10x, na faixa até R$ 3 mil, você recebe R$ 798,10.'
-fontes: ['TN-F014', 'TN-F051', 'TN-F054', 'TN-F055', 'TN-F057', 'TN-F058', 'TN-F069', 'TN-F070', 'TN-F077', 'TN-F081', 'TN-F082', 'TN-F084', 'TN-F085', 'TN-F180', 'TN-F181', 'X-parcelado-01', 'X-parcelado-02', 'X-parcelado-03', 'X-parcelado-04', 'X-parcelado-05', 'X-parcelado-06', 'X-parcelado-07', 'X-parcelado-08', 'X-parcelado-09']
+fontes: ['TN-F014', 'TN-F051', 'TN-F054', 'TN-F055', 'TN-F057', 'TN-F069', 'TN-F070', 'TN-F082', 'TN-F084', 'TN-F180', 'TN-F181', 'X-parcelado-01', 'X-parcelado-02', 'X-parcelado-03', 'X-parcelado-05', 'X-parcelado-06', 'X-parcelado-07', 'X-parcelado-08', 'X-parcelado-09']
 publicado: 2026-10-13
 atualizado: 2026-10-13
 og: 'quanto-custa'
@@ -21,7 +21,7 @@ faq:
   - p: 'Como repassar a taxa da Ton para o cliente?'
     r: '<p>A Ton diz que a maquininha não repassa a taxa sozinha. No app, abre a Calculadora de taxas e escolhe entre "Cobrar" e "Receber". A ajuda da Ton não explica a diferença: testa qual delas devolve o valor a cobrar. Digita o valor, confirma bandeira, modalidade e parcelas e toca em "Simular Venda". Depois passa na maquininha o valor que a calculadora mostrou.</p>'
   - p: 'A maquininha Ton divide em quantas vezes?'
-    r: '<p>Na página de comparação da Ton, T3 e T3 Smart parcelam em até 21x e T1 e T2 em até 12x, para cliente novo. O Link de Pagamento vai até 12x. Para o TapTon, as páginas oficiais divergem entre 12x e 21x: confere no seu app.</p>'
+    r: '<p>Na página de comparação da Ton, T3 e T3 Smart parcelam em até 21x e T1 e T2 em até 12x, para cliente novo. O Link de Pagamento vai até 12x.</p>'
   - p: 'Por que a venda em 18x ou 21x foi recusada?'
     r: '<p>Quem decide o limite de parcelas é o banco que emitiu o cartão do cliente. Alguns bancos travam em 12x. A Ton também informa um valor mínimo de R$ 10 por parcela nas vendas acima de 12 vezes.</p>'
 ---
@@ -104,21 +104,9 @@ Tem CNPJ e está no Ton Black? O regulamento desse plano fala em parcelamento em
 
 <CtaIndicacao chave="t3" texto="Pedir a Ton T3, que parcela em até 21x" />
 
-## TapTon e Link de Pagamento têm taxa própria
+## Link de Pagamento tem taxa própria
 
-O regulamento separa as taxas do TapTon e do Link de Pagamento das taxas da maquininha <Fonte id="X-parcelado-08" />. Não usa as tabelas de cima para esses dois.
-
-### TapTon
-
-No TapTon, recebendo em 1 dia útil, o parcelado custa <Taxa faixa="tapton" prazo="d1" tipo="parcela" parcelas={2} /> em 2x, <Taxa faixa="tapton" prazo="d1" tipo="parcela" parcelas={6} /> em 6x e <Taxa faixa="tapton" prazo="d1" tipo="parcela" parcelas={12} /> em 12x <Fonte id={['TN-F058', 'TN-F077']} />. A tabela oficial vai até <Taxa faixa="tapton" prazo="d1" tipo="parcela" parcelas={21} /> em 21x.
-
-Compara com a maquininha na faixa até R$ 3 mil. Em 12x, a maquininha cobra <Taxa faixa="ate3k" prazo="d1" tipo="parcela" parcelas={12} />. Numa venda de R$ 1.000, a diferença passa de R$ 90.
-
-<Callout tipo="conflito" titulo="TapTon parcela em 12x ou 21x?">
-A página do TapTon diz "parcelado em até 21x por aproximação" <Fonte id="TN-F081" />. A página MEI-PJ fala em cobrar "em até 12x" <Fonte id="TN-F085" />. O post do blog de junho de 2026 diz que o 21x "ainda não está disponível pelo TapTon ou pelo Link de Pagamento" <Fonte id="X-parcelado-04" />. Antes de prometer 21x ao cliente, testa o limite no seu app.
-</Callout>
-
-### Link de Pagamento
+O regulamento separa as taxas do Link de Pagamento das taxas da maquininha <Fonte id="X-parcelado-08" />. Não usa as tabelas de cima para ele.
 
 O Link parcela em até 12x <Fonte id="TN-F084" />. O prazo padrão é 30 dias <Fonte id="TN-F057" />. Em 12x, sai a <Taxa faixa="link" prazo="d30" tipo="parcela" parcelas={12} /> recebendo em 30 dias e a <Taxa faixa="link" prazo="d14" tipo="parcela" parcelas={12} /> em 14 dias <Fonte id="TN-F082" />.
 

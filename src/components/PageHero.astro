@@ -7,11 +7,13 @@ interface Props {
   h1: string;
   resumo?: string;
   verificado?: boolean;
+  /** usa a coluna de texto (720px) em vez da largura cheia, alinhado com o artigo */
+  estreito?: boolean;
 }
-const { rotulo, h1, resumo, verificado = true } = Astro.props;
+const { rotulo, h1, resumo, verificado = true, estreito = false } = Astro.props;
 ---
 
-<header class="ph wrap">
+<header class:list={['ph', estreito ? 'wrap-text' : 'wrap']}>
   <span class="chip chip-dot">{rotulo}</span>
   <h1 set:html={dig(h1)} />
   {resumo && <p class="resumo" set:html={resumo} />}

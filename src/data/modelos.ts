@@ -136,15 +136,6 @@ export const MODELOS: Modelo[] = [
   },
 ];
 
-export const TAPTON = {
-  nome: 'TapTon',
-  preco: 0,
-  requisitos: 'Android 10 ou superior com NFC; iPhone XS ou superior com iOS 17 ou superior',
-  bandeiras: 'Visa, Mastercard, Elo e Amex',
-  parcelas: 'até 21x na página do TapTon; a página MEI e PJ fala em até 12x',
-  fontes: ['TN-F077', 'TN-F078', 'TN-F079', 'TN-F080', 'TN-F081', 'TN-F085', 'TN-F086'],
-};
-
 export const brl = (v: number) =>
   v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 });
 

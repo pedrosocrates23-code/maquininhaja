@@ -18,7 +18,7 @@ if (/PROGRAMA_ATIVO = false/.test(site)) {
   problemas.push('PROGRAMA_ATIVO = false em src/data/site.ts: cadastro no Renda Extra Ton ainda não confirmado.');
 }
 const links = JSON.parse(readFileSync(join(raiz, 'src/data/links.json'), 'utf8'));
-const comuns = Object.entries(links).filter(([, url]) => /^https:\/\/(www\.)?ton\.com\.br\/(maquininha\/|tapton|link-de-pagamento)/.test(url) && !/[?&]/.test(url));
+const comuns = Object.entries(links).filter(([, url]) => /^https:\/\/(www\.)?ton\.com\.br\/(maquininha\/|link-de-pagamento)/.test(url) && !/[?&]/.test(url));
 if (comuns.length) {
   problemas.push(`links.json sem link de indicação em: ${comuns.map(([k]) => k).join(', ')} (gerar no app Ton > Renda Extra).`);
 }
