@@ -139,9 +139,22 @@ const schema = pagina({
 });
 ---
 
-<Base title={title} description={description} schema={schema}>
-  <section class="hero">
-    <div class="wrap hero-grid">
+<Base title={title} description={description} schema={schema} headerSobreImagem>
+  <section class="hero on-panel">
+    <figure class="hero-img">
+      <Picture
+        src={IMG.heroBanner}
+        alt="Maquininha Ton verde com impressora, cartão Ton e celular com o app Ton sobre um balcão de mármore"
+        formats={['avif', 'webp']}
+        widths={[640, 960, 1280, 1600, 1875]}
+        sizes="100vw"
+        quality={60}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </figure>
+    <div class="wrap hero-in">
       <div class="hero-txt">
         <h1>Qual maquininha Ton é a sua?</h1>
         <p class="lead">
@@ -149,33 +162,14 @@ const schema = pagina({
           máquina.
         </p>
         <div class="hero-ctas">
-          <a class="btn btn-dark" href="#escolher">Responder as 3 perguntas</a>
+          <a class="btn btn-primary" href="#modelos">Escolher maquininha</a>
           <a class="btn btn-ghost" href="/quanto-custa/calculadora/">Simular minhas taxas</a>
         </div>
-        <ul class="selos" aria-label="Por que confiar">
-          <li>Fonte oficial em cada número</li>
-          <li>Sem cadastro, sem e-mail</li>
-          <li>Independente da Ton</li>
-        </ul>
       </div>
-      <figure class="hero-img">
-        <Picture
-          src={IMG.hero}
-          alt="Cliente aproxima o cartão de uma maquininha segurada pela dona de um balcão de salgados"
-          formats={['avif', 'webp']}
-          widths={[400, 560, 720, 960, 1120]}
-          sizes="(max-width: 900px) 92vw, 560px"
-          quality={55}
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-        />
-        <figcaption>Ilustração com aparelho genérico.</figcaption>
-      </figure>
     </div>
   </section>
 
-  <section class="section">
+  <section id="modelos" class="section">
     <div class="wrap">
       <div class="section-head">
         <h2>Quatro jeitos de passar o cartão.</h2>
@@ -201,10 +195,6 @@ const schema = pagina({
           ))
         }
       </ul>
-      <p class="bandeiras-nota">
-        As bandeiras Alelo, Pluxee, Ticket, Up Brasil e VR são aceitas somente em cadastros com CNPJ.
-        <a href="/modelos/cartoes-e-vales/">Ver a lista completa de cartões e vales</a>
-      </p>
     </div>
   </section>
 
@@ -255,7 +245,7 @@ const schema = pagina({
       <figure class="calc-img">
         <Picture
           src={IMG.calculadora}
-          alt="Comerciante confere no celular o resultado das vendas do dia no balcão"
+          alt="Comerciante confere no celular o resultado das vendas do dia no balcão, com uma maquininha Ton T3 Smart verde ao lado"
           formats={['avif', 'webp']}
           widths={[480, 720, 960]}
           sizes="(max-width: 900px) 92vw, 520px"
@@ -337,7 +327,7 @@ const schema = pagina({
       <figure class="ajuda-img">
         <Picture
           src={IMG.ajuda}
-          alt="Mãos seguram uma maquininha ao lado de um celular sobre um balcão de madeira"
+          alt="Mãos seguram uma maquininha Ton T3 verde com um QR Code Pix na tela, ao lado de um celular, sobre um balcão de madeira"
           formats={['avif', 'webp']}
           widths={[480, 720, 960]}
           sizes="(max-width: 900px) 92vw, 520px"
@@ -391,8 +381,75 @@ const schema = pagina({
 </Base>
 
 <style>
+  /* Banner do topo: a imagem ocupa a largura toda; o texto fica sobre a área escura da esquerda. */
+  /* Mesma proporção da imagem (1875 x 839): ela aparece inteira, sem corte e sem esticar.
+     O header transparente fica por cima; o padding de cima desconta a altura dele. */
   .hero {
-    padding-block: clamp(2rem, 6vw, 5rem) clamp(3rem, 6vw, 5rem);
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    align-items: center;
+    aspect-ratio: 1875 / 839;
+    padding-block: calc(69px + var(--s-4)) var(--s-5);
+    background: #0b1e0e;
+    color: var(--on-panel);
+    overflow: hidden;
+  }
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    margin: 0;
+  }
+  .hero-img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* escurece só o lado do texto, para o contraste não depender da foto */
+  .hero-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgb(5 18 8 / 0.82) 0%, rgb(5 18 8 / 0.55) 38%, rgb(5 18 8 / 0) 62%);
+  }
+  .hero h1 {
+    color: #fff;
+  }
+  .hero .lead {
+    color: rgb(255 255 255 / 0.86);
+  }
+  /* Até 1023px o texto cobriria o celular da foto: a imagem vai em cima e o texto embaixo. */
+  @media (max-width: 1023px) {
+    .hero {
+      display: block;
+      aspect-ratio: auto;
+      padding-block: 69px var(--s-8);
+    }
+    .hero-img {
+      position: relative;
+      z-index: auto;
+      margin-bottom: var(--s-6);
+    }
+    .hero-img :global(img) {
+      height: auto;
+      aspect-ratio: 1875 / 839;
+    }
+    .hero-img::after {
+      background: linear-gradient(180deg, rgb(11 30 14 / 0) 60%, #0b1e0e 100%);
+    }
+  }
+  /* 64px embaixo das bandeiras; o quiz (#escolher) tem 112px em cima e embaixo (64px no celular). */
+  .bandeiras-sec {
+    padding-bottom: 4rem;
+  }
+  #escolher {
+    padding-block: 7rem;
+  }
+  @media (max-width: 767px) {
+    #escolher {
+      padding-block: 4rem;
+    }
   }
   .bandeiras {
     display: grid;
@@ -409,51 +466,44 @@ const schema = pagina({
     font-size: var(--fs-2);
     color: var(--ink-2);
   }
+  /* Os 12 selos numa linha só: encolhem antes de quebrar. No celular, 2 fileiras de 6. */
   .bandeiras-lista {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     gap: var(--s-3);
+    width: 100%;
     list-style: none;
     margin: var(--s-4) 0 0;
     padding: 0;
-    max-width: 56rem;
   }
   .bandeiras-lista li {
     display: grid;
     place-items: center;
-    width: 4rem;
+    flex: 0 1 4rem;
+    min-width: 0;
     height: 2.5rem;
     border: 1px solid var(--line);
     border-radius: var(--pill);
     background: #fff; /* logos coloridos pedem fundo branco também no tema escuro */
   }
   .bandeiras-lista img {
-    width: 2.75rem;
+    width: min(2.75rem, 80%);
     height: 1.875rem;
     object-fit: contain;
   }
-  .bandeiras-nota {
-    margin: var(--s-4) 0 0;
-    font-size: var(--fs-0);
-    color: var(--muted);
-    max-width: 44rem;
-  }
-  .bandeiras-nota a {
-    display: block;
-    margin-top: var(--s-2);
-    font-size: var(--fs-1);
-  }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: clamp(2rem, 5vw, 4rem);
-    align-items: center;
+  @media (max-width: 639px) {
+    .bandeiras-lista {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 4rem));
+      gap: var(--s-2);
+    }
   }
   .hero-txt {
     display: grid;
     gap: var(--s-5);
     justify-items: start;
+    max-width: 32rem;
   }
   .lead {
     font-size: var(--fs-3);
@@ -461,44 +511,19 @@ const schema = pagina({
     max-width: 34rem;
     margin: 0;
   }
+  /* Botões do banner um embaixo do outro, com a mesma largura (a do mais largo), no desktop e no celular. */
   .hero-ctas {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: max-content;
     gap: var(--s-3);
+    max-width: 100%;
   }
-  .selos {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-2) var(--s-5);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-size: var(--fs-0);
-    color: var(--muted);
-  }
-  .selos li::before {
-    content: '';
-    display: inline-block;
-    width: 0.55rem;
-    height: 0.55rem;
-    border-radius: 50%;
-    background: var(--green);
-    margin-right: 0.45rem;
-    box-shadow: 0 0 0 2px var(--ink) inset;
-  }
-  .hero-img {
-    margin: 0;
-  }
-  .hero-img :global(img),
   .calc-img :global(img),
   .ajuda-img :global(img) {
     width: 100%;
     border-radius: var(--radius-l);
     aspect-ratio: 3 / 2;
     object-fit: cover;
-  }
-  .hero-img :global(img) {
-    aspect-ratio: 4 / 4.4;
   }
   figcaption {
     font-size: var(--fs-0);
@@ -624,14 +649,10 @@ const schema = pagina({
   }
 
   @media (max-width: 900px) {
-    .hero-grid,
     .escolha-grid,
     .calc-grid,
     .ajuda-grid {
       grid-template-columns: 1fr;
-    }
-    .hero-img :global(img) {
-      aspect-ratio: 3 / 2;
     }
     .verdades li {
       grid-template-columns: 1fr;

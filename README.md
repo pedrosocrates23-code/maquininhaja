@@ -21,7 +21,7 @@ de terceiros. Planejamento de origem: `clients/maquininhas/entregaveis/` (Word +
 - **Taxas e preços nunca são digitados no texto.** Saem de `src/data/taxas.json` e `src/data/modelos.ts` pelos componentes `<Taxa/>`, `<Preco/>`, `<TabelaFaixas/>` e `<TabelaParcelas/>`. Mudou a taxa na Ton: atualize a pesquisa, rode `npm run sync` e o build.
 - **Cada fato tem fonte** (`<Fonte id="..."/>`): ledger oficial (`TN-`, `MK-`) ou fontes coletadas na redação (`src/data/fontes-extra/*.json`, ids `X-`). O fim de cada página lista os documentos com o trecho literal.
 - **Página nova:** crie `src/content/paginas/<secao>/<slug>.mdx` seguindo `design/SPEC-REDACAO.md` e rode `npm run validar`. Ela entra no hub, no sitemap e no JSON-LD sozinha.
-- **Imagens:** fotos dos aparelhos são as oficiais da Ton (`design/imagens-fonte/ton-oficial/`, URL de cada uma em `FONTES.md`), copiadas sem reprocessar para `src/assets/img/modelo-*`. Cenas (hero e seções) são geradas pelo Codex CLI (aparelho genérico, legenda avisa) em `design/imagens-fonte/`. O Astro entrega AVIF/WebP responsivo.
+- **Imagens:** fotos dos aparelhos são as oficiais da Ton (`design/imagens-fonte/ton-oficial/`, URL de cada uma em `FONTES.md`), copiadas sem reprocessar para `src/assets/img/modelo-*`. Cenas (hero e seções) são ilustrações geradas pelo Codex CLI com a maquininha Ton real (T3 ou T3 Smart) tirada das fotos oficiais, em `design/imagens-fonte/cenas-ton/`. O Astro entrega AVIF/WebP responsivo.
 
 ## Antes de publicar (Fase 0)
 

@@ -1,7 +1,10 @@
 // Aparelhos: mockup de estúdio (scripts/gerar_mockups.py) montado sobre a foto oficial da Ton, sem redesenhar
 // o aparelho (originais e URLs em design/imagens-fonte/ton-oficial/FONTES.md). src = card (1 : 0,82); hero = quadrado.
-// Cenas (hero e seções) seguem geradas pelo Codex, com aparelho genérico: a legenda diz isso.
+// Cenas (hero e seções): ilustração gerada pelo Codex com a maquininha Ton real (T3 ou T3 Smart) a partir das fotos
+// oficiais; originais em design/imagens-fonte/cenas-ton/ (as versões com aparelho genérico seguem em design/imagens-fonte/).
 import hero from '../assets/img/hero.jpg';
+// Banner do topo da home (1875 x 839), enviado pelo usuário em 14/10/2026; original em design/imagens-fonte/hero-banner.png.
+import heroBanner from '../assets/img/hero-banner.png';
 import t1 from '../assets/img/mockup-t1-card.png';
 import t2 from '../assets/img/mockup-t2-card.png';
 import t3 from '../assets/img/mockup-t3-card.png';
@@ -15,7 +18,7 @@ import aprenda from '../assets/img/secao-aprenda.jpg';
 import calculadora from '../assets/img/secao-calculadora.jpg';
 import renda from '../assets/img/secao-renda.jpg';
 
-export const IMG = { hero, ajuda, aprenda, calculadora, renda };
+export const IMG = { hero, heroBanner, ajuda, aprenda, calculadora, renda };
 
 export const IMG_MODELO = {
   t1: { src: t1, hero: t1h, alt: 'Maquininha Ton T1 verde, de frente, com visor monocromático e teclado numérico' },

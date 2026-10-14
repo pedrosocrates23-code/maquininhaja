@@ -19,6 +19,8 @@ interface Props {
   atualizado?: string;
   /** topo da página na coluna de texto, alinhado com o artigo */
   estreito?: boolean;
+  /** header transparente por cima do banner do topo (home) */
+  headerSobreImagem?: boolean;
 }
 
 const {
@@ -31,6 +33,7 @@ const {
   ogType = 'website',
   atualizado,
   estreito = false,
+  headerSobreImagem = false,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
@@ -80,7 +83,7 @@ const especulacao = {
   </head>
   <body>
     <a class="skip" href="#conteudo">Pular para o conteúdo</a>
-    <Header />
+    <Header sobreImagem={headerSobreImagem} />
     {crumbs.length > 1 && <Breadcrumbs crumbs={crumbs} estreito={estreito} />}
     <main id="conteudo" tabindex="-1">
       <slot />
