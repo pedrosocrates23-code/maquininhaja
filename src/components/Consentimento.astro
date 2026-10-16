@@ -1,17 +1,19 @@
 ---
-// Consentimento de cookies (LGPD art. 7º, I e art. 8º). Só existe se houver GA4 configurado
-// (PUBLIC_GA4_ID). Sem ID: nenhum cookie próprio, nenhum script de terceiros, nenhum banner.
-// O GA4 só é carregado DEPOIS do "Aceitar"; recusa fica guardada e o banner não volta.
+// Consentimento de cookies (LGPD art. 7º, I e art. 8º). Só existe se houver GA4 ou Clarity
+// configurado (site.ts). Sem ID: nenhum cookie próprio, nenhum script de terceiros, nenhum banner.
+// GA4 e Clarity só são carregados DEPOIS do "Aceitar"; recusa fica guardada e o banner não volta.
+// Os eventos (cliques, quiz, calculadora) ficam em Medicao.astro e só disparam se o GA4 existir.
 import { SITE } from '../data/site';
-const ga4 = SITE.ga4;
+const { ga4, clarity } = SITE;
+const medindo = Boolean(ga4 || clarity);
 ---
 
 {
-  ga4 && (
-    <div id="consent" class="consent" role="dialog" aria-labelledby="consent-tit" hidden data-ga4={ga4}>
+  medindo && (
+    <div id="consent" class="consent" role="dialog" aria-labelledby="consent-tit" hidden data-ga4={ga4} data-clarity={clarity}>
       <p id="consent-tit">
-        <strong>Cookies de medição.</strong> Usamos o Google Analytics para saber quais páginas ajudam, só se você
-        aceitar. Detalhes na <a href="/privacidade/#cookies">política de privacidade</a>.
+        <strong>Cookies de medição.</strong> Usamos o Google Analytics e o Microsoft Clarity para saber quais páginas
+        ajudam e onde o leitor trava, só se você aceitar. Detalhes na <a href="/privacidade/#cookies">política de privacidade</a>.
       </p>
       <div class="consent-btns">
         <button type="button" class="btn btn-ghost" data-escolha="nao">
@@ -26,25 +28,49 @@ const ga4 = SITE.ga4;
 }
 
 {
-  ga4 && (
+  medindo && (
     <script>
+      import { contexto } from '../lib/medicao-ctx';
       const CHAVE = 'pnm-consent-v1';
       const box = document.getElementById('consent');
-      const id = box?.dataset.ga4;
-      function carregar() {
-        if (!id) return;
+      const gaId = box?.dataset.ga4;
+      const clId = box?.dataset.clarity;
+      const w = window as unknown as Record<string, any>;
+      w.__pnmCtx = contexto(location.pathname);
+      function carregarGa() {
+        if (!gaId) return;
         const s = document.createElement('script');
         s.async = true;
-        s.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+        s.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
         document.head.append(s);
-        const w = window as unknown as { dataLayer: unknown[]; gtag: (...a: unknown[]) => void };
         w.dataLayer = w.dataLayer || [];
         w.gtag = function () {
           // eslint-disable-next-line prefer-rest-params
           w.dataLayer.push(arguments);
         };
         w.gtag('js', new Date());
-        w.gtag('config', id, { anonymize_ip: true });
+        // pagina_tipo e modelo vão em todos os eventos da página (inclusive o page_view).
+        // transport_type beacon: o clique em /link/ sai do site na hora, o beacon sobrevive à navegação.
+        w.gtag('config', gaId, { anonymize_ip: true, transport_type: 'beacon', ...(w.__pnmCtx || {}) });
+      }
+      function carregarClarity() {
+        if (!clId) return;
+        w.clarity =
+          w.clarity ||
+          function () {
+            // eslint-disable-next-line prefer-rest-params
+            (w.clarity.q = w.clarity.q || []).push(arguments);
+          };
+        const s = document.createElement('script');
+        s.async = true;
+        s.src = `https://www.clarity.ms/tag/${clId}`;
+        document.head.append(s);
+        const ctx = (w.__pnmCtx || {}) as Record<string, string>;
+        for (const k of Object.keys(ctx)) w.clarity('set', k, ctx[k]);
+      }
+      function carregar() {
+        carregarGa();
+        carregarClarity();
       }
       let escolha: string | null = null;
       try {

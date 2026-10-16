@@ -44,7 +44,7 @@ const dados = JSON.stringify(
     <p class="r-nome display" data-r="nome"></p>
     <p class="r-preco" data-r="preco"></p>
     <p data-r="por"></p>
-    <a class="btn btn-primary" data-r="href" href="/modelos/">Ver detalhes e taxas</a>
+    <a class="btn btn-primary" data-r="href" href="/modelos/" data-evento="quiz_resultado_click" data-cta-tipo="quiz_resultado">Ver detalhes e taxas</a>
   </div>
   <p class="nota" id="esc-nota">
     Regra de escolha do site, montada com dados da ficha oficial de cada modelo. Preços promocionais conferidos em {SITE.verificadoEmTexto}; confira no site da Ton antes de pedir.
@@ -56,6 +56,15 @@ const dados = JSON.stringify(
   if (f) {
     const res = JSON.parse(f.dataset.res || '{}');
     const box = document.getElementById('esc-res') as HTMLElement;
+    // Medição: avisa o início (primeira resposta) e o resultado, com as respostas e o modelo sugerido.
+    const avisar = (nome: string, params: Record<string, string> = {}) =>
+      document.dispatchEvent(new CustomEvent('pnm:evento', { detail: { nome, origem: f, params } }));
+    let comecou = false;
+    f.addEventListener('change', () => {
+      if (comecou) return;
+      comecou = true;
+      avisar('quiz_inicio');
+    });
     f.addEventListener('submit', (e) => {
       e.preventDefault();
       const d = new FormData(f);
@@ -67,6 +76,7 @@ const dados = JSON.stringify(
       else if (cel === 'nao') k = 't2';
       else k = 't1';
       const r = res[k];
+      avisar('quiz_resultado', { modelo_sugerido: k, onde: String(onde), papel: String(papel), celular: String(cel) });
       box.querySelector('[data-r="nome"]')!.innerHTML = r.nomeHtml;
       box.querySelector('[data-r="preco"]')!.textContent = r.preco;
       box.querySelector('[data-r="por"]')!.textContent = r.por;

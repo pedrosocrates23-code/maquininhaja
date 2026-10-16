@@ -121,7 +121,7 @@ const ids = [...m.fontes, ...(m.conflito?.fontes ?? []), ...(analise?.data.fonte
 ---
 
 <Base title={seo.title} description={seo.description} crumbs={crumbs} schema={schema} ogImage={`/og/${m.slug}.jpg`} atualizado={SITE.verificadoEm}>
-  <section class="topo-modelo">
+  <section class="topo-modelo" data-secao="modelo_topo">
     <div class="wrap tm-grid">
       <div class="tm-txt">
         <span class="chip chip-dot">{m.tipo}</span>
@@ -179,7 +179,7 @@ const ids = [...m.fontes, ...(m.conflito?.fontes ?? []), ...(analise?.data.fonte
       }
     </section>
 
-    <section class="bloco" aria-labelledby="custo">
+    <section class="bloco" aria-labelledby="custo" data-secao="modelo_custo">
       <h2 id="custo">Quanto custa de verdade</h2>
       <p>
         A taxa não depende do modelo: as quatro máquinas seguem o Ton Mega+. O que muda é o mês. Nos primeiros 30 dias ou até
@@ -202,7 +202,7 @@ const ids = [...m.fontes, ...(m.conflito?.fontes ?? []), ...(analise?.data.fonte
         você em comodato: pelos termos de uso, não há transferência de propriedade. A página do plano MEI
         diz o contrário, "a máquina é sua propriedade": confirme antes de pedir.
       </p>
-      <a class="btn btn-dark" href="/quanto-custa/calculadora/">Simular com o meu faturamento</a>
+      <a class="btn btn-dark" href="/quanto-custa/calculadora/" data-evento="calculadora_cta_click" data-cta-tipo="calculadora">Simular com o meu faturamento</a>
     </section>
 
     {
@@ -225,7 +225,7 @@ const ids = [...m.fontes, ...(m.conflito?.fontes ?? []), ...(analise?.data.fonte
       )
     }
 
-    <aside class="cta-final panel on-panel" aria-label={`Pedir a ${m.nome}`}>
+    <aside class="cta-final panel on-panel" data-secao="modelo_cta_final" aria-label={`Pedir a ${m.nome}`}>
       <p class="display cta-tit" set:html={dig(`A ${m.nome} é a sua?`)} />
       <CtaIndicacao chave={m.slug} texto={`Pedir a ${m.nome} no site da Ton`} />
     </aside>

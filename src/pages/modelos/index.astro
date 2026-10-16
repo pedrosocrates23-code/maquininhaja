@@ -110,12 +110,12 @@ const schema = [
     resumo={`Quatro máquinas. A taxa é a mesma nas quatro máquinas (a tabela de planos não distingue modelo); muda o aparelho, o preço de adesão, o comprovante, o Pix e o parcelamento máximo.`}
   />
 
-  <section class="vitrine" aria-labelledby="vitrine-tit">
+  <section class="vitrine" aria-labelledby="vitrine-tit" data-secao="modelos_vitrine">
     <h2 id="vitrine-tit" class="sr-only">Os quatro modelos</h2>
     <TrilhoModelos cards={cards} />
   </section>
 
-  <section class="wrap tabela-sec" aria-labelledby="tab-tit">
+  <section class="wrap tabela-sec" aria-labelledby="tab-tit" data-secao="modelos_tabela">
     <h2 id="tab-tit" class="sr-only">Tabela de comparação</h2>
     <div class="table-wrap comp" tabindex="0" role="region" aria-label="Comparação dos modelos Ton">
       <table>

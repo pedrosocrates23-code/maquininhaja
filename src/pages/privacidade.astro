@@ -1,9 +1,11 @@
 ---
 // Política de privacidade e cookies (LGPD, Lei 13.709/2018). O texto muda sozinho conforme a
-// configuração: sem PUBLIC_GA4_ID, o site não usa cookie nenhum.
+// configuração: sem GA4 e sem Clarity (site.ts), o site não usa cookie nenhum.
 import Institucional from '../layouts/Institucional.astro';
 import { SITE, PROGRAMA_ATIVO } from '../data/site';
 const temGa = Boolean(SITE.ga4);
+const temClarity = Boolean(SITE.clarity);
+const medindo = temGa || temClarity;
 ---
 
 <Institucional
@@ -36,13 +38,29 @@ const temGa = Boolean(SITE.ga4);
   </p>
   <h3>Medição de audiência</h3>
   {
-    temGa ? (
-      <p>
-        Com o seu consentimento (art. 7º, I), usamos o Google Analytics 4 para saber quais páginas ajudam. Ele grava cookies
-        (_ga e _ga_*) por até 2 anos e trata IP, dispositivo e páginas vistas. Sem o seu "Aceitar", o script nem é carregado. O
-        Google atua como operador e pode tratar dados fora do Brasil, com as salvaguardas do art. 33 da LGPD. Você muda a
-        escolha a qualquer momento em <button type="button" class="link-btn" data-abrir-consent>preferências de cookies</button>.
-      </p>
+    medindo ? (
+      <>
+        <p>
+          Com o seu consentimento (art. 7º, I), usamos {temGa && 'o Google Analytics 4'}{temGa && temClarity && ' e '}{temClarity && 'o Microsoft Clarity'} para saber quais
+          páginas ajudam e onde o leitor trava. Sem o seu "Aceitar", nenhum dos scripts é carregado. Você muda a escolha a
+          qualquer momento em <button type="button" class="link-btn" data-abrir-consent>preferências de cookies</button>.
+        </p>
+        {temGa && (
+          <p>
+            <strong>Google Analytics 4:</strong> grava cookies (_ga e _ga_*) por até 2 anos e trata IP anonimizado, dispositivo,
+            páginas vistas e cliques em botões (por exemplo, qual botão de pedido foi clicado e em que parte da página). O Google
+            atua como operador e pode tratar dados fora do Brasil, com as salvaguardas do art. 33 da LGPD.
+          </p>
+        )}
+        {temClarity && (
+          <p>
+            <strong>Microsoft Clarity:</strong> grava cookies (_clck e _clsk) e produz mapas de calor e gravações anônimas da
+            sessão (cliques, rolagem e movimento do cursor). Campos de formulário são mascarados e o site não tem campo de
+            dado pessoal. A Microsoft atua como operador e pode tratar dados fora do Brasil, com as salvaguardas do art. 33 da
+            LGPD.
+          </p>
+        )}
+      </>
     ) : (
       <p>Hoje o site não usa ferramenta de medição, pixel de anúncio nem cookie de terceiros.</p>
     )
@@ -50,10 +68,10 @@ const temGa = Boolean(SITE.ga4);
 
   <h2 id="cookies">3. Cookies</h2>
   {
-    temGa ? (
+    medindo ? (
       <p>
         O site grava um registro local (localStorage, chave pnm-consent-v1) só para lembrar se você aceitou ou recusou a
-        medição. Cookies do Google Analytics só existem depois do "Aceitar".
+        medição. Cookies do Google Analytics e do Microsoft Clarity só existem depois do "Aceitar".
       </p>
     ) : (
       <p>O site não grava cookie nenhum no seu navegador.</p>
@@ -78,6 +96,7 @@ const temGa = Boolean(SITE.ga4);
     <li>Provedor de hospedagem e entrega do site (operador), para servir as páginas.</li>
     <li>Provedor de e-mail (operador), se você escrever para nós.</li>
     {temGa && <li>Google (operador), só com consentimento, para medição de audiência.</li>}
+    {temClarity && <li>Microsoft (operador), só com consentimento, para mapas de calor e gravações anônimas de sessão.</li>}
     <li>Autoridades, quando houver ordem legal.</li>
   </ul>
   <p>Não vendemos nem alugamos dados pessoais.</p>

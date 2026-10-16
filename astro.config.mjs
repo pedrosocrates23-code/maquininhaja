@@ -182,14 +182,14 @@ export default defineConfig({
   ),
   image: { responsiveStyles: true },
   // CSP nativo do Astro: hashes automáticos de scripts e estilos inline, em <meta>.
-  // O GA4 só entra depois do consentimento (Consentimento.astro).
+  // GA4 e Clarity só entram depois do consentimento (Consentimento.astro).
   security: {
     csp: {
-      scriptDirective: { resources: ["'self'", 'https://www.googletagmanager.com'] },
+      scriptDirective: { resources: ["'self'", 'https://www.googletagmanager.com', 'https://www.clarity.ms', 'https://scripts.clarity.ms'] },
       directives: [
         "default-src 'self'",
-        "img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com",
-        "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com",
+        "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com",
+        "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://*.clarity.ms https://c.bing.com",
         "font-src 'self'",
         "base-uri 'self'",
         "form-action 'self'",

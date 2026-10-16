@@ -144,7 +144,7 @@ const schema = pagina({
 ---
 
 <Base title={title} description={description} schema={schema} headerSobreImagem>
-  <section class="hero on-panel">
+  <section class="hero on-panel" data-secao="home_hero">
     <figure class="hero-img">
       <Picture
         src={IMG.heroBanner}
@@ -173,7 +173,7 @@ const schema = pagina({
     </div>
   </section>
 
-  <section id="modelos" class="section">
+  <section id="modelos" class="section" data-secao="home_modelos">
     <div class="wrap">
       <div class="section-head">
         <h2>Quatro jeitos de passar o cartão.</h2>
@@ -186,7 +186,7 @@ const schema = pagina({
     <TrilhoModelos cards={cards} />
   </section>
 
-  <section class="section-tight bandeiras-sec" aria-labelledby="bandeiras-titulo">
+  <section class="section-tight bandeiras-sec" aria-labelledby="bandeiras-titulo" data-secao="home_bandeiras">
     <div class="wrap bandeiras">
       <h2 id="bandeiras-titulo">Aceite mais de 50 bandeiras no débito, crédito e vouchers</h2>
       <p class="bandeiras-sub">Novidade para as maquininhas T2, T3 e T3 Smart</p>
@@ -202,7 +202,7 @@ const schema = pagina({
     </div>
   </section>
 
-  <section id="escolher" class="section-tight">
+  <section id="escolher" class="section-tight" data-secao="home_quiz">
     <div class="wrap escolha-grid">
       <div class="section-head">
         <h2>Começa pelo jeito que você vende.</h2>
@@ -212,7 +212,7 @@ const schema = pagina({
     </div>
   </section>
 
-  <section class="section alt verdades-sec">
+  <section class="section alt verdades-sec" data-secao="home_verdades">
     <div class="wrap">
       <div class="section-head">
         <h2>Cinco verdades antes de pedir.</h2>
@@ -236,7 +236,7 @@ const schema = pagina({
     </div>
   </section>
 
-  <section class="section panel on-panel calc-sec">
+  <section class="section panel on-panel calc-sec" data-secao="home_calculadora">
     <div class="wrap calc-grid">
       <div>
         <h2 class="calc-tit">Quanto sobra de cada venda <em class="accent">no mês <span class="n">2</span>?</em></h2>
@@ -244,7 +244,7 @@ const schema = pagina({
           Coloca quanto vende por mês e como o cliente paga. A calculadora mostra o mês promocional e o mês seguinte, na
           sua faixa, recebendo na hora ou em 1 dia útil.
         </p>
-        <a class="btn btn-primary" href="/quanto-custa/calculadora/">Abrir a calculadora</a>
+        <a class="btn btn-primary" href="/quanto-custa/calculadora/" data-evento="calculadora_cta_click" data-cta-tipo="calculadora">Abrir a calculadora</a>
       </div>
       <figure class="calc-img">
         <Picture
@@ -260,7 +260,7 @@ const schema = pagina({
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" data-secao="home_taxas">
     <div class="wrap">
       <div class="section-head">
         <h2>Sua taxa depende de quanto você vende.</h2>
@@ -305,7 +305,7 @@ const schema = pagina({
     </div>
   </section>
 
-  <section class="section alt">
+  <section class="section alt" data-secao="home_ajuda">
     <div class="wrap ajuda-grid">
       <div>
         <div class="section-head">
@@ -342,7 +342,7 @@ const schema = pagina({
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" data-secao="home_independente">
     <div class="wrap">
       <div class="section-head">
         <h2>Independente, não atendimento.</h2>
@@ -376,7 +376,7 @@ const schema = pagina({
     </div>
   </section>
 
-  <section class="section alt">
+  <section class="section alt" data-secao="home_faq">
     <div class="wrap-text">
       <Faq itens={faq} />
       <Fontes ids={fontesPagina} />

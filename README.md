@@ -32,4 +32,4 @@ O gate `npm run build:producao` só passa quando tudo isto estiver resolvido:
 3. **Domínio** `maquininhaja.com.br` registrado e caixa `contato@maquininhaja.com.br` criada.
 4. **Diretrizes logadas** do programa (anúncios online e criação de website, no app) lidas e conferidas contra o site.
 5. **Host:** `public/_headers` e o `_redirects` gerado no build seguem o formato do Cloudflare Pages e do Netlify. Em outro host, replique os cabeçalhos de segurança e os 302 de `/link/*`.
-6. Opcional: `PUBLIC_GA4_ID` no ambiente ativa o banner de consentimento e o GA4 (só carrega depois do "Aceitar").
+6. Medição: GA4 (`G-BEFSW89Y99`) e Clarity (`yylkwb2llv`) estão em `src/data/site.ts` (`PUBLIC_GA4_ID` / `PUBLIC_CLARITY_ID` sobrescrevem; vazio desliga). Só carregam depois do "Aceitar". Eventos e conversões: `docs/medicao.md`.

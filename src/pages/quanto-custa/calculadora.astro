@@ -69,7 +69,7 @@ const ids = ['TN-F011', 'TN-F012', 'TN-F013', 'TN-F180', 'TN-F184', 'TN-F010', '
     resumo="Coloca quanto vende por mês e como o cliente paga. A conta mostra o <strong>mês promocional</strong> e o <strong>mês 2 em diante</strong>, que é o que pesa de verdade."
   />
 
-  <section class="wrap calc-grid" aria-label="Calculadora">
+  <section class="wrap calc-grid" aria-label="Calculadora" data-secao="calculadora_form">
     <form id="calc" class="calc card" data-taxas={dados} novalidate>
       <div class="campo">
         <label for="fat">Quanto você vende por mês</label>
@@ -123,7 +123,7 @@ const ids = ['TN-F011', 'TN-F012', 'TN-F013', 'TN-F180', 'TN-F184', 'TN-F010', '
       <p class="r-faixa" data-r="faixa"></p>
       <p class="r-liq" data-r="liq"></p>
       <p class="r-alt" data-r="alt"></p>
-      <a class="btn btn-primary" href="/modelos/">Ver qual maquininha escolher</a>
+      <a class="btn btn-primary" href="/modelos/" data-evento="calculadora_resultado_click" data-cta-tipo="calculadora_resultado">Ver qual maquininha escolher</a>
     </div>
   </section>
 
@@ -197,8 +197,25 @@ const ids = ['TN-F011', 'TN-F012', 'TN-F013', 'TN-F180', 'TN-F184', 'TN-F010', '
           ? `Recebendo na hora, você pagaria ${brl(m2o)} (${brl(Math.abs(dif))} a mais por mês).`
           : `Recebendo em 1 dia útil, você pagaria ${brl(m2o)} (${brl(Math.abs(dif))} a menos por mês).`;
     }
+    // Medição: avisa uma vez por visita que o leitor mexeu na calculadora, com a faixa e as escolhas (sem o valor exato).
+    let usada = false;
+    function avisarUso() {
+      if (usada) return;
+      usada = true;
+      const d = new FormData(form!);
+      document.dispatchEvent(
+        new CustomEvent('pnm:evento', {
+          detail: {
+            nome: 'calculadora_usada',
+            origem: form,
+            params: { faixa_faturamento: faixa(Math.max(0, Number(d.get('fat')) || 0)), prazo: String(d.get('prazo') || 'd1'), parcelas: Number(d.get('parc')) || 6 },
+          },
+        }),
+      );
+    }
     form.addEventListener('input', calcular);
     form.addEventListener('change', calcular);
+    form.addEventListener('change', avisarUso);
     form.addEventListener('submit', (e) => e.preventDefault());
     calcular();
   }

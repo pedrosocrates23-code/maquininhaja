@@ -1,0 +1,214 @@
+---
+// Medição de eventos (GA4 + Clarity). Um único ouvinte de cliques classifica cada botão pelo LUGAR
+// em que ele está (header, corpo, rodapé) e pela SEÇÃO, sem precisar marcar botão por botão.
+// Só envia algo se o visitante aceitou os cookies (window.gtag só existe depois do "Aceitar").
+// Catálogo completo de eventos, parâmetros e conversões: docs/medicao.md.
+//
+// Convenção nas páginas:
+//   data-secao="nome"      na <section> (nome estável usado no relatório; sem ele vale o id da seção)
+//   data-evento="nome"     num link/botão que merece nome de evento próprio
+//   data-cta-tipo="tipo"   tipo do CTA para esse mesmo link/botão
+// Componentes dinâmicos (quiz, calculadora) avisam por CustomEvent('pnm:evento', { detail: { nome, params } }).
+---
+
+<script>
+  type Params = Record<string, string | number | boolean | undefined>;
+  const w = window as unknown as Record<string, any>;
+
+  const limpar = (p: Params) => Object.fromEntries(Object.entries(p).filter(([, v]) => v !== undefined && v !== ''));
+
+  function enviar(nome: string, params: Params = {}) {
+    const p = limpar(params);
+    if (typeof w.gtag === 'function') w.gtag('event', nome, p);
+    if (typeof w.clarity === 'function') {
+      w.clarity('event', nome);
+      if (p.bloco) w.clarity('set', 'bloco', String(p.bloco));
+      if (p.secao) w.clarity('set', 'secao', String(p.secao));
+    }
+  }
+
+  const slug = (t: string) =>
+    t
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '')
+      .slice(0, 40);
+
+  // h2/h3 mais próximo acima do elemento (para artigos em MDX, que não têm data-secao).
+  function tituloAnterior(el: Element): string {
+    let n: Element | null = el;
+    while (n && n !== document.body) {
+      let p = n.previousElementSibling;
+      while (p) {
+        const h = /^H[23]$/.test(p.tagName) ? p : p.querySelector('h2, h3');
+        if (h?.textContent) return slug(h.textContent);
+        p = p.previousElementSibling;
+      }
+      n = n.parentElement;
+    }
+    return '';
+  }
+
+  // Onde o elemento está na página: bloco (header | corpo | rodape) e seção.
+  function onde(el: Element): { bloco: string; secao: string; secao_titulo?: string } {
+    if (el.closest('#consent')) return { bloco: 'consentimento', secao: 'consentimento' };
+    if (el.closest('#menu')) return { bloco: 'header', secao: 'menu_mobile' };
+    if (el.closest('header.topo')) {
+      const s = el.closest('.logo') ? 'logo' : el.closest('.nav-desk') ? 'menu' : 'botao';
+      return { bloco: 'header', secao: `header_${s}` };
+    }
+    if (el.closest('footer')) {
+      const s = el.closest('nav') ? 'links' : el.closest('.sobre') ? 'destaque' : 'geral';
+      return { bloco: 'rodape', secao: `rodape_${s}` };
+    }
+    const sec = el.closest<HTMLElement>('[data-secao]');
+    if (sec) return { bloco: 'corpo', secao: sec.dataset.secao! };
+    const comId = el.closest('section[id], aside[id]');
+    if (comId) return { bloco: 'corpo', secao: comId.id };
+    if (el.closest('aside.cta-final')) return { bloco: 'corpo', secao: 'cta_final' };
+    return { bloco: 'corpo', secao: 'artigo', secao_titulo: tituloAnterior(el) };
+  }
+
+  const texto = (el: Element) => (el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60);
+
+  // Cliques em links. Eventos "de CTA" geram também cta_header / cta_corpo / cta_rodape,
+  // para o relatório de eventos do GA4 já mostrar a divisão por lugar, sem dimensão personalizada.
+  document.addEventListener(
+    'click',
+    (e) => {
+      const a = (e.target as Element | null)?.closest<HTMLAnchorElement>('a[href]');
+      if (!a) return;
+      let url: URL;
+      try {
+        url = new URL(a.href, location.href);
+      } catch {
+        return;
+      }
+      const lugar = onde(a);
+      const base: Params = {
+        ...lugar,
+        cta_texto: texto(a),
+        cta_destino: url.protocol === 'mailto:' ? 'email' : url.host === location.host ? url.pathname : url.host,
+      };
+      const marcado = a.closest<HTMLElement>('[data-evento]');
+      let nome = '';
+      let eCta = true;
+
+      if (marcado?.dataset.evento) {
+        nome = marcado.dataset.evento;
+        base.cta_tipo = marcado.dataset.ctaTipo;
+      } else if (url.host === location.host && url.pathname.startsWith('/link/')) {
+        const chave = url.pathname.split('/')[2] || '';
+        if (chave === 'renda-extra') {
+          nome = 'renda_extra_click';
+          base.cta_tipo = 'renda_extra';
+        } else if (chave === 'link-de-pagamento') {
+          nome = 'link_pagamento_click';
+          base.cta_tipo = 'link_pagamento';
+        } else {
+          nome = 'pedido_ton_click';
+          base.cta_tipo = 'checkout_ton';
+          base.modelo_cta = chave;
+        }
+      } else if (url.protocol === 'mailto:') {
+        nome = 'contato_email_click';
+        base.cta_tipo = 'contato';
+      } else if (url.host !== location.host) {
+        nome = 'saida_click';
+        base.cta_tipo = 'saida';
+        eCta = false;
+      } else if (a.classList.contains('mc-link')) {
+        nome = 'modelo_card_click';
+        base.cta_tipo = 'modelo_card';
+        base.modelo_cta = url.pathname.split('/')[2];
+      } else if (a.classList.contains('btn')) {
+        nome = 'cta_interno_click';
+        base.cta_tipo = 'interno';
+      } else if (lugar.bloco === 'header' || lugar.bloco === 'rodape') {
+        nome = 'navegacao_click';
+        base.cta_tipo = 'navegacao';
+        eCta = false;
+      } else {
+        return; // link comum dentro do texto: não conta
+      }
+
+      enviar(nome, base);
+      if (eCta) enviar(`cta_${lugar.bloco}`, { ...base, evento_origem: nome });
+    },
+    { capture: true, passive: true },
+  );
+
+  // Eventos vindos de componentes (quiz, calculadora).
+  document.addEventListener('pnm:evento', (e) => {
+    const d = (e as CustomEvent<{ nome: string; params?: Params; origem?: Element }>).detail;
+    if (!d?.nome) return;
+    enviar(d.nome, { ...(d.origem ? onde(d.origem) : {}), ...d.params });
+  });
+
+  // Menu do celular aberto.
+  document.getElementById('menu')?.addEventListener('toggle', (e) => {
+    if ((e as ToggleEvent).newState === 'open') enviar('menu_mobile_aberto', { bloco: 'header', secao: 'menu_mobile' });
+  });
+
+  // FAQ e Referências abertos (o evento toggle não borbulha: captura no document).
+  document.addEventListener(
+    'toggle',
+    (e) => {
+      const d = e.target as HTMLDetailsElement;
+      if (!(d instanceof HTMLDetailsElement) || !d.open) return;
+      const titulo = texto(d.querySelector('summary') || d);
+      if (d.closest('.faq')) enviar('faq_aberto', { ...onde(d), pergunta: titulo });
+      else if (/^Referências/.test(titulo)) enviar('referencias_aberto', onde(d));
+    },
+    true,
+  );
+
+  // Seção vista (só as marcadas com data-secao).
+  const vistas = new Set<string>();
+  const sections = document.querySelectorAll<HTMLElement>('main [data-secao]');
+  if (sections.length && 'IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(
+      (itens) => {
+        for (const i of itens) {
+          const s = (i.target as HTMLElement).dataset.secao!;
+          if (i.isIntersecting && !vistas.has(s)) {
+            vistas.add(s);
+            enviar('secao_vista', { bloco: 'corpo', secao: s });
+            obs.unobserve(i.target);
+          }
+        }
+      },
+      { threshold: 0.4 },
+    );
+    sections.forEach((s) => obs.observe(s));
+  }
+
+  // Profundidade de rolagem: 25, 50, 75 e 100%.
+  const marcos = [25, 50, 75, 100];
+  const feitos = new Set<number>();
+  let agendado = false;
+  function rolagem() {
+    agendado = false;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    if (total <= 0) return;
+    const pct = Math.round((window.scrollY / total) * 100);
+    for (const m of marcos) {
+      if (pct >= m && !feitos.has(m)) {
+        feitos.add(m);
+        enviar('scroll_profundidade', { percentual: m });
+      }
+    }
+  }
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!agendado) {
+        agendado = true;
+        requestAnimationFrame(rolagem);
+      }
+    },
+    { passive: true },
+  );
+</script>

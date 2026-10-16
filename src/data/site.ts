@@ -20,8 +20,9 @@ export const SITE = {
   // Quem responde pelo site e pelos dados pessoais (LGPD art. 5º, VI). Nome civil ou razão social sem "Ton".
   responsavel: 'PENDENTE: nome ou razão social do responsável pelo site',
   documentoResponsavel: 'PENDENTE: CPF ou CNPJ do responsável',
-  // GA4 só carrega depois do consentimento. Vazio = nenhum script de terceiros no site.
-  ga4: import.meta.env.PUBLIC_GA4_ID ?? '',
+  // GA4 e Clarity só carregam depois do consentimento. Vazio = nenhum script de terceiros no site.
+  ga4: import.meta.env.PUBLIC_GA4_ID ?? 'G-BEFSW89Y99',
+  clarity: import.meta.env.PUBLIC_CLARITY_ID ?? 'yylkwb2llv',
 } as const;
 
 // Link de indicação do Renda Extra Ton, um por modelo (app Ton > Renda Extra), em
