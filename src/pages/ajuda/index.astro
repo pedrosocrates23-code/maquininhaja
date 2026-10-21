@@ -10,15 +10,15 @@ import { IMG } from '../../lib/imagens';
 import { getCollection } from 'astro:content';
 import { pagina, ID, imagemOg } from '../../lib/schema';
 
-const title = 'Maquininha Ton com problema? Guia de soluções';
+const title = 'Dúvidas antes de pedir a maquininha Ton';
 const description =
-  'Ativar, maquininha que não liga, sem sinal, erros, cancelamento, conta bloqueada e contato oficial da Ton: passo a passo com base na ajuda oficial.';
+  'O que acontece depois do pedido, como cancelar e devolver, e os canais oficiais da Ton para quem já é cliente. Site independente, Parceiro Ton.';
 const path = '/ajuda/';
 const crumbs = [
   { name: 'Início', href: '/' },
   { name: 'Ajuda', href: path },
 ];
-const ORDEM = ['ajuda/primeiros-passos', 'ajuda/nao-liga-ou-sem-sinal', 'ajuda/erros-e-resetar', 'ajuda/conta-bloqueada', 'ajuda/cancelar-e-devolver', 'ajuda/contato'];
+const ORDEM = ['ajuda/primeiros-passos', 'ajuda/cancelar-e-devolver', 'ajuda/contato'];
 // Spokes do cluster na ordem da lista visível (o resto vem depois, por data, como em ListaPaginas).
 const spokes = (await getCollection('paginas', (p) => p.data.secao === 'ajuda' && !p.data.draft && !p.data.noindex))
   .sort((a, b) => {
@@ -38,18 +38,26 @@ const schema = pagina({
 <Base title={title} description={description} crumbs={crumbs} schema={schema} ogImage="/og/ajuda.jpg" atualizado={SITE.verificadoEm}>
   <PageHero
     rotulo="Ajuda"
-    h1="Suporte da maquininha Ton: problemas e soluções"
-    resumo="Os problemas mais buscados, resolvidos com o passo a passo da ajuda oficial da Ton. Se nada resolver, o caminho é o atendimento da Ton: este site não tem acesso à sua conta."
+    h1="Dúvidas antes de pedir a maquininha Ton"
+    resumo="O que acontece depois do pedido e o que fazer se você desistir, respondido com a fonte oficial. Já é cliente da Ton? O atendimento é da Ton, pelos canais oficiais."
    
   />
   <div class="wrap hub">
     <div>
-      <Callout tipo="atencao" titulo="Não somos o atendimento da Ton">
+      <Callout tipo="atencao" titulo="Já é cliente? Fale direto com a Ton">
         <p>
-          Não conseguimos ver sua conta, sua máquina nem suas vendas. Para isso, fale com a Ton pelo WhatsApp oficial (11)
-          3004-9136 ou pelo app. Veja todos os <a href="/ajuda/contato/">canais oficiais</a>.
+          Máquina que não liga, erro na tela, conta bloqueada ou dinheiro retido: quem resolve é a Ton. Não vemos sua
+          conta, sua máquina nem suas vendas. Use o WhatsApp oficial (11) 3004-9136 ou o chat do app. Todos os
+          <a href="/ajuda/contato/">canais oficiais</a> estão na página de contato.
         </p>
       </Callout>
+      <div class="decidir" data-secao="ajuda_decisao">
+        <p class="decidir-t">Ainda não pediu? Resolva a escolha primeiro.</p>
+        <div class="decidir-bt">
+          <a class="btn btn-primary" href="/modelos/" data-evento="ajuda_ver_modelos">Ver os 4 modelos</a>
+          <a class="btn btn-ghost" href="/quanto-custa/calculadora/" data-evento="ajuda_simular">Simular minhas taxas</a>
+        </div>
+      </div>
       <div class="lista">
         <ListaPaginas
           secao="ajuda"
@@ -76,6 +84,20 @@ const schema = pagina({
   }
   .lista {
     margin-top: var(--s-6);
+  }
+  .decidir {
+    margin-top: var(--s-5);
+    display: grid;
+    gap: var(--s-3);
+  }
+  .decidir-t {
+    margin: 0;
+    font-weight: 700;
+  }
+  .decidir-bt {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
   }
   .img {
     margin: 0;

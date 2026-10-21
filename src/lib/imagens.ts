@@ -17,8 +17,10 @@ import ajuda from '../assets/img/secao-ajuda.jpg';
 import aprenda from '../assets/img/secao-aprenda.jpg';
 import calculadora from '../assets/img/secao-calculadora.jpg';
 import renda from '../assets/img/secao-renda.jpg';
+// Mockup do simulador do site (scripts/gerar_mockup_sobra.py): molde de celulares do Codex + telas com os números de taxas.json.
+import sobra from '../assets/img/mockup-sobra.png';
 
-export const IMG = { hero, heroBanner, ajuda, aprenda, calculadora, renda };
+export const IMG = { hero, heroBanner, ajuda, aprenda, calculadora, renda, sobra };
 
 export const IMG_MODELO = {
   t1: { src: t1, hero: t1h, alt: 'Maquininha Ton T1 verde, de frente, com visor monocromático e teclado numérico' },

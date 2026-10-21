@@ -93,6 +93,21 @@
       "source": "/link/renda-extra/",
       "destination": "https://rendaextra.ton.com.br/renda-ton/",
       "permanent": false
+    },
+    {
+      "source": "/ajuda/nao-liga-ou-sem-sinal/",
+      "destination": "/ajuda/contato/",
+      "permanent": true
+    },
+    {
+      "source": "/ajuda/erros-e-resetar/",
+      "destination": "/ajuda/contato/",
+      "permanent": true
+    },
+    {
+      "source": "/ajuda/conta-bloqueada/",
+      "destination": "/ajuda/contato/",
+      "permanent": true
     }
   ]
 }

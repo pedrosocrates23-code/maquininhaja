@@ -54,6 +54,6 @@ export const NAV = [
   { href: '/modelos/', label: 'Modelos' },
   { href: '/quanto-custa/', label: 'Quanto custa' },
   { href: '/quanto-custa/calculadora/', label: 'Calculadora' },
-  { href: '/ajuda/', label: 'Ajuda' },
+  { href: '/ajuda/', label: 'Dúvidas' },
   { href: '/aprenda/', label: 'Aprenda' },
 ];

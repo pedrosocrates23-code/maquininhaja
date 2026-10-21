@@ -90,10 +90,10 @@ const verdades = [
 ];
 
 const ajudas = [
-  { href: '/ajuda/primeiros-passos/', t: 'Ativar a maquininha', d: 'Do pacote na mão à primeira venda.' },
-  { href: '/ajuda/nao-liga-ou-sem-sinal/', t: 'Não liga ou sem sinal', d: 'Bateria, chip, Wi-Fi e Bluetooth.' },
-  { href: '/ajuda/cancelar-e-devolver/', t: 'Cancelar e devolver', d: 'Prazos do comodato e o que acontece com a adesão.' },
-  { href: '/ajuda/contato/', t: 'Falar com a Ton', d: 'WhatsApp e telefone oficiais. Nós não fazemos atendimento.' },
+  { href: '/quanto-custa/calculadora/', t: 'Simular as taxas do meu faturamento', d: 'Veja quanto sobra de cada venda antes de pedir.' },
+  { href: '/ajuda/primeiros-passos/', t: 'O que acontece depois que eu peço', d: 'Do cadastro no app à primeira venda.' },
+  { href: '/ajuda/cancelar-e-devolver/', t: 'E se eu desistir?', d: 'Comodato, devolução e taxa de adesão antes de pedir.' },
+  { href: '/ajuda/contato/', t: 'Já sou cliente: falar com a Ton', d: 'O atendimento é da Ton. Aqui estão os canais oficiais.' },
 ];
 
 const faq = [
@@ -162,8 +162,8 @@ const schema = pagina({
       <div class="hero-txt">
         <h1>Qual maquininha Ton é a sua?</h1>
         <p class="lead">
-          Três perguntas, a resposta e o que ninguém conta: quanto a taxa sobe depois do mês promocional e de quem é a
-          máquina.
+          Responda três perguntas e veja o modelo que combina com o seu jeito de vender, quanto a taxa sobe depois do mês
+          promocional e de quem é a máquina.
         </p>
         <div class="hero-ctas">
           <a class="btn btn-primary" href="#modelos">Escolher maquininha</a>
@@ -248,8 +248,8 @@ const schema = pagina({
       </div>
       <figure class="calc-img">
         <Picture
-          src={IMG.calculadora}
-          alt="Comerciante confere no celular o resultado das vendas do dia no balcão, com uma maquininha Ton T3 Smart verde ao lado"
+          src={IMG.sobra}
+          alt="Três celulares com a simulação do site: venda de R$ 100 no débito deixa R$ 99,43 no mês 1 e R$ 98,31 no mês 2; R$ 3.000 de vendas pagam R$ 17,10 de taxa no mês 1 e R$ 50,70 no mês 2; receber na hora deixa R$ 98,02 e em 1 dia útil, R$ 98,31"
           formats={['avif', 'webp']}
           widths={[480, 720, 960]}
           sizes="(max-width: 900px) 92vw, 520px"
@@ -309,8 +309,8 @@ const schema = pagina({
     <div class="wrap ajuda-grid">
       <div>
         <div class="section-head">
-          <h2>Travou? Começa por aqui.</h2>
-          <p>Os problemas mais buscados, com o passo a passo da ajuda oficial da Ton e o caminho para o atendimento dela.</p>
+          <h2>Ainda com dúvida antes de pedir?</h2>
+          <p>As perguntas que seguram o pedido, respondidas com a fonte oficial. Quem já tem a máquina fala direto com a Ton: nós não fazemos atendimento.</p>
         </div>
         <ul class="ajuda-lista">
           {
@@ -522,7 +522,12 @@ const schema = pagina({
     gap: var(--s-3);
     max-width: 100%;
   }
-  .calc-img :global(img),
+  .calc-img :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
+  }
   .ajuda-img :global(img) {
     width: 100%;
     border-radius: var(--radius-l);

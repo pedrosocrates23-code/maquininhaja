@@ -11,6 +11,9 @@ import links from './src/data/links.json' with { type: 'json' };
 
 const SITE = 'https://maquininhaja.com.br';
 
+// Páginas de suporte pós-venda da Ton que saíram do site (o atendimento é da Ton): 301 para o contato oficial.
+const SUPORTE_REMOVIDO = ['nao-liga-ou-sem-sinal', 'erros-e-resetar', 'conta-bloqueada'].map((s) => `/ajuda/${s}/`);
+
 /**
  * As citações <Fonte /> ficam no MDX (o validador amarra cada afirmação ao documento), mas não
  * aparecem no meio do texto: a lista completa sai no rodapé da página, em "Referências".
@@ -128,7 +131,10 @@ function redirecionamentos() {
     name: 'links-de-indicacao',
     hooks: {
       'astro:build:done': ({ dir }) => {
-        const linhas = Object.entries(links).map(([k, v]) => `/link/${k}/ ${v} 302`);
+        const linhas = [
+          ...Object.entries(links).map(([k, v]) => `/link/${k}/ ${v} 302`),
+          ...SUPORTE_REMOVIDO.map((d) => `${d} /ajuda/contato/ 301`),
+        ];
         writeFileSync(new URL('_redirects', dir), linhas.join('\n') + '\n');
       },
     },
@@ -162,7 +168,10 @@ function vercelJson() {
           $schema: 'https://openapi.vercel.sh/vercel.json',
           trailingSlash: true,
           headers: blocos,
-          redirects: Object.entries(links).map(([k, v]) => ({ source: `/link/${k}/`, destination: v, permanent: false })),
+          redirects: [
+            ...Object.entries(links).map(([k, v]) => ({ source: `/link/${k}/`, destination: v, permanent: false })),
+            ...SUPORTE_REMOVIDO.map((d) => ({ source: d, destination: '/ajuda/contato/', permanent: true })),
+          ],
         };
         writeFileSync('vercel.json', JSON.stringify(config, null, 2) + '\n');
       },
@@ -177,9 +186,10 @@ export default defineConfig({
   compressHTML: true,
   markdown: { syntaxHighlight: false, processor: satteri({ mdastPlugins: [semFonteInline] }) },
   prefetch: false,
-  redirects: Object.fromEntries(
-    Object.entries(links).map(([k, v]) => [`/link/${k}/`, { status: 302, destination: v }]),
-  ),
+  redirects: {
+    ...Object.fromEntries(Object.entries(links).map(([k, v]) => [`/link/${k}/`, { status: 302, destination: v }])),
+    ...Object.fromEntries(SUPORTE_REMOVIDO.map((d) => [d, { status: 301, destination: '/ajuda/contato/' }])),
+  },
   image: { responsiveStyles: true },
   // CSP nativo do Astro: hashes automáticos de scripts e estilos inline, em <meta>.
   // GA4 e Clarity só entram depois do consentimento (Consentimento.astro).

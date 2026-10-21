@@ -109,3 +109,16 @@ python scripts/validar_pagina.py src/content/paginas/<sua>.mdx
 Só entregue com **PASS** em todas as suas páginas. O gate roda o validador de densidade do Redator 5.0 (verde obrigatório). **Não rode `astro build` nem `npm`**: outros redatores trabalham em paralelo no mesmo projeto; o build é feito no fim por quem orquestra.
 
 Escreva somente nos seus arquivos (as páginas atribuídas e o seu `src/data/fontes-extra/<slug>.json`). Não edite nenhum outro arquivo.
+
+## 8. Camada de conversão (vale para toda página comercial)
+
+Leia `docs/neuromarketing-conversao.md` antes de escrever. Resumo operacional:
+
+- Página comercial abre com **resposta + recomendação padrão por perfil** ("Para X, comece pela T3"). Só depois vem a comparação dos quatro modelos.
+- Uma seção "Quando NÃO serve" curta e direta (a falha confessa é o nosso diferencial de credibilidade).
+- Perda só se for real e tiver fonte: prazo da promoção (30 dias ou R$ 5 mil), faixa recalculada todo mês, comodato. **Nada de escassez, contagem regressiva ou "últimas unidades".**
+- Preço e taxa sempre pelos componentes `Preco` e `Taxa`, com a data da verificação.
+- Termine a decisão com um gatilho "se... então..." e **1 `CtaIndicacao` no corpo**, logo depois do trecho em que a decisão ficou clara. Texto do botão = ação específica ("Pedir a Ton T3 no site da Ton").
+- Antes do CTA, ofereça o passo menor quando a dúvida persistir: link para `/quanto-custa/calculadora/` ou para o quiz da home (conta dentro do limite de 3 links internos).
+- Página de suporte pós-compra não existe neste site. Quem já é cliente é enviado ao atendimento oficial da Ton (`/ajuda/contato/`), sem passo a passo de conserto.
+- Proibido: promessa de renda, "menor taxa"/"grátis"/"sem burocracia" sem fonte literal, depoimento, número de clientes sem fonte, depreciar concorrente.
