@@ -18,7 +18,7 @@ import TabelaFaixas from '../../components/dados/TabelaFaixas.astro';
 import { MODELOS, brl, pctBR, type Modelo } from '../../data/modelos';
 import { SITE } from '../../data/site';
 import taxas from '../../data/taxas.json';
-import { IMG_MODELO, CREDITO_FOTO } from '../../lib/imagens';
+import { IMG_MODELO } from '../../lib/imagens';
 import { pagina, produto, imagemOg, type Imagem } from '../../lib/schema';
 import { dig, nomeModelo } from '../../lib/texto';
 
@@ -37,7 +37,7 @@ const SEO: Record<Modelo['slug'], { title: string; h1: string; description: stri
     title: 'Ton T2: preço, taxas e para quem vale a pena',
     h1: 'Ton T2: chip próprio, sem impressora. Para quem serve?',
     description:
-      'Ton T2 por R$ 49,88: chip e Wi-Fi, Pix na máquina e comprovante por SMS. Veja a taxa depois do mês promocional, o conflito 3G x 4G e para quem ela serve.',
+      'Ton T2 por R$ 42,36: chip e Wi-Fi, Pix na máquina e comprovante por SMS. Veja a taxa depois do mês promocional, o conflito 3G x 4G e para quem ela serve.',
   },
   t3: {
     title: 'Ton T3: preço, taxas e para quem vale a pena',
@@ -138,7 +138,6 @@ const ids = [...m.fontes, ...(m.conflito?.fontes ?? []), ...(analise?.data.fonte
       </div>
       <figure class="tm-img">
         <Picture src={img.hero} alt={img.alt} formats={['avif', 'webp']} widths={[480, 720, 960, 1200]} sizes="(max-width: 900px) 88vw, 480px" quality={82} loading="eager" fetchpriority="high" />
-        <figcaption>{CREDITO_FOTO}</figcaption>
       </figure>
     </div>
   </section>
@@ -300,11 +299,6 @@ const ids = [...m.fontes, ...(m.conflito?.fontes ?? []), ...(analise?.data.fonte
     aspect-ratio: 1;
     object-fit: cover;
     background: #f6f6f1;
-  }
-  figcaption {
-    font-size: var(--fs-0);
-    color: var(--muted);
-    margin-top: var(--s-2);
   }
   .corpo {
     padding-bottom: var(--s-9);

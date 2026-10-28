@@ -1,0 +1,98 @@
+---
+// Faixa de notas públicas acima da vitrine: app da Ton nas duas lojas e a empresa no Reclame Aqui.
+// Não existe nota pública por modelo (Mercado Livre, Amazon e Magalu bloqueiam a coleta e a Ton não
+// publica avaliação por aparelho), então a faixa diz de onde vem cada número. Trecho bruto de cada um
+// no ledger: X-notas-28out-01 (Google Play), X-notas-28out-02 (App Store), X-melhor-maquininha-ton-08.
+// A página que usa a faixa põe esses três ids nas Referências.
+
+const NOTAS = [
+  { nota: '4,8', de: 'de 5', onde: 'App da Ton na App Store', base: '246 mil avaliações', estrela: true },
+  { nota: '4,3', de: 'de 5', onde: 'App da Ton no Google Play', base: '529 mil avaliações, 10 mi+ downloads', estrela: true },
+  { nota: '9,1', de: 'de 10', onde: 'Ton no Reclame Aqui', base: 'Selo RA1000, abril a setembro de 2026', estrela: false },
+];
+---
+
+<div class="notas" role="group" aria-label="Notas públicas da Ton">
+  <ul>
+    {
+      NOTAS.map((n) => (
+        <li>
+          <p class="n">
+            {n.estrela && (
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z" />
+              </svg>
+            )}
+            <strong>{n.nota}</strong> <span>{n.de}</span>
+          </p>
+          <p class="onde">{n.onde}</p>
+          <p class="base">{n.base}</p>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="nota-fonte">Notas conferidas em 28/10/2026. São do aplicativo e da empresa: as lojas não publicam nota separada para cada modelo de maquininha.</p>
+</div>
+
+<style>
+  .notas {
+    display: grid;
+    gap: var(--s-3);
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--s-3);
+  }
+  li {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    padding: var(--s-4) var(--s-5);
+    display: grid;
+    gap: 0.15rem;
+  }
+  li p {
+    margin: 0;
+  }
+  .n {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font-size: var(--fs-1);
+    color: var(--muted);
+  }
+  .n strong {
+    font-size: var(--fs-5);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--ink);
+  }
+  svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    fill: #f5b301;
+    align-self: center;
+  }
+  .onde {
+    font-weight: 700;
+    font-size: var(--fs-1);
+  }
+  .base,
+  .nota-fonte {
+    font-size: var(--fs-0);
+    color: var(--muted);
+  }
+  .nota-fonte {
+    margin: 0;
+  }
+  @media (max-width: 760px) {
+    ul {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

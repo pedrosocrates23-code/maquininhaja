@@ -1,6 +1,6 @@
 ---
 import Institucional from '../layouts/Institucional.astro';
-import { SITE } from '../data/site';
+import { SITE, PROGRAMA_ATIVO } from '../data/site';
 ---
 
 <Institucional
@@ -60,9 +60,9 @@ import { SITE } from '../data/site';
     dias sem transação. O teste prevê ao menos uma venda por máquina a cada 30 dias.
   </p>
 
-  <h2>7. Se houver comissão, ela não escolhe a recomendação</h2>
+  <h2>7. {PROGRAMA_ATIVO ? 'A comissão não escolhe a recomendação' : 'Se houver comissão, ela não escolhe a recomendação'}</h2>
   <p>
-    Hoje o site não recebe comissão. No programa da Ton, a comissão é maior para T3 e T3 Smart do que para T1 e T2. Mesmo assim, o site indica a T1
+    {PROGRAMA_ATIVO ? 'O site recebe comissão quando você pede pelos nossos links.' : 'Hoje o site não recebe comissão.'} No programa da Ton, a comissão é maior para T3 e T3 Smart do que para T1 e T2. Mesmo assim, o site indica a T1
     para quem vende pouco, porque é o que serve. As regras de escolha estão escritas em cada ficha, na seção "Serve
     para quem".
   </p>

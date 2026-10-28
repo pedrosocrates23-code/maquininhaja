@@ -1,0 +1,269 @@
+---
+// Card de oferta de um modelo (vitrine comercial): foto, preço de lista riscado e preço de hoje
+// (âncora honesta, com data), o que a máquina faz (só fatos da ficha em data/modelos.ts) e o
+// pedido. Usado em /modelos/melhor-maquininha-ton/ (com posição no ranking) e no simulador.
+import { Picture } from 'astro:assets';
+import CtaIndicacao from './CtaIndicacao.astro';
+import { modelo, brl } from '../data/modelos';
+import { IMG_MODELO } from '../lib/imagens';
+import { nomeModelo } from '../lib/texto';
+
+interface Props {
+  slug: 't1' | 't2' | 't3' | 't3-smart';
+  posicao?: number;
+  /** frase curta acima do nome ("Mais completa para balcão") */
+  selo?: string;
+  /** resumo de uma linha: para quem é */
+  linha: string;
+  /** data da verificação do preço, por extenso ("27 de outubro de 2026") */
+  conferido: string;
+  compacto?: boolean;
+  evento?: string; // data-secao para a medição
+}
+const { slug, posicao, selo, linha, conferido, compacto = false, evento } = Astro.props;
+const m = modelo(slug);
+const img = IMG_MODELO[slug];
+const desconto = Math.round((1 - m.preco / m.precoDe) * 100);
+
+// O que dá para fazer com a máquina, em verbo de ação. Cada item sai da ficha oficial (modelos.ts).
+const faz: string[] = [];
+faz.push(m.precisaCelular ? 'Conecta no seu celular por Bluetooth' : 'Vende sozinha, com chip e Wi-Fi');
+if (!m.pix.startsWith('Não')) faz.push('Recebe Pix na própria máquina');
+faz.push(m.impressora.startsWith('Sim') ? 'Imprime o comprovante, com bobina grátis' : 'Manda o comprovante por SMS');
+faz.push(`Parcela em até ${m.parcelasMax}x`);
+if (m.nfc === 'Sim') faz.push('Aceita pagamento por aproximação');
+if (slug === 't3-smart') faz.push('Tela touch com Android e chip 4G');
+const id = `oferta-${slug}`;
+const curto = m.nome.replace('Ton ', '');
+---
+
+<article class:list={['of', { compacto }]} aria-labelledby={id} data-secao={evento}>
+  <div class="of-img">
+    {posicao && <span class="pos" aria-label={`${posicao}º lugar`}>{posicao}º</span>}
+    <Picture
+      src={img.src}
+      alt={img.alt}
+      formats={['avif', 'webp']}
+      widths={[320, 480, 640]}
+      sizes="(max-width: 760px) 86vw, 380px"
+      quality={82}
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <div class="of-corpo">
+    {selo && <p class="selo">{selo}</p>}
+    <h3 id={id} class="nome-modelo"><a href={`/modelos/${slug}/`} set:html={nomeModelo(m.nome)} /></h3>
+    <p class="linha">{linha}</p>
+    <div class="preco" aria-label={`Preço de adesão: ${brl(m.preco)} à vista ou ${m.parcela}; a Ton mostra ${brl(m.precoDe)} riscado`}>
+      <p class="de"><s>{brl(m.precoDe)}</s> <span class="off">{desconto}% OFF no site da Ton</span></p>
+      <p class="por"><strong>{brl(m.preco)}</strong> <span>à vista</span></p>
+      <p class="parc">ou {m.parcela}, sem mensalidade</p>
+    </div>
+    <ul class="faz">
+      {faz.map((f) => <li>{f}</li>)}
+    </ul>
+    <div class="pedir">
+      <CtaIndicacao chave={slug} texto={compacto ? `Pedir a ${curto}` : `Pedir a ${m.nome} no site da Ton`} nota={!compacto} />
+      <p class="conf">Preço do site da Ton em {conferido}. <a href={`/modelos/${slug}/`}>Ficha completa da {curto}</a></p>
+    </div>
+  </div>
+</article>
+
+<style>
+  .of {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    overflow: hidden;
+  }
+  .of.compacto {
+    grid-template-columns: 1fr;
+  }
+  .of-img {
+    position: relative;
+    background: #f6f6f1;
+    aspect-ratio: 1 / 0.82;
+    align-self: stretch;
+  }
+  .of:not(.compacto) .of-img {
+    aspect-ratio: auto;
+    min-height: 100%;
+  }
+  /* <picture> é inline por padrão e não tem altura: sem isto, a foto vaza da moldura. */
+  .of-img :global(picture) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .of-img :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .pos {
+    position: absolute;
+    top: var(--s-4);
+    left: var(--s-4);
+    z-index: 1;
+    background: var(--ink);
+    color: var(--green);
+    font-weight: 800;
+    font-size: var(--fs-3);
+    border-radius: var(--pill);
+    padding: 0.35rem 0.9rem;
+  }
+  .of-corpo {
+    padding: clamp(1.25rem, 3vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+  }
+  .selo {
+    margin: 0;
+    font-size: var(--fs-0);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--green-deep);
+  }
+  h3 {
+    margin: 0;
+  }
+  h3 a {
+    text-decoration: none;
+    color: inherit;
+  }
+  .linha {
+    margin: 0;
+    color: var(--ink-2);
+  }
+  .preco p {
+    margin: 0;
+  }
+  .de {
+    font-size: var(--fs-1);
+    color: var(--muted);
+  }
+  .off {
+    display: inline-block;
+    margin-left: var(--s-2);
+    background: var(--green-tint);
+    color: var(--green-deep);
+    font-weight: 700;
+    font-size: var(--fs-0);
+    border-radius: var(--pill);
+    padding: 0.1rem 0.6rem;
+  }
+  .por {
+    font-size: var(--fs-3);
+  }
+  .por strong {
+    font-size: var(--fs-5);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .parc {
+    font-size: var(--fs-1);
+    color: var(--ink-2);
+  }
+  .faz {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.35rem;
+    font-size: var(--fs-1);
+  }
+  .faz li {
+    position: relative;
+    padding-left: 1.6rem;
+  }
+  .faz li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.3em;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%230b0b0b' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 70% no-repeat;
+  }
+  .por span {
+    white-space: nowrap;
+  }
+  .pedir {
+    display: grid;
+    gap: var(--s-3);
+  }
+  .conf {
+    margin: 0;
+    font-size: var(--fs-0);
+    color: var(--muted);
+  }
+
+  /* Vitrine compacta (4 colunas no simulador): a foto ocupa a moldura toda na proporção do mockup
+     (1 : 0,82), preço menor, botão na largura do card e alinhado no pé. */
+  .of.compacto {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .compacto .of-img {
+    flex: none;
+  }
+  .compacto .of-corpo {
+    flex: 1;
+    min-width: 0;
+    padding: var(--s-5);
+    gap: var(--s-3);
+  }
+  .compacto h3 {
+    font-size: var(--fs-4);
+    line-height: 1.1;
+  }
+  .compacto .linha {
+    font-size: var(--fs-1);
+    line-height: 1.45;
+    min-height: 2.9em;
+  }
+  .compacto .por {
+    font-size: var(--fs-1);
+  }
+  .compacto .por strong {
+    font-size: clamp(1.75rem, 2.4vw, 2.125rem);
+  }
+  .compacto .off {
+    margin-left: var(--s-1);
+  }
+  .compacto .faz {
+    font-size: var(--fs-0);
+    gap: 0.3rem;
+  }
+  .compacto .faz li::before {
+    top: 0.15em;
+  }
+  .compacto .pedir {
+    margin-top: auto;
+    padding-top: var(--s-2);
+  }
+  .compacto .pedir :global(.cta-ind) {
+    justify-items: stretch;
+  }
+  .compacto .pedir :global(.btn) {
+    width: 100%;
+    font-size: var(--fs-2);
+    min-height: 48px;
+  }
+  @media (max-width: 760px) {
+    .of {
+      grid-template-columns: 1fr;
+    }
+    .of:not(.compacto) .of-img {
+      aspect-ratio: 1 / 0.82;
+    }
+  }
+</style>

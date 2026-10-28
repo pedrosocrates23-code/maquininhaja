@@ -1,0 +1,177 @@
+{
+ "X-simulador-de-taxas-01": {
+  "url": "https://blog.ton.com.br/como-simular-transacoes-no-ton/",
+  "data": "2026-10-27",
+  "trecho": "Cobrar: você arca com as taxas e sabe exatamente quanto vai receber pela venda; Receber: você sabe quanto precisa cobrar do seu cliente para receber exatamente o valor que deseja receber."
+ },
+ "X-simulador-de-taxas-02": {
+  "url": "https://blog.ton.com.br/como-simular-transacoes-no-ton/",
+  "data": "2026-10-27",
+  "trecho": "Atualmente, a maquininha Ton não permite o repasse direto de taxas ao consumidor. Por isso, a recomendação é utilizar a calculadora de taxas do aplicativo, selecionando a opção “Receber”."
+ },
+ "X-simulador-de-taxas-03": {
+  "url": "https://blog.ton.com.br/como-simular-transacoes-no-ton/",
+  "data": "2026-10-27",
+  "trecho": "Bandeira: Master/Visa ou Elo/Amex/Hiper; Número de parcelas: de 1x a 18x (se a forma de pagamento for crédito); Prazo pra recebimento."
+ },
+ "X-simulador-de-taxas-04": {
+  "url": "https://blog.ton.com.br/como-simular-transacoes-no-ton/",
+  "data": "2026-10-27",
+  "trecho": "Se você ainda não for cliente, consegue simular diretamente no site Ton."
+ },
+ "X-simulador-de-taxas-05": {
+  "url": "https://www.ton.com.br/planos-e-taxas",
+  "data": "2026-10-27",
+  "trecho": "\"calculatorConfig\":{\"showCategorySelector\":true,\"maxValueAllowed\":10000,\"initialSalesValue\":100,\"initialInstallment\":12"
+ },
+ "X-simulador-de-taxas-06": {
+  "url": "https://www.ton.com.br/planos-e-taxas",
+  "data": "2026-10-27",
+  "trecho": "\"liquidation_type\":\"daily\",\"label\":\"Na hora\",\"isDefault\":true,\"type\":\"same-day\"},{\"anticipation_delay\":1,\"mdrs\":[{\"capture_method\":null,\"card_brand\":\"amex\",\"installments\":[{\"mdr\":2.57,\"installment\":1}],\"payment_method\":\"debit_card\"}"
+ },
+ "X-simulador-de-taxas-07": {
+  "url": "https://www.ton.com.br/planos-e-taxas",
+  "data": "2026-10-27",
+  "trecho": "\"card_brand\":\"elo\",\"installments\":[{\"mdr\":4.34,\"installment\":1},{\"mdr\":7.02,\"installment\":2},{\"mdr\":7.58,\"installment\":3}"
+ },
+ "X-simulador-de-taxas-08": {
+  "url": "https://blog.ton.com.br/taxas-da-maquininha-ton/",
+  "data": "2026-10-27",
+  "trecho": "A tela inicial do aplicativo oferece a calculadora de taxas, permitindo simulações com base no valor que você deseja cobrar do cliente ou no valor líquido que pretende receber."
+ },
+ "X-simulador-de-taxas-09": {
+  "url": "https://blog.ton.com.br/taxas-da-maquininha-ton/",
+  "data": "2026-10-27",
+  "trecho": "Até R$ 2.999,99;"
+ },
+ "X-simulador-de-taxas-10": {
+  "url": "https://conteudo.stone.com.br/taxa-mdr/",
+  "data": "2026-10-27",
+  "trecho": "O Merchant Discount Rate (MDR) é a taxa administrativa cobrada dos comerciantes pelo uso da tecnologia das adquirentes para receber pagamentos por cartão de crédito e débito."
+ },
+ "X-simulador-de-taxas-11": {
+  "url": "https://conteudo.stone.com.br/taxa-mdr/",
+  "data": "2026-10-27",
+  "trecho": "Na prática, isso significa que o valor líquido recebido pelo lojista por uma venda por cartão será a quantia da transação menos a taxa MDR."
+ },
+ "X-simulador-de-taxas-12": {
+  "url": "https://conteudo.stone.com.br/taxa-mdr/",
+  "data": "2026-10-27",
+  "trecho": "A taxa de intercâmbio ou interchange é a tarifa descontada pelo emissor do cartão quando ele repassa o valor pago pelo consumidor para a adquirente."
+ },
+ "X-simulador-de-taxas-13": {
+  "url": "https://conteudo.stone.com.br/taxa-mdr/",
+  "data": "2026-10-27",
+  "trecho": "o tipo de transação realizada (débito, crédito à vista ou crédito parcelado);"
+ },
+ "X-simulador-de-taxas-14": {
+  "url": "https://conteudo.stone.com.br/taxa-mdr/",
+  "data": "2026-10-27",
+  "trecho": "O Net MDR é o percentual restante do MDR total que remunera a adquirente pelo processamento e liquidação da transação."
+ },
+ "X-simulador-de-taxas-15": {
+  "url": "https://conteudo.stone.com.br/taxa-mdr/",
+  "data": "2026-10-27",
+  "trecho": "Cerca de 30 dias após a venda, o banco emissor repassa o valor para a adquirente, que, por sua vez, faz o repasse dos recebíveis para o varejista. Para compras parceladas, o valor é pago de acordo com a quantidade de parcelas definida entre lojista e comprador, com intervalo de 30 dias entre elas."
+ },
+ "X-simulador-de-taxas-16": {
+  "url": "https://conteudo.stone.com.br/juros-da-maquininha",
+  "data": "2026-10-27",
+  "trecho": "Juros, em sentido estrito, é o que o cliente paga quando a compra é parcelada com acréscimo."
+ },
+ "X-simulador-de-taxas-17": {
+  "url": "https://conteudo.stone.com.br/juros-da-maquininha",
+  "data": "2026-10-27",
+  "trecho": "Na prática: se você vende R$ 1.000 em três parcelas e não repassa nada, o cliente paga R$ 1.000 e você recebe menos que isso, por causa da taxa. Se você repassa, o cliente paga mais de R$ 1.000 e você preserva o valor cheio."
+ },
+ "X-simulador-de-taxas-18": {
+  "url": "https://conteudo.stone.com.br/juros-da-maquininha",
+  "data": "2026-10-27",
+  "trecho": "Valor recebido = valor da venda − (valor da venda × taxa da operação)"
+ },
+ "X-simulador-de-taxas-19": {
+  "url": "https://conteudo.stone.com.br/juros-da-maquininha",
+  "data": "2026-10-27",
+  "trecho": "Para o cliente pagar o custo e você manter o valor cheio, não basta somar a taxa ao preço. É preciso dividir:"
+ },
+ "X-simulador-de-taxas-20": {
+  "url": "https://conteudo.stone.com.br/juros-da-maquininha",
+  "data": "2026-10-27",
+  "trecho": "No exemplo: R$ 1.500 ÷ (1 − 0,0232) = R$ 1.535,63. Somar 2,32% ao preço resultaria em R$ 1.534,80, que deixaria você com R$ 1.499,19, ou seja, ainda abaixo do valor pretendido."
+ },
+ "X-simulador-de-taxas-21": {
+  "url": "https://conteudo.stone.com.br/juros-da-maquininha",
+  "data": "2026-10-27",
+  "trecho": "Na prática, o repasse precisa estar visível antes da compra, seja na etiqueta, no cartaz do caixa ou na tela do checkout."
+ },
+ "X-simulador-de-taxas-22": {
+  "url": "https://conteudo.stone.com.br/juros-da-maquininha",
+  "data": "2026-10-27",
+  "trecho": "O débito não tem parcelamento nem juros para o cliente, mas tem taxa para o lojista."
+ },
+ "X-simulador-de-taxas-23": {
+  "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13455.htm",
+  "data": "2026-10-27",
+  "trecho": "Art. 1º Fica autorizada a diferenciação de preços de bens e serviços oferecidos ao público em função do prazo ou do instrumento de pagamento utilizado."
+ },
+ "X-simulador-de-taxas-24": {
+  "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13455.htm",
+  "data": "2026-10-27",
+  "trecho": "O fornecedor deve informar, em local e formato visíveis ao consumidor, eventuais descontos oferecidos em função do prazo ou do instrumento de pagamento utilizado."
+ },
+ "X-simulador-de-taxas-25": {
+  "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13455.htm",
+  "data": "2026-10-27",
+  "trecho": "É nula a cláusula contratual, estabelecida no âmbito de arranjos de pagamento ou de outros acordos para prestação de serviço de pagamento, que proíba ou restrinja a diferenciação de preços facultada no"
+ },
+ "X-simulador-de-taxas-26": {
+  "url": "https://conteudo.stone.com.br/taxa-de-antecipacao-de-recebiveis",
+  "data": "2026-10-27",
+  "trecho": "A taxa de antecipação, por outro lado, aparece quando a empresa escolhe receber antes do prazo original. Ela é proporcional ao tempo antecipado de cada parcela."
+ },
+ "X-simulador-de-taxas-27": {
+  "url": "https://conteudo.stone.com.br/taxa-de-antecipacao-de-recebiveis",
+  "data": "2026-10-27",
+  "trecho": "A lógica básica começa no valor bruto da venda. Depois, a empresa considera a taxa da transação, chegando ao valor líquido que receberia no prazo normal."
+ },
+ "X-simulador-de-taxas-28": {
+  "url": "https://conteudo.stone.com.br/antecipacao-de-recebiveis-o-que-e-e-como-funciona/",
+  "data": "2026-10-27",
+  "trecho": "A antecipação de recebíveis é uma operação financeira que permite à sua empresa receber antecipadamente o dinheiro de vendas feitas a prazo, como pagamentos no cartão de crédito."
+ },
+ "X-simulador-de-taxas-29": {
+  "url": "https://www.bcb.gov.br/conteudo/relatorioinflacao/EstudosEspeciais/EE106_Resultado_regulatorio_cap_cartao_de_debito.pdf",
+  "data": "2026-10-27",
+  "trecho": "estabeleceu os limites de 0,5% para a média ponderada pelo valor das transações e de 0,8%"
+ },
+ "X-simulador-de-taxas-30": {
+  "url": "https://www.bcb.gov.br/conteudo/relatorioinflacao/EstudosEspeciais/EE106_Resultado_regulatorio_cap_cartao_de_debito.pdf",
+  "data": "2026-10-27",
+  "trecho": "repasse gradual e crescente da redução do custo"
+ },
+ "X-simulador-de-taxas-31": {
+  "url": "https://ajuda.ton.com.br/pt_BR/taxas-e-prazos/nossos-prazos",
+  "data": "2026-10-27",
+  "trecho": "Receba na hora: É a nossa modalidade mais rápida! O dinheiro cai na sua conta em até 1 hora, todos os dias da semana (incluindo sábados, domingos e feriados)."
+ },
+ "X-simulador-de-taxas-32": {
+  "url": "https://ajuda.ton.com.br/pt_BR/taxas-e-prazos/nossos-prazos",
+  "data": "2026-10-27",
+  "trecho": "1 dia útil: Os pagamentos são realizados no próximo dia útil. Vendas feitas em feriados ou fins de semana são pagas no dia útil subsequente."
+ },
+ "X-simulador-de-taxas-33": {
+  "url": "https://ajuda.ton.com.br/pt_BR/saldo-vendas/-o-que-%C3%A9-saldo-a-receber-",
+  "data": "2026-10-27",
+  "trecho": "O saldo a receber é o valor total de todas as vendas que ainda estão pendentes de recebimento"
+ },
+ "X-simulador-de-taxas-34": {
+  "url": "https://rendaextra.ton.com.br/simular-economia/",
+  "data": "2026-10-27",
+  "trecho": "Cálculo baseado no mix de pagamentos informado. Resultado é estimativa para fins informativos."
+ },
+ "X-simulador-de-taxas-35": {
+  "url": "https://conteudo.stone.com.br/posso-repassar-a-taxa-da-maquininha-para-o-cliente-descubra-aqui",
+  "data": "2026-10-27",
+  "trecho": "é possível também dividir a taxa, ou seja, o cliente paga uma parte e você a outra."
+ }
+}

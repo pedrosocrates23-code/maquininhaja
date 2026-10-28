@@ -32,5 +32,3 @@ export const IMG_MODELO = {
     alt: 'Maquininha Ton T3 Smart verde, de frente, com tela grande de toque mostrando um QR Code e teclado físico',
   },
 } as const;
-
-export const CREDITO_FOTO = 'Foto: divulgação Ton.';

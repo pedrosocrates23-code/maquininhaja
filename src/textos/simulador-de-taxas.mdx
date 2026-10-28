@@ -1,0 +1,170 @@
+---
+title: 'Simulador de taxas Ton: quanto cai em cada venda'
+description: 'Simule a taxa da Ton em cada venda: escolha faixa, bandeira, parcelas e prazo e veja o líquido, a taxa em reais e quanto cobrar para receber o valor cheio.'
+h1: 'Simulador de taxas da Ton por venda: valor líquido e quanto cobrar'
+rotulo: 'Simulador'
+migalha: 'Simulador de taxas'
+secao: 'quanto-custa'
+kw: 'simulador de taxas ton'
+resumo: 'Escolha faixa, bandeira, forma de pagamento, prazo e valor. O simulador mostra o <strong>valor líquido</strong>, a taxa em % e em reais e <strong>quanto cobrar</strong> para receber o valor cheio, com as taxas do Ton Mega+ para cliente novo.'
+fontes: ['X-conferencia-27out-10', 'X-conferencia-27out-06', 'X-conferencia-27out-07', 'X-conferencia-27out-08', 'X-conferencia-27out-09', 'X-melhor-maquininha-ton-05', 'X-correcoes-b-08', 'TN-F016', 'X-simulador-de-taxas-01', 'X-simulador-de-taxas-02', 'X-simulador-de-taxas-03', 'X-simulador-de-taxas-04', 'X-simulador-de-taxas-05', 'X-simulador-de-taxas-06', 'X-simulador-de-taxas-07', 'X-simulador-de-taxas-08', 'X-simulador-de-taxas-09', 'X-simulador-de-taxas-10', 'X-simulador-de-taxas-11', 'X-simulador-de-taxas-12', 'X-simulador-de-taxas-13', 'X-simulador-de-taxas-14', 'X-simulador-de-taxas-15', 'X-simulador-de-taxas-16', 'X-simulador-de-taxas-17', 'X-simulador-de-taxas-18', 'X-simulador-de-taxas-19', 'X-simulador-de-taxas-20', 'X-simulador-de-taxas-21', 'X-simulador-de-taxas-22', 'X-simulador-de-taxas-23', 'X-simulador-de-taxas-24', 'X-simulador-de-taxas-25', 'X-simulador-de-taxas-26', 'X-simulador-de-taxas-27', 'X-simulador-de-taxas-28', 'X-simulador-de-taxas-31', 'X-simulador-de-taxas-32', 'X-simulador-de-taxas-33', 'X-simulador-de-taxas-35', 'X-conferencia-27out-01', 'X-parcelado-01', 'X-parcelado-02', 'X-parcelado-05', 'X-parcelado-06', 'X-parcelado-07', 'X-parcelado-08', 'X-correcoes-b-01', 'TN-F010', 'TN-F011', 'TN-F012', 'TN-F013', 'TN-F014', 'TN-F055', 'TN-F060', 'TN-F070', 'TN-F071', 'TN-F072', 'TN-F098', 'TN-F099', 'TN-F167', 'TN-F180', 'TN-F181', 'TN-F183']
+publicado: 2026-10-27
+atualizado: 2026-10-27
+entidades: ['pix', 'credito', 'debito', 'visa', 'mastercard', 'elo', 'amex']
+og: 'calculadora'
+faq:
+  - p: 'Pode cobrar a taxa da maquininha do cliente?'
+    r: '<p>Pode, com condições: a Lei 13.455/2017 permite preço diferente por meio de pagamento, desde que o desconto fique visível. Na maquininha Ton, o repasse não é automático; a conta sai da calculadora do app, na opção Receber. Este site não dá orientação jurídica.</p>'
+  - p: 'Quanto a Ton cobra no Pix da maquininha?'
+    r: '<p>Nos primeiros 30 dias, zero. Depois, segue zero se você cadastrar uma chave Pix de CPF, CNPJ ou telefone na Conta Ton. Sem a chave, a Ton cobra 0,49% por venda.</p>'
+  - p: 'Já sou cliente da Ton. A taxa do simulador vale para mim?'
+    r: '<p>Use o simulador para comparar cenários, como prazo e parcelas. Para cobrar, vale a taxa que o app da Ton mostra na sua conta.</p>'
+  - p: 'A taxa da Ton muda conforme o cartão do cliente?'
+    r: '<p>Muda pela bandeira. Visa e Mastercard têm a mesma taxa; Elo e Amex têm outra, mais alta. Pergunte a bandeira antes de simular: a Ton avisa que a bandeira errada dá recebimento menor.</p>'
+  - p: 'Chargeback conta para a minha faixa de faturamento?'
+    r: '<p>Não. Venda com chargeback, estorno ou cancelamento sai da soma que define a sua faixa no Ton Mega+.</p>'
+---
+
+<p class="summarization">O <strong>simulador de taxas da Ton</strong> calcula uma venda por vez. Você escolhe a faixa do <strong>Ton Mega+</strong>, a bandeira, débito, crédito, parcelas ou Pix, o prazo e o valor. Ele mostra o valor líquido, a taxa em reais e quanto cobrar para receber o valor cheio. São taxas de cliente novo, conferidas em 27/10/2026.</p>
+
+## Quanto a Ton desconta de uma venda
+
+A Ton cobra um percentual sobre o valor da venda. No mercado, esse percentual se chama MDR, a taxa que o lojista paga para receber no cartão <Fonte id="X-simulador-de-taxas-10" />. O que cai na conta é o valor da venda menos essa taxa <Fonte id="X-simulador-de-taxas-11" />.
+
+A conta é uma subtração: valor recebido igual ao valor da venda menos o valor da venda vezes a taxa <Fonte id="X-simulador-de-taxas-18" />. Numa venda de R$ 100 no crédito à vista, na faixa de até R$ 3 mil e recebendo em 1 dia útil, a taxa é <Taxa faixa="ate3k" prazo="d1" tipo="credito1x" />. Caem R$ 96,14.
+
+### As cinco escolhas que mudam a taxa
+
+O regulamento do Ton Mega+ diz que a taxa muda por canal, modalidade e bandeira <Fonte id="X-parcelado-08" />. Na prática, cinco escolhas:
+
+1. **A faixa.** É o quanto você vendeu no mês anterior. São cinco faixas, de até R$ 3 mil a acima de R$ 30 mil <Fonte id="TN-F012" />. No começo vale o período promocional <Fonte id="TN-F011" />.
+2. **A bandeira.** A Ton publica Visa e Mastercard com a mesma taxa, e Elo e Amex com outra, mais alta <Fonte id={['X-conferencia-27out-06', 'X-simulador-de-taxas-07']} />.
+3. **Débito, crédito ou parcelas.** Cada uma tem a sua taxa <Fonte id={['X-simulador-de-taxas-07', 'X-conferencia-27out-01']} />. O parcelado vai até 21x na T3 e na T3 Smart <Fonte id="TN-F070" />.
+4. **O prazo.** Fora da promoção, receber na hora custa mais que em 1 dia útil. Na promoção, as duas taxas são iguais <Fonte id={['TN-F014', 'X-conferencia-27out-10']} />.
+5. **O Pix.** Tem regra própria, que muda depois de 30 dias <Fonte id="TN-F010" />.
+
+## Como usar o simulador
+
+Siga estes passos. Os cinco primeiros estão no formulário.
+
+1. **Escolha a faixa.** Começou agora? Use a promocional. Ao fim dos 30 dias, a Ton enquadra você pelo volume vendido nesse período. Depois, a faixa segue o mês anterior <Fonte id={['TN-F011', 'X-correcoes-b-08', 'TN-F180']} />.
+2. **Pergunte a bandeira ao cliente.** A Ton avisa: bandeira errada na simulação dá recebimento menor <Fonte id="X-parcelado-02" />.
+3. **Escolha a forma de pagamento.** Débito, crédito à vista, de 2x a 21x, ou Pix.
+4. **Escolha o prazo.** Na hora ou em 1 dia útil <Fonte id="TN-F014" />.
+5. **Digite o valor e o modo.** "Quanto recebo" parte do preço. "Quanto cobrar" parte do que você quer receber. É a mesma lógica das opções Cobrar e Receber do app <Fonte id="X-simulador-de-taxas-01" />.
+6. **Confira no app antes de cobrar.** As taxas daqui são do plano para cliente novo. A sua aparece no app <Fonte id={['TN-F055', 'X-parcelado-02']} />.
+
+Abaixo do valor principal vêm quatro linhas. Quanto cairia no outro prazo. Quanto cairia na promoção ou depois dela. Quanto cobrar para ficar com o valor cheio. E quanto você perderia se só somasse a taxa ao preço.
+
+### O simulador do site, o do app e o da Ton
+
+Já é cliente? Use a calculadora da tela inicial do app <Fonte id="X-simulador-de-taxas-08" />. Ainda não é? A Ton também simula na página de planos, para quem não tem conta <Fonte id={['X-simulador-de-taxas-04', 'X-simulador-de-taxas-05']} />. Este simulador põe todas as parcelas, de 2x a 21x, na mesma tabela e compara a promoção com a faixa que você escolher.
+
+Quer o custo do mês inteiro, com o seu mix de débito, crédito e Pix? Use a [calculadora de custo mensal](/quanto-custa/calculadora/).
+
+## Exemplos de conta com as taxas de hoje
+
+Primeiro a faixa de até R$ 3 mil, que é onde fica quem vende pouco depois da promoção. Depois a promocional. Visa ou Mastercard, salvo onde diz Elo.
+
+<div class="table-wrap" tabindex="0" role="region" aria-label="Exemplos de conta com as taxas da Ton">
+<table>
+<caption>Quanto cai e quanto cobrar, faixa até R$ 3 mil e período promocional, com as taxas do Ton Mega+ conferidas em 27/10/2026</caption>
+<thead><tr><th scope="col">Venda</th><th scope="col">Taxa</th><th scope="col">Você recebe</th><th scope="col">Para receber o valor cheio, cobre</th></tr></thead>
+<tbody>
+<tr><th scope="row">R$ 100 no crédito à vista, 1 dia útil</th><td><Taxa faixa="ate3k" prazo="d1" tipo="credito1x" /></td><td>R$ 96,14</td><td>R$ 104,02</td></tr>
+<tr><th scope="row">R$ 100 no crédito à vista, na hora</th><td><Taxa faixa="ate3k" prazo="na_hora" tipo="credito1x" /></td><td>R$ 95,14</td><td>R$ 105,11</td></tr>
+<tr><th scope="row">R$ 100 no crédito à vista, Elo, 1 dia útil</th><td><Taxa faixa="ate3k" prazo="d1" tipo="elo_credito1x" /></td><td>R$ 94,85</td><td>R$ 105,43</td></tr>
+<tr><th scope="row">R$ 1.000 em 10x, 1 dia útil</th><td><Taxa faixa="ate3k" prazo="d1" tipo="parcela" parcelas={10} /></td><td>R$ 798,10</td><td>10x de R$ 125,30</td></tr>
+<tr><th scope="row">R$ 1.000 em 21x, 1 dia útil</th><td><Taxa faixa="ate3k" prazo="d1" tipo="parcela" parcelas={21} /></td><td>R$ 714,20</td><td>21x de R$ 66,68</td></tr>
+<tr><th scope="row">R$ 100 no crédito à vista, promoção</th><td><Taxa faixa="promo" prazo="d1" tipo="credito1x" /></td><td>R$ 99,43</td><td>R$ 100,58</td></tr>
+</tbody>
+</table>
+</div>
+
+Repare na última linha. A promoção dá R$ 99,43 de cada R$ 100. Mas ela vale 30 dias ou até R$ 5 mil em vendas, o que vier primeiro <Fonte id="TN-F011" />. A Ton repete o aviso no simulador do programa de parceiros <Fonte id="TN-F099" />. Simule as duas.
+
+## Quanto cobrar para receber o valor cheio
+
+Para o cliente pagar a taxa e você manter o valor, não basta somar a taxa ao preço. É preciso dividir <Fonte id="X-simulador-de-taxas-19" />:
+
+**Valor a cobrar = valor que você quer receber ÷ (1 − taxa)**
+
+Veja a diferença em R$ 1.000 parcelados em 10x, na faixa de até R$ 3 mil. A taxa é <Taxa faixa="ate3k" prazo="d1" tipo="parcela" parcelas={10} />. Somando a taxa ao preço, você cobraria R$ 1.201,90 e receberia R$ 959,24. Faltam R$ 40,76. Dividindo, você cobra 10x de R$ 125,30, ou R$ 1.253,00, e recebe R$ 1.000,02. O simulador arredonda a parcela para cima no centavo para o líquido nunca ficar abaixo do que você pediu.
+
+A Stone mostra o mesmo erro com R$ 1.500: somar a taxa deixa o lojista abaixo do valor pretendido <Fonte id="X-simulador-de-taxas-20" />.
+
+Dá para dividir a taxa também: o cliente paga uma parte e você a outra <Fonte id="X-simulador-de-taxas-35" />. A maquininha Ton não repassa a taxa sozinha. A Ton manda usar a calculadora do app na opção Receber e cobrar na máquina o valor indicado <Fonte id={['X-simulador-de-taxas-02', 'X-parcelado-01']} />.
+
+### O que a lei permite e o que ela exige
+
+A Lei 13.455/2017, no texto do Planalto consultado em 27/10/2026, autoriza preço diferente em função do prazo ou do meio de pagamento <Fonte id="X-simulador-de-taxas-23" />. É nula a cláusula de contrato de pagamento que proíba essa diferença <Fonte id="X-simulador-de-taxas-25" />. E o fornecedor deve informar os descontos em local e formato visíveis ao consumidor <Fonte id="X-simulador-de-taxas-24" />.
+
+Na leitura da Stone, em conteúdo consultado em 27/10/2026, o repasse precisa estar visível antes da compra: na etiqueta, no cartaz do caixa ou na tela do checkout <Fonte id="X-simulador-de-taxas-21" />. Este texto é informativo e não substitui orientação jurídica.
+
+## Valor bruto, taxa e líquido: o que aparece no extrato
+
+No extrato e no app, a mesma venda aparece em partes.
+
+- **Valor bruto** é o total cobrado do cliente. Dele sai a taxa da transação, e o que sobra é o líquido <Fonte id="X-simulador-de-taxas-27" />.
+- **MDR** é a taxa inteira que o lojista paga <Fonte id="X-simulador-de-taxas-10" />. Dentro dela está o **intercâmbio**, a tarifa que o banco emissor do cartão desconta ao repassar o dinheiro <Fonte id="X-simulador-de-taxas-12" />. O resto, o **Net MDR**, remunera quem processa a venda <Fonte id="X-simulador-de-taxas-14" />.
+- O intercâmbio varia com o tipo de venda: débito, crédito à vista ou parcelado <Fonte id="X-simulador-de-taxas-13" />. Por isso o parcelado custa mais que o à vista.
+- **Saldo a receber**, no app da Ton, é a soma das vendas que ainda não caíram <Fonte id="X-simulador-de-taxas-33" />.
+
+Você não precisa separar essas partes. A Ton publica um número só por bandeira, parcela e prazo <Fonte id="X-simulador-de-taxas-06" />. O simulador usa esse número.
+
+## Receber na hora ou em 1 dia útil: o prazo tem preço
+
+No modelo de mercado, o banco do cliente repassa o crédito cerca de 30 dias depois da venda. No parcelado, o repasse segue as parcelas <Fonte id="X-simulador-de-taxas-15" />. Receber antes disso é antecipação de recebíveis <Fonte id="X-simulador-de-taxas-28" />, e a taxa de antecipação cresce com o tempo antecipado <Fonte id="X-simulador-de-taxas-26" />.
+
+Na Ton, a taxa já vem pronta por prazo. São duas tabelas: na hora e 1 dia útil <Fonte id={['TN-F014', 'X-simulador-de-taxas-06']} />. A própria Ton chama o recebimento rápido de antecipação <Fonte id="TN-F183" />. Vale para débito, crédito e parcelado <Fonte id="TN-F181" />. No parcelado, o valor total da venda cai de uma vez na Conta Ton <Fonte id="X-parcelado-06" />.
+
+Fora da promoção, o prazo pesa. Em R$ 100 no crédito à vista, faixa de até R$ 3 mil: R$ 95,14 na hora contra R$ 96,14 em 1 dia útil. Na promoção, os dois prazos têm a mesma taxa <Fonte id="X-conferencia-27out-10" />. Para receber na hora, a Ton exige Conta Ton aprovada e nenhum contrato em aberto com outras instituições <Fonte id="TN-F167" />. Em 1 dia útil, venda de fim de semana ou feriado cai no dia útil seguinte <Fonte id="X-simulador-de-taxas-32" />. Os prazos de cada meio de pagamento estão em [quando cai o dinheiro](/quanto-custa/quando-cai/).
+
+<Callout tipo="conflito" titulo="Na hora é 1 minuto ou 1 hora?">
+
+A página de recebimento da Ton diz que o dinheiro cai em até 1 minuto, inclusive fim de semana e feriado <Fonte id="TN-F181" />. A Central de Ajuda diz em até 1 hora, todos os dias <Fonte id="X-simulador-de-taxas-31" />. As duas são oficiais. Conte com a hora cheia se o seu caixa depende disso.
+
+</Callout>
+
+## Parcelado: quem paga os juros
+
+Juros, no sentido estrito, é o que o cliente paga quando a compra parcelada tem acréscimo <Fonte id="X-simulador-de-taxas-16" />. Na Ton, o passo a passo oficial da venda parcelada marca a opção sem juros para o cliente <Fonte id="X-parcelado-07" />. Quem paga a taxa é você.
+
+Sem repasse, o cliente paga o preço e você recebe menos. Com repasse, o cliente paga mais e você fica com o valor cheio <Fonte id="X-simulador-de-taxas-17" />. O débito não tem parcela nem juros para o cliente, mas tem taxa para o lojista <Fonte id="X-simulador-de-taxas-22" />.
+
+Antes de oferecer parcela longa, olhe os limites:
+
+- De 13x a 21x, só T3 e T3 Smart. T1 e T2 param em 12x <Fonte id="TN-F070" />.
+- Acima de 12x, a parcela mínima é R$ 10 <Fonte id="X-parcelado-07" />.
+- O banco do cliente decide o limite na hora. Alguns param em 12x <Fonte id="X-parcelado-05" />.
+
+## Quando o simulador não serve
+
+Há casos em que a conta daqui não é a sua.
+
+- **Você já é cliente.** A sua taxa está no app. A página de planos vale para cliente novo <Fonte id="TN-F055" />.
+- **Você usa o Ton Black.** A página de planos não publica taxa dele. O Black aparece só como produto <Fonte id={['TN-F060', 'TN-F098']} />.
+- **O cartão é Hiper.** O app agrupa Elo, Amex e Hiper <Fonte id="X-simulador-de-taxas-03" />. A página de planos publica taxas para Visa, Mastercard, Elo e Amex <Fonte id="X-conferencia-27out-06" />. Para o Hiper, simule no app.
+- **Você está na promoção e vende muito.** Bateu R$ 5 mil antes dos 30 dias? Até fechar o período, valem as taxas da faixa de R$ 6 mil a R$ 10 mil <Fonte id="TN-F013" />.
+- **A sua faixa mudou.** Ela é revista todo mês, para cima ou para baixo <Fonte id="TN-F180" />. Estorno e cancelamento não contam no faturamento <Fonte id="X-correcoes-b-01" />.
+
+<Callout tipo="conflito" titulo="A faixa 1 termina em R$ 3.000 ou em R$ 2.999,99?">
+
+O regulamento põe a Faixa 1 em até R$ 3.000,00 <Fonte id="TN-F012" />. Um post do blog da Ton fala em até R$ 2.999,99 <Fonte id="X-simulador-de-taxas-09" />. O simulador segue o regulamento.
+
+</Callout>
+
+## Qual maquininha pedir depois da conta
+
+A taxa exibida é a mesma nas páginas das quatro máquinas <Fonte id={['X-conferencia-27out-07', 'X-conferencia-27out-08', 'X-melhor-maquininha-ton-05', 'X-conferencia-27out-09']} />. O regulamento define a taxa por canal, modalidade e bandeira <Fonte id="X-parcelado-08" />. Ele não cita o modelo da máquina. O que muda é o que cada máquina faz.
+
+- Parcela acima de 12x? Então T3 ou T3 Smart <Fonte id="TN-F070" />.
+- Balcão com comprovante impresso pede a T3.
+- Na rua, com Pix na máquina e sem papel, a T2 resolve.
+- Vende pouco e já anda com o celular? A T1 basta.
+
+Não tem mensalidade. Você paga uma adesão por máquina <Fonte id="TN-F071" />. A máquina fica em comodato: continua sendo da Ton <Fonte id="TN-F016" />. Fez a conta e a T3 cobre as suas parcelas? Peça no site da Ton. Este site é Parceiro Ton e recebe comissão.
+
+<CtaIndicacao chave="t3" texto="Pedir a Ton T3 no site da Ton" />
+
+Antes de pedir, cadastre a chave Pix logo depois de ativar a máquina. Sem chave, depois de 30 dias, o Pix na maquininha passa a ter taxa <Fonte id={['TN-F010', 'TN-F072']} />. Quer comparar o parcelado de 2x a 21x em todas as faixas? A tabela completa está em [taxa do parcelado](/quanto-custa/parcelado/).

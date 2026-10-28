@@ -1,0 +1,468 @@
+---
+// Simulador por VENDA (o /quanto-custa/calculadora/ faz o custo do MÊS): faixa do Ton Mega+,
+// bandeira, forma de pagamento (débito, crédito à vista, 2x a 21x, Pix), prazo e valor. Mostra o
+// líquido, a taxa em % e em R$, o outro prazo, a promoção x a faixa e quanto cobrar para receber
+// o valor cheio. Taxas: src/data/taxas-bandeiras.json (scripts/extrair_mdr.py, conferido contra o
+// taxas.json). Pix: TN-F010/TN-F072. Parcelas acima de 12x só em T3 e T3 Smart: TN-F070.
+// Sem JS, a tabela de R$ 100 (renderizada aqui) continua legível. JS próprio, sem dependência.
+import band from '../data/taxas-bandeiras.json';
+import { pctBR, brl } from '../data/modelos';
+
+const FAIXAS = [
+  ['promo', 'Primeiros 30 dias (promoção, até R$ 5 mil)'],
+  ['ate3k', 'Até R$ 3 mil por mês'],
+  ['3a6k', 'De R$ 3 mil a R$ 6 mil'],
+  ['6a10k', 'De R$ 6 mil a R$ 10 mil'],
+  ['10a30k', 'De R$ 10 mil a R$ 30 mil'],
+  ['30k', 'Acima de R$ 30 mil'],
+] as const;
+type Grupo = { d: number; c: Record<string, number> };
+// Visa = Mastercard e Elo = Amex em todas as faixas (o extrator confere): dois grupos bastam.
+const T: Record<string, Record<string, { vm: Grupo; ea: Grupo }>> = {};
+for (const [fid] of FAIXAS) {
+  const f = (band.faixas as Record<string, any>)[fid];
+  T[fid] = {};
+  for (const pz of ['na_hora', 'd1']) {
+    T[fid][pz] = {
+      vm: { d: f[pz].visa.debito, c: f[pz].visa.credito },
+      ea: { d: f[pz].elo.debito, c: f[pz].elo.credito },
+    };
+  }
+}
+
+// Padrão: a faixa que pesa no mês 2 em diante para quem vende pouco, crédito, 1 dia útil.
+const PADRAO = { faixa: 'ate3k', prazo: 'd1', grupo: 'vm' as const, valor: 100 };
+const nomeFaixa = Object.fromEntries(FAIXAS) as Record<string, string>;
+const linhas = [
+  { k: 'd', rot: 'Débito' },
+  { k: '1', rot: 'Crédito à vista' },
+  ...Array.from({ length: 20 }, (_, i) => ({ k: String(i + 2), rot: `Crédito em ${i + 2}x` })),
+];
+const g = T[PADRAO.faixa][PADRAO.prazo][PADRAO.grupo];
+const taxaDe = (k: string) => (k === 'd' ? g.d : g.c[k]);
+---
+
+<section class="sim-wrap wrap" aria-label="Simulador de taxas da Ton" data-secao="simulador_form">
+  <form id="sim" class="sim card" data-taxas={JSON.stringify(T)} novalidate>
+    <fieldset class="modo">
+      <legend>O que você quer saber</legend>
+      <label><input type="radio" name="modo" value="vendo" checked /> Quanto recebo de uma venda</label>
+      <label><input type="radio" name="modo" value="quero" /> Quanto cobrar para receber um valor</label>
+    </fieldset>
+
+    <div class="linha2">
+      <div class="campo">
+        <label for="sim-valor" data-rotulo-valor>Valor da venda</label>
+        <div class="moeda"><span aria-hidden="true">R$</span><input id="sim-valor" name="valor" type="number" inputmode="decimal" min="0" step="0.01" value={PADRAO.valor} /></div>
+      </div>
+      <div class="campo">
+        <label for="sim-tipo">Forma de pagamento</label>
+        <select id="sim-tipo" name="tipo">
+          <option value="d">Débito</option>
+          <option value="1" selected>Crédito à vista</option>
+          {Array.from({ length: 20 }, (_, i) => <option value={String(i + 2)}>Crédito em {i + 2}x</option>)}
+          <option value="pix">Pix na maquininha</option>
+        </select>
+      </div>
+    </div>
+    <p class="ajuda" id="sim-parc-aviso" hidden>T1 e T2 parcelam até 12x. De 13x a 21x, só T3 e T3 Smart, com parcela mínima de R$ 10.</p>
+
+    <div class="linha2">
+      <fieldset class="campo grupo">
+        <legend>Bandeira do cartão</legend>
+        <label><input type="radio" name="grupo" value="vm" checked /> Visa ou Mastercard</label>
+        <label><input type="radio" name="grupo" value="ea" /> Elo ou American Express</label>
+      </fieldset>
+      <fieldset class="campo prazo">
+        <legend>Receber</legend>
+        <label><input type="radio" name="prazo" value="na_hora" /> Na hora</label>
+        <label><input type="radio" name="prazo" value="d1" checked /> Em 1 dia útil</label>
+      </fieldset>
+    </div>
+
+    <div class="campo">
+      <label for="sim-faixa">Sua faixa no Ton Mega+</label>
+      <select id="sim-faixa" name="faixa">
+        {FAIXAS.map(([v, r]) => <option value={v} selected={v === PADRAO.faixa}>{r}</option>)}
+      </select>
+      <p class="ajuda">Depois da promoção, vale a faixa do que você vendeu: no fim dos 30 dias, pelo período; depois, pelo mês anterior.</p>
+    </div>
+
+    <label class="check" id="sim-chave-l" hidden><input type="checkbox" name="chave" checked /> Tenho chave Pix de CPF, CNPJ ou telefone na Conta Ton</label>
+  </form>
+
+  <div class="sim-res panel on-panel" id="sim-res" aria-live="polite">
+    <p class="eyebrow" data-s="rot">Você recebe</p>
+    <p class="s-val" data-s="val">{brl(PADRAO.valor * (1 - taxaDe('1') / 100))}</p>
+    <p class="s-taxa" data-s="taxa">Taxa de {pctBR(taxaDe('1'))}: {brl(PADRAO.valor * taxaDe('1') / 100)} de uma venda de {brl(PADRAO.valor)}.</p>
+    <p class="s-cai" data-s="cai">Cai em 1 dia útil.</p>
+    <ul class="s-lista">
+      <li data-s="prazo"></li>
+      <li data-s="promo"></li>
+      <li data-s="cheio"></li>
+      <li data-s="somar"></li>
+    </ul>
+    <noscript><p>O simulador precisa de JavaScript. A tabela abaixo, em "Ver todas as formas de pagamento", mostra quanto cai de uma venda de R$ 100.</p></noscript>
+    <a class="btn btn-primary" href="#maquininhas" data-evento="simulador_resultado_click" data-cta-tipo="simulador_resultado">Ver as maquininhas Ton</a>
+  </div>
+</section>
+
+<!-- Recolhida por padrão: o foco da dobra é o simulador. O JS atualiza as linhas mesmo fechada. -->
+<div class="wrap tab-sim">
+  <details>
+  <summary>Ver todas as formas de pagamento lado a lado (débito, à vista e de 2x a 21x)</summary>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Quanto cai em cada forma de pagamento">
+    <table id="sim-tab">
+      <caption data-s="cap">Quanto cai de uma venda de {brl(PADRAO.valor)}: {nomeFaixa[PADRAO.faixa].toLowerCase()}, Visa ou Mastercard, 1 dia útil</caption>
+      <thead><tr><th scope="col">Forma de pagamento</th><th scope="col">Taxa</th><th scope="col">Desconto</th><th scope="col">Você recebe</th></tr></thead>
+      <tbody>
+        {
+          linhas.map((l) => (
+            <tr data-k={l.k}>
+              <th scope="row">{l.rot}</th>
+              <td>{pctBR(taxaDe(l.k))}</td>
+              <td>{brl(PADRAO.valor * taxaDe(l.k) / 100)}</td>
+              <td><strong>{brl(PADRAO.valor * (1 - taxaDe(l.k) / 100))}</strong></td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  </details>
+  <p class="ajuda">Taxas do Ton Mega+ publicadas em ton.com.br/planos-e-taxas, conferidas em {band.coletado_em.split('-').reverse().join('/')}. Pix na maquininha: 0% nos primeiros 30 dias; depois, 0% com chave de CPF, CNPJ ou telefone, ou 0,49% sem ela.</p>
+</div>
+
+<script>
+  const form = document.getElementById('sim') as HTMLFormElement | null;
+  if (form) {
+    type G = { d: number; c: Record<string, number> };
+    const T = JSON.parse(form.dataset.taxas || '{}') as Record<string, Record<string, { vm: G; ea: G }>>;
+    const $ = (k: string) => document.querySelector(`[data-s="${k}"]`) as HTMLElement;
+    const brl = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const pct = (v: number) => `${v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`;
+    const NOMES: Record<string, string> = {
+      promo: 'período promocional',
+      ate3k: 'até R$ 3 mil por mês',
+      '3a6k': 'de R$ 3 mil a R$ 6 mil',
+      '6a10k': 'de R$ 6 mil a R$ 10 mil',
+      '10a30k': 'de R$ 10 mil a R$ 30 mil',
+      '30k': 'acima de R$ 30 mil',
+    };
+    const ROT_TIPO = (t: string) => (t === 'd' ? 'débito' : t === '1' ? 'crédito à vista' : t === 'pix' ? 'Pix' : `crédito em ${t}x`);
+    // Pix na máquina: 0% na promoção; depois 0% com chave de CPF/CNPJ/telefone, senão 0,49% (TN-F010, TN-F072).
+    const taxa = (faixa: string, prazo: string, grupo: 'vm' | 'ea', tipo: string, chave: boolean) => {
+      if (tipo === 'pix') return faixa === 'promo' || chave ? 0 : 0.49;
+      const g = T[faixa][prazo][grupo];
+      return tipo === 'd' ? g.d : g.c[tipo];
+    };
+    // Quanto cobrar: dividir por (1 - taxa), não somar a taxa (X-simulador-de-taxas-19). No parcelado,
+    // arredonda para cima no centavo da PARCELA, para o líquido nunca ficar abaixo do desejado.
+    const cobrar = (receber: number, t: number, n = 1) => (Math.ceil((receber / (1 - t / 100) / n) * 100) / 100) * n;
+
+    function calcular() {
+      const d = new FormData(form!);
+      const modo = String(d.get('modo') || 'vendo');
+      const valor = Math.max(0, Number(d.get('valor')) || 0);
+      const tipo = String(d.get('tipo') || '1');
+      const grupo = (String(d.get('grupo') || 'vm') as 'vm' | 'ea');
+      const faixa = String(d.get('faixa') || 'ate3k');
+      const prazo = String(d.get('prazo') || 'd1');
+      const chave = Boolean(d.get('chave'));
+      const pix = tipo === 'pix';
+
+      (document.querySelector('[data-rotulo-valor]') as HTMLElement).textContent = modo === 'quero' ? 'Quanto você quer receber' : 'Valor da venda';
+      (document.getElementById('sim-parc-aviso') as HTMLElement).hidden = !(Number(tipo) > 12);
+      (document.getElementById('sim-chave-l') as HTMLElement).hidden = !(pix && faixa !== 'promo');
+      form!.querySelectorAll<HTMLInputElement>('input[name="grupo"]').forEach((i) => (i.disabled = pix));
+
+      const t = taxa(faixa, prazo, grupo, tipo, chave);
+      const n = Number(tipo) > 1 ? Number(tipo) : 1;
+      const venda = modo === 'quero' ? cobrar(valor, t, n) : valor;
+      const liq = modo === 'quero' ? valor : venda * (1 - t / 100);
+      const desc = venda - liq;
+
+      $('rot').textContent = modo === 'quero' ? 'Cobre do cliente' : 'Você recebe';
+      $('val').textContent = brl(modo === 'quero' ? venda : liq);
+      $('taxa').textContent =
+        modo === 'quero'
+          ? `${n > 1 ? `${n}x de ${brl(venda / n)}. ` : ''}Com taxa de ${pct(t)} no ${ROT_TIPO(tipo)}, sobram ${brl(venda * (1 - t / 100))} para você.`
+          : `Taxa de ${pct(t)} no ${ROT_TIPO(tipo)}: ${brl(desc)} de uma venda de ${brl(venda)}.`;
+      // "Na hora": a página de recebimento da Ton diz até 1 minuto (TN-F181); a Central de Ajuda, até 1 hora (X-simulador-de-taxas-31).
+      $('cai').textContent = pix
+        ? 'Pix cai em até 1 minuto.'
+        : prazo === 'na_hora'
+          ? 'Cai na hora, inclusive fim de semana e feriado: em até 1 minuto, pela página da Ton, ou em até 1 hora, pela Central de Ajuda.'
+          : 'Cai no próximo dia útil. Venda de fim de semana ou feriado cai no dia útil seguinte.';
+      const minimo = n > 12 && venda / n < 10;
+      (document.getElementById('sim-parc-aviso') as HTMLElement).textContent = minimo
+        ? `Acima de 12x, a parcela mínima é R$ 10. Em ${n}x, a venda precisa ser de pelo menos ${brl(10 * n)}.`
+        : 'T1 e T2 parcelam até 12x. De 13x a 21x, só T3 e T3 Smart, com parcela mínima de R$ 10.';
+
+      if (pix) {
+        $('prazo').textContent = faixa === 'promo' ? 'Depois dos 30 dias, o Pix segue em 0% se houver chave de CPF, CNPJ ou telefone; sem chave, 0,49%.' : '';
+      } else {
+        const outro = prazo === 'd1' ? 'na_hora' : 'd1';
+        const to = taxa(faixa, outro, grupo, tipo, chave);
+        const lo = venda * (1 - to / 100);
+        $('prazo').textContent = Math.abs(lo - liq) < 0.005
+          ? 'Aqui, receber na hora ou em 1 dia útil custa o mesmo.'
+          : outro === 'na_hora'
+            ? `Recebendo na hora: ${brl(lo)} (${brl(Math.abs(liq - lo))} a menos).`
+            : `Recebendo em 1 dia útil: ${brl(lo)} (${brl(Math.abs(lo - liq))} a mais).`;
+      }
+      if (faixa === 'promo') {
+        const tf = taxa('ate3k', prazo, grupo, tipo, chave);
+        $('promo').textContent = `A promoção vale 30 dias ou até R$ 5 mil em vendas. Depois, na faixa até R$ 3 mil, a mesma venda deixaria ${brl(venda * (1 - tf / 100))}.`;
+      } else {
+        const tp = taxa('promo', prazo, grupo, tipo, chave);
+        $('promo').textContent = `Nos primeiros 30 dias (promoção), a mesma venda deixaria ${brl(venda * (1 - tp / 100))}.`;
+      }
+      $('cheio').textContent = modo === 'quero' || t === 0 ? '' : `Para receber ${brl(venda)} cheios, cobre ${brl(cobrar(venda, t, n))}${n > 1 ? ` (${n}x de ${brl(cobrar(venda, t, n) / n)})` : ''}.`;
+      // Perda real de quem soma a taxa ao preço em vez de dividir (X-simulador-de-taxas-20).
+      const alvo = modo === 'quero' ? valor : venda;
+      const somado = alvo * (1 + t / 100);
+      $('somar').textContent = t === 0 || alvo - somado * (1 - t / 100) < 0.005 ? '' : `Se você só somasse a taxa ao preço (${brl(somado)}), receberia ${brl(somado * (1 - t / 100))}, ${brl(alvo - somado * (1 - t / 100))} a menos.`;
+      document.querySelectorAll<HTMLElement>('.s-lista li').forEach((li) => (li.hidden = !li.textContent));
+
+      // Tabela: a mesma venda em todas as formas de pagamento (no modo "quero", o valor desejado).
+      const base = modo === 'quero' ? valor : venda;
+      const nomeG = grupo === 'vm' ? 'Visa ou Mastercard' : 'Elo ou American Express';
+      $('cap').textContent = `Quanto cai de uma venda de ${brl(base)}: ${NOMES[faixa]}, ${nomeG}, ${prazo === 'd1' ? '1 dia útil' : 'na hora'}`;
+      document.querySelectorAll<HTMLTableRowElement>('#sim-tab tbody tr').forEach((tr) => {
+        const tx = taxa(faixa, prazo, grupo, String(tr.dataset.k), chave);
+        const c = tr.cells;
+        c[1].textContent = pct(tx);
+        c[2].textContent = brl((base * tx) / 100);
+        (c[3].firstElementChild as HTMLElement).textContent = brl(base * (1 - tx / 100));
+        tr.classList.toggle('ativa', tr.dataset.k === tipo);
+      });
+    }
+
+    // Medição: uma vez por visita, com as escolhas (sem o valor exato), como a calculadora mensal.
+    let usado = false;
+    function avisarUso() {
+      if (usado) return;
+      usado = true;
+      const d = new FormData(form!);
+      document.dispatchEvent(
+        new CustomEvent('pnm:evento', {
+          detail: {
+            nome: 'simulador_usado',
+            origem: form,
+            params: { faixa_faturamento: String(d.get('faixa')), prazo: String(d.get('prazo')), forma: String(d.get('tipo')), modo: String(d.get('modo')) },
+          },
+        }),
+      );
+    }
+    form.addEventListener('input', calcular);
+    form.addEventListener('change', calcular);
+    form.addEventListener('change', avisarUso);
+    form.addEventListener('submit', (e) => e.preventDefault());
+    calcular();
+  }
+</script>
+
+<style>
+  .sim-wrap {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--s-5);
+    align-items: start;
+    padding-bottom: var(--s-6);
+  }
+  .sim {
+    display: grid;
+    gap: var(--s-4);
+  }
+  .campo {
+    display: grid;
+    gap: var(--s-2);
+  }
+  label,
+  legend {
+    font-weight: 600;
+    font-size: var(--fs-1);
+  }
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+  input[type='number'],
+  select {
+    font: inherit;
+    font-size: var(--fs-2);
+    min-height: 48px;
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-s);
+    background: var(--bg);
+    color: var(--ink);
+  }
+  .moeda {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-s);
+    background: var(--bg);
+    padding-left: 0.9rem;
+  }
+  .moeda span {
+    font-weight: 600;
+  }
+  .moeda input {
+    border: 0;
+    font-size: var(--fs-4);
+    font-weight: 600;
+    background: transparent;
+    padding-left: 0.4rem;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  .moeda input::-webkit-outer-spin-button,
+  .moeda input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  /* O foco contorna a caixa toda (com o R$), não só o número: o anel global cobria o prefixo. */
+  .moeda input:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+  .moeda:focus-within {
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px var(--green);
+  }
+  .modo,
+  .grupo,
+  .prazo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    align-items: center;
+  }
+  .modo legend,
+  .grupo legend,
+  .prazo legend {
+    width: 100%;
+    margin-bottom: var(--s-2);
+  }
+  .modo label,
+  .grupo label,
+  .prazo label,
+  .check {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    font-weight: 500;
+  }
+  input[type='radio'],
+  input[type='checkbox'] {
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: var(--ink);
+  }
+  .linha2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-4);
+    align-items: start;
+  }
+  #sim-parc-aviso {
+    margin-top: calc(-1 * var(--s-2));
+  }
+  .ajuda {
+    font-size: var(--fs-0);
+    color: var(--muted);
+    margin: var(--s-1) 0 0;
+  }
+  .sim-res {
+    border-radius: var(--radius-l);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    display: grid;
+    gap: var(--s-3);
+    position: sticky;
+    top: 6rem;
+  }
+  .sim-res p {
+    margin: 0;
+  }
+  .s-val {
+    font-size: var(--fs-6);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--green) !important;
+  }
+  .s-taxa,
+  .s-cai {
+    color: var(--on-panel) !important;
+    font-size: var(--fs-2);
+  }
+  .s-lista {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--s-2);
+    border-top: 1px solid #34342f;
+    padding-top: var(--s-3);
+    font-size: var(--fs-1);
+    color: var(--on-panel-muted);
+  }
+  .tab-sim {
+    padding-bottom: var(--s-4);
+  }
+  .tab-sim summary {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+    min-height: 48px;
+    padding: var(--s-3) var(--s-4);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-s);
+    background: var(--paper);
+    font-weight: 600;
+    font-size: var(--fs-1);
+    list-style: none;
+  }
+  .tab-sim summary::-webkit-details-marker {
+    display: none;
+  }
+  .tab-sim summary::after {
+    content: '+';
+    font-size: var(--fs-3);
+    line-height: 1;
+  }
+  .tab-sim details[open] summary::after {
+    content: '−';
+  }
+  .tab-sim summary:hover {
+    border-color: var(--ink);
+  }
+  .tab-sim details[open] .table-wrap {
+    margin-top: var(--s-3);
+  }
+  .tab-sim :global(tr.ativa) {
+    background: var(--green-tint);
+  }
+  @media (max-width: 900px) {
+    .sim-wrap {
+      grid-template-columns: 1fr;
+    }
+    .sim-res {
+      position: static;
+    }
+  }
+  @media (max-width: 560px) {
+    .linha2 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

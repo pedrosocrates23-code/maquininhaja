@@ -7,7 +7,7 @@ import Parceria from '../components/Parceria.astro';
 <Institucional
   fontes={['TN-F018', 'TN-F023', 'TN-F024', 'TN-F027', 'TN-F030', 'TN-F031', 'TN-F034', 'TN-F035', 'TN-F040', 'TN-F042', 'TN-F046', 'TN-F177', 'X-correcoes-a-03', 'X-correcoes-a-04']}
   title="Transparência: quem paga este site"
-  description="Quem paga o Maquininha Já: hoje, ninguém. Como funcionaria a comissão do Renda Extra Ton e o que mudaria para você."
+  description={PROGRAMA_ATIVO ? "Quem paga o Maquininha Já: a comissão do Renda Extra Ton quando você pede pelos nossos links. Quanto é, por modelo, e o que muda para você." : "Quem paga o Maquininha Já: hoje, ninguém. Como funcionaria a comissão do Renda Extra Ton e o que mudaria para você."}
   h1={PROGRAMA_ATIVO ? "Transparência: somos Parceiro Ton, não a Ton" : "Transparência: quem paga este site"}
   rotulo="Transparência"
   path="/transparencia/"

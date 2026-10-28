@@ -1,0 +1,131 @@
+---
+// Ranking comercial dos quatro modelos Ton: cards de oferta logo abaixo do topo e o guia.
+// O texto (H2 em diante) é src/textos/melhor-maquininha-ton.mdx, que passa pelo gate
+// scripts/validar_pagina.py como qualquer guia; título, description e FAQ vêm do frontmatter dele.
+// Ordem do ranking: avaliação documental (quantos perfis de venda cada modelo atende pelas fichas
+// oficiais), explicada no próprio texto. Nenhum teste em mãos.
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import OfertaModelo from '../../components/OfertaModelo.astro';
+import NotasTon from '../../components/NotasTon.astro';
+import Fonte from '../../components/Fonte.astro';
+import Fontes from '../../components/Fontes.astro';
+import Callout from '../../components/Callout.astro';
+import CtaIndicacao from '../../components/CtaIndicacao.astro';
+import Faq from '../../components/Faq.astro';
+import Parceria from '../../components/Parceria.astro';
+import Taxa from '../../components/dados/Taxa.astro';
+import Preco from '../../components/dados/Preco.astro';
+import TabelaParcelas from '../../components/dados/TabelaParcelas.astro';
+import TabelaFaixas from '../../components/dados/TabelaFaixas.astro';
+import Corpo, { frontmatter as fm } from '../../textos/melhor-maquininha-ton.mdx';
+import { MODELOS, modelo } from '../../data/modelos';
+import { SITE, STATUS } from '../../data/site';
+import { pagina, ID, imagemOg } from '../../lib/schema';
+
+const CONFERIDO = '27 de outubro de 2026';
+const path = '/modelos/melhor-maquininha-ton/';
+const crumbs = [
+  { name: 'Início', href: '/' },
+  { name: 'Modelos', href: '/modelos/' },
+  { name: fm.migalha ?? 'Melhor maquininha Ton', href: path },
+];
+
+// Ranking (posição, selo e para quem é). Cada frase sai da ficha do modelo em data/modelos.ts.
+const RANKING = [
+  { slug: 't3', selo: 'A que atende mais perfis', linha: 'Balcão, rua e parcelado longo na mesma máquina: imprime, tem chip próprio, Pix e parcela em até 21x.' },
+  { slug: 't3-smart', selo: 'Para quem vende o dia todo', linha: 'Tudo da T3 com tela touch, Android, chip 4G e bateria de longa duração, segundo a Ton.' },
+  { slug: 't2', selo: 'Para vender na rua sem papel', linha: 'Chip e Wi-Fi próprios e Pix na máquina, sem depender do celular. Comprovante por SMS.' },
+  { slug: 't1', selo: 'Menor custo de entrada', linha: 'Conecta no celular por Bluetooth. Para quem vende pouco e já anda com o celular carregado.' },
+] as const;
+
+const componentes = { Parceria, Fonte, Callout, CtaIndicacao, Taxa, Preco, TabelaParcelas, TabelaFaixas };
+const faq = fm.faq ?? [];
+const fontesPagina = [
+  ...new Set([
+    ...fm.fontes,
+    ...MODELOS.flatMap((m) => m.fontes),
+    'X-conferencia-27out-02', 'X-conferencia-27out-03', 'X-conferencia-27out-04', 'X-conferencia-27out-05',
+    'X-notas-28out-01', 'X-notas-28out-02',
+  ]),
+];
+const schema = [
+  ...pagina({
+    path, title: fm.title, description: fm.description, tipo: 'Article', h1: fm.h1,
+    publicado: '2026-10-27', atualizado: '2026-10-27', revisado: '2026-10-27', crumbs,
+    sobre: [ID.ton], hub: '/modelos/', imagem: imagemOg('modelos'),
+    mencoes: fm.entidades ?? [], faq, fontes: fontesPagina, secao: 'Modelos',
+  }),
+  {
+    '@type': 'ItemList',
+    '@id': `${SITE.url}${path}#ranking`,
+    name: 'Ranking das maquininhas Ton',
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    numberOfItems: RANKING.length,
+    itemListElement: RANKING.map((r, i) => ({ '@type': 'ListItem', position: i + 1, name: modelo(r.slug).nome, url: `${SITE.url}/modelos/${r.slug}/` })),
+  },
+];
+---
+
+<Base title={fm.title} description={fm.description} crumbs={crumbs} schema={schema} ogImage="/og/modelos.jpg" ogType="article" atualizado="2026-10-27">
+  <PageHero rotulo={fm.rotulo} h1={fm.h1} resumo={fm.resumo}>
+    <p class="byline">
+      Preços e taxas conferidos no site da Ton em {CONFERIDO}. Avaliação documental, sem teste em mãos:
+      <a href="/como-testamos/">como avaliamos</a>. {STATUS.receita}
+    </p>
+  </PageHero>
+
+  <section class="wrap ranking" aria-labelledby="ranking-tit" data-secao="ranking_ofertas">
+    <h2 id="ranking-tit">As quatro maquininhas Ton, da mais completa à mais simples</h2>
+    <div class="notas-box"><NotasTon /></div>
+    <div class="ofertas">
+      {RANKING.map((r, i) => <OfertaModelo slug={r.slug} posicao={i + 1} selo={r.selo} linha={r.linha} conferido={CONFERIDO} evento={`ranking_${r.slug}`} />)}
+    </div>
+  </section>
+
+  <div class="wrap-text corpo">
+    <article class="prose">
+      <Corpo components={componentes} />
+    </article>
+    {faq.length > 0 && <div class="faq-box"><Faq itens={faq} /></div>}
+    <Fontes ids={fontesPagina} />
+  </div>
+</Base>
+
+<style>
+  .byline {
+    margin: 0;
+    font-size: var(--fs-0);
+    color: var(--muted);
+    max-width: 44rem;
+  }
+  .ranking {
+    padding-bottom: var(--s-8);
+  }
+  .ranking h2 {
+    margin-bottom: var(--s-6);
+  }
+  .notas-box {
+    margin-bottom: var(--s-6);
+  }
+  .ofertas {
+    display: grid;
+    gap: var(--s-6);
+  }
+  .corpo {
+    padding-bottom: var(--s-9);
+  }
+  /* Foto do modelo logo abaixo do H3 de cada um, para o leitor saber de qual máquina o trecho fala. */
+  .corpo :global(.prose img) {
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    margin: var(--s-4) auto var(--s-5);
+    border-radius: var(--radius-l);
+    background: #f6f6f1;
+  }
+  .faq-box {
+    margin-top: var(--s-8);
+  }
+</style>

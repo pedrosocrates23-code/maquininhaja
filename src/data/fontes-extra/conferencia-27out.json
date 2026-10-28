@@ -1,0 +1,52 @@
+{
+ "X-conferencia-27out-01": {
+  "url": "https://www.ton.com.br/planos-e-taxas",
+  "data": "2026-10-27",
+  "trecho": "\"commercial_name\":\"Ton Mega+ ¦ Período Promocional\",\"type\":\"transactional\",\"metadata\":{\"checkout_web_display\":true,\"maxi ... \"updated_at\":\"2026-10-01T12:40:31.757Z\", ... \"card_brand\":\"elo\",\"installments\":[{\"mdr\":2.57,\"installment\":1}],\"payment_method\":\"debit_card\"},{\"capture_method\":null,\"card_brand\":\"elo\",\"i"
+ },
+ "X-conferencia-27out-02": {
+  "url": "https://www.ton.com.br/maquininha/t1",
+  "data": "2026-10-27",
+  "trecho": "Maquininha Ton T1: a compacta que conecta com seu celular 70% OFF R$ 56,57 R$ 16,80 à vista ou 12x R$ 1 ,40 Frete Grátis para todo Brasil"
+ },
+ "X-conferencia-27out-03": {
+  "url": "https://www.ton.com.br/maquininha/t2",
+  "data": "2026-10-27",
+  "trecho": "Maquininha Ton T2: a compacta que tá sempre com você 72% OFF R$ 151,29 R$ 42,36 à vista ou 12x R$ 3 ,53 Frete Grátis para todo Brasil"
+ },
+ "X-conferencia-27out-04": {
+  "url": "https://www.ton.com.br/maquininha/t3",
+  "data": "2026-10-27",
+  "trecho": "Maquininha Ton T3: a parceira do empreendedor brasileiro 72% OFF R$ 391,92 R$ 108,00 à vista ou 12x R$ 9 ,00 Frete Grátis para todo Brasil"
+ },
+ "X-conferencia-27out-05": {
+  "url": "https://www.ton.com.br/maquininha/t3-smart",
+  "data": "2026-10-27",
+  "trecho": "Maquininha Ton T3 Smart: a completa que nunca te deixa na mão 71% OFF R$ 671,43 R$ 191,88 à vista ou 12x R$ 15 ,99 Frete Grátis para todo Brasil"
+ },
+ "X-conferencia-27out-06": {
+  "url": "https://www.ton.com.br/planos-e-taxas",
+  "data": "2026-10-27",
+  "trecho": "\"commercial_name\":\"Ton Mega+ ¦ até R$ 3 mil\" ... \"anticipation_delay\":0 ... \"card_brand\":\"visa\",\"installments\":[{\"mdr\":1.98,\"installment\":1}],\"payment_method\":\"debit_card\" ... \"card_brand\":\"mastercard\",\"installments\":[{\"mdr\":1.98,\"installment\":1}],\"payment_method\":\"debit_card\" ... \"card_brand\":\"elo\",\"installments\":[{\"mdr\":3.27,\"installment\":1}],\"payment_method\":\"debit_card\" ... \"card_brand\":\"amex\",\"installments\":[{\"mdr\":3.27,\"installment\":1}],\"payment_method\":\"debit_card\""
+ },
+ "X-conferencia-27out-07": {
+  "url": "https://www.ton.com.br/maquininha/t1",
+  "data": "2026-10-27",
+  "trecho": "R$ 16,80 à vista ou 12x R$ 1 ,40 Frete Grátis para todo Brasil 0,00% Pix 0,57% Débito 0,57% Crédito 7,97% Crédito 12x"
+ },
+ "X-conferencia-27out-08": {
+  "url": "https://www.ton.com.br/maquininha/t2",
+  "data": "2026-10-27",
+  "trecho": "R$ 42,36 à vista ou 12x R$ 3 ,53 Frete Grátis para todo Brasil 0,00% Pix 0,57% Débito 0,57% Crédito 7,97% Crédito 12x"
+ },
+ "X-conferencia-27out-09": {
+  "url": "https://www.ton.com.br/maquininha/t3-smart",
+  "data": "2026-10-27",
+  "trecho": "R$ 191,88 à vista ou 12x R$ 15 ,99 Frete Grátis para todo Brasil 0,00% Pix 0,57% Débito 0,57% Crédito 7,97% Crédito 12x"
+ },
+ "X-conferencia-27out-10": {
+  "url": "https://www.ton.com.br/planos-e-taxas",
+  "data": "2026-10-27",
+  "trecho": "\"commercial_name\":\"Ton Mega+ ¦ Período Promocional\" ... \"anticipation_delay\":0 ... \"card_brand\":\"visa\",\"installments\":[{\"mdr\":0.57,\"installment\":1},{\"mdr\":3.97,\"installment\":2} ... \"anticipation_delay\":1 ... \"card_brand\":\"visa\",\"installments\":[{\"mdr\":0.57,\"installment\":1},{\"mdr\":3.97,\"installment\":2}"
+ }
+}

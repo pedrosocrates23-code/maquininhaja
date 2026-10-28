@@ -1,0 +1,138 @@
+---
+// Simulador de taxas Ton POR VENDA: o formulário (SimuladorVenda), as maquininhas logo abaixo e o
+// texto semântico em src/textos/simulador-de-taxas.mdx (gate scripts/validar_pagina.py). Title,
+// description, H1 e FAQ vêm do frontmatter do MDX. O custo do MÊS fica em /quanto-custa/calculadora/.
+import Base from '../../layouts/Base.astro';
+import SimuladorVenda from '../../components/SimuladorVenda.astro';
+import OfertaModelo from '../../components/OfertaModelo.astro';
+import NotasTon from '../../components/NotasTon.astro';
+import Fonte from '../../components/Fonte.astro';
+import Fontes from '../../components/Fontes.astro';
+import Callout from '../../components/Callout.astro';
+import CtaIndicacao from '../../components/CtaIndicacao.astro';
+import Faq from '../../components/Faq.astro';
+import Parceria from '../../components/Parceria.astro';
+import Taxa from '../../components/dados/Taxa.astro';
+import Preco from '../../components/dados/Preco.astro';
+import TabelaParcelas from '../../components/dados/TabelaParcelas.astro';
+import TabelaFaixas from '../../components/dados/TabelaFaixas.astro';
+import Corpo, { frontmatter as fm } from '../../textos/simulador-de-taxas.mdx';
+import { MODELOS } from '../../data/modelos';
+import { pagina, ID, imagemOg } from '../../lib/schema';
+import { dig } from '../../lib/texto';
+
+const CONFERIDO = '27 de outubro de 2026';
+const path = '/quanto-custa/simulador-de-taxas/';
+const crumbs = [
+  { name: 'Início', href: '/' },
+  { name: 'Quanto custa', href: '/quanto-custa/' },
+  { name: fm.migalha ?? 'Simulador de taxas', href: path },
+];
+const VITRINE = [
+  { slug: 't3', linha: 'Imprime, tem chip e Wi-Fi, Pix na máquina e parcela em até 21x.' },
+  { slug: 't3-smart', linha: 'Tudo da T3 com tela touch, Android e chip 4G.' },
+  { slug: 't2', linha: 'Chip e Wi-Fi, Pix na máquina, comprovante por SMS.' },
+  { slug: 't1', linha: 'Conecta no celular por Bluetooth. A entrada mais barata.' },
+] as const;
+
+const componentes = { Parceria, Fonte, Callout, CtaIndicacao, Taxa, Preco, TabelaParcelas, TabelaFaixas };
+const faq = fm.faq ?? [];
+const fontesPagina = [
+  ...new Set([
+    ...fm.fontes,
+    'X-conferencia-27out-01', 'TN-F051', 'TN-F010', 'TN-F072', 'TN-F070', 'TN-F011', 'TN-F180',
+    ...MODELOS.flatMap((m) => m.fontes),
+    'X-conferencia-27out-02', 'X-conferencia-27out-03', 'X-conferencia-27out-04', 'X-conferencia-27out-05',
+    'X-notas-28out-01', 'X-notas-28out-02', 'X-melhor-maquininha-ton-08',
+  ]),
+];
+const schema = pagina({
+  path, title: fm.title, description: fm.description, tipo: 'WebApplication', h1: fm.h1,
+  atualizado: '2026-10-27', revisado: '2026-10-27', crumbs,
+  sobre: [ID.tonMega], hub: '/quanto-custa/', imagem: imagemOg('calculadora'),
+  mencoes: fm.entidades ?? [],
+  recursos: [
+    'Valor líquido de cada venda no débito, crédito à vista e parcelado de 2x a 21x',
+    'Taxas por faixa de faturamento do Ton Mega+ e por bandeira',
+    'Recebimento na hora ou em 1 dia útil',
+    'Quanto cobrar para receber o valor cheio',
+  ],
+  faq,
+});
+---
+
+<Base title={fm.title} description={fm.description} crumbs={crumbs} schema={schema} ogImage="/og/calculadora.jpg" atualizado="2026-10-27">
+  <!-- Topo enxuto: só rótulo e H1, para o simulador entrar na primeira dobra. O resumo abre o texto, abaixo das maquininhas. -->
+  <header class="wrap topo">
+    <span class="chip chip-dot">{fm.rotulo}</span>
+    <h1 set:html={dig(fm.h1)} />
+  </header>
+
+  <SimuladorVenda />
+
+  <section id="maquininhas" class="wrap vitrine" aria-labelledby="vit-tit" data-secao="simulador_maquininhas">
+    <h2 id="vit-tit" class="sr-only">Maquininhas Ton</h2>
+    <NotasTon />
+    <div class="grade">
+      {VITRINE.map((v) => <OfertaModelo slug={v.slug} linha={v.linha} conferido={CONFERIDO} compacto evento={`simulador_${v.slug}`} />)}
+    </div>
+    <p class="nota-cta">Links de parceiro: você finaliza no site oficial da Ton, com o cupom de desconto do programa. Recebemos comissão.</p>
+  </section>
+
+  <div class="wrap-text corpo">
+    <article class="prose">
+      {fm.resumo && <p class="resumo" set:html={fm.resumo} />}
+      <Corpo components={componentes} />
+    </article>
+    {faq.length > 0 && <div class="faq-box"><Faq itens={faq} /></div>}
+    <Fontes ids={fontesPagina} />
+  </div>
+</Base>
+
+<style>
+  .topo {
+    padding-block: clamp(1.25rem, 3vw, 2rem) var(--s-5);
+    display: grid;
+    gap: var(--s-3);
+    justify-items: start;
+  }
+  .topo h1 {
+    font-size: clamp(2rem, 3.6vw, 2.875rem);
+    max-width: 32ch;
+  }
+  .resumo {
+    font-size: var(--fs-3);
+    color: var(--ink-2);
+  }
+  .vitrine {
+    padding-block: var(--s-7) var(--s-8);
+    display: grid;
+    gap: var(--s-5);
+  }
+  .grade {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--s-4);
+  }
+  .nota-cta {
+    margin: 0;
+    font-size: var(--fs-0);
+    color: var(--muted);
+  }
+  .corpo {
+    padding-bottom: var(--s-9);
+  }
+  .faq-box {
+    margin-top: var(--s-8);
+  }
+  @media (max-width: 1100px) {
+    .grade {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 620px) {
+    .grade {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

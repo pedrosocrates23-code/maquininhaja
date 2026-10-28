@@ -14,14 +14,14 @@ import { SITE } from '../../data/site';
 import taxas from '../../data/taxas.json';
 import { pagina, ID, imagemOg } from '../../lib/schema';
 
-const title = 'Simulador de taxas Ton: quanto cai na conta';
+const title = 'Custo mensal da Ton: simule pelo seu faturamento';
 const description =
-  'Simule a taxa da maquininha Ton com o seu faturamento: quanto você paga no mês promocional e do mês 2 em diante, recebendo na hora ou em 1 dia útil.';
+  'Calcule quanto a maquininha Ton custa por mês com o seu faturamento e o seu mix de débito, crédito, parcelado e Pix, no mês promocional e depois dele.';
 const path = '/quanto-custa/calculadora/';
 const crumbs = [
   { name: 'Início', href: '/' },
   { name: 'Quanto custa', href: '/quanto-custa/' },
-  { name: 'Calculadora', href: path },
+  { name: 'Custo mensal', href: path },
 ];
 // Só o que o script precisa (taxas Visa/Mastercard por faixa e prazo).
 const dados = JSON.stringify(
@@ -50,7 +50,7 @@ const faq = [
     r: `<p>É uma estimativa com as taxas oficiais de 13 de outubro de 2026 para cliente novo. Ela supõe que o mix de pagamentos se espalha igual ao longo do mês. A taxa real de cada venda aparece no app da Ton.</p>`,
   },
 ];
-const H1 = 'Simulador de taxas da Ton por faixa de faturamento'; // nome do WebApplication = H1 visível
+const H1 = 'Quanto a Ton custa por mês no seu faturamento e mix de vendas'; // nome do WebApplication = H1 visível
 const schema = pagina({
   path, title, description, tipo: 'WebApplication', h1: H1,
   atualizado: SITE.verificadoEm, revisado: SITE.verificadoEm, crumbs,
@@ -67,7 +67,9 @@ const ids = ['TN-F011', 'TN-F012', 'TN-F013', 'TN-F180', 'TN-F184', 'TN-F010', '
     rotulo="Calculadora"
     h1={H1}
     resumo="Coloca quanto vende por mês e como o cliente paga. A conta mostra o <strong>mês promocional</strong> e o <strong>mês 2 em diante</strong>, que é o que pesa de verdade."
-  />
+  >
+    <p class="outra">Quer a conta de uma venda só? Use o <a href="/quanto-custa/simulador-de-taxas/">simulador de taxas por venda</a>.</p>
+  </PageHero>
 
   <section class="wrap calc-grid" aria-label="Calculadora" data-secao="calculadora_form">
     <form id="calc" class="calc card" data-taxas={dados} novalidate>
@@ -222,6 +224,11 @@ const ids = ['TN-F011', 'TN-F012', 'TN-F013', 'TN-F180', 'TN-F184', 'TN-F010', '
 </script>
 
 <style>
+  .outra {
+    margin: 0;
+    font-size: var(--fs-1);
+    color: var(--ink-2);
+  }
   .calc-grid {
     display: grid;
     grid-template-columns: 1.15fr 1fr;
