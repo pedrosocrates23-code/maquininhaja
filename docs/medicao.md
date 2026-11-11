@@ -24,6 +24,7 @@ Além do evento "de verdade" (ex.: `pedido_ton_click`), todo CTA dispara um segu
 | corpo, home | `home_hero`, `home_modelos`, `home_bandeiras`, `home_quiz`, `home_verdades`, `home_calculadora`, `home_taxas`, `home_ajuda`, `home_independente`, `home_faq` |
 | corpo, modelo | `modelo_topo` (botão de pedido do topo), `modelo_custo`, `modelo_cta_final` (botão de pedido do fim) + id das seções (`serve`, `ficha`, `pc`) |
 | corpo, outras | `modelos_vitrine`, `modelos_tabela`, `calculadora_form`, `cta_final`; em artigos MDX: `artigo` + `secao_titulo` (h2 mais próximo acima do botão) |
+| corpo, guias | `banner_meio` (banner do meio dos guias de aprenda, quanto-custa e modelos; `BannerMeio.astro`) |
 | rodape | `rodape_destaque` (botão "Simular minhas taxas"), `rodape_links`, `rodape_geral` |
 
 ## 3. Eventos
@@ -38,6 +39,7 @@ Além do evento "de verdade" (ex.: `pedido_ton_click`), todo CTA dispara um segu
 | `calculadora_usada` | primeira alteração na calculadora (1x por visita) | `faixa_faturamento`, `prazo`, `parcelas` | micro (sem o valor exato) |
 | `calculadora_cta_click` | "Abrir a calculadora" / "Simular com o meu faturamento" | | micro |
 | `calculadora_resultado_click` | "Ver qual maquininha escolher", depois do resultado | | micro |
+| `banner_meio_click` | botão do banner do meio dos guias | `cta_tipo` = `quiz`, `calculadora` ou `modelos`; `cta_destino` | micro (passo antes do pedido) |
 | `cta_interno_click` | qualquer outro botão do site (`.btn`) | `cta_texto`, `cta_destino` | não |
 | `modelo_card_click` | clique no card de um modelo | `modelo_cta` | não |
 | `cta_header` / `cta_corpo` / `cta_rodape` | todo CTA acima, só com o lugar | `evento_origem` | não (use para dividir) |

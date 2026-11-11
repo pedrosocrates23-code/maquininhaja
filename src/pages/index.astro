@@ -248,8 +248,8 @@ const schema = pagina({
       </div>
       <figure class="calc-img">
         <Picture
-          src={IMG.sobra}
-          alt="Três celulares com a simulação do site: venda de R$ 100 no débito deixa R$ 99,43 no mês 1 e R$ 98,31 no mês 2; R$ 3.000 de vendas pagam R$ 17,10 de taxa no mês 1 e R$ 50,70 no mês 2; receber na hora deixa R$ 98,02 e em 1 dia útil, R$ 98,31"
+          src={IMG.calculadora}
+          alt="Comerciante confere no celular o resultado das vendas do dia no balcão, com uma maquininha Ton T3 Smart verde ao lado"
           formats={['avif', 'webp']}
           widths={[480, 720, 960]}
           sizes="(max-width: 900px) 92vw, 520px"
@@ -522,12 +522,7 @@ const schema = pagina({
     gap: var(--s-3);
     max-width: 100%;
   }
-  .calc-img :global(img) {
-    width: 100%;
-    height: auto;
-    aspect-ratio: auto;
-    object-fit: contain;
-  }
+  .calc-img :global(img),
   .ajuda-img :global(img) {
     width: 100%;
     border-radius: var(--radius-l);

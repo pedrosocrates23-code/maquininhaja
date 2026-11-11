@@ -17,10 +17,20 @@ import ajuda from '../assets/img/secao-ajuda.jpg';
 import aprenda from '../assets/img/secao-aprenda.jpg';
 import calculadora from '../assets/img/secao-calculadora.jpg';
 import renda from '../assets/img/secao-renda.jpg';
-// Mockup do simulador do site (scripts/gerar_mockup_sobra.py): molde de celulares do Codex + telas com os números de taxas.json.
-import sobra from '../assets/img/mockup-sobra.png';
 
-export const IMG = { hero, heroBanner, ajuda, aprenda, calculadora, renda, sobra };
+// Banner do meio dos guias (BannerMeio.astro): cena do Codex ampliada no Magnific + foto oficial do aparelho,
+// montadas por scripts/gerar_banner_meio.py; cenas em design/imagens-fonte/banner-meio/.
+import bannerQuiz from '../assets/img/banner-meio-quiz.jpg';
+import bannerCalculadora from '../assets/img/banner-meio-calculadora.jpg';
+import bannerModelos from '../assets/img/banner-meio-modelos.jpg';
+
+export const IMG = { hero, heroBanner, ajuda, aprenda, calculadora, renda };
+
+export const IMG_BANNER = {
+  quiz: { src: bannerQuiz, alt: 'Maquininha Ton T3 verde sobre o balcão de uma pequena loja' },
+  calculadora: { src: bannerCalculadora, alt: 'Maquininha Ton T3 Smart verde sobre a mesa de trabalho de um pequeno negócio' },
+  modelos: { src: bannerModelos, alt: 'Os quatro modelos da maquininha Ton lado a lado: T1, T2, T3 e T3 Smart' },
+};
 
 export const IMG_MODELO = {
   t1: { src: t1, hero: t1h, alt: 'Maquininha Ton T1 verde, de frente, com visor monocromático e teclado numérico' },

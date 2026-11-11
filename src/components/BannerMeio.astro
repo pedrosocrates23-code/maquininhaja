@@ -1,0 +1,127 @@
+---
+// Banner de chamada no meio dos guias (aprenda, quanto-custa, modelos). Não entra no MDX: o plugin
+// `bannerMeio` (astro.config.mjs) insere <BannerMeio /> antes do H2 do meio do artigo.
+// É o "passo menor" da SPEC-REDACAO §8 (quiz, calculadora ou comparação), nunca o pedido:
+// o CtaIndicacao do corpo continua sendo o único botão que leva ao checkout da Ton.
+// Imagem: cena do Codex + upscale Magnific + foto oficial do aparelho (scripts/gerar_banner_meio.py).
+import { Picture } from 'astro:assets';
+import { IMG_BANNER } from '../lib/imagens';
+
+const VARIANTES = {
+  quiz: {
+    rotulo: 'Antes de escolher',
+    titulo: 'Qual maquininha Ton combina com o seu jeito de vender?',
+    texto: 'Responda três perguntas e veja o modelo indicado para o seu caso.',
+    botao: 'Fazer o quiz',
+    href: '/#escolher',
+  },
+  calculadora: {
+    rotulo: 'Faça a conta',
+    titulo: 'Quanto sobra de cada venda?',
+    texto: 'Simule a taxa pela sua faixa de faturamento, no mês promocional e depois dele.',
+    botao: 'Simular minhas taxas',
+    href: '/quanto-custa/calculadora/',
+  },
+  modelos: {
+    rotulo: 'Compare antes de pedir',
+    titulo: 'Quatro modelos, uma tabela.',
+    texto: 'Veja T1, T2, T3 e T3 Smart lado a lado e descubra qual atende o seu negócio.',
+    botao: 'Comparar os modelos',
+    href: '/modelos/#tabela',
+  },
+} as const;
+
+type Variante = keyof typeof VARIANTES;
+const SECAO_VARIANTE: Record<string, Variante> = { aprenda: 'quiz', 'quanto-custa': 'calculadora', modelos: 'modelos' };
+
+const secao = Astro.url.pathname.split('/')[1] ?? '';
+const tipo: Variante = SECAO_VARIANTE[secao] ?? 'quiz';
+const v = VARIANTES[tipo];
+const img = IMG_BANNER[tipo];
+---
+
+<aside class="banner-meio panel" aria-label={v.titulo} data-secao="banner_meio">
+  <div class="bm-txt">
+    <p class="eyebrow bm-rot">{v.rotulo}</p>
+    <p class="display bm-tit">{v.titulo}</p>
+    <p class="bm-sub">{v.texto}</p>
+    <a class="btn btn-primary" href={v.href} data-evento="banner_meio_click" data-cta-tipo={tipo}>
+      {v.botao}
+      <svg viewBox="0 0 24 24" aria-hidden="true"
+        ><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg
+      >
+    </a>
+  </div>
+  <div class="bm-img">
+    <Picture
+      src={img.src}
+      alt={img.alt}
+      formats={['avif', 'webp']}
+      widths={[480, 720, 960]}
+      sizes="(max-width: 720px) 92vw, 340px"
+      quality={60}
+      loading="lazy"
+    />
+  </div>
+</aside>
+
+<style>
+  .banner-meio {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    border-radius: var(--radius-l);
+    overflow: hidden;
+    margin: var(--s-8) 0;
+  }
+  .bm-txt {
+    display: grid;
+    align-content: center;
+    justify-items: start;
+    gap: var(--s-3);
+    padding: clamp(1.5rem, 4vw, 2.25rem);
+  }
+  .banner-meio .bm-rot {
+    color: var(--green);
+    margin: 0;
+  }
+  .banner-meio .bm-tit {
+    font-size: var(--fs-4);
+    line-height: 1.15;
+    color: var(--on-panel);
+    margin: 0;
+    max-width: none;
+  }
+  .banner-meio .bm-sub {
+    color: var(--on-panel-muted);
+    font-size: var(--fs-1);
+    margin: 0;
+  }
+  .banner-meio .btn {
+    margin-top: var(--s-2);
+    text-decoration: none;
+  }
+  /* a imagem acompanha a altura do texto: recorte central (os aparelhos estão no meio da cena) */
+  .bm-img {
+    position: relative;
+    min-height: 16rem;
+  }
+  .bm-img :global(picture),
+  .bm-img :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  @media (max-width: 720px) {
+    .banner-meio {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .bm-img {
+      order: -1;
+      min-height: 0;
+      aspect-ratio: 16 / 10;
+    }
+  }
+</style>
