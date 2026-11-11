@@ -1,0 +1,122 @@
+{
+  "X-como-emitir-nota-fiscal-mei-01": {
+    "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm",
+    "data": "2026-11-10",
+    "trecho": "§ 1º O MEI fará a comprovação da receita bruta mediante apresentação do registro de vendas ou de prestação de serviços na forma estabelecida pelo CGSN, ficando dispensado da emissão do documento fiscal previsto no inciso I do caput , ressalvadas as hipóteses de emissão obrigatória previstas pelo referido Comitê."
+  },
+  "X-como-emitir-nota-fiscal-mei-02": {
+    "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm",
+    "data": "2026-11-10",
+    "trecho": "§ 6º Na hipótese do § 1 deste artigo: I - deverão ser anexados ao registro de vendas ou de prestação de serviços, na forma regulamentada pelo Comitê Gestor, os documentos fiscais comprobatórios das entradas de mercadorias e serviços tomados referentes ao período, bem como os documentos fiscais relativos às operações ou prestações realizadas eventualmente emitidos; II - será obrigatória a emissão de documento fiscal nas vendas e nas prestações de serviços realizadas pelo MEI para destinatário cadastrado no Cadastro Nacional da Pessoa Jurídica (CNPJ), ficando dispensado desta emissão para o consumidor final."
+  },
+  "X-como-emitir-nota-fiscal-mei-03": {
+    "url": "https://www.gov.br/nfse/pt-br/biblioteca/legislacao-aplicavel-ao-mei",
+    "data": "2026-11-10",
+    "trecho": "Resolução do Comitê Gestor do Simples Nacional (CGSN) Nº 169, de 27 de julho de 2022 Resolução do Comitê Gestor do Simples Nacional (CGSN) que estabelece a obrigatoriedade de emissão de nota fiscal de serviços pelo MEI no padrão nacional (NFS-e) a partir de 03 de abril de 2023."
+  },
+  "X-como-emitir-nota-fiscal-mei-04": {
+    "url": "https://www.gov.br/nfse/pt-br/ebook-cadastramento-e-emissao-nfs-e-ago-2023.pdf",
+    "data": "2026-11-10",
+    "trecho": "O Microempreendedor Individual (MEI) está obrigado à emissão de nota fiscal sempre que vender ou prestar serviços para outras empresas de qualquer porte. A emissão da nota fiscal é opcional quando o serviço ou a venda for realizada para pessoa física."
+  },
+  "X-como-emitir-nota-fiscal-mei-05": {
+    "url": "https://www.gov.br/nfse/pt-br/ebook-cadastramento-e-emissao-nfs-e-ago-2023.pdf",
+    "data": "2026-11-10",
+    "trecho": "Para o Empreendedor poder utilizar o Portal Nacional de Emissão de Nota Fiscal de Serviços eletrônica e o APP, poderá acessar com a sua conta gov.br ou efetuar o cadastramento dos dados da pessoa jurídica no emissor web: https://www.nfse.gov.br/EmissorNacional"
+  },
+  "X-como-emitir-nota-fiscal-mei-06": {
+    "url": "https://www.gov.br/nfse/pt-br/ebook-cadastramento-e-emissao-nfs-e-ago-2023.pdf",
+    "data": "2026-11-10",
+    "trecho": "Há 3 opções de login no Emissor Web pelo MEI: acesso com usuário e senha realizando o cadastramento pelo portal, certificado digital e a conta gov.br. O login no site gov.br só está disponível para o MEI. Ele deve ser feito pelo seu representante legal. Após o login com o CPF, o emissor abrirá para o seu CNPJ MEI. Para fazer o login no gov.br, o representante legal deverá ter os selos prata ou ouro."
+  },
+  "X-como-emitir-nota-fiscal-mei-07": {
+    "url": "https://www.gov.br/nfse/pt-br/ebook-cadastramento-e-emissao-nfs-e-ago-2023.pdf",
+    "data": "2026-11-10",
+    "trecho": "1. No seu primeiro acesso, será necessário acessar as configurações. Isso pode ser feito clicando em qualquer um dos símbolos abaixo: 2. Ao entrar nas configurações, preencha os campos com email e telefone que serão utilizados na geração da NFS-e. 3. Selecione no campo Valor Aproximado dos Tributos a “terceira opção” Não informar nenhum valor estimado para os tributos”."
+  },
+  "X-como-emitir-nota-fiscal-mei-08": {
+    "url": "https://www.gov.br/nfse/pt-br/ebook-cadastramento-e-emissao-nfs-e-ago-2023.pdf",
+    "data": "2026-11-10",
+    "trecho": "Se você for MEI, pode selecionar a opção “Emissão Simplificada” Preencha os dados solicitados. Na Emissão Simplificada, somente é possível utilizar os serviços previamente cadastrados em “Serviços Favoritos” para efetuar a emissão da NFS-e. Você só precisará preencher com os dados do CPF/CNPJ do cliente que será opcional, o valor do serviço prestado."
+  },
+  "X-como-emitir-nota-fiscal-mei-09": {
+    "url": "https://www.gov.br/nfse/pt-br/ebook-cadastramento-e-emissao-nfs-e-ago-2023.pdf",
+    "data": "2026-11-10",
+    "trecho": "Para usar o APP é pré-requisito fazer a configuração primeiro no Emissor Web!"
+  },
+  "X-como-emitir-nota-fiscal-mei-10": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "Diferente da Nota Fiscal Eletrônica (NF-e) emitida para registrar a venda de produtos e ou serviços de transportes entre cidades e/ou estados, a Nota Fiscal de Serviços Eletrônica (NFS-e) é emitida para registrar a prestação de serviços. Consulte seu município e/ou a Secretaria de Fazenda do seu Estado para saber se é permitida a NF-e na sua cidade e/ou Estado. Quem é MEI é isento da emissão de notas quando prestar serviços para pessoas físicas, mas é obrigado a emitir a NFS-e sempre que realizar determinada atividade para uma pessoa jurídica, ou seja, para uma empresa. A principal diferença entre as notas mencionadas acima se relaciona ao órgão responsável por emiti-las, cadastrá-las e validá-las: no caso da NFS-e , o órgão é municipal, enquanto no caso da NF-e, a responsabilidade é da SEFAZ do estado. Por isso, a emissão da nota fiscal de serviço ( NFS-e) é diferente em cada cidade, mas no geral a prefeitura disponibiliza um local no próprio site para que o usuário se cadastre, faça o login e emita as notas fiscais."
+  },
+  "X-como-emitir-nota-fiscal-mei-11": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "● Emitir documento fiscal quando o destinatário for empresa, salvo se o destinatário emitir nota fiscal de entrada de mercadorias."
+  },
+  "X-como-emitir-nota-fiscal-mei-12": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "Nota: O MEI fica dispensado da escrituração dos livros fiscais e contábeis, da Declaração Eletrônica de Serviços e da emissão da Nota Fiscal Eletrônica (NF-e)."
+  },
+  "X-como-emitir-nota-fiscal-mei-13": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "Sim, MEIs deverão manter as notas fiscais de suas compras e vendas, arquivadas pelo prazo de 5 anos, a contar da data de sua emissão."
+  },
+  "X-como-emitir-nota-fiscal-mei-14": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "Atenção: para emitir nota fiscal em modelo eletrônico não é obrigatório que quem é MEI tenha um Certificado Digital, conforme LC 123/2006."
+  },
+  "X-como-emitir-nota-fiscal-mei-15": {
+    "url": "https://ajuda.ton.com.br/pt_BR/notas-fiscais-ton/notas-fiscais-visao-geral-do-produto",
+    "data": "2026-11-10",
+    "trecho": "É uma solução gratuita da Ton para você emitir notas fiscais nas suas vendas. Ela funciona em três lugares: Card Notas fiscais, na home do app Ton: onde você faz a configuração fiscal do seu negócio e gerencia todas as notas emitidas, consultando, cancelando, devolvendo e baixando XMLs. Card Catálogo, na home do app Ton: onde você cadastra seus produtos e preenche os dados fiscais de cada um. Sem isso, a emissão não pode ser ativada. Aplicativo Catálogo, na maquininha: onde as NFC-e (Nota Fiscal de Consumidor Eletrônica) são emitidas automaticamente a cada venda."
+  },
+  "X-como-emitir-nota-fiscal-mei-16": {
+    "url": "https://ajuda.ton.com.br/pt_BR/notas-fiscais-ton/notas-fiscais-visao-geral-do-produto",
+    "data": "2026-11-10",
+    "trecho": "O produto está disponível para você que é do regime tributário Simples Nacional ou MEI e utiliza o aplicativo Catálogo na maquininha. Se sua empresa for de outro regime tributário, ainda não é possível emitir notas pela Ton. Em quais estados o produto de Notas Fiscais está disponível? A emissão de notas fiscais pela Ton está disponível em todo o Brasil, exceto nos estados de Santa Catarina (SC), Paraná (PR) e Espírito Santo (ES). Se o seu negócio estiver registrado em algum desses estados, a funcionalidade ainda não pode ser ativada."
+  },
+  "X-como-emitir-nota-fiscal-mei-17": {
+    "url": "https://ajuda.ton.com.br/pt_BR/notas-fiscais-ton/notas-fiscais-configuracao-inicial",
+    "data": "2026-11-10",
+    "trecho": "São 4 etapas realizadas no app Ton, em Notas fiscais > Configurações fiscais: Regime tributário: selecione Simples Nacional ou MEI Certificado Digital A1: envie o arquivo .pfx ou .p12 e informe a senha Inscrição Estadual e CNAE: preenchidos automaticamente pelo certificado. Edite se necessário"
+  },
+  "X-como-emitir-nota-fiscal-mei-18": {
+    "url": "https://ajuda.ton.com.br/pt_BR/notas-fiscais-ton/notas-fiscais-emissao-automatica-na-maquininha",
+    "data": "2026-11-10",
+    "trecho": "Com a emissão ativada e todos os produtos com dados fiscais preenchidos, a NFC-e é gerada automaticamente ao final de cada venda pelo aplicativo Catálogo. Você não precisa fazer nada além do fluxo normal de venda. A nota é emitida e o DANFE (comprovante fiscal) é impresso automaticamente pela maquininha."
+  },
+  "X-como-emitir-nota-fiscal-mei-19": {
+    "url": "https://ajuda.ton.com.br/pt_BR/notas-fiscais-ton/notas-fiscais-emissao-automatica-na-maquininha",
+    "data": "2026-11-10",
+    "trecho": "A emissão automática funciona apenas para vendas realizadas pelo aplicativo Catálogo na maquininha. Para outras vendas, você precisa emitir a nota manualmente acessando o detalhe da venda no app Ton e clicando em Emitir nota fiscal."
+  },
+  "X-como-emitir-nota-fiscal-mei-20": {
+    "url": "https://ajuda.ton.com.br/pt_BR/catalogo-ton/compatibilidade-e-requisitos",
+    "data": "2026-11-10",
+    "trecho": "Apenas os modelos de maquininha Smart são compatíveis com o catálogo. Estes são os modelos Smarts disponíveis no Ton: P2 e P2-A11 L300 e L300New T19 GPOS760"
+  },
+  "X-como-emitir-nota-fiscal-mei-21": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "MEIs podem prestar serviços exclusivamente para uma empresa, emitindo assim notas fiscais apenas para essa empresa? Sim. É permitido que MEIs forneçam ou prestem serviços para uma ou mais empresas, bem como pessoas físicas, emitindo, nestes casos, as notas fiscais cabíveis. Mas lembre-se: não é permitido substituir o vínculo empregatício, isto é, o emprego com carteira assinada, pela condição de MEI. O MEI prestador de serviço não pode ter características de relação trabalhista pessoalidade, subordinação e habitualidade) com seu cliente, tomador do serviço."
+  },
+  "X-como-emitir-nota-fiscal-mei-22": {
+    "url": "https://www.gov.br/nfse/pt-br/ebook-cadastramento-e-emissao-nfs-e-ago-2023.pdf",
+    "data": "2026-11-10",
+    "trecho": "Você pode cadastrar até 10 serviços favoritos."
+  },
+  "X-como-emitir-nota-fiscal-mei-23": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "● Manter Relatório Mensal de Receitas Brutas para comprovação das receitas, onde deverão ser anexadas as notas fiscais de entrada de mercadorias e serviços tomados, bem como as notas fiscais de vendas ou prestação de serviços emitidas."
+  },
+  "X-como-emitir-nota-fiscal-mei-24": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "O MEI que vende a prazo (cartão de crédito, cheque pós-datado), deverá registrar a sua receita no relatório de receitas brutas mensais no mês que ocorre a venda ou mês do recebimento? As vendas a prazo devem ser registradas como receita no relatório no mês em que ocorre a venda."
+  }
+}

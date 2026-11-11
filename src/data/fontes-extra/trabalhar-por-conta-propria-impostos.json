@@ -1,0 +1,112 @@
+{
+  "X-trabalhar-por-conta-propria-impostos-01": {
+    "url": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/pagamento/carne-leao",
+    "data": "2026-11-10",
+    "trecho": "Carnê-leão é o imposto sobre a renda mensal de pessoa física residente no Brasil recebida de outra pessoa física ou do exterior. O imposto deve ser pago até o último dia útil do mês subsequente ao do recebimento do rendimento."
+  },
+  "X-trabalhar-por-conta-propria-impostos-02": {
+    "url": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/pagamento/carne-leao",
+    "data": "2026-11-10",
+    "trecho": "Os rendimentos tributados na fonte (salários, por exemplo) pelo imposto de renda não entram no cálculo do carnê-leão."
+  },
+  "X-trabalhar-por-conta-propria-impostos-03": {
+    "url": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/pagamento/carne-leao/rendimentos",
+    "data": "2026-11-10",
+    "trecho": "Estão sujeitos ao pagamento do Carnê-leão os rendimentos tributáveis recebidos de pessoa física e de fonte situada no exterior, tais como os relativos a: Trabalho sem vínculo empregatício;"
+  },
+  "X-trabalhar-por-conta-propria-impostos-04": {
+    "url": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/pagamento/carne-leao/deducoes",
+    "data": "2026-11-10",
+    "trecho": "Livro Caixa (somente por trabalhador autônomo, leiloeiro e titular de serviços notariais e de registro). Livro Caixa É o livro no qual são relacionadas, mensalmente, as receitas e despesas relativas à prestação de serviços sem vínculo empregatício."
+  },
+  "X-trabalhar-por-conta-propria-impostos-05": {
+    "url": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/pagamento/carne-leao/pagar",
+    "data": "2026-11-10",
+    "trecho": "Para o cálculo do imposto, o programa aplica a tabela mensal , do respectivo ano-calendário, sobre o rendimento total recebido no mês, depois de diminuídas as deduções relativas a Livro Caixa, dependentes, previdência oficial e pensão alimentícia paga. [...] Se o total dos rendimentos recebidos no mês for menor ou igual ao limite de isenção, vocês estará dispensado de apurar o Carnê-leão, nesse mês."
+  },
+  "X-trabalhar-por-conta-propria-impostos-06": {
+    "url": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/pagamento/carne-leao/pagar",
+    "data": "2026-11-10",
+    "trecho": "Código da Receita: 0190. [...] Multa: no caso de pagamento em atraso, o valor da multa corresponde a 0,33% por dia de atraso, a partir do primeiro dia útil subsequente ao do vencimento do prazo para pagamento, até o limite máximo de 20% (vinte por cento). Juros ou Encargos: no caso de pagamento em atraso, o o valor dos juros calculados pela taxa referencial do Sistema Especial de Liquidação e Custódia (Selic) acumulada mensalmente a partir do mês seguinte ao do vencimento do imposto até o mês anterior ao do pagamento, acrescido de 1% (um por cento) no mês do pagamento."
+  },
+  "X-trabalhar-por-conta-propria-impostos-07": {
+    "url": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/pagamento/carne-leao/pagar",
+    "data": "2026-11-10",
+    "trecho": "A partir de 2021 o Carnê-Leão deve ser preenchido em ambiente web. A aplicação é multiexercício e pode ser utilizada para todos os fatos geradores a partir de 01/01/2021. Os dados são armazenados e poderão ser importados na Declaração de Imposto de Renda."
+  },
+  "X-trabalhar-por-conta-propria-impostos-08": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "Com o registro quem é MEI passa a ter a obrigação de contribuir para o INSS/Previdência Social, no valor de 5% sobre o Salário Mínimo ou 12% se for transportador autônomo, mais R$ 1,00 de ICMS para o Estado (atividades de indústria, comércio e transportes interestadual e/ou intermunicipal) e/ou R$ 5,00 de ISS para o município (atividades de Prestação de Serviços e Transporte Municipal). [...] A contribuição ao INSS é reajustada sempre que houver o aumento do salário mínimo."
+  },
+  "X-trabalhar-por-conta-propria-impostos-09": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "O vencimento do boleto (DAS) é até o dia 20 de cada mês, passando para o dia útil seguinte caso esta data coincida com final de semana ou feriado."
+  },
+  "X-trabalhar-por-conta-propria-impostos-10": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "A Declaração Anual é a obrigação acessória pela qual o MEI deve informar à Receita Federal o valor da receita bruta anual obtida no ano-calendário anterior, bem como se houve contratação de empregado no período. [...] A declaração deve ser transmitida até o dia 31 de maio do ano subsequente ao da apuração. [...] Sim. O MEI deve transmitir a declaração ainda que não tenha auferido receita bruta no período, hipótese em que a declaração será entregue com valores zerados."
+  },
+  "X-trabalhar-por-conta-propria-impostos-11": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "O atraso na entrega da DASN-SIMEI implica multa mínima de R$ 50,00 ou de 2% ao mês-calendário incidente sobre o valor dos tributos declarados, limitada a 20% do montante devido, conforme legislação do Simples Nacional."
+  },
+  "X-trabalhar-por-conta-propria-impostos-12": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "O fato de ter uma empresa MEI não obriga a pessoa a fazer a declaração de imposto de renda de pessoa física, nem ter valores a pagar deste imposto. Mas se você se enquadrar em uma das condições de obrigatoriedade determinadas pela Receita Federal, precisará declarar todas as informações sobre sua renda, bens e direitos, como também incluir na declaração os rendimentos recebidos como MEI."
+  },
+  "X-trabalhar-por-conta-propria-impostos-13": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "O MEI deve sempre registrar a sua Receita Brutal total, ou seja, todo o faturamento e NÃO o lucro (Lei Complementar nº 123/2006, § 1º do Artigo 18-A)."
+  },
+  "X-trabalhar-por-conta-propria-impostos-14": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "Nesse sentido, o MEI não terá esse tempo inadimplente contado para nenhum benefício da previdência social. [...] É importante saber também que, quando o MEI for recolher as contribuições atrasadas, serão cobrados os valores acrescidos de multa e juros de mora. Para além das repercussões relacionadas aos benefícios previdenciários, do ponto de vista tributário, os débitos como MEI são passíveis de inscrição em dívida ativa. [...] O MEI inadimplente também poderá ter o CNPJ cancelado."
+  },
+  "X-trabalhar-por-conta-propria-impostos-15": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "Não. O MEI não é obrigado contratar um contador ou manter a contabilidade formal. Também não é preciso ter livro caixa. No entanto, o MEI deverá registrar, mensalmente, em formulário simplificado, o total das suas receitas. Para tanto, deverá imprimir e preencher todo mês o Relatório Mensal das Receitas Brutas , conforme modelo disponível no Portal do Empreendedor."
+  },
+  "X-trabalhar-por-conta-propria-impostos-16": {
+    "url": "https://www.ton.com.br/MEI-PJ",
+    "data": "2026-11-10",
+    "trecho": "Agora, pra vender com Pix na maquininha (QR Code ou aproximação): Você tem 30 dias com taxa zero Depois disso, pra continuar com taxa zero, é só cadastrar uma chave Pix (CPF, CNPJ ou telefone) na sua Conta Ton Se não cadastrar, a taxa passa a ser 0,49% por venda E o melhor: o dinheiro cai em até 1 minuto e todas as vendas ficam organizadas no seu app."
+  },
+  "X-trabalhar-por-conta-propria-impostos-17": {
+    "url": "https://www.planalto.gov.br/ccivil_03/leis/l7713.htm",
+    "data": "2026-11-10",
+    "trecho": "Art. 8º Fica sujeito ao pagamento do imposto de renda, calculado de acordo com o disposto no art. 25 desta Lei, a pessoa física que receber de outra pessoa física, ou de fontes situadas no exterior, rendimentos e ganhos de capital que não tenham sido tributados na fonte, no País."
+  },
+  "X-trabalhar-por-conta-propria-impostos-18": {
+    "url": "https://www.planalto.gov.br/ccivil_03/leis/l8212cons.htm",
+    "data": "2026-11-10",
+    "trecho": "Art. 21. A alíquota de contribuição dos segurados contribuinte individual e facultativo será de vinte por cento sobre o respectivo salário-de-contribuição."
+  },
+  "X-trabalhar-por-conta-propria-impostos-19": {
+    "url": "https://www.planalto.gov.br/ccivil_03/leis/l8212cons.htm",
+    "data": "2026-11-10",
+    "trecho": "§ 2 o No caso de opção pela exclusão do direito ao benefício de aposentadoria por tempo de contribuição, a alíquota de contribuição incidente sobre o limite mínimo mensal do salário de contribuição será de: (Redação dada pela Lei nº 12.470, de 2011) I - 11% (onze por cento), no caso do segurado contribuinte individual, ressalvado o disposto no inciso II, que trabalhe por conta própria, sem relação de trabalho com empresa ou equiparado e do segurado facultativo, observado o disposto na alínea b do inciso II deste parágrafo;"
+  },
+  "X-trabalhar-por-conta-propria-impostos-20": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "O MEI que vende a prazo (cartão de crédito, cheque pós-datado), deverá registrar a sua receita no relatório de receitas brutas mensais no mês que ocorre a venda ou mês do recebimento? As vendas a prazo devem ser registradas como receita no relatório no mês em que ocorre a venda."
+  },
+  "X-trabalhar-por-conta-propria-impostos-21": {
+    "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+    "data": "2026-11-10",
+    "trecho": "Basta emitir a guia mensal DAS, clicando aqui. O pagamento pode ser feito por débito automático, on-line ou com boleto. [...] Sim.Para isso você só precisa emitir uma nova guia de pagamento dos meses em atraso, acessando a opção \" boleto de pagamento \" ."
+  },
+  "X-trabalhar-por-conta-propria-impostos-22": {
+    "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp238.htm",
+    "data": "2026-11-10",
+    "trecho": "“Art. 18-A. [...] § 1º Para os efeitos desta Lei Complementar, considera-se MEI quem tenha auferido receita bruta, no ano-calendário anterior, de até R$ 140.000,00 (cento e quarenta mil reais), que seja optante pelo Simples Nacional"
+  }
+}

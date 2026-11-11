@@ -1,0 +1,32 @@
+{
+  "X-como-cobrar-entrega-por-km-01": {
+    "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm",
+    "data": "2026-11-10",
+    "trecho": "Art. 31. A oferta e apresentação de produtos ou serviços devem assegurar informações corretas, claras, precisas, ostensivas e em língua portuguesa sobre suas características, qualidades, quantidade, composição, preço, garantia, prazos de validade e origem, entre outros dados"
+  },
+  "X-como-cobrar-entrega-por-km-02": {
+    "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/decreto/d5903.htm",
+    "data": "2026-11-10",
+    "trecho": "Art. 2 o Os preços de produtos e serviços deverão ser informados adequadamente, de modo a garantir ao consumidor a correção, clareza, precisão, ostensividade e legibilidade das informações prestadas."
+  },
+  "X-como-cobrar-entrega-por-km-03": {
+    "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/decreto/d5903.htm",
+    "data": "2026-11-10",
+    "trecho": "II - clareza, a informação que pode ser entendida de imediato e com facilidade pelo consumidor, sem abreviaturas que dificultem a sua compreensão, e sem a necessidade de qualquer interpretação ou cálculo;"
+  },
+  "X-como-cobrar-entrega-por-km-04": {
+    "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7962.htm",
+    "data": "2026-11-10",
+    "trecho": "Art. 2º Os sítios eletrônicos ou demais meios eletrônicos utilizados para oferta ou conclusão de contrato de consumo devem disponibilizar, em local de destaque e de fácil visualização, as seguintes informações: [...] IV - discriminação, no preço, de quaisquer despesas adicionais ou acessórias, tais como as de entrega ou seguros;"
+  },
+  "X-como-cobrar-entrega-por-km-05": {
+    "url": "https://www.ton.com.br/maquininha/t2",
+    "data": "2026-11-10",
+    "trecho": "\"price\":{\"high\":\"151.29\",\"low\":\"42.36\"}"
+  },
+  "X-como-cobrar-entrega-por-km-06": {
+    "url": "https://www.ton.com.br/maquininha/t1",
+    "data": "2026-11-10",
+    "trecho": "\"description\":\"A maquininha compacta que conecta com o seu celular\",\"offers\":[{\"@type\":\"Offer\",\"priceCurrency\":\"BRL\",\"price\":\"16.80\",\"url\":\"https://ton.com.br/maquininha/t1\""
+  }
+}

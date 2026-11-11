@@ -1,0 +1,17 @@
+{
+  "X-quanto-uma-diarista-deve-cobrar-por-dia-01": {
+    "url": "https://www.gov.br/inss/pt-br/direitos-e-deveres/inscricao-e-contribuicao/tabela-de-contribuicao-mensal",
+    "data": "2026-11-10",
+    "trecho": "2. Para Contribuinte Individual, Facultativo e Microempreendedor Individual - MEI: Salário de Contribuição (R$) Alíquota Valor R$ 1.621,00 5% (*) R$ 81,05 R$ 1.621,00 11% (**) R$ 178,31 R$ 1.621,00 até R$ 8.475,55 20% Entre R$ 324,20 (salário mínimo) e R$ 1.695,11 (teto) *Alíquota exclusiva para segurado Facultativo Baixa Renda e MEI; **Alíquota exclusiva do Plano Simplificado de Previdência;"
+  },
+  "X-quanto-uma-diarista-deve-cobrar-por-dia-02": {
+    "url": "https://www.gov.br/inss/pt-br/direitos-e-deveres/inscricao-e-contribuicao/tabela-de-contribuicao-mensal",
+    "data": "2026-11-10",
+    "trecho": "Os valores das tabelas foram extraídos da PORTARIA INTERMINISTERIAL MPS/MF Nº 13 , de 09/01/2026 e têm aplicação sobre as contribuições a partir da competência janeiro/2026."
+  },
+  "X-quanto-uma-diarista-deve-cobrar-por-dia-03": {
+    "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp150.htm",
+    "data": "2026-11-10",
+    "trecho": "Ao empregado doméstico, assim considerado aquele que presta serviços de forma contínua, subordinada, onerosa e pessoal e de finalidade não lucrativa à pessoa ou à família, no âmbito residencial destas, por mais de 2 (dois) dias por semana, aplica-se o disposto nesta Lei."
+  }
+}

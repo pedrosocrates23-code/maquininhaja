@@ -1,0 +1,157 @@
+---
+title: 'Como precificar um produto sem esquecer a taxa do cartão'
+description: 'Preço de venda soma custo, despesa fixa, imposto, taxa do cartão e margem. A conta passo a passo, com a taxa da maquininha no lugar certo.'
+h1: 'Como precificar um produto com a taxa da maquininha na conta'
+rotulo: 'Quanto custa'
+migalha: 'Como precificar'
+secao: 'quanto-custa'
+kw: 'como precificar um produto'
+resumo: 'Ponha a <strong>taxa do cartão</strong> no divisor do preço, ao lado da margem. Ela é percentual da venda: somada ao custo em reais, deixa o preço curto e a margem menor do que você planejou.'
+fontes: ['X-como-precificar-um-produto-01', 'X-como-precificar-um-produto-02', 'X-como-precificar-um-produto-03', 'X-como-precificar-um-produto-04', 'X-como-precificar-um-produto-05', 'X-como-precificar-um-produto-06', 'X-como-precificar-um-produto-07', 'X-como-precificar-um-produto-08', 'X-como-precificar-um-produto-09', 'X-como-precificar-um-produto-10', 'X-como-precificar-um-produto-11', 'TN-F010', 'TN-F011', 'TN-F014', 'TN-F055', 'TN-F066', 'TN-F069', 'TN-F070', 'TN-F071', 'TN-F072', 'TN-F180', 'X-simulador-de-taxas-02', 'X-simulador-de-taxas-07', 'X-simulador-de-taxas-19', 'X-simulador-de-taxas-23', 'X-simulador-de-taxas-24', 'X-conferencia-27out-06']
+publicado: '2027-02-01T09:30:00.000Z'
+atualizado: '2027-02-01T09:30:00.000Z'
+conferido: '10 de novembro de 2026'
+entidades: ['pix', 'credito', 'debito', 'mei', 'maquininha']
+og: 'quanto-custa'
+relacionadas:
+  - { href: '/quanto-custa/simulador-de-taxas/', label: 'Simular a taxa de uma venda' }
+  - { href: '/quanto-custa/calculadora/', label: 'Calcular o custo do mês com o seu mix' }
+  - { href: '/quanto-custa/parcelado/', label: 'Taxa do parcelado de 2x a 21x' }
+cta: { chave: 't2', texto: 'Pedir a Ton T2 no site da Ton' }
+faq:
+  - p: 'Como calcular o preço de venda com impostos?'
+    r: '<p>Depende do regime. No MEI, o imposto é fixo e entra no custo por unidade. No Simples Nacional, ele é percentual da venda e entra no divisor, com a margem e a taxa. Peça ao seu contador a alíquota efetiva.</p>'
+  - p: 'Qual a diferença entre markup e margem?'
+    r: '<p>Markup é quanto você soma sobre o custo. Margem é quanto sobra do preço. Um custo de R$ 40 vendido a R$ 50 tem markup de 25% e margem de 20%. Para precificar pela margem, divida o custo por 1 menos a margem.</p>'
+  - p: 'Posso cobrar mais caro no cartão do que no Pix?'
+    r: '<p>Sim, pela Lei 13.455/2017. Deixe as duas etiquetas à vista antes de o cliente escolher como pagar.</p>'
+  - p: 'Dá para usar a taxa da promoção da Ton para calcular o preço?'
+    r: '<p>Não. A taxa de lançamento dura pouco, e o preço feito com ela fica curto quando a sua faixa normal entra. Monte o preço com a taxa da faixa em que você espera vender.</p>'
+  - p: 'Como precificar um produto para revenda?'
+    r: '<p>Pelo que a peça custou para chegar até você, frete e embalagem incluídos. Daí em diante a conta é a de qualquer produto: margem e taxa no divisor.</p>'
+---
+
+<p class="summarization">Para precificar um produto, some o custo e a despesa fixa de cada unidade. Divida por 1 menos a margem e menos a <strong>taxa do cartão</strong>. Num custo de R$ 40 com margem de 20%, no crédito à vista da <strong>Ton</strong> na faixa de até R$ 3 mil, o divisor é 1 menos 20% menos <Taxa faixa="ate3k" prazo="d1" tipo="credito1x" />. Conferida em <strong>10/11/2026</strong>.</p>
+
+## A conta do preço, com a taxa dentro
+
+Ponha a taxa do cartão como custo de cada venda. Ela entra no mesmo lugar da margem.
+
+O blog da Ton ensina a dividir o custo por 1 menos a margem <Fonte id={['X-como-precificar-um-produto-01', 'X-como-precificar-um-produto-02']} />. A taxa do cartão entra no mesmo divisor pela lógica da Stone: para manter o valor cheio, não basta somar a taxa ao preço, é preciso dividir <Fonte id="X-simulador-de-taxas-19" />.
+
+**Preço de venda = custo por unidade ÷ (1 − margem − taxa do cartão)**
+
+A Stone lista as taxas da maquininha entre as despesas que só existem quando a venda acontece <Fonte id="X-como-precificar-um-produto-06" />. A Ton fala em taxa de cada item vendido <Fonte id="X-como-precificar-um-produto-03" />. Por isso a taxa não vai para o rateio do aluguel. Ela acompanha cada venda.
+
+Faça a conta com números redondos. Os valores da tabela são hipotéticos e servem só para mostrar o método.
+
+<div class="table-wrap" tabindex="0" role="region" aria-label="Exemplo de preço com a taxa do cartão na conta">
+<table>
+<caption>Exemplo hipotético: preço de um produto com custo total de R$ 40 e margem de 20%, vendido no crédito à vista na faixa de até R$ 3 mil do Ton Mega+, recebendo em 1 dia útil</caption>
+<thead><tr><th scope="col">Linha da conta</th><th scope="col">Valor</th></tr></thead>
+<tbody>
+<tr><th scope="row">Custo do produto: compra, frete e embalagem</th><td>R$ 30,00</td></tr>
+<tr><th scope="row">Despesa fixa por unidade: despesas do mês divididas pelas unidades vendidas</th><td>R$ 10,00</td></tr>
+<tr><th scope="row">Custo total por unidade</th><td>R$ 40,00</td></tr>
+<tr><th scope="row">Margem que você quer, sobre o preço</th><td>20%</td></tr>
+<tr><th scope="row">Taxa do crédito à vista</th><td><Taxa faixa="ate3k" prazo="d1" tipo="credito1x" /></td></tr>
+<tr><th scope="row">Preço de venda</th><td>R$ 40 ÷ (1 − 20% − taxa)</td></tr>
+<tr><th scope="row">A Ton desconta da venda</th><td>A taxa, sobre o preço</td></tr>
+<tr><th scope="row">Sobra para você depois da taxa e do custo</th><td>20% do preço, a margem inteira</td></tr>
+</tbody>
+</table>
+</div>
+
+A taxa sai do preço, e a margem chega inteira. A taxa usada é a da tabela de cliente novo da Ton, conferida em 10/11/2026 <Fonte id="X-como-precificar-um-produto-11" />.
+
+Este site é Parceiro Ton e recebe comissão quando você pede a máquina pelo link daqui.
+
+## Quanto a taxa tira de uma venda de R$ 50
+
+Sem a taxa, a conta dá R$ 50: R$ 40 ÷ (1 − 20%). Esse preço só entrega os 20% no dinheiro e no Pix com chave cadastrada. No cartão, cada forma de pagamento come um pedaço diferente.
+
+<div class="table-wrap" tabindex="0" role="region" aria-label="Quanto sobra de uma venda de R$ 50 em cada forma de pagamento">
+<table>
+<caption>Exemplo hipotético: produto com custo de R$ 40 vendido a R$ 50, faixa de até R$ 3 mil do Ton Mega+, recebendo em 1 dia útil. A meta era sobrar 20% do preço.</caption>
+<thead><tr><th scope="col">Forma de pagamento</th><th scope="col">Taxa</th><th scope="col">Sobra para você, em % do preço</th><th scope="col">Preço que mantém os 20%</th></tr></thead>
+<tbody>
+<tr><th scope="row">Pix com chave cadastrada</th><td>zero</td><td>20%</td><td>R$ 50,00</td></tr>
+<tr><th scope="row">Débito</th><td><Taxa faixa="ate3k" prazo="d1" tipo="debito" /></td><td>20% menos a taxa</td><td>R$ 40 ÷ (0,80 − taxa)</td></tr>
+<tr><th scope="row">Crédito à vista</th><td><Taxa faixa="ate3k" prazo="d1" tipo="credito1x" /></td><td>20% menos a taxa</td><td>R$ 40 ÷ (0,80 − taxa)</td></tr>
+<tr><th scope="row">Crédito em 3x</th><td><Taxa faixa="ate3k" prazo="d1" tipo="parcela" parcelas={3} /></td><td>20% menos a taxa</td><td>R$ 40 ÷ (0,80 − taxa)</td></tr>
+<tr><th scope="row">Crédito em 12x</th><td><Taxa faixa="ate3k" prazo="d1" tipo="parcela" parcelas={12} /></td><td>prejuízo: a taxa passa dos 20%</td><td>R$ 40 ÷ (0,80 − taxa)</td></tr>
+</tbody>
+</table>
+</div>
+
+O Pix na maquininha fica com taxa zero nos primeiros 30 dias. Depois, continua zero se você cadastrar uma chave Pix de CPF, CNPJ ou telefone na Conta Ton <Fonte id={['TN-F010', 'TN-F072']} />.
+
+Medo de ficar caro ao repassar a taxa? Veja o tamanho disso em reais no [simulador de taxas](/quanto-custa/simulador-de-taxas/): ponha R$ 50 no crédito à vista e veja quanto cobrar para receber os R$ 50 inteiros. A diferença é o que o cliente paga a mais.
+
+Sem repassar, você vende a R$ 50, e a margem cai de 20% para 20% menos <Taxa faixa="ate3k" prazo="d1" tipo="credito1x" />. Repassar ou absorver é decisão sua, com esse número na mão.
+
+## Pix: o preço sem taxa e a máquina que recebe
+
+Para cobrar Pix na própria maquininha, o modelo importa. A tabela de comparação da Ton marca Pix na máquina na T2, na T3 e na T3 Smart. Na T1, não <Fonte id="TN-F069" />.
+
+A decisão sai daí:
+
+- **Vende sem papel e quer Pix na máquina?** A T2. Ela tem chip, Wi-Fi e recebe Pix por QR Code ou por aproximação <Fonte id="TN-F066" />.
+- **Precisa entregar comprovante impresso ou parcelar em até 21x?** A T3 <Fonte id={['TN-F069', 'TN-F070']} />.
+
+A T2 sai por <Preco modelo="t2" /> de adesão. Não há mensalidade: a Ton cobra a adesão uma vez, e a máquina fica em comodato <Fonte id="TN-F071" />.
+
+Antes de pedir, faça a conta da sua venda real: [simular a taxa de uma venda](/quanto-custa/simulador-de-taxas/) mostra o líquido e quanto cobrar em cada forma de pagamento. Se a T2 cobre o seu jeito de vender, o pedido sai no site da Ton, pelo link deste parceiro.
+
+<CtaIndicacao chave="t2" texto="Pedir a Ton T2 no site da Ton" />
+
+## Qual taxa pôr no preço
+
+A taxa muda com a forma de pagamento, o prazo e a faixa. Escolha uma por regra:
+
+- **Um preço só para Pix, débito e crédito à vista?** Calcule com a taxa do crédito à vista, a maior das três. No Pix e no débito, a sobra passa da meta.
+- **Vende parcelado?** A R$ 50, o 12x dá prejuízo. Monte uma tabela de preço a prazo com a taxa da parcela. Na T3 e na T3 Smart, o limite para cliente novo é 21x, e na T1, 12x <Fonte id="TN-F070" />. Na T2, as páginas da Ton divergem: veja no app o número de parcelas do seu modelo.
+- **Recebe na hora?** Use a taxa na hora. O regulamento do Ton Mega+ separa as taxas por prazo <Fonte id="TN-F014" />: no crédito à vista, <Taxa faixa="ate3k" prazo="na_hora" tipo="credito1x" /> na hora contra <Taxa faixa="ate3k" prazo="d1" tipo="credito1x" /> em 1 dia útil. No exemplo, o divisor fica menor e o preço sobe.
+- **Começou agora?** Não monte o preço com a taxa da promoção. Ela vale 30 dias ou até R$ 5 mil em vendas, o que vier primeiro <Fonte id="TN-F011" />. Com o crédito à vista a <Taxa faixa="promo" prazo="d1" tipo="credito1x" />, o preço sai baixo. Acabou a promoção e você caiu na faixa de até R$ 3 mil? Na mesma venda, a margem cai de 20% para 20% mais <Taxa faixa="promo" prazo="d1" tipo="credito1x" /> menos <Taxa faixa="ate3k" prazo="d1" tipo="credito1x" />.
+- **A faixa mudou?** A Ton revê a faixa todo mês, pelo volume do último mês fechado, para cima ou para baixo <Fonte id="TN-F180" />. Refaça a conta junto.
+
+Vende de tudo um pouco e quer saber o custo do mês inteiro? Ponha o seu mix de débito, crédito e Pix na [calculadora de custo mensal](/quanto-custa/calculadora/).
+
+## Imposto: MEI e Simples entram em lugares diferentes
+
+A Ton manda considerar o DAS do MEI ou as alíquotas sobre a venda, conforme o porte da empresa <Fonte id="X-como-precificar-um-produto-05" />.
+
+**MEI.** Paga um valor fixo por mês, pela Lei Complementar 123/2006, art. 18-A, § 3º, inciso V <Fonte id="X-como-precificar-um-produto-09" />. Em 2026, o DAS foi de R$ 82,05 para comércio e indústria, R$ 86,05 para serviços e R$ 87,05 para comércio e serviços (Portal do Empreendedor, conferido em 10/11/2026) <Fonte id="X-como-precificar-um-produto-10" />. O valor de 2027 sai no mesmo portal. Valor fixo vai para a despesa fixa, dividido pelas unidades vendidas no mês.
+
+**Simples Nacional, fora do MEI.** A empresa paga alíquotas tiradas das tabelas dos Anexos da mesma lei <Fonte id="X-como-precificar-um-produto-07" />. A alíquota incide sobre a receita bruta do mês <Fonte id="X-como-precificar-um-produto-08" />. É percentual da venda, como a taxa. Então vai para o divisor:
+
+**Preço de venda = custo por unidade ÷ (1 − margem − taxa do cartão − alíquota)**
+
+A alíquota efetiva da sua empresa vem do seu contador.
+
+## Preço diferente no Pix e no cartão: o que a lei permite
+
+A Lei 13.455/2017 autoriza preço diferente conforme o prazo ou o meio de pagamento <Fonte id="X-simulador-de-taxas-23" />. Ela também exige que o desconto fique informado em local e formato visíveis ao consumidor <Fonte id="X-simulador-de-taxas-24" />.
+
+No exemplo, isso vira duas etiquetas: R$ 50 no Pix e, no cartão, o preço com a taxa no divisor. O desconto no Pix mantém os 20% nas duas formas. Escreva o desconto onde o cliente vê antes de pagar.
+
+A maquininha Ton não repassa a taxa sozinha. A Ton indica a calculadora do app, na opção Receber, para achar o valor a cobrar <Fonte id="X-simulador-de-taxas-02" />.
+
+## Quando esta conta não serve
+
+- **Você já é cliente da Ton.** As taxas publicadas valem para novos clientes. A sua está no app <Fonte id="TN-F055" />.
+- **O cliente paga com Elo ou Amex.** A Ton publica taxa própria para essas bandeiras, mais alta que a de Visa e Mastercard <Fonte id={['X-conferencia-27out-06', 'X-simulador-de-taxas-07']} />. Preço feito com a taxa de Visa fica curto nelas.
+- **O concorrente vende mais barato.** A Ton trata o preço do concorrente como norte, e não como a única regra <Fonte id="X-como-precificar-um-produto-04" />. Se a sua conta pede mais do que ele cobra, a diferença sai da sua margem. Decida sabendo quanto.
+
+## Monte o seu preço em seis linhas
+
+Pegue papel e preencha com os números do seu produto:
+
+1. Custo da unidade na sua mão, com compra, frete e embalagem: R$ ____.
+2. Despesas fixas do mês, DAS incluído se você é MEI, divididas pelas unidades que vende no mês: R$ ____.
+3. Margem que você quer, em percentual do preço: ____%.
+4. Taxa da forma de pagamento mais cara que entra no preço à vista, na sua faixa e no seu prazo: ____%.
+5. Alíquota do Simples, se a sua empresa não é MEI: ____%.
+6. Preço: some as linhas 1 e 2 e divida por 1 menos as linhas 3, 4 e 5: R$ ____.
+
+Faça uma folha para o parcelado, com a taxa da parcela na linha 4. Marque no calendário: refaça as duas folhas quando a Ton mudar a sua faixa.

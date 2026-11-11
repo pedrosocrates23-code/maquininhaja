@@ -1,12 +1,13 @@
 ---
 // Lista de páginas de uma seção da collection "paginas" (hubs /ajuda/ e /aprenda/).
 import { getCollection } from 'astro:content';
+import { visivel } from '../lib/publicacao';
 interface Props {
   secao: 'ajuda' | 'aprenda' | 'quanto-custa' | 'modelos';
   ordem?: string[]; // ids na ordem desejada; o resto vem depois, por data
 }
 const { secao, ordem = [] } = Astro.props;
-const itens = (await getCollection('paginas', (p) => p.data.secao === secao && !p.data.draft && !p.data.noindex)).sort(
+const itens = (await getCollection('paginas', (p) => p.data.secao === secao && visivel(p) && !p.data.noindex)).sort(
   (a, b) => {
     const ia = ordem.indexOf(a.id);
     const ib = ordem.indexOf(b.id);

@@ -2,6 +2,7 @@
 // CTA de conversão. Vai para /link/<chave>/ (302 para o link de indicação do Renda Extra
 // quando o cadastro existir; até lá, para a página oficial). rel="sponsored".
 import { PROGRAMA_ATIVO } from '../data/site';
+import links from '../data/links.json';
 interface Props {
   chave: string;
   texto: string;
@@ -9,6 +10,10 @@ interface Props {
   nota?: boolean;
 }
 const { chave, texto, variante = 'primary', nota = true } = Astro.props;
+// Só há comissão quando o destino carrega a indicação (cupom/userTag do programa).
+// Ex.: link-de-pagamento ainda aponta para a página pública da Ton, sem indicação.
+const destino = (links as Record<string, string>)[chave] ?? '';
+const comIndicacao = PROGRAMA_ATIVO && /coupon=|userTag=|rendaextra\.ton/.test(destino);
 ---
 
 <div class="cta-ind">
@@ -21,9 +26,9 @@ const { chave, texto, variante = 'primary', nota = true } = Astro.props;
   {
     nota && (
       <p class="nota">
-        {PROGRAMA_ATIVO
+        {comIndicacao
           ? 'Link de parceiro: você finaliza no site oficial da Ton, com o cupom de desconto do programa. Recebemos comissão.'
-          : 'Você finaliza no site oficial da Ton. Hoje este site não recebe comissão por este link.'}
+          : 'Você finaliza no site oficial da Ton. Este link não é de indicação: o site não recebe comissão por ele.'}
       </p>
     )
   }

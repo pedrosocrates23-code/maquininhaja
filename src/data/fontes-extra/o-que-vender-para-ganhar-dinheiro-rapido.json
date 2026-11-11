@@ -1,0 +1,8 @@
+{
+  "X-o-que-vender-para-ganhar-dinheiro-rapido-01": {
+    "url": "https://www.bcb.gov.br/estabilidadefinanceira/pix",
+    "data": "2026-11-10",
+    "obs": "texto servido pela API do site do BCB (https://www.bcb.gov.br/api/paginasite/sitebcb/estabilidadefinanceira/pix), a mesma página em JavaScript",
+    "trecho": "Pix é um sistema de pagamento instantâneo criado pelo Banco Central, que permite transferir dinheiro entre contas em segundos, a qualquer hora e dia. É rápido, prático e seguro e pode ser usado a partir de contas corrente, poupança ou pré-pagas."
+  }
+}

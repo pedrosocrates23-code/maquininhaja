@@ -1,0 +1,160 @@
+---
+title: 'Como calcular preço de venda de um produto alimentício'
+description: 'Em comida, o preço parte da ficha técnica: ingrediente por porção, perda, embalagem, gás e taxa do cartão. Veja o modelo e a conta completa.'
+h1: 'Como calcular preço de venda de um produto alimentício com ficha técnica e perda'
+rotulo: 'Guia'
+migalha: 'Preço de produto alimentício'
+secao: 'aprenda'
+kw: 'como calcular preço de venda de um produto alimentício'
+resumo: 'Monte a <strong>ficha técnica</strong> do lote com os ingredientes pelo peso comprado, a perda, a embalagem, o gás e o seu tempo. Divida pelas porções que você vende. No cartão, divida o custo da porção por 1 menos a margem e menos a <strong>taxa da maquininha</strong>.'
+fontes: ['TN-F011', 'TN-F012', 'TN-F055', 'TN-F065', 'TN-F066', 'TN-F069', 'TN-F071', 'TN-F072', 'TN-F074', 'TN-F093', 'TN-F180', 'X-como-calcular-preco-de-venda-de-um-produto-alimenticio-01', 'X-como-calcular-preco-de-venda-de-um-produto-alimenticio-02', 'X-como-calcular-preco-de-venda-de-um-produto-alimenticio-03', 'X-como-calcular-preco-de-venda-de-um-produto-alimenticio-04', 'X-como-precificar-um-produto-04', 'X-como-precificar-um-produto-09', 'X-como-precificar-um-produto-10', 'X-como-precificar-um-produto-11', 'X-como-montar-um-delivery-em-casa-com-pouco-dinheiro-01', 'X-como-montar-um-delivery-em-casa-com-pouco-dinheiro-03', 'X-o-que-vender-em-casa-para-ganhar-dinheiro-02', 'X-o-que-vender-em-casa-para-ganhar-dinheiro-03', 'X-conferencia-27out-03', 'X-modelo-t1-05', 'X-simulador-de-taxas-19', 'X-simulador-de-taxas-23', 'X-simulador-de-taxas-24']
+publicado: '2027-01-26T09:30:00.000Z'
+atualizado: '2027-01-26T09:30:00.000Z'
+conferido: '10 de novembro de 2026'
+entidades: ['pix', 'credito', 'debito', 'mei', 'comodato', 'tonMega']
+og: 'aprenda'
+relacionadas:
+  - { href: '/quanto-custa/calculadora/', label: 'Calcular as taxas do mês pelo seu faturamento' }
+  - { href: '/modelos/t2/', label: 'Ton T2: para cobrar na entrega e na banca' }
+  - { href: '/quanto-custa/quando-cai/', label: 'Quando cai o dinheiro da venda' }
+cta: { chave: 't2', texto: 'Pedir a Ton T2 no site da Ton' }
+faq:
+  - p: 'Como calcular o preço de venda por kg?'
+    r: '<p>Com o mesmo divisor da porção, trocando a porção pelo quilo. Um lote de R$ 220 que rende 8 kg vendidos custa R$ 27,50 o quilo. É esse número que vai para o divisor, com a margem e a taxa.</p>'
+  - p: 'Como calcular o custo do gás em uma receita?'
+    r: '<p>Pelo rendimento do botijão. Se um botijão dá para 10 lotes, cada lote leva um décimo do preço dele. Anote a data da troca do botijão e conte os lotes até a troca seguinte.</p>'
+  - p: 'Qual a fórmula do fator de correção?'
+    r: '<p>Peso bruto dividido pelo peso limpo. Um ingrediente comprado com 1 kg que rende 800 g depois de limpo tem fator 1,25. Multiplique o peso limpo da receita por esse fator para saber quanto comprar.</p>'
+  - p: 'Como calcular o CMV de uma marmita?'
+    r: '<p>Custo da porção dividido pelo preço de venda, vezes 100. Uma marmita com custo de R$ 12,22 vendida a R$ 20 tem CMV de 61%. O pote e a etiqueta entram no custo da porção.</p>'
+---
+
+<p class="summarization">Para calcular o preço de venda de um produto alimentício, monte a <strong>ficha técnica</strong> do lote. Ponha nela os ingredientes pelo peso comprado, perda, embalagem, gás e seu tempo. Divida pelas porções que você vende. No cartão, divida o custo da porção por 1 menos a margem e a <strong>taxa da maquininha</strong>, conferida em <strong>10/11/2026</strong>.</p>
+
+Este site é Parceiro Ton e recebe comissão quando você pede a maquininha pelo link daqui.
+
+## A conta do preço de um alimento, do lote à porção
+
+Comida tem um custo que a revenda não tem: o que se perde entre a compra e o prato. Por isso a conta começa no lote inteiro. A porção vem depois.
+
+A Stone manda usar a ficha técnica da receita para achar o custo de um prato, somando o custo de cada ingrediente usado na porção <Fonte id="X-como-calcular-preco-de-venda-de-um-produto-alimenticio-03" />. Em delivery, o custo do recipiente entra junto <Fonte id="X-como-calcular-preco-de-venda-de-um-produto-alimenticio-04" />. A Ton acrescenta o gás, a luz, a água e o seu tempo de trabalho <Fonte id="X-como-calcular-preco-de-venda-de-um-produto-alimenticio-02" />.
+
+Duas contas fecham o preço:
+
+**Custo por porção = custo do lote ÷ porções vendidas + despesa fixa por porção**
+
+**Preço de venda = custo por porção ÷ (1 − margem − taxa do cartão)**
+
+<div class="table-wrap" tabindex="0" role="region" aria-label="Ficha técnica de um lote de marmitas">
+<table>
+<caption>Ficha técnica de um lote de 20 marmitas, linha por linha. A coluna de exemplo usa números redondos só para mostrar a conta: não é preço sugerido nem média de mercado.</caption>
+<thead><tr><th scope="col">Linha da ficha</th><th scope="col">Como achar o número</th><th scope="col">Exemplo de conta</th><th scope="col">Seu número</th></tr></thead>
+<tbody>
+<tr><th scope="row">Ingredientes</th><td>Preço pago por tudo o que entrou na panela, pelo peso comprado, com casca, osso e aparas</td><td>R$ 120</td><td>R$ ____</td></tr>
+<tr><th scope="row">Embalagem e etiqueta</th><td>Pote, tampa e etiqueta de cada porção, vezes as porções do lote</td><td>20 × R$ 1,50: R$ 30</td><td>R$ ____</td></tr>
+<tr><th scope="row">Gás, luz e água</th><td>Parte do botijão e das contas gasta no preparo do lote</td><td>R$ 10</td><td>R$ ____</td></tr>
+<tr><th scope="row">Seu tempo</th><td>Horas de compra, preparo e limpeza vezes o valor da sua hora</td><td>4 horas a R$ 15: R$ 60</td><td>R$ ____</td></tr>
+<tr><th scope="row">Custo do lote</th><td>Soma das quatro linhas</td><td>R$ 220</td><td>R$ ____</td></tr>
+<tr><th scope="row">Porções prontas</th><td>Peso do lote pronto dividido pelo peso da porção</td><td>20</td><td>____</td></tr>
+<tr><th scope="row">Porções vendidas</th><td>As prontas menos a sobra que não sai</td><td>18</td><td>____</td></tr>
+<tr><th scope="row">Custo por porção vendida</th><td>Custo do lote dividido pelas porções vendidas</td><td>R$ 220 ÷ 18: R$ 12,22</td><td>R$ ____</td></tr>
+<tr><th scope="row">Preço no crédito à vista, margem de 20%</th><td>Custo da porção dividido por 1 menos a margem e menos a taxa</td><td>R$ 12,22 ÷ (1 − 20% − <Taxa faixa="ate3k" prazo="d1" tipo="credito1x" />)</td><td>R$ ____</td></tr>
+</tbody>
+</table>
+</div>
+
+A taxa da tabela é a do crédito à vista no Ton Mega+, faixa de até R$ 3 mil por mês, recebendo em 1 dia útil <Fonte id={['TN-F012', 'X-como-precificar-um-produto-11']} />. A despesa fixa por porção, como o DAS do MEI, entra antes da última linha.
+
+Sem as duas marmitas que sobraram, o custo por porção daria R$ 11. Com elas, dá R$ 12,22. Essa diferença sai da sua margem em cada marmita vendida.
+
+## Perda: o ingrediente que vai para o lixo também foi pago
+
+A perda aparece em três pontos. Cada um entra na ficha de um jeito.
+
+### Na limpeza
+
+Casca, osso, talo e aparas foram pagos e não vão para o pote. Ponha na ficha o peso que você comprou. O peso que vai à panela serve para outra conta: saber quanto comprar.
+
+Pese o ingrediente como veio do mercado. Limpe e pese de novo. Divida o primeiro peso pelo segundo. Esse número se chama fator de correção. No exemplo de fator 1,25, um preparo que pede 2 kg limpos pede 2,5 kg na compra.
+
+Faça a pesagem uma vez por ingrediente e anote o fator na ficha. Trocou de fornecedor? Pese de novo.
+
+### No fogo
+
+O peso muda no cozimento, para cima ou para baixo. Por isso a porção sai do lote pronto. Pese a panela pronta, desconte o peso da panela vazia e divida pelo peso da porção. O resultado é o número de porções prontas da ficha.
+
+### Na sobra
+
+Marmita que não vende custou o mesmo que a vendida. Divida o custo do lote pelas porções que você vende, e não pelas que você faz. Use a média das últimas quatro semanas.
+
+Encomenda corta a sobra. O cliente pede e paga antes, e você cozinha o que já foi vendido.
+
+## A taxa do cartão entra no divisor, ao lado da margem
+
+A taxa é um percentual do preço, como a margem. Somada ao custo em reais, ela deixa o preço curto. A Stone explica que, para manter o valor cheio, não basta somar a taxa ao preço: é preciso dividir <Fonte id="X-simulador-de-taxas-19" />.
+
+Na Ton, marca da Stone para autônomos e microempreendedores <Fonte id="TN-F093" />, a taxa muda com a forma de pagamento e com o quanto você vende. Na faixa de até R$ 3 mil por mês, recebendo em 1 dia útil, o débito sai a <Taxa faixa="ate3k" prazo="d1" tipo="debito" /> e o crédito à vista a <Taxa faixa="ate3k" prazo="d1" tipo="credito1x" /> <Fonte id={['TN-F012', 'X-como-precificar-um-produto-11']} />.
+
+No Pix por chave, recebido no app, não há taxa <Fonte id="X-modelo-t1-05" />. Na maquininha, o Pix tem taxa zero nos primeiros 30 dias e continua zero se você cadastrar uma chave Pix na Conta Ton <Fonte id="TN-F072" />.
+
+Quer o valor em reais, com a taxa do dia? [Simular a taxa de uma venda](/quanto-custa/simulador-de-taxas/) mostra quanto cobrar para receber o custo da porção inteiro.
+
+## Qual maquininha para quem vende comida na entrega e na feira
+
+Comida se vende longe do balcão: na porta do cliente, na banca, no portão. Escolha a máquina pelo lugar da venda.
+
+- **Entrega na casa do cliente ou vende na feira:** a T2. Ela tem chip, Wi-Fi e Pix por QR Code ou por aproximação na própria máquina <Fonte id="TN-F066" />. As páginas da Ton divergem sobre o número de parcelas da T2: veja no app o do seu modelo. O guia de [maquininha para delivery](/aprenda/maquininha-para-delivery/) mostra o que checar na entrega. O de [maquininha para feira](/aprenda/maquininha-para-feira/) mostra o que pesa na banca.
+- **Vende pouco, no portão, com o celular carregado:** a T1 serve. Ela depende do celular com internet <Fonte id="TN-F065" /> e não aceita Pix na máquina <Fonte id="TN-F069" />.
+- **Cliente paga com vale-refeição:** os vales Alelo, Pluxee, Ticket, Up Brasil e VR funcionam na T2, na T3 e na T3 Smart, só em cadastro com CNPJ <Fonte id="TN-F074" />.
+
+A T2 sai por <Preco modelo="t2" /> de adesão <Fonte id="X-conferencia-27out-03" />, preço conferido em 10/11/2026. Não há mensalidade. A Ton cobra a adesão uma vez, e a máquina fica em comodato <Fonte id="TN-F071" />.
+
+Se você entrega marmita ou vende na feira, recebe Pix e cartão e não quer depender do celular, então a T2 cobre a venda. O pedido sai no site da Ton, pelo link deste parceiro.
+
+<CtaIndicacao chave="t2" texto="Pedir a Ton T2 no site da Ton" />
+
+## Preço por quilo, por unidade e por cento
+
+A ficha é a mesma. Muda o número que divide o custo do lote.
+
+- **Por quilo**, como bolo, torta e comida a quilo: divida o custo do lote pelos quilos prontos que você vende. Aplique o divisor da margem e da taxa ao custo do quilo.
+- **Por unidade**, como bolo de pote, salgado e doce: divida o custo do lote pelas unidades vendidas.
+- **Por cento**, como salgado e doce de festa: multiplique o custo da unidade por 100 antes do divisor.
+- **Bolo de aniversário por encomenda:** ponha na ficha o que só aquele pedido usa, como topo, caixa e decoração. Peça o sinal no pedido.
+
+## Gás, embalagem e etiqueta: os custos pequenos que somem
+
+A Ton manda incluir a embalagem e uma estimativa do gás e da energia no custo de cada item <Fonte id="X-como-calcular-preco-de-venda-de-um-produto-alimenticio-01" />. São valores pequenos por porção. Somados no mês, pesam.
+
+- **Gás.** Conte quantos lotes um botijão rende na sua cozinha. Divida o preço do botijão por esse número.
+- **Embalagem.** Pote, tampa, sacola, guardanapo e talher descartável, por porção.
+- **Etiqueta.** A RDC 216/2004 da Anvisa vale para serviços de alimentação que preparam, transportam e entregam comida pronta <Fonte id="X-como-montar-um-delivery-em-casa-com-pouco-dinheiro-01" />. Ela pede que o alimento preparado que espera o transporte tenha identificação com o nome do produto, a data de preparo e o prazo de validade <Fonte id="X-como-montar-um-delivery-em-casa-com-pouco-dinheiro-03" />. A etiqueta entra na linha da embalagem.
+
+## MEI e regra sanitária: onde entram na conta
+
+O MEI paga um valor fixo por mês, pela Lei Complementar 123/2006, art. 18-A <Fonte id="X-como-precificar-um-produto-09" />. Em 2026, o DAS de comércio e indústria foi de R$ 82,05 (Portal do Empreendedor, conferido em 10/11/2026) <Fonte id="X-como-precificar-um-produto-10" />. O valor de 2027 sai no mesmo portal. Valor fixo vai para a despesa fixa do mês, dividida pelas porções vendidas no mês.
+
+A cartilha da vigilância sanitária da Prefeitura de São Paulo diz que o MEI que manipula alimento está dispensado da licença sanitária de funcionamento, mas continua obrigado a cumprir as regras sanitárias <Fonte id="X-o-que-vender-em-casa-para-ganhar-dinheiro-02" />. A mesma cartilha permite produzir em casa, se o local permitir manipular o alimento direito <Fonte id="X-o-que-vender-em-casa-para-ganhar-dinheiro-03" />. Mora em outra cidade? Ligue para a vigilância sanitária do seu município antes da primeira venda.
+
+## Quando a ficha pede mais do que o cliente paga
+
+- **O vizinho vende mais barato.** Para a Ton, o preço do concorrente serve de norte, mas não deve ser a única regra <Fonte id="X-como-precificar-um-produto-04" />. Se a sua ficha pede mais, decida sabendo quanto a diferença tira da margem.
+- **O cliente reclama do preço no cartão.** Tenha dois preços. A Lei 13.455/2017 autoriza preço diferente conforme o meio de pagamento <Fonte id="X-simulador-de-taxas-23" />, com o desconto informado em local e formato visíveis ao cliente <Fonte id="X-simulador-de-taxas-24" />. Quem paga no Pix paga o custo com a margem.
+- **A sobra se repete toda semana.** Reduza o lote ou venda por encomenda antes de baixar o preço.
+- **Você montou o preço na promoção.** A taxa promocional do Ton Mega+ vale 30 dias ou até R$ 5 mil em vendas, o que vier primeiro <Fonte id="TN-F011" />. Depois, a Ton revê a faixa todo mês, pelo volume do último mês fechado <Fonte id="TN-F180" />. Refaça o divisor junto.
+- **Você já é cliente da Ton.** As taxas publicadas valem para novos clientes. A sua está no app <Fonte id="TN-F055" />.
+
+## Monte a sua ficha técnica em oito linhas
+
+Copie num caderno ou numa planilha e preencha com o seu lote:
+
+1. Ingredientes do lote, pelo peso comprado: R$ ____.
+2. Embalagem e etiqueta do lote: R$ ____.
+3. Gás, luz e água do lote: R$ ____.
+4. Horas de trabalho vezes o valor da sua hora: R$ ____.
+5. Porções que você vende de cada lote, já sem a sobra: ____.
+6. Custo por porção: a soma das linhas 1 a 4 dividida pela linha 5, mais a despesa fixa por porção: R$ ____.
+7. Margem que você quer, em percentual do preço: ____%.
+8. Preço no cartão: a linha 6 dividida por 1 menos a margem e menos a taxa: R$ ____.
+
+Faça uma ficha por produto. Refaça a linha 1 quando o mercado mudar o preço e a linha 8 quando a sua faixa na Ton mudar.

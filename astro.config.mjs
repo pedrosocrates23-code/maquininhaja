@@ -3,7 +3,9 @@ import { defineConfig, fontProviders } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { satteri } from '@astrojs/markdown-satteri';
-import { writeFileSync, readFileSync, readdirSync, existsSync } from 'node:fs';
+import { writeFileSync, readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 
 // Fonte única dos links de indicação (também reexportada em src/data/site.ts).
@@ -34,6 +36,34 @@ const semFonteInline = {
   },
   mdxJsxFlowElement(node, ctx) {
     if (node.name === 'Fonte') ctx.removeNode(node);
+  },
+};
+
+/**
+ * Banner de chamada no meio dos guias (src/components/BannerMeio.astro), sem editar cada MDX:
+ * entra antes do H2 do meio do artigo. Se o CtaIndicacao (pedido) estiver na seção logo antes
+ * ou logo depois desse ponto, o banner anda um H2 para não colar dois CTAs. Artigo com menos de
+ * 4 H2 fica sem banner. Vale para aprenda/, quanto-custa/ e modelos/ (ajuda e renda-extra não).
+ */
+const SECOES_BANNER = /[\/]content[\/]paginas[\/](aprenda|quanto-custa|modelos)[\/][^\/]+\.mdx$/;
+const bannerMeio = {
+  name: 'banner-meio',
+  before(root, ctx) {
+    const arquivo = ctx.fileURL ? decodeURIComponent(ctx.fileURL.pathname) : '';
+    if (!SECOES_BANNER.test(arquivo)) return;
+    const filhos = root.children;
+    const h2 = filhos.filter((n) => n.type === 'heading' && n.depth === 2);
+    if (h2.length < 4) return;
+    // seção (0 = antes do 1º H2) em que está cada CtaIndicacao do corpo
+    const secaoDe = (i) => h2.filter((h) => filhos.indexOf(h) < i).length;
+    const ctas = filhos.flatMap((n, i) => (n.type === 'mdxJsxFlowElement' && n.name === 'CtaIndicacao' ? [secaoDe(i)] : []));
+    const meio = Math.floor(h2.length / 2);
+    // antes do H2 de índice k: fica entre a seção k e a k+1 (contando a introdução como 0)
+    const k = [meio, meio + 1, meio - 1, meio + 2].find(
+      (c) => c >= 2 && c < h2.length && !ctas.some((s) => s === c || s === c + 1),
+    );
+    if (k === undefined) return;
+    ctx.insertBefore(h2[k], { type: 'mdxJsxFlowElement', name: 'BannerMeio', attributes: [], children: [] });
   },
 };
 
@@ -142,6 +172,84 @@ function redirecionamentos() {
 }
 
 /**
+ * Links para página ainda não publicada viram texto no HTML final.
+ *
+ * Uma página agendada (`publicado` no futuro, ver src/lib/publicacao.ts) já existe em
+ * src/content/paginas, então outra página pode linkar para ela antes da data (corpo do MDX,
+ * `relacionadas`, componentes). Como a rota só é gerada quando a data chega, o link seria 404
+ * até lá. Depois do build, este passo procura todo <a href="/..."> interno (relativo ou
+ * https://maquininhaja.com.br/...) cuja rota não existe em dist e troca o link pelo conteúdo
+ * da âncora. No build do dia da publicação a página existe e o link volta sozinho.
+ * Não mexe em: /link/* (redirect de indicação), /api/*, âncora pura (#...), arquivo com
+ * extensão (.jpg, .xml...). Destino ausente que NÃO é página da collection (link quebrado de
+ * verdade) também vira texto, mas sai em AVISO no log para ser corrigido na fonte.
+ */
+function linksAgendados() {
+  return {
+    name: 'links-agendados',
+    hooks: {
+      'astro:build:done': ({ dir }) => {
+        const raiz = fileURLToPath(dir);
+        const htmls = [];
+        const andar = (/** @type {string} */ d) => {
+          for (const nome of readdirSync(d)) {
+            const p = join(d, nome);
+            if (statSync(p).isDirectory()) andar(p);
+            else if (nome.endsWith('.html')) htmls.push(p);
+          }
+        };
+        andar(raiz);
+        const daCollection = new Set(
+          mdxEm('src/content/paginas').map((a) => '/' + a.replace(/^src\/content\/paginas\//, '').replace(/\.mdx$/, '') + '/'),
+        );
+        /** @param {string} rota @returns {boolean|null} true = existe; null = não se aplica */
+        const existe = (rota) => {
+          if (rota === '/' || /^\/(link|api|_astro)\//.test(rota)) return null;
+          const rel = rota.replace(/^\/+/, '');
+          if (/\.[a-z0-9]{1,5}$/i.test(rel)) return null;
+          const alvo = join(raiz, ...rel.split('/').filter(Boolean));
+          return existsSync(join(alvo, 'index.html')) || (!rota.endsWith('/') && existsSync(alvo + '.html'));
+        };
+        const re = /<a\b[^>]*?\shref="(?:https?:\/\/(?:www\.)?maquininhaja\.com\.br)?(\/(?!\/)[^"#?]*)(?:[#?][^"]*)?"[^>]*>([\s\S]*?)<\/a>/g;
+        let total = 0;
+        const agendadas = new Set();
+        const quebrados = new Set();
+        for (const arq of htmls) {
+          const html = readFileSync(arq, 'utf8');
+          let trocas = 0;
+          const novo = html.replace(re, (tudo, caminho, texto) => {
+            let rota = caminho;
+            try {
+              rota = decodeURIComponent(caminho);
+            } catch {}
+            if (existe(rota) !== false) return tudo;
+            trocas++;
+            const chave = rota.endsWith('/') ? rota : rota + '/';
+            if (daCollection.has(chave)) agendadas.add(chave);
+            else quebrados.add(`${rota} (em ${arq.slice(raiz.length).replace(/\\/g, '/')})`);
+            return texto;
+          });
+          if (trocas) {
+            writeFileSync(arq, novo, 'utf8');
+            total += trocas;
+          }
+        }
+        console.log(`[links-agendados] ${total} link(s) para página fora do ar viraram texto; destinos agendados/rascunho: ${agendadas.size ? [...agendadas].join(', ') : 'nenhum'}`);
+        for (const q of quebrados) console.warn(`[links-agendados] AVISO: link interno para rota inexistente que não é página da collection: ${q}`);
+      },
+    },
+  };
+}
+
+/**
+ * Vercel Cron de reserva da fila de publicação (docs/fila-publicacao.md): chama
+ * api/publicar-fila.js de segunda a sexta às 10:00 UTC (07:00 em Brasília), meia hora depois do
+ * GitHub Actions. O path tem barra final porque o vercel.json usa trailingSlash: true e o Cron
+ * não segue o 308 de /api/publicar-fila para /api/publicar-fila/.
+ */
+const CRONS = [{ path: '/api/publicar-fila/', schedule: '0 10 * * 1-5' }];
+
+/**
  * A Vercel não lê public/_headers nem _redirects. Este hook gera o vercel.json da raiz a partir
  * dos dois (mesma fonte): cabeçalhos de segurança/cache e /link/<chave>/ como 302 de verdade
  * (sem ele, a Vercel serve a página de meta refresh). O arquivo é versionado: rodar o build
@@ -172,6 +280,7 @@ function vercelJson() {
             ...Object.entries(links).map(([k, v]) => ({ source: `/link/${k}/`, destination: v, permanent: false })),
             ...SUPORTE_REMOVIDO.map((d) => ({ source: d, destination: '/ajuda/contato/', permanent: true })),
           ],
+          crons: CRONS,
         };
         writeFileSync('vercel.json', JSON.stringify(config, null, 2) + '\n');
       },
@@ -184,7 +293,7 @@ export default defineConfig({
   trailingSlash: 'always',
   build: { format: 'directory', inlineStylesheets: 'always' },
   compressHTML: true,
-  markdown: { syntaxHighlight: false, processor: satteri({ mdastPlugins: [semFonteInline] }) },
+  markdown: { syntaxHighlight: false, processor: satteri({ mdastPlugins: [semFonteInline, bannerMeio] }) },
   prefetch: false,
   redirects: {
     ...Object.fromEntries(Object.entries(links).map(([k, v]) => [`/link/${k}/`, { status: 302, destination: v }])),
@@ -234,6 +343,7 @@ export default defineConfig({
       },
     }),
     sitemapUnico(),
+    linksAgendados(),
     redirecionamentos(),
     vercelJson(),
   ],

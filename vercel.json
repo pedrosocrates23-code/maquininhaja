@@ -109,5 +109,11 @@
       "destination": "/ajuda/contato/",
       "permanent": true
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/publicar-fila/",
+      "schedule": "0 10 * * 1-5"
+    }
   ]
 }

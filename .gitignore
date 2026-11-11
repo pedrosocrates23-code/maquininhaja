@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # relatórios gerados pelo scripts/lighthouse.mjs
 qa/lighthouse/
+
+# python
+__pycache__/

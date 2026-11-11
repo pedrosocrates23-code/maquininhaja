@@ -1,0 +1,27 @@
+{
+ "X-empreender-do-zero-com-pouco-dinheiro-01": {
+  "url": "https://www.ton.com.br/maquininha/t1",
+  "data": "2026-11-10",
+  "trecho": "\"productID\":\"TONMEGA_TIER_D150\",\"catalog\":\"tonmega_tier\",\"refID\":\"T1\",\"discountPercentage\":\"70\",\"price\":{\"high\":\"56.57\",\"low\":\"16.80\"}"
+ },
+ "X-empreender-do-zero-com-pouco-dinheiro-02": {
+  "url": "https://www.ton.com.br/maquininha/t1",
+  "data": "2026-11-10",
+  "trecho": "\"productID\":\"TONMEGA_TIER_D195\",\"catalog\":\"tonmega_tier\",\"refID\":\"T2\",\"discountPercentage\":\"72\",\"price\":{\"high\":\"151.29\",\"low\":\"42.36\"}"
+ },
+ "X-empreender-do-zero-com-pouco-dinheiro-03": {
+  "url": "https://www.ton.com.br/maquininha/t1",
+  "data": "2026-11-10",
+  "trecho": "\"productID\":\"TONMEGA_TIER_S920\",\"catalog\":\"tonmega_tier\",\"refID\":\"T3\",\"discountPercentage\":\"72\",\"price\":{\"high\":\"391.92\",\"low\":\"108.00\"}"
+ },
+ "X-empreender-do-zero-com-pouco-dinheiro-04": {
+  "url": "https://www.ton.com.br/maquininha/t1",
+  "data": "2026-11-10",
+  "trecho": "\"productID\":\"TONMEGA_TIER_SMART_POS\",\"catalog\":\"tonmega_tier\",\"refID\":\"T3_SMART\",\"discountPercentage\":\"71\",\"price\":{\"high\":\"671.43\",\"low\":\"191.88\"}"
+ },
+ "X-empreender-do-zero-com-pouco-dinheiro-05": {
+  "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+  "data": "2026-11-10",
+  "trecho": "Mas lembre-se: não é permitido substituir o vínculo empregatício, isto é, o emprego com carteira assinada, pela condição de MEI. O MEI prestador de serviço não pode ter características de relação trabalhista pessoalidade, subordinação e habitualidade) com seu cliente, tomador do serviço."
+ }
+}

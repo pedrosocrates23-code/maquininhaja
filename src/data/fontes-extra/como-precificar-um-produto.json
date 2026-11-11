@@ -1,0 +1,57 @@
+{
+ "X-como-precificar-um-produto-01": {
+  "url": "https://blog.ton.com.br/como-precificar-um-produto/",
+  "data": "2026-11-10",
+  "trecho": "Para facilitar, podemos pensar em uma fórmula básica que ajuda a visualizar o cenário, considerando: Preço de venda = Custos + Despesas + Impostos 1- Margem de Lucro"
+ },
+ "X-como-precificar-um-produto-02": {
+  "url": "https://blog.ton.com.br/como-precificar-um-produto/",
+  "data": "2026-11-10",
+  "trecho": "Subtraímos a margem de lucro de 1: 1 – 0,25 = 0,75; Dividimos o total acumulado pelo resultado anterior: [...] R$30,00 0,75 = R$40,00"
+ },
+ "X-como-precificar-um-produto-03": {
+  "url": "https://blog.ton.com.br/como-precificar-um-produto/",
+  "data": "2026-11-10",
+  "trecho": "Quem compra peças prontas para vender no ambiente digital precisa embutir o valor do frete do fornecedor, a embalagem do envio e a taxa da maquininha ou do pagamento online de cada item vendido;"
+ },
+ "X-como-precificar-um-produto-04": {
+  "url": "https://blog.ton.com.br/como-precificar-um-produto/",
+  "data": "2026-11-10",
+  "trecho": "O preço do seu concorrente serve como um norte para o preço do seu produto, mas não deve ser a sua única regra ."
+ },
+ "X-como-precificar-um-produto-05": {
+  "url": "https://blog.ton.com.br/como-precificar-um-produto/",
+  "data": "2026-11-10",
+  "trecho": "Impostos: considere o valor do seu DAS MEI ou as alíquotas de impostos sobre a venda, caso sua empresa seja de outro porte;"
+ },
+ "X-como-precificar-um-produto-06": {
+  "url": "https://conteudo.stone.com.br/o-que-e-markup-aprenda-a-precificar-corretamente",
+  "data": "2026-11-10",
+  "trecho": "Despesas variáveis: são os custos que só existem quando a venda acontece. Exemplos: impostos sobre a nota fiscal, taxas da maquininha, comissões de vendedores e embalagens;"
+ },
+ "X-como-precificar-um-produto-07": {
+  "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm",
+  "data": "2026-11-10",
+  "trecho": "O valor devido mensalmente pela microempresa ou empresa de pequeno porte optante pelo Simples Nacional será determinado mediante aplicação das alíquotas efetivas, calculadas a partir das alíquotas nominais constantes das tabelas dos Anexos I a V desta Lei Complementar, sobre a base de cálculo de que trata o § 3o deste artigo"
+ },
+ "X-como-precificar-um-produto-08": {
+  "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm",
+  "data": "2026-11-10",
+  "trecho": "§ 3º Sobre a receita bruta auferida no mês incidirá a alíquota efetiva determinada na forma do caput e dos §§ 1o, 1o-A e 2o deste artigo"
+ },
+ "X-como-precificar-um-produto-09": {
+  "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm",
+  "data": "2026-11-10",
+  "trecho": "V - o MEI, com receita bruta anual igual ou inferior a R$ 81.000,00 (oitenta e um mil reais), recolherá, na forma regulamentada pelo Comitê Gestor, valor fixo mensal correspondente à soma das seguintes parcelas:"
+ },
+ "X-como-precificar-um-produto-10": {
+  "url": "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes",
+  "data": "2026-11-10",
+  "trecho": "A Contribuição do MEI - Microempreendedor Individual, para 2026 será de: MEIs – Atividade INSS - R$ ICMS/ISS - R$ Total - R$ Comércio e Industria - ICMS 81,05 1,00 82,05 Serviços - ISS 81,05 5,00 86,05 Comércio e Serviços - ICMS e ISS 81,05 6,00 87,05"
+ },
+ "X-como-precificar-um-produto-11": {
+  "url": "https://www.ton.com.br/planos-e-taxas",
+  "data": "2026-11-10",
+  "trecho": "\"commercial_name\":\"Ton Mega+ | até R$ 3 mil\" ... \"anticipation_delay\":1 ... \"card_brand\":\"visa\",\"installments\":[{\"mdr\":1.69,\"installment\":1}],\"payment_method\":\"debit_card\" ... {\"capture_method\":null,\"card_brand\":\"visa\",\"installments\":[{\"mdr\":3.86,\"installment\":1},{\"mdr\":9.86,\"installment\":2},{\"mdr\":11.24,\"installment\":3} ... {\"mdr\":21.39,\"installment\":12}"
+ }
+}

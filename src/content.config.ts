@@ -15,6 +15,9 @@ const paginas = defineCollection({
     kw: z.string(), // keyword principal da página (plano de sitemap)
     resumo: z.string().min(60).max(420), // resposta direta logo abaixo do H1 (HTML simples permitido)
     fontes: z.array(z.string().regex(/^(TN|MK)-F\d{2,3}$|^X-[a-z0-9-]+$/)).min(1),
+    // Data simples (2026-10-18, acervo) ou data-hora ISO ('2026-11-18T09:30:00.000Z', fila de
+    // publicação). Com data no futuro a página não é gerada até o build seguinte à data
+    // (src/lib/publicacao.ts, docs/fila-publicacao.md).
     publicado: z.coerce.date(),
     atualizado: z.coerce.date(),
     og: z.string().default('padrao'),
@@ -26,6 +29,8 @@ const paginas = defineCollection({
     faq: z.array(z.object({ p: z.string(), r: z.string() })).default([]),
     noindex: z.boolean().default(false),
     draft: z.boolean().default(false),
+    // data por extenso em que as fontes desta página foram conferidas, se diferente de SITE.verificadoEm
+    conferido: z.string().optional(),
     // rótulo curto do último item do breadcrumb quando o H1 é longo (evita "Ajuda > Ajuda")
     migalha: z.string().max(40).optional(),
     // assunto principal, quando não for o padrão da seção (ex.: ton-e-stone -> ['ton', 'stone'])

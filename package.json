@@ -15,7 +15,10 @@
     "validar": "python scripts/validar_pagina.py --todas",
     "check:pendencias": "node scripts/check-pendencias.mjs",
     "build:producao": "npm run build && node scripts/check-pendencias.mjs",
-    "lighthouse": "node scripts/lighthouse.mjs"
+    "lighthouse": "node scripts/lighthouse.mjs",
+    "fila:status": "node scripts/fila-publicacao.mjs --status",
+    "fila:verificar": "node scripts/fila-publicacao.mjs --verificar",
+    "fila:gerar": "node scripts/fila-publicacao.mjs --gerar-api"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "0.4.3",

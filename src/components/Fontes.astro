@@ -4,6 +4,8 @@ import { fonte } from '../lib/fontes';
 import { SITE } from '../data/site';
 interface Props {
   ids: string[];
+  // data da conferência desta página, quando difere da data geral do site (ex.: '10 de novembro de 2026')
+  conferidoEm?: string;
 }
 const lista = [...new Set(Astro.props.ids)].sort().map((id) => {
   return { id, ...fonte(id) };
@@ -13,7 +15,7 @@ const lista = [...new Set(Astro.props.ids)].sort().map((id) => {
 <section class="refs" aria-label="Referências">
   <details>
     <summary>Referências ({lista.length})</summary>
-    <p class="refs-nota">Documentos oficiais da Ton e demais fontes desta página, conferidos em {SITE.verificadoEmTexto}.</p>
+    <p class="refs-nota">Documentos oficiais da Ton e demais fontes desta página, conferidos em {Astro.props.conferidoEm ?? SITE.verificadoEmTexto}.</p>
     <ol>
       {
         lista.map((f) => (
