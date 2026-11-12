@@ -4,7 +4,7 @@
 # depois da data. Este workflow lista as páginas vencidas nos últimos 14 dias, confere se já estão
 # no ar e, se alguma ainda não devolve 200, dispara o Deploy Hook da Vercel e espera a página
 # aparecer. O Vercel Cron (api/publicar-fila.js) faz a mesma checagem às 10:00 UTC como reserva.
-# Cadência (fase 1 seg/qua/sex até 17/12/2026; fase 2 seg a sex) é conferida por --verificar;
+# Cadência (rampa semanal até 14/02/2027, depois seg a sex) é conferida por --verificar;
 # rodar o workflow todo dia útil é inofensivo: sem página vencida fora do ar, nada é disparado.
 #
 # Segredo necessário (Settings > Secrets and variables > Actions):

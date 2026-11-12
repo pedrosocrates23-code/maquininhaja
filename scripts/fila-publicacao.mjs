@@ -11,12 +11,13 @@
  * Cada um só chama o Deploy Hook se alguma página vencida nos últimos 14 dias ainda não devolve
  * 200. Quando a fila esvazia, os dois continuam agendados mas não disparam nada.
  *
- * Cadência pedida pelo usuário: "no primeiro mês, um dia sim, um dia não; depois do primeiro mês,
- * todos os dias da semana, mas não final de semana; conteúdos todos às 6:30 da manhã".
+ * Cadência pedida pelo usuário (12/11/2026): "primeira semana um dia sim, um dia não; na semana
+ * seguinte um dia sim, um dia não, mas de vez em quando 3 dias consecutivos, até chegar em todos
+ * os dias da semana, de forma gradativa durante 3 meses"; sempre às 6:30 da manhã, sem fim de semana.
  * Regras (verificadas por --verificar):
  *   - horário: 09:30:00 UTC exato (06:30 em Brasília, UTC-3, sem horário de verão desde 2019);
- *   - fase 1 (FASE1_INICIO a FASE1_FIM): só segunda, quarta e sexta;
- *   - fase 2 (a partir de FASE2_INICIO): segunda a sexta;
+ *   - rampa (RAMPA): cada semana tem os seus dias permitidos, de 2 a 5 por semana;
+ *   - depois de FIM_RAMPA: segunda a sexta, toda semana;
  *   - nunca sábado nem domingo; no máximo uma página por dia;
  *   - api/_fila.js corresponde exatamente à fila (gere com --gerar-api).
  * Página com `publicado` antes de INICIO_FILA é acervo e fica fora da fila. Rascunho
@@ -28,6 +29,9 @@
  *   node scripts/fila-publicacao.mjs --vencidos     URLs vencidas nos últimos 14 dias, uma por linha
  *   node scripts/fila-publicacao.mjs --gerar-api    reescreve api/_fila.js
  *   node scripts/fila-publicacao.mjs --verificar    exit 1 se alguma regra falhar
+ *   node scripts/fila-publicacao.mjs --reagendar    redistribui as páginas AINDA agendadas, na ordem
+ *                                                   atual, pelos próximos dias permitidos (reescreve
+ *                                                   publicado/atualizado nos .mdx e api/_fila.js)
  * Opcional em qualquer comando: --agora=2026-11-18T09:31:00Z (simula o relógio, para teste).
  */
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
@@ -38,11 +42,26 @@ import { fileURLToPath } from 'node:url';
 const HORA_UTC = 9;
 const MINUTO_UTC = 30; // 09:30 UTC = 06:30 em Brasília
 const INICIO_FILA = '2026-11-18'; // antes disto: acervo
-const FASE1_INICIO = '2026-11-18';
-const FASE1_FIM = '2026-12-17';
-const FASE1_DIAS = new Set([1, 3, 5]); // seg, qua, sex (getUTCDay)
-const FASE2_INICIO = '2026-12-18';
-const FASE2_DIAS = new Set([1, 2, 3, 4, 5]); // seg a sex
+// Rampa de 3 meses. Chave = segunda-feira da semana (BRT); valor = dias com publicação
+// (1 = seg ... 5 = sex). Base "um dia sim, um dia não" (seg/qua/sex), blocos de 3 dias seguidos
+// cada vez mais frequentes, depois 4 seguidos, até a semana cheia.
+const RAMPA = {
+  '2026-11-16': [3, 5], //          1ª semana (começa 18/11): qua, sex
+  '2026-11-23': [1, 3, 4, 5], //    + 3 seguidos: qua-qui-sex
+  '2026-11-30': [1, 3, 5], //       dia sim, dia não
+  '2026-12-07': [1, 2, 3, 5], //    3 seguidos: seg-ter-qua
+  '2026-12-14': [1, 3, 5], //       dia sim, dia não
+  '2026-12-21': [1, 3, 4, 5], //    3 seguidos: qua-qui-sex
+  '2026-12-28': [1, 2, 3, 5], //    3 seguidos: seg-ter-qua
+  '2027-01-04': [1, 3, 4, 5], //    3 seguidos: qua-qui-sex
+  '2027-01-11': [1, 2, 3, 4], //    4 seguidos: seg a qui
+  '2027-01-18': [1, 2, 3, 4, 5], // primeira semana cheia
+  '2027-01-25': [1, 2, 3, 5], //    4 dias
+  '2027-02-01': [1, 2, 3, 4, 5],
+  '2027-02-08': [1, 2, 3, 4, 5],
+};
+const FIM_RAMPA = '2027-02-14'; // depois disto: segunda a sexta, toda semana
+const DIAS_UTEIS = [1, 2, 3, 4, 5];
 const JANELA_DIAS = 14; // mesma janela de api/publicar-fila.js
 // Página técnica de teste do robô (/ajuda/teste-fila-*/, sempre noindex): entra na fila com
 // qualquer data e hora e fica isenta das regras de cadência. Apague o .mdx depois do teste.
@@ -145,10 +164,54 @@ function conteudoApi(paginas) {
   );
 }
 
+// Dias permitidos na semana de `dia` (AAAA-MM-DD, calendário de Brasília).
 function regraDoDia(dia) {
-  if (dia >= FASE1_INICIO && dia <= FASE1_FIM) return { fase: 1, dias: FASE1_DIAS, texto: 'seg/qua/sex (fase 1)' };
-  if (dia >= FASE2_INICIO) return { fase: 2, dias: FASE2_DIAS, texto: 'seg a sex (fase 2)' };
+  if (dia < INICIO_FILA) return null;
+  const d = new Date(`${dia}T12:00:00Z`);
+  const segunda = new Date(d.getTime() - ((d.getUTCDay() + 6) % 7) * 86400 * 1000).toISOString().slice(0, 10);
+  if (RAMPA[segunda]) {
+    const dias = RAMPA[segunda];
+    return { dias: new Set(dias), texto: `${dias.map((n) => NOMES[n]).join('/')} (rampa, semana de ${segunda})` };
+  }
+  if (dia > FIM_RAMPA) return { dias: new Set(DIAS_UTEIS), texto: 'seg a sex (depois da rampa)' };
   return null;
+}
+
+// Próximos dias permitidos (AAAA-MM-DD) a partir de `desdeDia`, inclusive.
+function* diasPermitidos(desdeDia) {
+  let t = new Date(`${desdeDia}T12:00:00Z`).getTime();
+  for (let i = 0; i < 3650; i++, t += 86400 * 1000) {
+    const dia = new Date(t).toISOString().slice(0, 10);
+    const regra = regraDoDia(dia);
+    if (regra && regra.dias.has(new Date(t).getUTCDay())) yield dia;
+  }
+}
+
+// Redistribui, na ordem atual, as páginas da fila ainda não publicadas pelos próximos dias
+// permitidos, sem tocar nas já publicadas nem nos testes. Reescreve publicado e atualizado (este só
+// quando era igual ao publicado antigo) e regera api/_fila.js.
+function reagendar(paginas) {
+  const pendentes = fila(paginas).filter((p) => !ehTeste(p) && !(p.publicado.getTime() <= AGORA));
+  const ocupados = new Set(fila(paginas).filter((p) => !ehTeste(p) && p.publicado.getTime() <= AGORA).map((p) => diaBRT(p.publicado)));
+  const amanha = diaBRT(new Date(AGORA + 86400 * 1000));
+  const desde = amanha > INICIO_FILA ? amanha : INICIO_FILA;
+  const gerador = diasPermitidos(desde);
+  for (const p of pendentes) {
+    let dia;
+    do dia = gerador.next().value;
+    while (ocupados.has(dia));
+    const novo = `${dia}T${String(HORA_UTC).padStart(2, '0')}:${String(MINUTO_UTC).padStart(2, '0')}:00.000Z`;
+    const arq = join(ROOT, p.arquivo);
+    let txt = readFileSync(arq, 'utf-8');
+    const antigo = p.publicadoBruto;
+    txt = txt.replace(/^publicado:.*$/m, `publicado: '${novo}'`);
+    txt = txt.replace(/^atualizado:\s*['"]?([^'"\r\n]+?)['"]?\s*$/m, (linha, v) => (v === antigo ? `atualizado: '${novo}'` : linha));
+    writeFileSync(arq, txt, 'utf-8');
+    p.publicado = new Date(novo);
+    p.publicadoBruto = novo;
+  }
+  writeFileSync(API_FILA, conteudoApi(lerPaginas()), 'utf-8');
+  console.log(`${pendentes.length} página(s) reagendada(s) a partir de ${desde}; api/_fila.js regerado.`);
 }
 
 function verificar(paginas) {
@@ -165,7 +228,7 @@ function verificar(paginas) {
     const dia = diaBRT(p.publicado);
     const dow = p.publicado.getUTCDay();
     const regra = regraDoDia(dia);
-    if (!regra) erros.push(`${p.arquivo}: ${dia} fora das fases da fila`);
+    if (!regra) erros.push(`${p.arquivo}: ${dia} fora da cadência da fila`);
     else if (!regra.dias.has(dow)) erros.push(`${p.arquivo}: ${dia} cai em ${NOMES[dow]}, fora de ${regra.texto}`);
     if (
       p.publicado.getUTCHours() !== HORA_UTC ||
@@ -186,7 +249,7 @@ function verificar(paginas) {
   }
   const futuras = agendadas(paginas).length;
   console.log(
-    `Fila OK: ${f.length} página(s) na fila desde ${INICIO_FILA} (${futuras} ainda agendada(s)), todas às 09:30 UTC, uma por dia, seg/qua/sex até ${FASE1_FIM} e seg a sex a partir de ${FASE2_INICIO}.`,
+    `Fila OK: ${f.length} página(s) na fila desde ${INICIO_FILA} (${futuras} ainda agendada(s)), todas às 09:30 UTC, uma por dia, na rampa semanal até ${FIM_RAMPA} e seg a sex depois.`,
   );
 }
 
@@ -199,7 +262,8 @@ else if (arg === '--gerar-api') {
   writeFileSync(API_FILA, conteudoApi(paginas), 'utf-8');
   console.log(`api/_fila.js gerado com ${fila(paginas).length} página(s).`);
 } else if (arg === '--verificar') verificar(paginas);
+else if (arg === '--reagendar') reagendar(paginas);
 else {
-  console.error('Uso: --status | --hoje | --vencidos | --gerar-api | --verificar  [--agora=ISO]');
+  console.error('Uso: --status | --hoje | --vencidos | --gerar-api | --verificar | --reagendar  [--agora=ISO]');
   process.exit(2);
 }

@@ -41,17 +41,41 @@ futuro fica no repositório, mas **não é gerada** até um build acontecer depo
 
 ## Cadência (regra do `scripts/fila-publicacao.mjs`)
 
-Pedido do usuário: "no primeiro mês, um dia sim, um dia não; depois do primeiro mês, todos os
-dias da semana, mas não final de semana; conteúdos todos às 6:30 da manhã".
+Pedido do usuário (12/11/2026): "primeira semana um dia sim, um dia não; na semana seguinte um dia
+sim, um dia não, mas de vez em quando 3 dias consecutivos, até chegar em todos os dias da semana, de
+forma gradativa durante 3 meses". Sempre às 6:30 da manhã, nunca no fim de semana.
 
 | Regra | Valor (constantes no topo do script) |
 |---|---|
 | Horário | `09:30:00.000Z` exato (06:30 em Brasília) |
-| Fase 1 | 2026-11-18 a 2026-12-17: só segunda, quarta e sexta |
-| Fase 2 | a partir de 2026-12-18: segunda a sexta |
+| Rampa | `RAMPA`: semana (segunda-feira) -> dias com publicação, de 16/11/2026 a 14/02/2027 |
+| Depois da rampa | a partir de 15/02/2027: segunda a sexta |
 | Fim de semana | nunca |
 | Por dia | no máximo 1 página |
 | Acervo | `publicado` antes de 2026-11-18 fica fora da fila (data simples continua valendo) |
+| Teste | `/ajuda/teste-fila-*/` (noindex) entra na fila com qualquer data e hora, isento da cadência |
+
+Rampa (dias com publicação em cada semana):
+
+| Semana de | Dias | Por semana | Observação |
+|---|---|---|---|
+| 16/11/2026 | qua, sex | 2 | começa em 18/11 |
+| 23/11 | seg, qua, qui, sex | 4 | 3 seguidos (qua-qui-sex) |
+| 30/11 | seg, qua, sex | 3 | dia sim, dia não |
+| 07/12 | seg, ter, qua, sex | 4 | 3 seguidos (seg-ter-qua) |
+| 14/12 | seg, qua, sex | 3 | dia sim, dia não |
+| 21/12 | seg, qua, qui, sex | 4 | 3 seguidos |
+| 28/12 | seg, ter, qua, sex | 4 | 3 seguidos |
+| 04/01/2027 | seg, qua, qui, sex | 4 | 3 seguidos |
+| 11/01 | seg, ter, qua, qui | 4 | 4 seguidos |
+| 18/01 | seg a sex | 5 | primeira semana cheia |
+| 25/01 | seg, ter, qua, sex | 4 | |
+| 01/02 e 08/02 | seg a sex | 5 | |
+| 15/02 em diante | seg a sex | 5 | fim da rampa |
+
+Com os 70 guias "da CLT ao negócio próprio", a fila vai de 18/11/2026 a 11/03/2027.
+Para mudar a cadência: edite `RAMPA`/`FIM_RAMPA` e rode `npm run fila:reagendar` (redistribui só as
+páginas ainda agendadas, na ordem atual, e regera `api/_fila.js`).
 
 `npm run fila:verificar` reprova (exit 1) data fora da regra, horário diferente de 09:30 UTC, dois
 itens no mesmo dia e `api/_fila.js` desatualizado. O workflow roda essa checagem antes de tudo.
@@ -62,6 +86,7 @@ Comandos:
 npm run fila:status       # tabela da fila (primeira linha: "Publicadas: N | Na fila: N | ...")
 npm run fila:verificar    # regras da cadência + api/_fila.js em dia
 npm run fila:gerar        # reescreve api/_fila.js
+npm run fila:reagendar    # redistribui as agendadas pela cadência atual
 node scripts/fila-publicacao.mjs --hoje        # URLs que vencem hoje (BRT)
 node scripts/fila-publicacao.mjs --vencidos    # URLs vencidas nos últimos 14 dias
 # qualquer comando aceita --agora=2026-11-20T09:31:00Z para simular o relógio
@@ -92,58 +117,22 @@ Pré-visualizar o lote inteiro localmente: `PUBLICAR_TUDO=1 npm run build` (no P
 - Página que já foi ao ar não volta a ser agendada mudando a data para a frente: o próximo build
   a remove (vira 404). Para despublicar, use `draft: true` de propósito.
 
-## SETUP PENDENTE (fazer uma vez, nesta ordem)
+## Setup (feito em 12/11/2026)
 
-Nada disto foi feito ainda. Sem o passo 1 e 2/3 os gatilhos rodam mas não conseguem disparar build.
+- Deploy Hook `fila-publicacao` (branch `main`, id `mvJup2JvMH`) criado na Vercel.
+- Env na Vercel (Production): `CRON_SECRET` e `VERCEL_DEPLOY_HOOK`.
+- Segredo `VERCEL_DEPLOY_HOOK` no GitHub Actions do repositório.
+- Cron Job `/api/publicar-fila/` registrado (`vercel crons ls`).
+- Teste ponta a ponta em 12/11/2026 com duas páginas noindex agendadas para minutos à frente:
+  `/ajuda/teste-fila-a/` (04:10 UTC) publicada pelo GitHub Actions às 04:11 (run 43153031388) e
+  `/ajuda/teste-fila-b/` (04:13 UTC) publicada pela função da Vercel às 04:14; a função chamada de
+  novo respondeu `ja-publicado`. A 1ª tentativa (03:42) disparou o build, mas ele reprovou no
+  check-sitemap porque página da collection com `noindex` entrava no sitemap: corrigido no
+  `astro.config.mjs` (conjunto `NOINDEX` no filtro do sitemap, commit 6a99086).
 
-A Vercel CLI não está instalada nesta máquina: `npm i -g vercel` e `vercel login`.
-
-1. **Criar o Deploy Hook da `main`** (a URL é segredo: vai para arquivo, nunca para o chat nem
-   para o repositório):
-   ```bash
-   vercel deploy-hooks create fila-publicacao --ref main --project maquininhaja \
-     --scope pedrosocrates23-5308s-projects --non-interactive > hook.url
-   ```
-   Confira que `hook.url` tem só a URL (`https://api.vercel.com/v1/integrations/deploy/...`); se a
-   CLI imprimir texto em volta, deixe só a URL. Alternativa pelo painel: Project > Settings > Git >
-   Deploy Hooks, nome `fila-publicacao`, branch `main`.
-2. **Variáveis de ambiente na Vercel (Production)**:
-   ```bash
-   # CRON_SECRET: string aleatória de 16+ caracteres, só letras e números
-   # sem quebra de linha no fim: a Vercel manda o valor num header e espaço/linha a mais dá 401
-   node -e "process.stdout.write(require('crypto').randomBytes(24).toString('hex'))" > cron.secret
-   tr -d '\r\n ' < hook.url > hook.tmp && mv hook.tmp hook.url
-   vercel env add CRON_SECRET production --scope pedrosocrates23-5308s-projects < cron.secret
-   vercel env add VERCEL_DEPLOY_HOOK production --scope pedrosocrates23-5308s-projects < hook.url
-   ```
-   Env nova só vale a partir do próximo deploy. Se a CLI recusar ler do stdin, use o painel
-   (Settings > Environment Variables, ambiente Production) e cole o conteúdo dos arquivos.
-3. **Segredo do GitHub Actions**:
-   ```bash
-   gh secret set VERCEL_DEPLOY_HOOK -R pedrosocrates23-code/maquininhaja < hook.url
-   ```
-4. **Push do workflow**. Arquivo em `.github/workflows/` exige token com escopo `workflow`, e este
-   repo exige a conta dona:
-   ```bash
-   gh auth switch -u pedrosocrates23-code
-   gh auth refresh -h github.com -s workflow
-   git push
-   ```
-   O deploy desse push publica o `vercel.json` com o `crons` e a função `api/publicar-fila.js`.
-   Confira em Vercel > Project > Settings > Cron Jobs que o job `/api/publicar-fila/` apareceu.
-5. **Testes** (depois do deploy):
-   ```bash
-   # função sem token: 401
-   curl -i https://maquininhaja.com.br/api/publicar-fila/
-   # função com token: 200 e {"acao":"nada-vencido"} enquanto nada venceu
-   curl -s -H "Authorization: Bearer $(cat cron.secret)" https://maquininhaja.com.br/api/publicar-fila/
-   # hook: deve responder com um job (dispara um build de produção)
-   curl -s -X POST "$(cat hook.url)"
-   # workflow manual: deve passar no "Conferir regras da fila"
-   gh workflow run fila-publicacao.yml -R pedrosocrates23-code/maquininhaja
-   gh run list -R pedrosocrates23-code/maquininhaja --workflow fila-publicacao.yml -L 1
-   ```
-   Apague `hook.url` e `cron.secret` quando terminar (ou guarde fora do repositório).
+Para refazer o teste: crie `src/content/paginas/ajuda/teste-fila-<x>.mdx` com `noindex: true` e
+`publicado` alguns minutos à frente, `npm run fila:gerar`, push, espere o horário e rode
+`gh workflow run fila-publicacao.yml -R pedrosocrates23-code/maquininhaja`. Apague o arquivo depois.
 
 ## Arquivos
 
