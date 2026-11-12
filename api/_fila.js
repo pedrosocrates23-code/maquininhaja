@@ -3,11 +3,11 @@
 export const fila = [
   {
     "url": "/ajuda/teste-fila-a/",
-    "publicado": "2026-11-12T03:42:00.000Z"
+    "publicado": "2026-11-12T04:10:00.000Z"
   },
   {
     "url": "/ajuda/teste-fila-b/",
-    "publicado": "2026-11-12T03:45:00.000Z"
+    "publicado": "2026-11-12T04:13:00.000Z"
   },
   {
     "url": "/aprenda/como-se-cadastrar-para-ser-ambulante-no-carnaval/",

@@ -118,6 +118,14 @@ const LASTMOD = (() => {
   return mapa;
 })();
 
+// Páginas da collection com `noindex: true` no frontmatter: ficam fora do sitemap (a meta robots
+// noindex já sai pelo Base.astro; sem este filtro o check-sitemap reprovava o build).
+const NOINDEX = new Set(
+  mdxEm('src/content/paginas')
+    .filter((arq) => /^noindex:\s*true\s*$/m.test(readFileSync(arq, 'utf8').split(/\r?\n---/)[0]))
+    .map((arq) => `${SITE}/${arq.replace(/^src\/content\/paginas\//, '').replace(/\.mdx$/, '')}/`),
+);
+
 /** @param {string} url @returns {string|undefined} */
 function lastmodDe(url) {
   if (LASTMOD.has(url)) return LASTMOD.get(url);
@@ -333,7 +341,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      filter: (page) => !page.includes('/link/') && !page.endsWith('/404/'),
+      filter: (page) => !page.includes('/link/') && !page.endsWith('/404/') && !NOINDEX.has(page),
       changefreq: 'weekly',
       serialize(item) {
         const d = lastmodDe(item.url);
