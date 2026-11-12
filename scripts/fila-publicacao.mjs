@@ -44,6 +44,9 @@ const FASE1_DIAS = new Set([1, 3, 5]); // seg, qua, sex (getUTCDay)
 const FASE2_INICIO = '2026-12-18';
 const FASE2_DIAS = new Set([1, 2, 3, 4, 5]); // seg a sex
 const JANELA_DIAS = 14; // mesma janela de api/publicar-fila.js
+// Página técnica de teste do robô (/ajuda/teste-fila-*/, sempre noindex): entra na fila com
+// qualquer data e hora e fica isenta das regras de cadência. Apague o .mdx depois do teste.
+const ehTeste = (p) => /^\/ajuda\/teste-fila-[a-z0-9-]+\/$/.test(p.url);
 // -------------------------------------------------------------------------------------------
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -93,7 +96,11 @@ const inicioBRT = (dia) => new Date(`${dia}T03:00:00.000Z`).getTime(); // 00:00 
 /** Fila = toda página não-rascunho com `publicado` a partir de INICIO_FILA (passada ou futura). */
 export function fila(paginas) {
   return paginas
-    .filter((p) => !p.draft && (Number.isNaN(p.publicado.getTime()) || p.publicado.getTime() >= inicioBRT(INICIO_FILA)))
+    .filter(
+      (p) =>
+        !p.draft &&
+        (ehTeste(p) || Number.isNaN(p.publicado.getTime()) || p.publicado.getTime() >= inicioBRT(INICIO_FILA)),
+    )
     .sort((a, b) => a.publicado - b.publicado);
 }
 const agendadas = (paginas) => fila(paginas).filter((p) => p.publicado.getTime() > AGORA);
@@ -150,6 +157,7 @@ function verificar(paginas) {
   const porDia = new Map();
   for (const p of f) {
     const t = p.publicado.getTime();
+    if (ehTeste(p) && !Number.isNaN(t)) continue;
     if (Number.isNaN(t)) {
       erros.push(`${p.arquivo}: publicado inválido (${p.publicadoBruto})`);
       continue;
